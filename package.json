@@ -1,0 +1,31 @@
+{
+  "name": "game",
+  "version": "0.0.0",
+  "description": "BBMMORPG",
+  "main": "app.js",
+  "dependencies": {
+    "koa": "^0.8.0",
+    "koa-compress": "^1.0.7",
+    "koa-logger": "^1.2.1",
+    "koa-router": "^3.1.4",
+    "lodash": "^2.4.1",
+    "mongoose": "^3.8.12"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DragonLegend/Game.git"
+  },
+  "keywords": [
+    "BBMMORPG",
+    "game"
+  ],
+  "author": "ButuzGOL",
+  "bugs": {
+    "url": "https://github.com/DragonLegend/Game/issues"
+  },
+  "homepage": "https://github.com/DragonLegend/Game"
+}
