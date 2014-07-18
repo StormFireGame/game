@@ -4,6 +4,7 @@
   "description": "BBMMORPG",
   "main": "app.js",
   "dependencies": {
+    "co-body": "^1.0.0",
     "koa": "~0.13.0",
     "koa-compress": "^1.0.8",
     "koa-logger": "^1.2.2",

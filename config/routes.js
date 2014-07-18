@@ -1,7 +1,7 @@
-var helloController = require('../app/controllers/hello');
+var heroesController = require('../app/controllers/heroes');
 
 module.exports = function(app) {
 
-  app.get('/', helloController.hello);
+  app.post('/heroes/create', heroesController.create);
 
 };
