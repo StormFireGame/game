@@ -18,6 +18,19 @@ module.exports = {
     strikeCount: 1,
     blockCount: 2
   },
+  coefficient: {
+    damageMin: 2,
+    damageMax: 3,
+
+    accuracy: 2,
+    dodge: 2.5,
+    devastate: 2.5,
+    durability: 2,
+
+    hp: 10,
+
+    capacity: 10
+  },
   features: [
     'strength', 'dexterity', 'intuition', 'health',
     'swords', 'axes', 'knives', 'clubs', 'shields',
