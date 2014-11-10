@@ -6,3 +6,4 @@ Browser based massively multiplayer online role playing game
 
 * [Koa](http://koajs.com/)
 * [MongoDB](http://www.mongodb.org/)
+* [React](http://facebook.github.io/react/)
