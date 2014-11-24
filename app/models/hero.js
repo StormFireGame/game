@@ -1,9 +1,13 @@
 var mongoose = require('mongoose'),
+    co = require('co'),
+    bcrypt = require('../../lib/bcrypt-thunk'),
 
     HeroImage = require('./hero-image'),
     Skill = require('./skill'),
 
-    heroConfig = require('../../config/hero');
+    heroConfig = require('../../config/hero'),
+
+    heroHelper = require('../helpers/hero');
 
 var HeroSchema = new mongoose.Schema({
   login: {
@@ -29,7 +33,7 @@ var HeroSchema = new mongoose.Schema({
 
   level: {
     type: Number,
-    default: 0
+    default: -1
   },
   experience: {
     type: Number,
@@ -197,6 +201,61 @@ var HeroSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+}, {
+  toJSON : {
+    transform: function(doc, ret, options) {
+      delete ret.password;
+    }
+  }
+});
+
+HeroSchema.set('collection', 'heroes');
+
+HeroSchema.pre('save', function(next) {
+  var hero = this,
+      cryptPassword,
+      levelUp;
+
+  heroHelper.updateFeature(hero);
+
+  cryptPassword = new Promise(function(resolve, reject) {
+    if (this.isModified('password')) {
+      co(function *() {
+        var salt,
+            hash;
+
+        try {
+          salt = yield bcrypt.genSalt();
+          hash = yield bcrypt.hash(hero.password, salt);
+          hero.password = hash;
+          resolve();
+        } catch(err) {
+          reject(err);
+        }
+      });
+    } else {
+      resolve();
+    }
+  }.bind(this));
+
+  levelUp = new Promise(function(resolve, reject) {
+    if (this.isModified('experience') || this.isNew) {
+      co(function *() {
+        try {
+          yield heroHelper.levelUp(hero);
+          resolve();
+        } catch(err) {
+          reject(err);
+        }
+      });
+
+    } else {
+      resolve();
+    }
+  }.bind(this));
+
+  Promise.all([cryptPassword, levelUp])
+    .then(next, next);
 });
 
 module.exports = mongoose.model('Hero', HeroSchema);

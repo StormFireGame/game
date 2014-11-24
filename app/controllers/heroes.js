@@ -1,6 +1,6 @@
-var Hero = require('../models/hero'),
+var parse = require('co-body'),
 
-    parse = require('co-body');
+    Hero = require('../models/hero');
 
 exports.create = function *() {
   var body = yield parse.json(this),
@@ -17,6 +17,7 @@ exports.create = function *() {
     }
 
     this.body = err;
+    return;
   }
 
   this.status = 204;

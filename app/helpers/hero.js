@@ -1,70 +1,81 @@
-var heroConfig = require('../../config/hero'),
+var moment = require('moment'),
 
-    moment = require('moment');
+    heroConfig = require('../../config/hero'),
+    TableExperience = require('../models/table-experience');
 
 module.exports = {
   updateFeature: function(hero) {
-    var hp, capacity;
+    var hp, capacity,
+        feature = hero.feature;
 
-    hero.feature.strength = hero.strength;
-    hero.feature.dexterity = hero.dexterity;
-    hero.feature.intuition = hero.intuition;
-    hero.feature.health = hero.health;
+    feature.strength = hero.strength;
+    feature.dexterity = hero.dexterity;
+    feature.intuition = hero.intuition;
+    feature.health = hero.health;
 
-    hero.feature.swords = hero.swords;
-    hero.feature.axes = hero.axes;
-    hero.feature.knives = hero.knives;
-    hero.feature.clubs = hero.clubs;
-    hero.feature.shields = hero.shields;
+    feature.swords = hero.swords;
+    feature.axes = hero.axes;
+    feature.knives = hero.knives;
+    feature.clubs = hero.clubs;
+    feature.shields = hero.shields;
 
-    hero.feature.protectionHead = hero.feature.protectionBreast =
-    hero.feature.protectionBelly = hero.feature.protectionGroin =
-    hero.feature.protectionLegs = 0;
+    feature.protectionHead = feature.protectionBreast =
+    feature.protectionBelly = feature.protectionGroin =
+    feature.protectionLegs = 0;
 
-    hero.feature.damageMin = hero.feature.damageMax = 0;
+    feature.damageMin = feature.damageMax = 0;
 
-    hero.feature.accuracy = hero.feature.dodge =
-    hero.feature.devastate = hero.feature.durability = 0;
+    feature.accuracy = feature.dodge =
+    feature.devastate = feature.durability = 0;
 
-    hero.feature.blockBreak = hero.feature.armorBreak = 0;
+    feature.blockBreak = feature.armorBreak = 0;
 
-    hero.feature.strikeCount = heroConfig.default.strikeCount;
-    hero.feature.blockCount = heroConfig.default.blockCount;
+    feature.strikeCount = heroConfig.default.strikeCount;
+    feature.blockCount = heroConfig.default.blockCount;
 
-    hp = (hero.feature.hp) ? hero.feature.hp.split('|')[0] : 0;
-    hero.feature.hp = hp + '|' + hero.hp + '|' + moment().valueOf();
+    hp = (feature.hp) ? feature.hp.split('|')[0] : 0;
+    feature.hp = hp + '|' + hero.hp + '|' + moment().valueOf();
 
-    capacity = (hero.feature.capacity) ?
-      hero.feature.capacity.split('|')[0] : 0;
-    hero.feature.capacity = capacity + '|' + hero.capacity;
+    capacity = (feature.capacity) ? feature.capacity.split('|')[0] : 0;
+    feature.capacity = capacity + '|' + hero.capacity;
 
     // TODO: Skills and things
 
     this.updateModifiers(hero);
   },
   updateModifiers: function(hero) {
-    var hp, capacity;
+    var hp, capacity,
+        feature = hero.feature;
 
-    hero.feature.damageMin = hero.feature.strength *
-                             heroConfig.coefficient.damageMin;
-    hero.feature.damageMax = hero.feature.strength *
-                             heroConfig.coefficient.damageMax;
+    feature.damageMin = feature.strength * heroConfig.coefficient.damageMin;
+    feature.damageMax = feature.strength * heroConfig.coefficient.damageMax;
 
-    hero.feature.accuracy = hero.feature.dexterity *
-                            heroConfig.coefficient.accuracy;
-    hero.feature.dodge = hero.feature.dexterity *
-                         heroConfig.coefficient.accuracy;
-    hero.feature.devastate = hero.feature.intuition *
-                             heroConfig.coefficient.devastate;
-    hero.feature.durability = hero.feature.intuition *
-                              heroConfig.coefficient.durability;
+    feature.accuracy = feature.dexterity * heroConfig.coefficient.accuracy;
+    feature.dodge = feature.dexterity * heroConfig.coefficient.accuracy;
+    feature.devastate = feature.intuition * heroConfig.coefficient.devastate;
+    feature.durability = feature.intuition * heroConfig.coefficient.durability;
 
-    hp = hero.feature.hp.split('|');
-    hp[1] = hero.feature.health * heroConfig.coefficient.hp;
-    hero.feature.hp = hp.join('|');
+    hp = feature.hp.split('|');
+    hp[1] = feature.health * heroConfig.coefficient.hp;
+    feature.hp = hp.join('|');
 
-    capacity = hero.feature.capacity.split('|');
-    capacity[1] = hero.feature.strength * heroConfig.coefficient.capacity;
-    hero.feature.capacity = capacity.join('|');
+    capacity = feature.capacity.split('|');
+    capacity[1] = feature.strength * heroConfig.coefficient.capacity;
+    feature.capacity = capacity.join('|');
+  },
+  levelUp: function *(hero) {
+    var tableExperiences = yield TableExperience.find({
+        level: { $gt: hero.level },
+        experience: { $lte: hero.experience }
+      }).exec();
+
+    tableExperiences.forEach(function(tableExperience) {
+      hero.numberOfAbilities += tableExperience.numberOfAbilities;
+      hero.numberOfSkills += tableExperience.numberOfSkills;
+      hero.numberOfParameters += tableExperience.numberOfParameters;
+
+      hero.money += tableExperience.money;
+      hero.level++;
+    });
   }
 };
