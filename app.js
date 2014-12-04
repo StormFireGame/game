@@ -1,4 +1,5 @@
 var koa = require('koa'),
+    passport = require('koa-passport'),
 
     app = koa(),
 
@@ -9,7 +10,11 @@ var koa = require('koa'),
 
 require('./config/mongoose')(config);
 
+app.use(passport.initialize());
+
 require('./config/koa')(app);
+
+require('./config/passport')(passport);
 
 require('./config/routes')(app);
 

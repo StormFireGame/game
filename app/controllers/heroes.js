@@ -22,3 +22,7 @@ exports.create = function *() {
 
   this.status = 204;
 };
+
+exports.show = function *() {
+  this.body = 'Hero ' + this.req.user.login;
+};

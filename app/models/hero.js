@@ -203,7 +203,7 @@ var HeroSchema = new mongoose.Schema({
   }
 }, {
   toJSON : {
-    transform: function(doc, ret, options) {
+    transform: function(doc, ret) {
       delete ret.password;
     }
   }
@@ -211,7 +211,7 @@ var HeroSchema = new mongoose.Schema({
 
 HeroSchema.set('collection', 'heroes');
 
-HeroSchema.pre('save', function(next) {
+HeroSchema.pre('save', function(done) {
   var hero = this,
       cryptPassword,
       levelUp;
@@ -255,7 +255,24 @@ HeroSchema.pre('save', function(next) {
   }.bind(this));
 
   Promise.all([cryptPassword, levelUp])
-    .then(next, next);
+    .then(done, done);
 });
+
+HeroSchema.methods.comparePassword = function *(candidatePassword) {
+  return yield bcrypt.compare(candidatePassword, this.password);
+};
+
+HeroSchema.statics.passwordMatches = function *(username, password) {
+  var hero = yield this.findOne({ login: username }).exec();
+  if (!hero) {
+    throw new Error('Hero not found');
+  }
+
+  if (yield hero.comparePassword(password)) {
+    return hero;
+  }
+
+  throw new Error('Password does not match');
+};
 
 module.exports = mongoose.model('Hero', HeroSchema);
