@@ -1,4 +1,5 @@
 var moment = require('moment'),
+    debug = require('debug')('game:heroesHelper'),
 
     heroConfig = require('../../config/hero'),
     TableExperience = require('../models/table-experience');
@@ -42,6 +43,8 @@ module.exports = {
     // TODO: Skills and things
 
     this.updateModifiers(hero);
+
+    debug('hero features updated %s', hero.login);
   },
   updateModifiers: function(hero) {
     var hp, capacity,
@@ -76,6 +79,10 @@ module.exports = {
 
       hero.money += tableExperience.money;
       hero.level++;
+
+      debug('hero level up %s %s', hero.login, hero.level);
     });
+
+
   }
 };

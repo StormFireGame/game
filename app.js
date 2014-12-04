@@ -1,6 +1,6 @@
 var koa = require('koa'),
     passport = require('koa-passport'),
-
+    debug = require('debug')('game:application'),
     app = koa(),
 
     env = process.env.NODE_ENV || 'development',
@@ -21,4 +21,4 @@ require('./config/routes')(app);
 port = process.env.PORT || config.port || 3000;
 app.listen(port);
 
-console.log('Game app running on port ' + port);
+debug('game app running on port %s', port);

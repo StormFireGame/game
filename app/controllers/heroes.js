@@ -1,4 +1,5 @@
 var parse = require('co-body'),
+    debug = require('debug')('game:heroController'),
 
     Hero = require('../models/hero');
 
@@ -6,11 +7,15 @@ exports.create = function *() {
   var body = yield parse.json(this),
       hero;
 
+  debug('hero create %s ...', body.login);
+
   try {
     hero = new Hero(body);
     hero = yield hero.save();
+    debug('hero created');
   } catch(err) {
     if (err.name === 'ValidationError') {
+      debug('hero validation errors');
       this.status = 422;
     } else {
       this.status = 500;

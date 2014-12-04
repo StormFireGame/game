@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 
     heroConfig = require('../../config/hero'),
 
-    heroHelper = require('../helpers/hero');
+    heroesHelper = require('../helpers/heroes');
 
 var HeroSchema = new mongoose.Schema({
   login: {
@@ -216,7 +216,7 @@ HeroSchema.pre('save', function(done) {
       cryptPassword,
       levelUp;
 
-  heroHelper.updateFeature(hero);
+  heroesHelper.updateFeature(hero);
 
   cryptPassword = new Promise(function(resolve, reject) {
     if (this.isModified('password')) {
@@ -242,7 +242,7 @@ HeroSchema.pre('save', function(done) {
     if (this.isModified('experience') || this.isNew) {
       co(function *() {
         try {
-          yield heroHelper.levelUp(hero);
+          yield heroesHelper.levelUp(hero);
           resolve();
         } catch(err) {
           reject(err);

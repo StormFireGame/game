@@ -1,13 +1,14 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    debug = require('debug')('game:mongoose');
 
 module.exports = function(config) {
   var db;
 
-  console.log('Connecting to database at ' + config.mongo.url);
+  debug('connecting to database at %s', config.mongo.url);
   mongoose.connect(config.mongo.url);
   db = mongoose.connection;
 
   mongoose.connection.on('error', function(err) {
-    console.log(err);
+    debug('error %s', err);
   });
 };
