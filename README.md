@@ -5,5 +5,11 @@ Browser based massively multiplayer online role playing game
 ## Technologies
 
 * [Koa](http://koajs.com/)
-* [MongoDB](http://www.mongodb.org/)
+* [Mongoose](http://mongoosejs.com/)
 * [React](http://facebook.github.io/react/)
+
+## Usage
+```
+npm install  
+node --harmony app.js
+```
