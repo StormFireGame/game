@@ -1,6 +1,7 @@
 var debug = require('debug')('game:passport'),
 
-    ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy,
+    ClientPasswordStrategy =
+      require('passport-oauth2-client-password').Strategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
 
     Client = require('../app/models/client'),

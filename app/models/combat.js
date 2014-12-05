@@ -1,7 +1,7 @@
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose');
 
-    Hero = require('./hero'),
-    Bot = require('./bot');
+require('./hero');
+require('./bot');
 
 var CombatSchema = new mongoose.Schema({
   type: {

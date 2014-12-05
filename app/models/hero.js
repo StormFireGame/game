@@ -2,12 +2,12 @@ var mongoose = require('mongoose'),
     co = require('co'),
     bcrypt = require('../../lib/bcrypt-thunk'),
 
-    HeroImage = require('./hero-image'),
-    Skill = require('./skill'),
-
     heroConfig = require('../../config/hero'),
 
     heroesHelper = require('../helpers/heroes');
+
+require('./hero-image');
+require('./skill');
 
 var HeroSchema = new mongoose.Schema({
   login: {
