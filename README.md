@@ -6,7 +6,8 @@ Browser based massively multiplayer online role playing game
 
 * [Koa](http://koajs.com/)
 * [Mongoose](http://mongoosejs.com/)
-* [React](http://facebook.github.io/react/)
+* [React](http://facebook.github.io/react/) + [Flux](http://facebook.github.io/flux/)
+* [Gulp](http://gulpjs.com/)
 
 ## Usage
 ```
