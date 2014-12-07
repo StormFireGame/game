@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')(),
     runSequence = require('run-sequence');
@@ -8,6 +10,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('jshint', function() {
+  // FIXME: lint jsx
   return gulp.src('src/app/**/*.js')
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
@@ -17,12 +20,12 @@ gulp.task('jshint', function() {
 gulp.task('styles', function () {
   gulp.src('src/app/assets/styles/main.less')
     .pipe($.less())
-    .pipe(gulp.dest('dist/styles/'))
+    .pipe(gulp.dest('dist/styles'))
     .pipe($.connect.reload());
 });
 
 gulp.task('scripts', function () {
-  gulp.src(['src/app/app.js'])
+  gulp.src(['src/app/index.js'])
     .pipe($.browserify({
       debug: true,
       transform: ['reactify']
@@ -47,7 +50,7 @@ gulp.task('copy', function(){
 
 gulp.task('watch', function() {
   gulp.watch('src/app/**/*.js', ['scripts']);
-  gulp.watch('src/app/assets/styles/**/*.scss', ['styles']);
+  gulp.watch('src/app/assets/styles/**/*.less', ['styles']);
   gulp.watch('src/app/assets/images/**/*', ['images']);
   gulp.watch('scr/*.html', ['copy']);
 });
