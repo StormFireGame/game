@@ -3,14 +3,16 @@
 var React = require('react'),
     Router = require('react-router'),
 
-    App = require('./app'),
-    SessionsNewPage = require('./pages/sessions/new'),
+    Master = require('./master.jsx'),
+    Home = require('./pages/home.jsx'),
+    HeroesNewPage = require('./pages/heroes/new.jsx'),
 
     Route = Router.Route;
 
 var routes = (
-  <Route path='/' handler={App}>
-    <Route path='sessions/new' handler={SessionsNewPage} />
+  <Route path='/' handler={Master}>
+    <Route path='/' handler={Home} />
+    <Route path='heroes/new' handler={HeroesNewPage} />
   </Route>
 );
 

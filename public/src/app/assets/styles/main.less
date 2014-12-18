@@ -1,7 +1,8 @@
 @import "bootstrap";
+@import "mixins";
 
 body {
-  background-color: #eee;
+  background-color: @grey-100;
 }
 
 .container {
@@ -12,14 +13,9 @@ body {
 
 .logo {
   background-image: url(../images/logo.png);
-  width: 172px;
-  height: 216px;
-  margin: 0 auto 50px;
+  width: 256px;
+  height: 256px;
+  margin: 0 auto;
 }
 
-.middle {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+@import "footer";

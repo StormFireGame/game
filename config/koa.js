@@ -4,11 +4,11 @@ var router = require('koa-router'),
     errorHandler = require('koa-error'),
     responseTime = require('koa-response-time'),
     bodyParser = require('koa-bodyparser'),
-    session = require('koa-session');
-
-// TODO: check this lib https://github.com/koajs/body-parser
+    session = require('koa-session'),
+    cors = require('koa-cors');
 
 module.exports = function(app) {
+  app.use(cors());
   app.use(logger());
   app.use(errorHandler());
 

@@ -2,17 +2,17 @@
 
 var React = require('react'),
 
-    SigninForm = require('../../components/signin-form');
+    SessionsNewForm = require('../components/sessions/new.jsx');
 
-var SessionsNewPage = React.createClass({
+var HomePage = React.createClass({
   render: function() {
     return (
       <div className="middle">
         <div className="logo" />
-        <SigninForm />
+        <SessionsNewForm />
       </div>
     );
   }
 });
 
-module.exports = SessionsNewPage;
+module.exports = HomePage;

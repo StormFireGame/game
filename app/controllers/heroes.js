@@ -1,10 +1,9 @@
-var parse = require('co-body'),
-    debug = require('debug')('game:heroController'),
+var debug = require('debug')('game:heroController'),
 
     Hero = require('../models/hero');
 
 exports.create = function *() {
-  var body = yield parse.json(this),
+  var body = this.request.body,
       hero;
 
   debug('hero create %s ...', body.login);
