@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     co = require('co'),
     bcrypt = require('../../lib/bcrypt-thunk'),
+    uniqueValidator = require('mongoose-unique-validator'),
 
     heroConfig = require('../../config/hero'),
 
@@ -208,6 +209,8 @@ var HeroSchema = new mongoose.Schema({
     }
   }
 });
+
+HeroSchema.plugin(uniqueValidator);
 
 HeroSchema.set('collection', 'heroes');
 

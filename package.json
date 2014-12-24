@@ -22,6 +22,7 @@
     "lodash": "^2.4.1",
     "moment": "^2.8.4",
     "mongoose": "3.9.x",
+    "mongoose-unique-validator": "^0.4.1",
     "passport-http": "^0.2.2",
     "passport-http-bearer": "^1.0.1",
     "passport-oauth2-client-password": "^0.1.2"

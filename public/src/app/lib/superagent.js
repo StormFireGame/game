@@ -14,7 +14,7 @@ superagent.Request.prototype.promise = function() {
 
     this.end(function(err, res) {
       if (err) return reject(err);
-      if (res.error) return reject(res.error.message);
+      if (res.error) return reject(res);
 
       resolve(res.body);
     });

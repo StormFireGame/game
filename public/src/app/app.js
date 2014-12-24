@@ -3,7 +3,7 @@
 var React = require('react'),
     Router = require('react-router'),
     routes = require('./routes'),
-    injectTapEventPlugin = require('react-tap-event-plugin')
+    injectTapEventPlugin = require('react-tap-event-plugin');
 
 
 //Needed for React Developer Tools

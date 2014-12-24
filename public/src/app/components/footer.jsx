@@ -9,12 +9,9 @@ var Footer = React.createClass({
   render: function() {
     return (
       <footer id="footer">
-        <IconButton className="github-icon-button" icon="mui-icon-github" onTouchTap={this._onGithubTouchTap} />
+        <IconButton className="github-icon-button" href="https://github.com/DragonLegend/game" icon="mui-icon-github" linkButton={true} />
       </footer>
     );
-  },
-  _onGithubTouchTap: function() {
-    document.location.href='https://github.com/DragonLegend/game';
   }
 });
 

@@ -3,7 +3,8 @@
 var React = require('react'),
     RouteHandler = require('react-router').RouteHandler,
 
-    Footer = require('./components/footer.jsx');
+    Footer = require('./components/footer.jsx'),
+    Messages = require('./components/messages.jsx');
 
 var Master = React.createClass({
   render: function() {
@@ -13,6 +14,7 @@ var Master = React.createClass({
           <RouteHandler {...this.props} />
         </div>
         <Footer />
+        <Messages />
       </div>
     );
   }

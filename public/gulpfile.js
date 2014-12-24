@@ -2,7 +2,6 @@
 
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')(),
-    runSequence = require('run-sequence'),
     browserSync = require('browser-sync'),
     del = require('del'),
 
@@ -127,7 +126,7 @@ gulp.task('browserify-watch', function() {
   args.debug = true;
   bundler = watchify(browserify(config.scripts.src, args));
 
-  bundler.transform('reactify');
+  bundler.transform(['reactify', { es6: true }]);
 
   rebundle = function() {
     bundleLogger.start(config.scripts.outputName);

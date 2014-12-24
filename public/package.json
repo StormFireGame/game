@@ -20,12 +20,14 @@
     "jshint-stylish": "^1.0.0",
     "pretty-hrtime": "^0.2.2",
     "reactify": "^0.17.1",
-    "run-sequence": "^1.0.2",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.1.1"
   },
   "dependencies": {
     "debug": "^2.1.0",
+    "flux": "^2.0.1",
+    "keymirror": "^0.1.1",
+    "lodash": "^2.4.1",
     "material-ui": "git://github.com/callemall/material-ui.git#master",
     "promise": "^6.0.1",
     "react": "^0.12.1",

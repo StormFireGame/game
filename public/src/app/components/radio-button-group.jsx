@@ -12,7 +12,7 @@ var RadioButtonGroup = React.createClass({
     var defaultValue;
     for (var key in this.props.children) {
       var child = this.props.children[key];
-      if (child.props.defaultChecked === 'true') {
+      if (child.props.defaultChecked) {
         defaultValue = child.props.value;
         break;
       }

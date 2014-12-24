@@ -2,19 +2,35 @@
 
   var React = require('react'),
       mui = require('material-ui'),
+      Router = require('react-router'),
+      utils = require('../../lib/utils'),
+      mediator = require('../../mediator'),
+      actionTypes = require('../../constants/action-types'),
 
       HeroesService = require('../../services/heroes'),
 
       RadioButtonGroup = require('../radio-button-group.jsx'),
 
-      Input = mui.Input,
+      Input = require('../../../../../../material-ui/src/js/input.jsx'),
+      // Input = mui.Input,
       RaisedButton = mui.RaisedButton,
-      RadioButton = mui.RadioButton;
+      RadioButton = mui.RadioButton,
+
+      Navigation = Router.Navigation,
+      Toast = mui.Toast;
 
   var HeroesNewForm = React.createClass({
-    _onSubmitTouchTap: function() {
+    mixins: [Navigation],
+    getInitialState: function() {
+      return {
+        errors: {}
+      };
+    },
+    _onSubmit: function(e) {
       var refs = this.refs,
           data;
+
+      e.preventDefault();
 
       data = {
         login: refs.login.getValue(),
@@ -24,24 +40,35 @@
       };
 
       HeroesService.new(data)
-        .fail();
+        .then(function() {
+          mediator.emit(actionTypes.MESSAGE, 'Hero created');
+          this.transitionTo('/');
+        }.bind(this), function(res) {
+          if (res.status === 422) {
+            this.setState({
+              errors: utils.validationMapper(res.body)
+            });
+          }
+        }.bind(this));
     },
     render: function() {
+      var errors = this.state.errors;
+
       return (
-        <form>
-          <Input ref="login" type="text" name="login" placeholder="Login" />
-          <Input ref="password" type="password" name="password" placeholder="Password" />
-          <Input ref="email" type="text" name="email" placeholder="Email" />
+        <form onSubmit={this._onSubmit}>
+          <Input ref="login" type="text" error={errors.login} name="login" placeholder="Login" />
+          <Input ref="password" type="password" error={errors.password} name="password" placeholder="Password" />
+          <Input ref="email" type="email" name="email" error={errors.email} placeholder="Email"  />
           <div>
-            <label class="mui-font-style-body-1">Sex:</label>
+            <label>Sex:</label>
             <br />
             <RadioButtonGroup ref="sex">
-              <RadioButton name="sex" value="male" label="Male" defaultChecked="true" />
+              <RadioButton name="sex" value="male" label="Male" defaultChecked={true} />
               <RadioButton name="sex" value="female" label="Female" />
             </RadioButtonGroup>
           </div>
           <br />
-          <RaisedButton type="button" label="Signup" onTouchTap={this._onSubmitTouchTap} />
+          <RaisedButton label="Signup" />
         </form>
       );
     }

@@ -11,16 +11,13 @@ var React = require('react'),
 
 var SessionsNewForm = React.createClass({
   mixins: [Navigation],
-  _onHeroesNewTouchTap: function() {
-    this.transitionTo('/heroes/new');
-  },
   render: function() {
     return (
       <form>
         <Input ref="login" type="text" name="login" placeholder="Login" />
         <Input ref="Password" type="password" name="password" placeholder="Password" />
         <RaisedButton label="Signin" />
-        <RaisedButton type="button" label="Signup" onTouchTap={this._onHeroesNewTouchTap} className="pull-right" primary={true} />
+        <RaisedButton href="#/heroes/new" label="Signup" className="pull-right" primary={true} linkButton={true}/>
       </form>
     );
   }
