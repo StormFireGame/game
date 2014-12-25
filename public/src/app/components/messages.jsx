@@ -2,6 +2,7 @@
 
 var React = require('react'),
     mui = require('material-ui'),
+    _ = require('lodash'),
     mediator = require('../mediator'),
     actionTypes = require('../constants/action-types'),
 
@@ -20,13 +21,21 @@ var Messages = React.createClass({
     mediator.removeListener(actionTypes.MESSAGE, this.setMessage);
   },
   setMessage: function(message) {
-    this.setState({
-      message: message
-    });
+    // TODO: hack because transition do another render
+    //   mediator render should be last
+    _.delay(function() {
+      this.setState({
+        message: message
+      });
+    }.bind(this), 10);
   },
   render: function() {
+    var message = this.state.message;
+
+    this.state.message = null;
+
     return (
-      <Toast message={this.state.message} action="Close" open={this.state.message} />
+      <Toast message={message} action="Close" open={!!message} />
     );
   }
 });
