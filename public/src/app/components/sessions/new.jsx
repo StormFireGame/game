@@ -4,6 +4,8 @@ var React = require('react'),
     Router = require('react-router'),
     mui = require('material-ui'),
 
+    SessionsService = require('../../services/sessions'),
+
     Navigation = Router.Navigation,
 
     Input = mui.Input,
@@ -11,13 +13,41 @@ var React = require('react'),
 
 var SessionsNewForm = React.createClass({
   mixins: [Navigation],
+  getInitialState: function() {
+    return {
+      error: null
+    };
+  },
+  _onSubmit: function(e) {
+    var refs = this.refs,
+        data;
+
+    e.preventDefault();
+
+    data = {
+      login: refs.login.getValue(),
+      password: refs.password.getValue(),
+    };
+
+    SessionsService.new(data)
+      .then(function(res) {
+        if (res.error) {
+          this.setState({
+            error: res['error_description']
+          });
+        }
+      }.bind(this));
+  },
   render: function() {
+    var error = this.state.error;
+    this.state.error = null;
+
     return (
-      <form>
-        <Input ref="login" type="text" name="login" placeholder="Login" />
-        <Input ref="Password" type="password" name="password" placeholder="Password" />
+      <form onSubmit={this._onSubmit}>
+        <Input ref="login" error={error} type="text" name="login" placeholder="Login" />
+        <Input ref="password" type="password" name="password" placeholder="Password" />
         <RaisedButton label="Signin" />
-        <RaisedButton href="#/heroes/new" label="Signup" className="pull-right" primary={true} linkButton={true}/>
+        <RaisedButton href="#/heroes/new" label="Signup" className="pull-right" primary={true} linkButton={true} />
       </form>
     );
   }

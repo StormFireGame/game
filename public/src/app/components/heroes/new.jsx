@@ -11,8 +11,7 @@
 
       RadioButtonGroup = require('../radio-button-group.jsx'),
 
-      Input = require('../../../../../../material-ui/src/js/input.jsx'),
-      // Input = mui.Input,
+      Input = mui.Input,
       RaisedButton = mui.RaisedButton,
       RadioButton = mui.RadioButton,
 
@@ -53,7 +52,7 @@
     },
     render: function() {
       var errors = this.state.errors;
-
+      this.state.errors = {};
       return (
         <form onSubmit={this._onSubmit}>
           <Input ref="login" type="text" error={errors.login} name="login" placeholder="Login" />
