@@ -1,8 +1,8 @@
-'use strict';
-
 var React = require('react'),
     Router = require('react-router'),
     routes = require('./routes'),
+    debug = require('debug')('game:application'),
+
     injectTapEventPlugin = require('react-tap-event-plugin');
 
 
@@ -17,4 +17,6 @@ injectTapEventPlugin();
 
 Router.run(routes, function(Handler) {
   React.render(<Handler />, document.body);
+
+  debug('game app rendered');
 });

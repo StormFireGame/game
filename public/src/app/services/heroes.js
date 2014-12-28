@@ -1,11 +1,23 @@
-var request = require('../lib/superagent');
+var request = require('../lib/superagent'),
+    debug = require('debug')('game:services:heroes');
 
 var HeroesService = {
   new: function(data) {
-    return request
+    var defer;
+
+    debug('new request %o', data);
+
+    defer = request
       .post('/heroes')
       .send(data)
       .promise();
+
+    defer
+      .then(function() {
+        debug('created');
+      });
+
+    return defer;
   }
 };
 

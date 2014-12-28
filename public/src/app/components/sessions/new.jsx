@@ -1,8 +1,7 @@
-'use strict';
-
 var React = require('react'),
     Router = require('react-router'),
     mui = require('material-ui'),
+    debug = require('debug')('game:components:sessions:new'),
 
     SessionsService = require('../../services/sessions'),
 
@@ -29,6 +28,8 @@ var SessionsNewForm = React.createClass({
       password: refs.password.getValue(),
     };
 
+    debug('submit %o', data);
+
     SessionsService.new(data)
       .then(function(res) {
         if (res.error) {
@@ -41,6 +42,8 @@ var SessionsNewForm = React.createClass({
   render: function() {
     var error = this.state.error;
     this.state.error = null;
+
+    debug('render');
 
     return (
       <form onSubmit={this._onSubmit}>

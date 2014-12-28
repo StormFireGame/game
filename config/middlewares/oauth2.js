@@ -4,7 +4,7 @@ var oauth2orize = require('koa-oauth2orize'),
     co = require('co'),
     debug = require('debug')('game:oauth2'),
 
-    utils = require('../../utils'),
+    utils = require('../../lib/utils'),
 
     Hero = require('../../app/models/hero'),
     AccessToken = require('../../app/models/access-token');

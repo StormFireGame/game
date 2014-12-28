@@ -1,8 +1,8 @@
-'use strict';
-
 var React = require('react'),
     mui = require('material-ui'),
     _ = require('lodash'),
+    debug = require('debug')('game:components:messages'),
+
     mediator = require('../mediator'),
     actionTypes = require('../constants/action-types'),
 
@@ -21,6 +21,7 @@ var Messages = React.createClass({
     mediator.removeListener(actionTypes.MESSAGE, this.setMessage);
   },
   setMessage: function(message) {
+    debug('new message %s', message);
     // TODO: hack because transition do another render
     //   mediator render should be last
     _.delay(function() {
@@ -33,6 +34,8 @@ var Messages = React.createClass({
     var message = this.state.message;
 
     this.state.message = null;
+
+    debug('render');
 
     return (
       <Toast message={message} action="Close" open={!!message} />

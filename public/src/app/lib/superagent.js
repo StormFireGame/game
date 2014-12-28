@@ -1,4 +1,5 @@
 var superagent = require('superagent'),
+    debug = require('debug')('game:lib:superagent'),
 
     config = require('../config/application'),
     environmentConfig = require('../config/environment');
@@ -13,8 +14,14 @@ superagent.Request.prototype.promise = function() {
     }
 
     this.end(function(err, res) {
-      if (err) return reject(err);
-      if (res.error) return reject(res);
+      if (err) {
+        debug('error %o', err);
+        return reject(err);
+      }
+      if (res.error) {
+        debug('response with error %o', res);
+        return reject(res);
+      }
 
       resolve(res.body);
     });
