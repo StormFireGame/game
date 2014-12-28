@@ -8,10 +8,31 @@ Browser based massively multiplayer online role playing game
 * [Koa](http://koajs.com/)
 * [Mongoose](http://mongoosejs.com/)
 * [React](http://facebook.github.io/react/) + [Flux](http://facebook.github.io/flux/)
+* [Material-UI](http://material-ui.com/)
 * [Gulp](http://gulpjs.com/)
 
+## Dependencies
+Mongo  
+Node v0.11.x
+
 ## Usage
+
+### Backend
 ```
 npm install  
 node --harmony app.js
+```
+
+### Frontend
+```
+cd public
+npm install
+
+git clone git@github.com:callemall/material-ui.git
+cd material-ui
+npm install
+rm -rf node_modules/react
+cd ..
+
+gulp watch
 ```
