@@ -1,7 +1,7 @@
 var React = require('react'),
     Router = require('react-router'),
     mui = require('material-ui'),
-    debug = require('debug')('game:components:sessions:new'),
+    debug = require('debug')('game:components:sessions:new-form'),
 
     SessionsService = require('../../services/sessions'),
 

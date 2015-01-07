@@ -1,7 +1,7 @@
 var React = require('react'),
     mui = require('material-ui'),
     Router = require('react-router'),
-    debug = require('debug')('game:components:heroes:new'),
+    debug = require('debug')('game:components:heroes:new-form'),
 
     utils = require('../../lib/utils'),
     mediator = require('../../mediator'),

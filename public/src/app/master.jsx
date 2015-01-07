@@ -1,18 +1,41 @@
 var React = require('react'),
-    RouteHandler = require('react-router').RouteHandler,
+    Router = require('react-router'),
+
+    Header = require('./components/header.jsx'),
+    Footer = require('./components/footer.jsx'),
+    Messages = require('./components/messages.jsx'),
+
     debug = require('debug')('game:master'),
 
-    Footer = require('./components/footer.jsx'),
-    Messages = require('./components/messages.jsx');
+    RouteHandler = Router.RouteHandler,
+    State = Router.State;
 
 var Master = React.createClass({
+  mixins: [State],
   render: function() {
-    debug('master render');
+    var container;
+
+    debug('master render %s', this.getPath());
+
+    if (this.isActive('/heroes/show')) {
+      container = (
+        <div>
+          <Header />
+          <RouteHandler {...this.props} />
+        </div>
+      );
+    } else {
+      container = (
+        <div>
+          <RouteHandler {...this.props} />
+        </div>
+      );
+    }
 
     return (
       <div>
         <div className='container'>
-          <RouteHandler {...this.props} />
+          {container}
         </div>
         <Footer />
         <Messages />
