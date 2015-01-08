@@ -5,6 +5,7 @@ var React = require('react'),
 
     ThingSlot = require('./thing-slot.jsx'),
     ImageSlot = require('./image-slot.jsx'),
+    BodyHeader = require('./body-header.jsx'),
 
     Paper = mui.Paper;
 
@@ -155,28 +156,31 @@ var HeroesBody = React.createClass({
     debug('render');
 
     return (
-      <Paper zDepth={2} style={style}>
-        <ImageSlot left={width + 2 * offset} top={height + 2 * offset} width={146} height={259} />
+      <div>
+        <BodyHeader />
+        <Paper zDepth={2} style={style}>
+          <ImageSlot left={width + 2 * offset} top={height + 2 * offset} width={146} height={259} />
 
-        <ThingSlot type='glows' {...proportions.glows} />
-        <ThingSlot type='helmet' {...proportions.helmet} />
-        <ThingSlot type='amulet' {...proportions.amulet} />
-        <ThingSlot type='treetop' {...proportions.treetop} />
-        <ThingSlot type='arms' {...proportions.arms} />
-        <ThingSlot type='armor' {...proportions.armor} />
-        <ThingSlot type='pants' {...proportions.pants} />
-        <ThingSlot type='elixir' {...proportions.elixir} />
-        <ThingSlot type='elixir' {...proportions.elixir1} />
-        <ThingSlot type='elixir' {...proportions.elixir2} />
-        <ThingSlot type='elixir' {...proportions.elixir3} />
-        <ThingSlot type='shield' {...proportions.shield} />
-        <ThingSlot type='ring' {...proportions.ring} />
-        <ThingSlot type='ring' {...proportions.ring1} />
-        <ThingSlot type='ring' {...proportions.ring2} />
-        <ThingSlot type='ring' {...proportions.ring3} />
-        <ThingSlot type='belt' {...proportions.belt} />
-        <ThingSlot type='boots' {...proportions.boots} />
-      </Paper>
+          <ThingSlot type='glows' {...proportions.glows} />
+          <ThingSlot type='helmet' {...proportions.helmet} />
+          <ThingSlot type='amulet' {...proportions.amulet} />
+          <ThingSlot type='treetop' {...proportions.treetop} />
+          <ThingSlot type='arms' {...proportions.arms} />
+          <ThingSlot type='armor' {...proportions.armor} />
+          <ThingSlot type='pants' {...proportions.pants} />
+          <ThingSlot type='elixir' {...proportions.elixir} />
+          <ThingSlot type='elixir' {...proportions.elixir1} />
+          <ThingSlot type='elixir' {...proportions.elixir2} />
+          <ThingSlot type='elixir' {...proportions.elixir3} />
+          <ThingSlot type='shield' {...proportions.shield} />
+          <ThingSlot type='ring' {...proportions.ring} />
+          <ThingSlot type='ring' {...proportions.ring1} />
+          <ThingSlot type='ring' {...proportions.ring2} />
+          <ThingSlot type='ring' {...proportions.ring3} />
+          <ThingSlot type='belt' {...proportions.belt} />
+          <ThingSlot type='boots' {...proportions.boots} />
+        </Paper>
+      </div>
     );
   }
 });
