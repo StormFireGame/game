@@ -6,7 +6,7 @@ var React = require('react'),
     mediator = require('../mediator'),
     actionTypes = require('../constants/action-types'),
 
-    Toast = mui.Toast;
+    Snackbar = mui.Snackbar;
 
 var Messages = React.createClass({
   getInitialState: function() {
@@ -38,7 +38,7 @@ var Messages = React.createClass({
     debug('render');
 
     return (
-      <Toast message={message} action="Close" open={!!message} />
+      <Snackbar message={message} action="Close" open={!!message} />
     );
   }
 });

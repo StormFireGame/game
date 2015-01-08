@@ -25,14 +25,13 @@ node --harmony app.js
 
 ### Frontend
 ```
-cd public
-npm install
-
+cd ..
 git clone git@github.com:callemall/material-ui.git
 cd material-ui
 npm install
-rm -rf node_modules/react
-cd ..
 
+cd ../game/public/
+
+npm install
 gulp watch
 ```
