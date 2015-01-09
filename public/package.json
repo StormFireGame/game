@@ -36,6 +36,6 @@
     "superagent-promise": "^0.2.0"
   },
   "browser": {
-    "material-ui": "../../material-ui/src/index.js"
+    "material-ui": "./material-ui/src/index.js"
   }
 }
