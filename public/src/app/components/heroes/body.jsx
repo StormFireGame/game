@@ -3,9 +3,9 @@ var React = require('react'),
 
     debug = require('debug')('game:components:heroes:body'),
 
-    ThingSlot = require('./thing-slot.jsx'),
-    ImageSlot = require('./image-slot.jsx'),
-    BodyHeader = require('./body-header.jsx'),
+    ThingSlot = require('./body/thing-slot.jsx'),
+    ImageSlot = require('./body/image-slot.jsx'),
+    Header = require('./body/header.jsx'),
 
     Paper = mui.Paper;
 
@@ -156,8 +156,8 @@ var HeroesBody = React.createClass({
     debug('render');
 
     return (
-      <div>
-        <BodyHeader />
+      <div className="hero-body">
+        <Header />
         <Paper zDepth={2} style={style}>
           <ImageSlot left={width + 2 * offset} top={height + 2 * offset} width={146} height={259} />
 

@@ -9,6 +9,7 @@ body {
   max-width: 970px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 
 .logo {
@@ -18,7 +19,17 @@ body {
   margin: 0 auto;
 }
 
+dl {
+  &.dl-horizontal {
+    dt, dd {
+      float: left;
+    }
+  }
+}
+
 @import "header";
 @import "menu";
 @import "hero";
 @import "footer";
+
+@import "pages/heroes/show";

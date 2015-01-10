@@ -1,11 +1,11 @@
 var React = require('react'),
     mui = require('material-ui'),
 
-    debug = require('debug')('game:components:heroes:thing-slot'),
+    debug = require('debug')('game:components:heroes:body-thing-slot'),
 
     Paper = mui.Paper;
 
-var HeroesThingSlot = React.createClass({
+var HeroesBodyThingSlot = React.createClass({
   propTypes: {
     type: React.PropTypes.string,
   },
@@ -33,4 +33,4 @@ var HeroesThingSlot = React.createClass({
   }
 });
 
-module.exports = HeroesThingSlot;
+module.exports = HeroesBodyThingSlot;

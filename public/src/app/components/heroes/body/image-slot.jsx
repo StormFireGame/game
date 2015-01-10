@@ -1,11 +1,11 @@
 var React = require('react'),
     mui = require('material-ui'),
 
-    debug = require('debug')('game:components:heroes:image-slot'),
+    debug = require('debug')('game:components:heroes:body-image-slot'),
 
     Paper = mui.Paper;
 
-var HeroesImageSlot = React.createClass({
+var HeroesBodyImageSlot = React.createClass({
   render: function() {
     var style;
 
@@ -27,4 +27,4 @@ var HeroesImageSlot = React.createClass({
   }
 });
 
-module.exports = HeroesImageSlot;
+module.exports = HeroesBodyImageSlot;

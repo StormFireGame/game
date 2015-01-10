@@ -1,7 +1,4 @@
-.body-wrapper {
-  width: 310px;
-  margin-top: -70px;
-
+.hero-body {
   .hero-title {
     text-align: center;
     margin: 0;
@@ -113,5 +110,89 @@
 
   .image-slot {
     text-align: center;
+  }
+}
+
+.hero-info {
+  .group {
+    float: left;
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &>* {
+      margin-top: 20px;
+    }
+
+    &>*:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .block {
+    position: relative;
+    >* {
+      padding: 10px;
+    }
+
+    dd {
+      position: relative;
+
+      [class*='icon'] {
+        position: absolute;
+        top: -3px;
+        right: 0;
+        cursor: pointer;
+      }
+    }
+
+    .pagination {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      [class*='icon'] {
+        cursor: pointer;
+      }
+
+    }
+  }
+
+  .parameters-block {
+    dt { width: 60px; }
+    dd { width: 75px; }
+  }
+
+  .information-block {
+    dt {
+      width: 110px;
+      &.experiance { width: 75px; }
+    }
+    dd { width: 40px; }
+  }
+
+  .modifiers-block {
+    dt { width: 100px; }
+    dd { width: 50px; }
+  }
+
+  .damage-protection-block {
+    dt {
+      width: 100px;
+      &.damage { width: 60px; }
+    }
+    dd { width: 50px; }
+  }
+
+  .skills-block {
+    dt { width: 80px; }
+    dd { width: 50px; }
+  }
+
+  .abilities-block {
+    dt { width: 80px; }
+    dd { width: 50px; }
   }
 }
