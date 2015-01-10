@@ -36,3 +36,6 @@ cd ..
 
 gulp watch
 ```
+
+## Progress
+![Progress](progress.png)
