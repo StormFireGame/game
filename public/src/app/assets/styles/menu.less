@@ -1,7 +1,10 @@
 #menu {
   float: right;
+  margin-right: 70px;
 
-  .mui-toolbar {
+  [class*='toolbar'] {
+
+    padding: 0 5px;
 
     div[class*='button'] {
       margin-left: 10px;
@@ -14,6 +17,9 @@
 
     .mui-right:last-child {
       margin-right: 0;
+      .mui-icon {
+        padding-left: 0;
+      }
     }
   }
 }

@@ -1,11 +1,11 @@
 var React = require('react'),
     mui = require('material-ui'),
 
-    debug = require('debug')('game:components:heroes:info:information-block'),
+    debug = require('debug')('game:components:heroes:info:information'),
 
     Paper = mui.Paper;
 
-var HeroesInfoInformationBlock = React.createClass({
+var HeroesInfoInformation = React.createClass({
   render: function() {
     debug('render');
 
@@ -35,4 +35,4 @@ var HeroesInfoInformationBlock = React.createClass({
   }
 });
 
-module.exports = HeroesInfoInformationBlock;
+module.exports = HeroesInfoInformation;

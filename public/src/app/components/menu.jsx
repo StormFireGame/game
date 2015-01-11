@@ -12,7 +12,7 @@ var React = require('react'),
 var HeroesShowPage = React.createClass({
   render: function() {
     var style = {
-      width: 600
+      width: 570
     };
 
     debug('render');
