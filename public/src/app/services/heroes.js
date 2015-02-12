@@ -1,5 +1,5 @@
-var request = require('../lib/superagent'),
-    debug = require('debug')('game:services:heroes');
+var request = require('../lib/superagent');
+var debug = require('debug')('game:services:heroes');
 
 var HeroesService = {
   new: function(data) {

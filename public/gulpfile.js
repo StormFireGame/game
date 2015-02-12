@@ -1,21 +1,21 @@
-var gulp = require('gulp'),
-    $ = require('gulp-load-plugins')(),
-    browserSync = require('browser-sync'),
-    del = require('del'),
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
+var browserSync = require('browser-sync');
+var del = require('del');
 
-    browserify = require('browserify'),
-    watchify = require('watchify'),
-    source = require('vinyl-source-stream'),
+var browserify = require('browserify');
+var watchify = require('watchify');
+var source = require('vinyl-source-stream');
 
-    prettyHrtime = require('pretty-hrtime'),
+var prettyHrtime = require('pretty-hrtime');
 
-    startTime,
+var startTime;
 
-    paths,
-    config,
+var paths;
+var config;
 
-    handleErrors,
-    bundleLogger;
+var handleErrors;
+var bundleLogger;
 
 paths = {
   src: './src',
@@ -44,7 +44,8 @@ config = {
     watch: paths.app + '/**/*.js'
   },
   browserify: {
-    debug: true
+    debug: true,
+    extensions: ['.jsx']
   },
   images: {
     src: paths.assets + '/images/**/*.{png,jpg,gif,ico}',
@@ -68,7 +69,6 @@ config = {
 };
 
 handleErrors = function() {
-
   var args = Array.prototype.slice.call(arguments);
 
   // Send error to notification center with gulp-notify
@@ -117,11 +117,12 @@ gulp.task('styles', function() {
 });
 
 gulp.task('browserify-watch', function() {
-  var rebundle,
-      args = watchify.args,
-      bundler;
+  var rebundle;
+  var args = watchify.args;
+  var bundler;
 
-  args.debug = true;
+  args.debug = config.browserify.debug;
+  args.extensions = config.browserify.extensions;
   bundler = watchify(browserify(config.scripts.src, args));
 
   bundler.transform(['reactify', { es6: true }]);

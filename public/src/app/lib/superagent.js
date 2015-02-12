@@ -1,8 +1,8 @@
-var superagent = require('superagent'),
-    debug = require('debug')('game:lib:superagent'),
+var superagent = require('superagent');
+var debug = require('debug')('game:lib:superagent');
 
-    config = require('../config/application'),
-    environmentConfig = require('../config/environment');
+var config = require('../config/application');
+var environmentConfig = require('../config/environment');
 
 superagent.Request.prototype.promise = function() {
   return new Promise(function(resolve, reject) {

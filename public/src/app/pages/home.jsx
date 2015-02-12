@@ -1,7 +1,7 @@
-var React = require('react'),
-    debug = require('debug')('game:pages:home'),
+var React = require('react');
+var debug = require('debug')('game:pages:home');
 
-    SessionsNewForm = require('../components/sessions/new-form.jsx');
+var SessionsNewForm = require('../components/sessions/new-form.jsx');
 
 var HomePage = React.createClass({
   render: function() {

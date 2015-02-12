@@ -1,22 +1,22 @@
-var React = require('react'),
-    mui = require('material-ui'),
-    Router = require('react-router'),
-    debug = require('debug')('game:components:heroes:new-form'),
+var React = require('react');
+var mui = require('material-ui');
+var Router = require('react-router');
+var debug = require('debug')('game:components:heroes:new-form');
 
-    utils = require('../../lib/utils'),
-    mediator = require('../../mediator'),
-    actionTypes = require('../../constants/action-types'),
+var utils = require('../../lib/utils');
+var mediator = require('../../mediator');
+var actionTypes = require('../../constants/action-types');
 
-    HeroesService = require('../../services/heroes'),
+var eroesService = require('../../services/heroes');
 
-    RadioButtonGroup = require('../radio-button-group.jsx'),
+var RadioButtonGroup = require('../radio-button-group.jsx');
 
-    Input = mui.Input,
-    RaisedButton = mui.RaisedButton,
-    RadioButton = mui.RadioButton,
+var Input = mui.Input;
+var RaisedButton = mui.RaisedButton;
+var RadioButton = mui.RadioButton;
 
-    Navigation = Router.Navigation,
-    Toast = mui.Toast;
+var Navigation = Router.Navigation;
+var Toast = mui.Toast;
 
 var HeroesNewForm = React.createClass({
   mixins: [Navigation],

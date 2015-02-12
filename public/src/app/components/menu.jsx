@@ -1,13 +1,13 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    debug = require('debug')('game:components:menu'),
+var debug = require('debug')('game:components:menu');
 
-    Toolbar = mui.Toolbar,
-    ToolbarGroup = mui.ToolbarGroup,
+var Toolbar = mui.Toolbar;
+var ToolbarGroup = mui.ToolbarGroup;
 
-    RaisedButton = mui.RaisedButton,
-    Icon = mui.Icon;
+var RaisedButton = mui.RaisedButton;
+var Icon = mui.Icon;
 
 var HeroesShowPage = React.createClass({
   render: function() {

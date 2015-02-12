@@ -1,13 +1,13 @@
-var oauth2orize = require('koa-oauth2orize'),
-    passport = require('koa-passport'),
-    compose = require('koa-compose'),
-    co = require('co'),
-    debug = require('debug')('game:oauth2'),
+var oauth2orize = require('koa-oauth2orize');
+var passport = require('koa-passport');
+var compose = require('koa-compose');
+var co = require('co');
+var debug = require('debug')('game:oauth2');
 
-    utils = require('../../lib/utils'),
+var utils = require('../../lib/utils');
 
-    Hero = require('../../app/models/hero'),
-    AccessToken = require('../../app/models/access-token');
+var Hero = require('../../app/models/hero');
+var AccessToken = require('../../app/models/access-token');
 
 var server = oauth2orize.createServer();
 
@@ -17,9 +17,9 @@ server.exchange(oauth2orize.exchange.password(
     debug('grant_type password client: %s username: %s', client.name, username);
 
     co(function *() {
-      var hero,
-          token,
-          accessToken;
+      var hero;
+      var token;
+      var accessToken;
 
       try {
         hero = yield Hero.passwordMatches(username, password);

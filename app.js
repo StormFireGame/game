@@ -1,12 +1,12 @@
-var koa = require('koa'),
-    passport = require('koa-passport'),
-    debug = require('debug')('game:application'),
-    app = koa(),
+var koa = require('koa');
+var passport = require('koa-passport');
+var debug = require('debug')('game:application');
+var app = koa();
 
-    env = process.env.NODE_ENV || 'development',
-    config = require('./config/environment')[env],
+var env = process.env.NODE_ENV || 'development';
+var config = require('./config/environment')[env];
 
-    port;
+var port;
 
 require('./config/mongoose')(config);
 

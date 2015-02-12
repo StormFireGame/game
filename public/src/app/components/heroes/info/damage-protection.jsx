@@ -1,10 +1,10 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    debug = require('debug')
-      ('game:components:heroes:info:damage-protection'),
+var debug = require('debug')
+      ('game:components:heroes:info:damage-protection');
 
-    Paper = mui.Paper;
+var Paper = mui.Paper;
 
 var HeroesInfoDamageProtection = React.createClass({
   render: function() {

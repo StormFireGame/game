@@ -1,7 +1,7 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    IconButton = mui.IconButton;
+var IconButton = mui.IconButton;
 
 var Footer = React.createClass({
   render: function() {

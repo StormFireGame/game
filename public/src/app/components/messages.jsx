@@ -1,12 +1,12 @@
-var React = require('react'),
-    mui = require('material-ui'),
-    _ = require('lodash'),
-    debug = require('debug')('game:components:messages'),
+var React = require('react');
+var mui = require('material-ui');
+var _ = require('lodash');
+var debug = require('debug')('game:components:messages');
 
-    mediator = require('../mediator'),
-    actionTypes = require('../constants/action-types'),
+var mediator = require('../mediator');
+var actionTypes = require('../constants/action-types');
 
-    Snackbar = mui.Snackbar;
+var Snackbar = mui.Snackbar;
 
 var Messages = React.createClass({
   getInitialState: function() {

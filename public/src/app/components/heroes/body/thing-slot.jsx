@@ -1,9 +1,9 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    debug = require('debug')('game:components:heroes:body-thing-slot'),
+var debug = require('debug')('game:components:heroes:body-thing-slot');
 
-    Paper = mui.Paper;
+var Paper = mui.Paper;
 
 var HeroesBodyThingSlot = React.createClass({
   propTypes: {

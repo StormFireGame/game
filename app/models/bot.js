@@ -1,6 +1,6 @@
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose');
 
-    heroConfig = require('../../config/hero');
+var heroConfig = require('../../config/hero');
 
 var BotSchema = new mongoose.Schema({
   name: {

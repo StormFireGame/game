@@ -1,14 +1,14 @@
-var React = require('react'),
-    Router = require('react-router'),
+var React = require('react');
+var Router = require('react-router');
 
-    Header = require('./components/header.jsx'),
-    Footer = require('./components/footer.jsx'),
-    Messages = require('./components/messages.jsx'),
+var Header = require('./components/header.jsx');
+var Footer = require('./components/footer.jsx');
+var Messages = require('./components/messages.jsx');
 
-    debug = require('debug')('game:master'),
+var debug = require('debug')('game:master');
 
-    RouteHandler = Router.RouteHandler,
-    State = Router.State;
+var RouteHandler = Router.RouteHandler;
+var State = Router.State;
 
 var Master = React.createClass({
   mixins: [State],

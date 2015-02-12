@@ -1,9 +1,9 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    debug = require('debug')('game:components:heroes:body-header'),
+var debug = require('debug')('game:components:heroes:body-header');
 
-    Icon = mui.Icon;
+var Icon = mui.Icon;
 
 var HeroesBodyHeader = React.createClass({
   render: function() {

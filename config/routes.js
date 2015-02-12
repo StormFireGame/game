@@ -1,7 +1,7 @@
-var passport = require('koa-passport'),
+var passport = require('koa-passport');
 
-    oauth2 = require('./middlewares/oauth2'),
-    heroesController = require('../app/controllers/heroes');
+var oauth2 = require('./middlewares/oauth2');
+var heroesController = require('../app/controllers/heroes');
 
 module.exports = function(app) {
   app.post('/heroes', heroesController.create);

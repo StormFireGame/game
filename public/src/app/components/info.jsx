@@ -1,7 +1,7 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    Icon = mui.Icon;
+var Icon = mui.Icon;
 
 var Info = React.createClass({
   render: function() {

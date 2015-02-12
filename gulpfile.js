@@ -1,5 +1,5 @@
-var gulp = require('gulp'),
-    $ = require('gulp-load-plugins')();
+var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 
 gulp.task('jshint', function() {
   return gulp.src(['**/*.js', '!node_modules/**', '!public/**'])

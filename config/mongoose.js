@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-    debug = require('debug')('game:mongoose');
+var mongoose = require('mongoose');
+var debug = require('debug')('game:mongoose');
 
 module.exports = function(config) {
   var db;

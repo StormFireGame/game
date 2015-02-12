@@ -1,7 +1,7 @@
-var React = require('react'),
+var React = require('react');
 
-    Menu = require('./menu.jsx'),
-    Info = require('./info.jsx');
+var Menu = require('./menu.jsx');
+var Info = require('./info.jsx');
 
 var Header = React.createClass({
   render: function() {

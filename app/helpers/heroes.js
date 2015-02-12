@@ -1,13 +1,14 @@
-var moment = require('moment'),
-    debug = require('debug')('game:heroesHelper'),
+var moment = require('moment');
+var debug = require('debug')('game:heroesHelper');
 
-    heroConfig = require('../../config/hero'),
-    TableExperience = require('../models/table-experience');
+var heroConfig = require('../../config/hero');
+var TableExperience = require('../models/table-experience');
 
 module.exports = {
   updateFeature: function(hero) {
-    var hp, capacity,
-        feature = hero.feature;
+    var hp;
+    var capacity;
+    var feature = hero.feature;
 
     feature.strength = hero.strength;
     feature.dexterity = hero.dexterity;
@@ -47,8 +48,9 @@ module.exports = {
     debug('hero features updated %s', hero.login);
   },
   updateModifiers: function(hero) {
-    var hp, capacity,
-        feature = hero.feature;
+    var hp;
+    var capacity;
+    var feature = hero.feature;
 
     feature.damageMin = feature.strength * heroConfig.coefficient.damageMin;
     feature.damageMax = feature.strength * heroConfig.coefficient.damageMax;

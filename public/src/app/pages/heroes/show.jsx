@@ -1,8 +1,8 @@
-var React = require('react'),
-    debug = require('debug')('game:pages:heroes:show'),
+var React = require('react');
+var debug = require('debug')('game:pages:heroes:show');
 
-    HeroesBody = require('../../components/heroes/body.jsx'),
-    HeroesInfo = require('../../components/heroes/info.jsx');
+var HeroesBody = require('../../components/heroes/body.jsx');
+var HeroesInfo = require('../../components/heroes/info.jsx');
 
 var HeroesShowPage = React.createClass({
   render: function() {

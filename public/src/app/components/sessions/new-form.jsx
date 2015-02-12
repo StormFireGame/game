@@ -1,14 +1,14 @@
-var React = require('react'),
-    Router = require('react-router'),
-    mui = require('material-ui'),
-    debug = require('debug')('game:components:sessions:new-form'),
+var React = require('react');
+var Router = require('react-router');
+var mui = require('material-ui');
+var debug = require('debug')('game:components:sessions:new-form');
 
-    SessionsService = require('../../services/sessions'),
+var SessionsService = require('../../services/sessions');
 
-    Navigation = Router.Navigation,
+var Navigation = Router.Navigation;
 
-    Input = mui.Input,
-    RaisedButton = mui.RaisedButton;
+var Input = mui.Input;
+var RaisedButton = mui.RaisedButton;
 
 var SessionsNewForm = React.createClass({
   mixins: [Navigation],
@@ -18,8 +18,8 @@ var SessionsNewForm = React.createClass({
     };
   },
   _onSubmit: function(e) {
-    var refs = this.refs,
-        data;
+    var refs = this.refs;
+    var data;
 
     e.preventDefault();
 

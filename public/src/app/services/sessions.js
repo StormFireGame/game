@@ -1,8 +1,8 @@
 /* jshint camelcase: false */
 
-var request = require('../lib/superagent'),
-    store = require('store'),
-    debug = require('debug')('game:services:sessions');
+var request = require('../lib/superagent');
+var store = require('store');
+var debug = require('debug')('game:services:sessions');
 
 var SessionsService = {
   new: function(data) {

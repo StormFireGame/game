@@ -1,10 +1,10 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    debug = require('debug')('game:components:heroes:info:abilities'),
+var debug = require('debug')('game:components:heroes:info:abilities');
 
-    Paper = mui.Paper,
-    Icon = mui.Icon;
+var Paper = mui.Paper;
+var Icon = mui.Icon;
 
 var HeroesInfoAbilities = React.createClass({
   render: function() {

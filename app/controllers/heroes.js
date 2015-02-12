@@ -1,10 +1,10 @@
-var debug = require('debug')('game:heroController'),
+var debug = require('debug')('game:heroController');
 
-    Hero = require('../models/hero');
+var Hero = require('../models/hero');
 
 exports.create = function *() {
-  var body = this.request.body,
-      hero;
+  var body = this.request.body;
+  var hero;
 
   debug('hero create %s ...', body.login);
 

@@ -1,11 +1,11 @@
-var router = require('koa-router'),
-    logger = require('koa-logger'),
-    compress = require('koa-compress'),
-    errorHandler = require('koa-error'),
-    responseTime = require('koa-response-time'),
-    bodyParser = require('koa-bodyparser'),
-    session = require('koa-session'),
-    cors = require('koa-cors');
+var router = require('koa-router');
+var logger = require('koa-logger');
+var compress = require('koa-compress');
+var errorHandler = require('koa-error');
+var responseTime = require('koa-response-time');
+var bodyParser = require('koa-bodyparser');
+var session = require('koa-session');
+var cors = require('koa-cors');
 
 module.exports = function(app) {
   app.use(cors());

@@ -1,12 +1,12 @@
-var React = require('react'),
-    Router = require('react-router'),
+var React = require('react');
+var Router = require('react-router');
 
-    Master = require('./master.jsx'),
-    Home = require('./pages/home.jsx'),
-    HeroesNewPage = require('./pages/heroes/new.jsx'),
-    HeroesShowPage = require('./pages/heroes/show.jsx'),
+var Master = require('./master.jsx');
+var Home = require('./pages/home.jsx');
+var HeroesNewPage = require('./pages/heroes/new.jsx');
+var HeroesShowPage = require('./pages/heroes/show.jsx');
 
-    Route = Router.Route;
+var Route = Router.Route;
 
 var routes = (
   <Route path='/' handler={Master}>

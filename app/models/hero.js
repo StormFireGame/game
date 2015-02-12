@@ -1,11 +1,11 @@
-var mongoose = require('mongoose'),
-    co = require('co'),
-    bcrypt = require('../../lib/bcrypt-thunk'),
-    uniqueValidator = require('mongoose-unique-validator'),
+var mongoose = require('mongoose');
+var co = require('co');
+var bcrypt = require('../../lib/bcrypt-thunk');
+var uniqueValidator = require('mongoose-unique-validator');
 
-    heroConfig = require('../../config/hero'),
+var heroConfig = require('../../config/hero');
 
-    heroesHelper = require('../helpers/heroes');
+var heroesHelper = require('../helpers/heroes');
 
 require('./hero-image');
 require('./skill');
@@ -215,9 +215,9 @@ HeroSchema.plugin(uniqueValidator);
 HeroSchema.set('collection', 'heroes');
 
 HeroSchema.pre('save', function(done) {
-  var hero = this,
-      cryptPassword,
-      levelUp;
+  var hero = this;
+  var cryptPassword;
+  var levelUp;
 
   heroesHelper.updateFeature(hero);
 

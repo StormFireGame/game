@@ -1,5 +1,5 @@
-var _ = require('lodash'),
-    Dispatcher = require('flux').Dispatcher;
+var _ = require('lodash');
+var Dispatcher = require('flux').Dispatcher;
 
 var AppDispatcher = _.assign(new Dispatcher(), {
 

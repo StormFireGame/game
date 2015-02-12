@@ -1,13 +1,13 @@
-var React = require('react'),
-    mui = require('material-ui'),
+var React = require('react');
+var mui = require('material-ui');
 
-    debug = require('debug')('game:components:heroes:body'),
+var debug = require('debug')('game:components:heroes:body');
 
-    ThingSlot = require('./body/thing-slot.jsx'),
-    ImageSlot = require('./body/image-slot.jsx'),
-    Header = require('./body/header.jsx'),
+var ThingSlot = require('./body/thing-slot.jsx');
+var ImageSlot = require('./body/image-slot.jsx');
+var Header = require('./body/header.jsx');
 
-    Paper = mui.Paper;
+var Paper = mui.Paper;
 
 var HeroesBody = React.createClass({
   render: function() {

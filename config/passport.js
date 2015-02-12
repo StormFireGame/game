@@ -1,11 +1,11 @@
-var debug = require('debug')('game:passport'),
+var debug = require('debug')('game:passport');
 
-    ClientPasswordStrategy =
-      require('passport-oauth2-client-password').Strategy,
-    BearerStrategy = require('passport-http-bearer').Strategy,
+var ClientPasswordStrategy =
+      require('passport-oauth2-client-password').Strategy;
+var BearerStrategy = require('passport-http-bearer').Strategy;
 
-    Client = require('../app/models/client'),
-    AccessToken = require('../app/models/access-token');
+var Client = require('../app/models/client');
+var AccessToken = require('../app/models/access-token');
 
 module.exports = function(passport) {
 

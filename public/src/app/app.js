@@ -1,9 +1,9 @@
-var React = require('react'),
-    Router = require('react-router'),
-    routes = require('./routes'),
-    debug = require('debug')('game:application'),
+var React = require('react');
+var Router = require('react-router');
+var routes = require('./routes');
+var debug = require('debug')('game:application');
 
-    injectTapEventPlugin = require('react-tap-event-plugin');
+var injectTapEventPlugin = require('react-tap-event-plugin');
 
 
 //Needed for React Developer Tools
