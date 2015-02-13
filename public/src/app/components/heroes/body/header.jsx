@@ -3,7 +3,7 @@ var mui = require('material-ui');
 
 var debug = require('debug')('game:components:heroes:body-header');
 
-var Icon = mui.Icon;
+var FontIcon = mui.FontIcon;
 
 var HeroesBodyHeader = React.createClass({
   render: function() {
@@ -12,7 +12,7 @@ var HeroesBodyHeader = React.createClass({
     return (
       <div>
         <div className="mui-font-style-title hero-title">
-          <Icon icon="action-info" /> ButuzGOL [8]
+          <FontIcon className="mdfi_action_info" /> ButuzGOL [8]
         </div>
         <div className="mui-font-style-body-1 hero-indecators">
           0/20

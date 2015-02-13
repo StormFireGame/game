@@ -4,7 +4,7 @@ var mui = require('material-ui');
 var debug = require('debug')('game:components:heroes:info:skills');
 
 var Paper = mui.Paper;
-var Icon = mui.Icon;
+var FontIcon = mui.FontIcon;
 
 var HeroesInfoSkills = React.createClass({
   render: function() {
@@ -22,19 +22,19 @@ var HeroesInfoSkills = React.createClass({
           <div className="mui-font-style-subhead-1">Skills</div>
           <dl className="dl-horizontal">
             <dt>Strength</dt>
-            <dd>50 <Icon icon="content-add" /></dd>
+            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
             <dt>Dexterity</dt>
-            <dd>50 <Icon icon="content-add" /></dd>
+            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
             <dt>Intuition</dt>
-            <dd>50 <Icon icon="content-add" /></dd>
+            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
             <dt>Health</dt>
-            <dd>50 <Icon icon="content-add" /></dd>
+            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
           </dl>
           <p>Number of increases 53</p>
 
           <div className="pagination">
-            <Icon icon="image-navigate-before" />
-            <Icon icon="image-navigate-next" />
+            <FontIcon className="mdfi_image_navigate_before" />
+            <FontIcon className="mdfi_image_navigate_next" />
           </div>
         </Paper>
       </div>

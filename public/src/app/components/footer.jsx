@@ -7,7 +7,7 @@ var Footer = React.createClass({
   render: function() {
     return (
       <footer id="footer">
-        <IconButton className="github-icon-button" href="https://github.com/DragonLegend/game" icon="mui-icon-github" linkButton={true} />
+        <IconButton iconClassName="icon-github" href="https://github.com/DragonLegend/game" linkButton={true} />
       </footer>
     );
   }

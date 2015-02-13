@@ -27,6 +27,7 @@
     "flux": "^2.0.1",
     "keymirror": "^0.1.1",
     "lodash": "^2.4.1",
+    "material-design-fonticons": "^1.0.0",
     "promise": "^6.0.1",
     "react": "^0.12.2",
     "react-router": "^0.11.6",

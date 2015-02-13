@@ -7,11 +7,11 @@ var utils = require('../../lib/utils');
 var mediator = require('../../mediator');
 var actionTypes = require('../../constants/action-types');
 
-var eroesService = require('../../services/heroes');
+var HeroesService = require('../../services/heroes');
 
-var RadioButtonGroup = require('../radio-button-group.jsx');
+var RadioButtonGroup = mui.RadioButtonGroup;
 
-var Input = mui.Input;
+var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
 var RadioButton = mui.RadioButton;
 
@@ -35,7 +35,7 @@ var HeroesNewForm = React.createClass({
       login: refs.login.getValue(),
       password: refs.password.getValue(),
       email: refs.email.getValue(),
-      sex: refs.sex.getValue()
+      sex: refs.sex.getSelectedValue()
     };
 
     debug('submit %o', data);
@@ -60,18 +60,40 @@ var HeroesNewForm = React.createClass({
 
     return (
       <form onSubmit={this._onSubmit}>
-        <Input ref="login" type="text" error={errors.login} name="login" placeholder="Login" />
-        <Input ref="password" type="password" error={errors.password} name="password" placeholder="Password" />
-        <Input ref="email" type="email" name="email" error={errors.email} placeholder="Email"  />
-        <div>
-          <label>Sex:</label>
-          <br />
-          <RadioButtonGroup ref="sex">
-            <RadioButton name="sex" value="male" label="Male" defaultChecked={true} />
-            <RadioButton name="sex" value="female" label="Female" />
-          </RadioButtonGroup>
-        </div>
+        <TextField
+          ref="login"
+          name="login"
+          errorText={errors.login}
+          hintText="Login" />
         <br />
+        <TextField
+          ref="password"
+          type="password"
+          name="password"
+          errorText={errors.password}
+          hintText="Password" />
+        <br />
+        <TextField
+          ref="email"
+          type="email"
+          errorText={errors.email}
+          hintText="Email"  />
+        <br />
+
+        <label>Sex:</label>
+        <RadioButtonGroup
+          ref="sex"
+          name="sex"
+          defaultSelected="male">
+            <RadioButton
+              value="male"
+              label="Male" />
+            <RadioButton
+              value="female"
+              label="Female" />
+        </RadioButtonGroup>
+        <br />
+
         <RaisedButton label="Signup" />
       </form>
     );

@@ -7,7 +7,7 @@ var Toolbar = mui.Toolbar;
 var ToolbarGroup = mui.ToolbarGroup;
 
 var RaisedButton = mui.RaisedButton;
-var Icon = mui.Icon;
+var FontIcon = mui.FontIcon;
 
 var HeroesShowPage = React.createClass({
   render: function() {
@@ -27,7 +27,7 @@ var HeroesShowPage = React.createClass({
             <RaisedButton label="Info" />
           </ToolbarGroup>
           <ToolbarGroup key={1} float="right">
-            <Icon icon='content-undo' />
+            <FontIcon className="mdfi_content_undo" />
           </ToolbarGroup>
         </Toolbar>
       </nav>

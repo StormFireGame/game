@@ -31,6 +31,10 @@ config = {
     watch: paths.assets + '/styles/**/*.less',
     dest: paths.dist + '/styles'
   },
+  fonts: {
+    src: paths.assets + '/fonts/**/*.eot',
+    dest: paths.dist + '/fonts'
+  },
   clean: {
     src: paths.dist
   },
@@ -116,6 +120,11 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(config.styles.dest));
 });
 
+gulp.task('fonts', function() {
+  return gulp.src(config.fonts.src)
+    .pipe(gulp.dest(config.fonts.dest));
+});
+
 gulp.task('browserify-watch', function() {
   var rebundle;
   var args = watchify.args;
@@ -170,6 +179,7 @@ gulp.task('watch', ['browserSync'], function() {
   gulp.watch(config.styles.watch, ['styles', browserSync.reload]);
   gulp.watch(config.images.src, ['images', browserSync.reload]);
   gulp.watch(config.markup.src, ['markup', browserSync.reload]);
+  gulp.watch(config.fonts.src, ['fonts', browserSync.reload]);
 
   gulp.start('browserify-watch');
 });
@@ -179,11 +189,11 @@ gulp.task('browserSync', ['watch:build'], function() {
 });
 
 gulp.task('watch:build', ['clean'], function() {
-  gulp.start(['styles', 'images', 'markup']);
+  gulp.start(['styles', 'images', 'fonts', 'markup']);
 });
 
 gulp.task('build', ['clean'], function() {
-  gulp.start(['styles', 'scripts', 'images', 'markup']);
+  gulp.start(['styles', 'scripts', 'images', 'fonts', 'markup']);
 });
 
 gulp.task('default', ['jshint']);

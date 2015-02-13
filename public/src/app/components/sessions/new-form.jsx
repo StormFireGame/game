@@ -7,7 +7,7 @@ var SessionsService = require('../../services/sessions');
 
 var Navigation = Router.Navigation;
 
-var Input = mui.Input;
+var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
 
 var SessionsNewForm = React.createClass({
@@ -47,10 +47,25 @@ var SessionsNewForm = React.createClass({
 
     return (
       <form onSubmit={this._onSubmit}>
-        <Input ref="login" error={error} type="text" name="login" placeholder="Login" />
-        <Input ref="password" type="password" name="password" placeholder="Password" />
+        <TextField
+          ref="login"
+          errorText={error}
+          name="login"
+          hintText="Login" />
+        <br />
+        <TextField
+          ref="password"
+          type="password"
+          name="password"
+          hintText="Password" />
+        <br />
         <RaisedButton label="Signin" />
-        <RaisedButton href="#/heroes/new" label="Signup" className="pull-right" primary={true} linkButton={true} />
+        <RaisedButton
+          href="#/heroes/new"
+          label="Signup"
+          className="pull-right"
+          primary={true}
+          linkButton={true} />
       </form>
     );
   }
