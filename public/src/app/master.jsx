@@ -1,9 +1,9 @@
 var React = require('react');
 var Router = require('react-router');
 
-var Header = require('./components/header.jsx');
-var Footer = require('./components/footer.jsx');
-var Messages = require('./components/messages.jsx');
+var Header = require('./components/header');
+var Footer = require('./components/footer');
+var Messages = require('./components/messages');
 
 var debug = require('debug')('game:master');
 

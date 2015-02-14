@@ -3,9 +3,9 @@ var mui = require('material-ui');
 
 var debug = require('debug')('game:components:heroes:body');
 
-var ThingSlot = require('./body/thing-slot.jsx');
-var ImageSlot = require('./body/image-slot.jsx');
-var Header = require('./body/header.jsx');
+var ThingSlot = require('./body/thing-slot');
+var ImageSlot = require('./body/image-slot');
+var Header = require('./body/header');
 
 var Paper = mui.Paper;
 

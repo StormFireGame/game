@@ -3,12 +3,12 @@ var mui = require('material-ui');
 
 var debug = require('debug')('game:components:heroes:info');
 
-var Parameters = require('./info/parameters.jsx');
-var Information = require('./info/information.jsx');
-var Modifiers = require('./info/modifiers.jsx');
-var DamageProtection = require('./info/damage-protection.jsx');
-var Skills = require('./info/skills.jsx');
-var Abilities = require('./info/abilities.jsx');
+var Parameters = require('./info/parameters');
+var Information = require('./info/information');
+var Modifiers = require('./info/modifiers');
+var DamageProtection = require('./info/damage-protection');
+var Skills = require('./info/skills');
+var Abilities = require('./info/abilities');
 
 var HeroesInfo = React.createClass({
   render: function() {

@@ -1,7 +1,7 @@
 var React = require('react');
 var debug = require('debug')('game:pages:heroes:new');
 
-var HeroesNewForm = require('../../components/heroes/new-form.jsx');
+var HeroesNewForm = require('../../components/heroes/new-form');
 
 var HeroesNewPage = React.createClass({
   render: function() {
