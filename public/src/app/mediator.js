@@ -1,7 +1,9 @@
 var EventEmitter = require('events').EventEmitter;
-var _ = require('lodash');
+var assign = require('object-assign');
 
-var mediator = _.assign(new EventEmitter(), {
+var mediator = assign(new EventEmitter(), {
+  accessToken: null,
+  currentHero: null
 });
 
 module.exports = mediator;

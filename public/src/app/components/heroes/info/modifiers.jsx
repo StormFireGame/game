@@ -7,13 +7,14 @@ var Paper = mui.Paper;
 
 var HeroesInfoModifiers = React.createClass({
   render: function() {
-    debug('render');
-
+    var props = this.props;
     var style = {
       width: 170,
       height: 179,
       backgroundColor: 'white'
     };
+
+    debug('render');
 
     return (
       <div>
@@ -21,17 +22,17 @@ var HeroesInfoModifiers = React.createClass({
           <div className="mui-font-style-subhead-1">Modifiers</div>
           <dl className="dl-horizontal">
             <dt>Accuracy</dt>
-            <dd>75%</dd>
+            <dd>{props.accuracy}%</dd>
             <dt>Dodge</dt>
-            <dd>50%</dd>
+            <dd>{props.dodge}%</dd>
             <dt>Devastate</dt>
-            <dd>50%</dd>
+            <dd>{props.devastate}%</dd>
             <dt>Durability</dt>
-            <dd>20%</dd>
+            <dd>{props.durability}%</dd>
             <dt>Block break</dt>
-            <dd>200%</dd>
+            <dd>{props.blockBreak}%</dd>
             <dt>Armor break</dt>
-            <dd>200%</dd>
+            <dd>{props.armorBreak}%</dd>
           </dl>
         </Paper>
       </div>

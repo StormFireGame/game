@@ -1,6 +1,7 @@
 var debug = require('debug')('game:heroController');
 
 var Hero = require('../models/hero');
+var TableExperience = require('../models/table-experience');
 
 exports.create = function *() {
   var body = this.request.body;
@@ -27,6 +28,19 @@ exports.create = function *() {
   this.status = 204;
 };
 
-exports.show = function() {
-  this.body = 'Hero ' + this.req.user.login;
+exports.show = function *() {
+  var hero = yield Hero
+    .findById(this.req.user)
+    .populate('skills.skill')
+    .exec();
+
+  var tableExperience = yield TableExperience
+    .findOne({ level: hero.level + 1 })
+    .exec();
+
+  var heroObj = hero.toJSON();
+
+  heroObj.nextLevelExperience = tableExperience.experience;
+
+  this.body = heroObj;
 };

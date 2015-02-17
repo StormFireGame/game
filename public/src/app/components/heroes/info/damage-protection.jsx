@@ -8,13 +8,14 @@ var Paper = mui.Paper;
 
 var HeroesInfoDamageProtection = React.createClass({
   render: function() {
-    debug('render');
-
+    var props = this.props;
     var style = {
       width: 170,
-      height: 160,
+      height: 179,
       backgroundColor: 'white'
     };
+
+    debug('render');
 
     return (
       <div>
@@ -22,15 +23,17 @@ var HeroesInfoDamageProtection = React.createClass({
           <div className="mui-font-style-subhead-1">Damage &amp; protection</div>
           <dl className="dl-horizontal">
             <dt className="damage">Damage</dt>
-            <dd>20 - 100</dd>
+            <dd>{props.damageMin} - {props.damageMax}</dd>
             <dt>Protection head</dt>
-            <dd>30%</dd>
-            <dt>Protection head</dt>
-            <dd>50%</dd>
-            <dt>Protection zone</dt>
-            <dd>50%</dd>
+            <dd>{props.protectionHead}%</dd>
+            <dt>Protection breast</dt>
+            <dd>{props.protectionBreast}%</dd>
+            <dt>Protection belly</dt>
+            <dd>{props.protectionBelly}%</dd>
+            <dt>Protection groin</dt>
+            <dd>{props.protectionGroin}%</dd>
             <dt>Protection legs</dt>
-            <dd>50%</dd>
+            <dd>{props.protectionLegs}%</dd>
           </dl>
         </Paper>
       </div>

@@ -7,13 +7,14 @@ var Paper = mui.Paper;
 
 var HeroesInfoInformation = React.createClass({
   render: function() {
-    debug('render');
-
+    var props = this.props;
     var style = {
       width: 170,
       height: 140,
       backgroundColor: 'white'
     };
+
+    debug('render');
 
     return (
       <div>
@@ -21,13 +22,13 @@ var HeroesInfoInformation = React.createClass({
           <div className="mui-font-style-subhead-1">Information</div>
           <dl className="dl-horizontal">
             <dt>Number of wins</dt>
-            <dd>50</dd>
+            <dd>{props.numberOfWins}</dd>
             <dt>Number of losses</dt>
-            <dd>50</dd>
+            <dd>{props.numberOfLosses}</dd>
             <dt>Number of draws</dt>
-            <dd>50</dd>
-            <dt className="experiance">Experiance</dt>
-            <dd>200/900</dd>
+            <dd>{props.numberOfDraws}</dd>
+            <dt className="experience">Experience</dt>
+            <dd>{props.experience}/{props.nextLevelExperience}</dd>
           </dl>
         </Paper>
       </div>

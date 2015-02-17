@@ -1,7 +1,7 @@
 {
   "name": "game-ui",
   "devDependencies": {
-    "browser-sync": "^2.0.1",
+    "browser-sync": "1.8.3",
     "browserify": "^8.1.3",
     "del": "^1.1.1",
     "gulp": "^3.8.11",
@@ -28,6 +28,7 @@
     "keymirror": "^0.1.1",
     "lodash": "^3.2.0",
     "material-design-fonticons": "^1.0.0",
+    "object-assign": "^2.0.0",
     "promise": "^6.1.0",
     "react": "^0.12.2",
     "react-router": "^0.12.0",

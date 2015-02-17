@@ -11,15 +11,16 @@ var Paper = mui.Paper;
 
 var HeroesBody = React.createClass({
   render: function() {
-    var style,
-        proportions = {},
-        width = 70,
-        height = 75,
-        offset = 6,
-        pullRigth = (3 * width) + (4 * offset),
-        fullHeight,
-        elixir,
-        ring;
+    var style;
+    var proportions = {};
+    var width = 70;
+    var height = 75;
+    var offset = 6;
+    var pullRigth = (3 * width) + (4 * offset);
+    var fullHeight;
+    var elixir;
+    var ring;
+    var hero = this.props.hero;
 
     proportions.glows = {
       width: width,
@@ -157,7 +158,7 @@ var HeroesBody = React.createClass({
 
     return (
       <div className="hero-body">
-        <Header />
+        <Header login={hero.login} level={hero.level} hp={hero.feature.hp} />
         <Paper zDepth={2} style={style}>
           <ImageSlot left={width + 2 * offset} top={height + 2 * offset} width={146} height={259} />
 

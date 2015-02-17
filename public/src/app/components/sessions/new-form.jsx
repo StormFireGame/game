@@ -37,6 +37,8 @@ var SessionsNewForm = React.createClass({
             error: res['error_description']
           });
         }
+
+        this.transitionTo('hero');
       }.bind(this));
   },
   render: function() {

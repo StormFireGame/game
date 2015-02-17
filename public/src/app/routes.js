@@ -12,7 +12,7 @@ var routes = (
   <Route path='/' handler={Master}>
     <Route path='/' handler={Home} />
     <Route path='heroes/new' handler={HeroesNewPage} />
-    <Route path='heroes/show' handler={HeroesShowPage} />
+    <Route name='hero' path='heroes/show' handler={HeroesShowPage} />
   </Route>
 );
 

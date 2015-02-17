@@ -8,13 +8,14 @@ var FontIcon = mui.FontIcon;
 
 var HeroesInfoAbilities = React.createClass({
   render: function() {
-    debug('render');
-
+    var props = this.props;
     var style = {
       width: 170,
       height: 180,
       backgroundColor: 'white'
     };
+
+    debug('render');
 
     return (
       <div>
@@ -22,17 +23,38 @@ var HeroesInfoAbilities = React.createClass({
           <div className="mui-font-style-subhead-1">Abilities</div>
           <dl className="dl-horizontal">
             <dt>Swords</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
+            <dd>
+              {props.swords}
+              {props.numberOfAbilities ?
+                <FontIcon className="mdfi_content_add" /> : null}
+            </dd>
             <dt>Axes</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
+            <dd>
+              {props.axes}
+              {props.numberOfAbilities ?
+                <FontIcon className="mdfi_content_add" /> : null}
+            </dd>
             <dt>Knives</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
+            <dd>
+              {props.knives}
+              {props.numberOfAbilities ?
+                <FontIcon className="mdfi_content_add" /> : null}
+            </dd>
             <dt>Clubs</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
+            <dd>
+              {props.clubs}
+              {props.numberOfAbilities ?
+                <FontIcon className="mdfi_content_add" /> : null}
+            </dd>
             <dt>Shields</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
+            <dd>
+              {props.shields}
+              {props.numberOfAbilities ?
+                <FontIcon className="mdfi_content_add" /> : null}
+            </dd>
           </dl>
-          <p>Number of increases 53</p>
+          {props.numberOfAbilities ?
+            <p>Number of increases {props.numberOfAbilities}</p> : null}
         </Paper>
       </div>
     );

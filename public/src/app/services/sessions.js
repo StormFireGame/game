@@ -3,6 +3,7 @@
 var request = require('../lib/superagent');
 var store = require('store');
 var debug = require('debug')('game:services:sessions');
+var mediator = require('../mediator');
 
 var SessionsService = {
   new: function(data) {
@@ -28,6 +29,8 @@ var SessionsService = {
         if (accessToken) {
           store.set('accessToken', accessToken);
           debug('get access token %s', accessToken);
+
+          mediator.accessToken = accessToken;
         }
       });
 

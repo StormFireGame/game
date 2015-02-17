@@ -7,34 +7,66 @@ var Paper = mui.Paper;
 var FontIcon = mui.FontIcon;
 
 var HeroesInfoSkills = React.createClass({
+  getInitialState: function() {
+    return {
+      page: 0
+    };
+  },
+  _nextPage: function() {
+    this.setState({
+      page: this.state.page + 1
+    });
+  },
+  _prevPage: function() {
+    this.setState({
+      page: this.state.page - 1
+    });
+  },
   render: function() {
-    debug('render');
-
+    var props = this.props;
+    var perPage = 5;
+    var skills = props.skills
+      .slice(this.state.page * perPage, this.state.page * perPage + perPage);
     var style = {
       width: 170,
-      height: 160,
+      height: 50 + 20 * skills.length,
       backgroundColor: 'white'
     };
+
+    var items = skills
+      .map(function(item) {
+        return (
+          <div>
+            <dt>{item.skill.name}</dt>
+            <dd>{item.level}
+              {props.numberOfSkills ?
+                <FontIcon className="mdfi_content_add" /> : null}
+            </dd>
+          </div>
+        );
+      });
+
+    if (props.numberOfSkills) {
+      style.height += 30;
+    }
+
+    debug('render');
 
     return (
       <div>
         <Paper style={style} rounded={false} zDepth={1} className="block skills-block">
           <div className="mui-font-style-subhead-1">Skills</div>
           <dl className="dl-horizontal">
-            <dt>Strength</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
-            <dt>Dexterity</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
-            <dt>Intuition</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
-            <dt>Health</dt>
-            <dd>50 <FontIcon className="mdfi_content_add" /></dd>
+            {items}
           </dl>
-          <p>Number of increases 53</p>
+          {props.numberOfSkills ?
+            <p>Number of increases {props.numberOfSkills}</p> : null}
 
           <div className="pagination">
-            <FontIcon className="mdfi_image_navigate_before" />
-            <FontIcon className="mdfi_image_navigate_next" />
+            {this.state.page > 0 ?
+              <FontIcon onClick={this._prevPage} className="mdfi_image_navigate_before" /> : null}
+            {(this.state.page + 1) * perPage < props.skills.length ?
+              <FontIcon  onClick={this._nextPage} className="mdfi_image_navigate_next" /> : null}
           </div>
         </Paper>
       </div>
