@@ -84,7 +84,5 @@ module.exports = {
 
       debug('hero level up %s %s', hero.login, hero.level);
     });
-
-
   }
 };
