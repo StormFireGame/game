@@ -3,6 +3,9 @@ var mui = require('material-ui');
 
 var debug = require('debug')('game:components:heroes:info');
 
+var HeroesService = require('../../services/heroes');
+var HeroApi = require('../../utils/hero-api');
+
 var Parameters = require('./info/parameters');
 var Information = require('./info/information');
 var Modifiers = require('./info/modifiers');
@@ -11,6 +14,12 @@ var Skills = require('./info/skills');
 var Abilities = require('./info/abilities');
 
 var HeroesInfo = React.createClass({
+  _increase: function(area) {
+    var idOrName = arguments[1];
+
+    HeroesService.increase(area, idOrName)
+      .then(HeroApi.fetch);
+  },
   render: function() {
     var hero = this.props.hero;
 
@@ -29,6 +38,7 @@ var HeroesInfo = React.createClass({
             health={hero.health}
             featureHealth={hero.feature.health}
             numberOfParameters={hero.numberOfParameters}
+            onIncrease={this._increase}
           />
           <Information
             numberOfWins={hero.numberOfWins}
@@ -61,6 +71,7 @@ var HeroesInfo = React.createClass({
           <Skills
             skills={hero.skills}
             numberOfSkills={hero.numberOfSkills}
+            onIncrease={this._increase}
           />
           <Abilities
             shields={hero.feature.shields}
@@ -69,6 +80,7 @@ var HeroesInfo = React.createClass({
             axes={hero.feature.axes}
             swords={hero.feature.swords}
             numberOfAbilities={hero.numberOfAbilities}
+            onIncrease={this._increase}
           />
         </div>
       </div>

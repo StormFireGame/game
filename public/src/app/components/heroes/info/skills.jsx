@@ -40,7 +40,7 @@ var HeroesInfoSkills = React.createClass({
             <dt>{item.skill.name}</dt>
             <dd>{item.level}
               {props.numberOfSkills ?
-                <FontIcon className="mdfi_content_add" /> : null}
+                <FontIcon onClick={props.onIncrease.bind(this, 'skills', item._id)} className="mdfi_content_add" /> : null}
             </dd>
           </div>
         );
@@ -66,7 +66,7 @@ var HeroesInfoSkills = React.createClass({
             {this.state.page > 0 ?
               <FontIcon onClick={this._prevPage} className="mdfi_image_navigate_before" /> : null}
             {(this.state.page + 1) * perPage < props.skills.length ?
-              <FontIcon  onClick={this._nextPage} className="mdfi_image_navigate_next" /> : null}
+              <FontIcon onClick={this._nextPage} className="mdfi_image_navigate_next" /> : null}
           </div>
         </Paper>
       </div>

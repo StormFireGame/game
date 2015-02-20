@@ -1,5 +1,6 @@
 var React = require('react');
 var mui = require('material-ui');
+var _ = require('lodash');
 
 var debug = require('debug')('game:components:heroes:info:parameters');
 
@@ -7,19 +8,19 @@ var Paper = mui.Paper;
 var FontIcon = mui.FontIcon;
 
 var HeroesInfoParameters = React.createClass({
-  _renderFeature: function(orig, feature) {
-    if (orig) {}
-  },
   render: function() {
     var props = this.props;
-
-    debug('render');
-
+    var parameters = ['strength', 'dexterity', 'intuition', 'health'];
+    var items;
     var style = {
       width: 170,
-      height: 160,
+      height: 50 + 20 * parameters.length,
       backgroundColor: 'white'
     };
+
+    if (props.numberOfParameters) {
+      style.height += 30;
+    }
 
     function renderFeature(orig, feature) {
       var output = '';
@@ -39,39 +40,30 @@ var HeroesInfoParameters = React.createClass({
       return output;
     }
 
+    items = parameters
+      .map(function(parameter) {
+        var parameterCap = _.capitalize(parameter);
+        return (
+          <div>
+            <dt>{parameterCap}</dt>
+            <dd>
+              {props[parameter]}
+              {renderFeature(props[parameter], props['feature' + parameterCap])}
+              {props.numberOfParameters ?
+                <FontIcon onClick={props.onIncrease.bind(this, 'parameters', parameter)} className="mdfi_content_add" /> : null}
+            </dd>
+          </div>
+        );
+      });
+
+    debug('render');
+
     return (
       <div>
         <Paper style={style} rounded={false} zDepth={1} className="block parameters-block">
           <div className="mui-font-style-subhead-1">Parameters</div>
           <dl className="dl-horizontal">
-            <dt>Strength</dt>
-            <dd>
-              {props.strength}
-              {renderFeature(props.strength, props.featureStrength)}
-              {props.numberOfParameters ?
-                <FontIcon className="mdfi_content_add" /> : null}
-            </dd>
-            <dt>Dexterity</dt>
-            <dd>
-              {props.dexterity}
-              {renderFeature(props.dexterity, props.featureDexterity)}
-              {props.numberOfParameters ?
-                <FontIcon className="mdfi_content_add" /> : null}
-            </dd>
-            <dt>Intuition</dt>
-            <dd>
-              {props.intuition}
-              {renderFeature(props.intuition, props.featureIntuition)}
-              {props.numberOfParameters ?
-                <FontIcon className="mdfi_content_add" /> : null}
-            </dd>
-            <dt>Health</dt>
-            <dd>
-              {props.health}
-              {renderFeature(props.health, props.featureHealth)}
-              {props.numberOfParameters ?
-                <FontIcon className="mdfi_content_add" /> : null}
-            </dd>
+            {items}
           </dl>
           {props.numberOfParameters ?
             <p>Number of increases {props.numberOfParameters}</p> : null}

@@ -11,5 +11,15 @@ module.exports = function(app) {
     heroesController.show
   );
 
+  app.put('/heroes/me/increase/:area(skills)/:id',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.increase
+  );
+
+  app.put('/heroes/me/increase/:area(abilities|parameters)/:name',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.increase
+  );
+
   app.post('/oauth/token', oauth2.token);
 };
