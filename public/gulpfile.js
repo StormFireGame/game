@@ -141,10 +141,11 @@ gulp.task('browserify-watch', function() {
 
     return bundler.bundle()
       // log errors if they happen
-      .on('error', $.util.log.bind($.util, 'Browserify Error'))
+      .on('error', handleErrors)
       .on('end', bundleLogger.end)
       .pipe(source(config.scripts.outputName))
       .pipe(gulp.dest(config.scripts.dest))
+      .pipe($.notify('Bundled in'))
       .pipe(browserSync.reload({ stream: true }));
   };
 

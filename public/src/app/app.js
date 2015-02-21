@@ -5,7 +5,6 @@ var debug = require('debug')('game:application');
 
 var injectTapEventPlugin = require('react-tap-event-plugin');
 
-
 //Needed for React Developer Tools
 window.React = React;
 
