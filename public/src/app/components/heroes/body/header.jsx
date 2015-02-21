@@ -17,6 +17,9 @@ var HeroesBodyHeader = React.createClass({
   componentDidMount: function() {
     this._setHpInterval = window.setInterval(this._setHp, 1000);
   },
+  componentWillUnmount: function() {
+    window.clearInterval(this._setHpInterval);
+  },
   _setHp: function() {
     var [currentHp, maxHp, currentTimeHp] = this.props.hp.split('|');
     var time = moment().valueOf();
@@ -38,8 +41,6 @@ var HeroesBodyHeader = React.createClass({
 
     currentHp = parseInt(currentHp);
     if (currentHp === this.state.hp) return;
-
-    debug('hp %s', currentHp);
 
     this.setState({
       hp: currentHp

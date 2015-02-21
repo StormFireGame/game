@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var HeroApi = require('../../utils/hero-api');
 var HeroStore = require('../../stores/hero');
+var AuthMixin = require('../mixins/auth');
 
 var HeroesBody = require('../../components/heroes/body');
 var HeroesInfo = require('../../components/heroes/info');
@@ -15,6 +16,7 @@ function getHeroState() {
 }
 
 var HeroesShowPage = React.createClass({
+  mixins: [AuthMixin],
   getInitialState: function() {
     return getHeroState();
   },

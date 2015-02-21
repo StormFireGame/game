@@ -5,10 +5,11 @@ var config = require('../config/application');
 var environmentConfig = require('../config/environment');
 
 var mediator = require('../mediator');
+var actionTypes = require('../constants/action-types');
 
 superagent.Request.prototype.promise = function() {
   return new Promise(function(resolve, reject) {
-    var accessToken = mediator.accessToken || 'WKeTJTT9eV0hYs9fLzOL7rOIXTry8WKXRi8W9ag1AkK1JrUnnUQsuH9VDgbgWqbrI6gCglq1PnEUzcH3SHNobb4xL05MOUp1h5VVKiHR7Vsto0DHieVfiPTM5TidOwFHIAaSpreahXd7gO4lljUrDuZTdqceiAEjXkLkdljB3OaBga8RHN3qMVF1lbEnoAHvE195fXgHTILnNji8DR1OIBxL7pphpUKM3eYRX5WJ0Ns1nKA3pJQ0AkNgl5QdK8vZ';
+    var accessToken = mediator.accessToken || '111';
 
     if (accessToken) this.set('Authorization', 'Bearer ' + accessToken);
 
@@ -24,7 +25,12 @@ superagent.Request.prototype.promise = function() {
         return reject(err);
       }
       if (res.error) {
-        debug('response with error %o', res);
+        debug('response with error %s %o', res.status, res);
+
+        if (res.status === 401) {
+          mediator.emit(actionTypes.UNAUTHORIZED);
+        }
+
         return reject(res);
       }
 

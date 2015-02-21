@@ -1,3 +1,4 @@
 module.exports = {
-  environment: 'development'
+  environment: 'development',
+  allowedRoutesWithoutAuth: ['/', '/heroes/new']
 };

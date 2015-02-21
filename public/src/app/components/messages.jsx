@@ -15,12 +15,12 @@ var Messages = React.createClass({
     };
   },
   componentDidMount: function() {
-    mediator.on(actionTypes.MESSAGE, this.setMessage);
+    mediator.on(actionTypes.MESSAGE, this._setMessage);
   },
   componentWillUnmount: function() {
-    mediator.removeListener(actionTypes.MESSAGE, this.setMessage);
+    mediator.removeListener(actionTypes.MESSAGE, this._setMessage);
   },
-  setMessage: function(message) {
+  _setMessage: function(message) {
     debug('new message %s', message);
     // TODO: hack because transition do another render
     //   mediator render should be last
@@ -28,7 +28,7 @@ var Messages = React.createClass({
       this.setState({
         message: message
       });
-    }.bind(this), 10);
+    }.bind(this), 20);
   },
   render: function() {
     var message = this.state.message;
@@ -37,9 +37,19 @@ var Messages = React.createClass({
 
     debug('render');
 
+    if (!message) return null;
+
     return (
-      <Snackbar message={message} action="Close" open={!!message} />
+      <Snackbar
+        ref="message"
+        message={message}
+        action="Close"
+        openOnMount={true}
+        onActionTouchTap={this._handleClose} />
     );
+  },
+  _handleClose: function() {
+    this.refs.message.dismiss();
   }
 });
 

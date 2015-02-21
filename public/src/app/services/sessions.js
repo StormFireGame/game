@@ -5,7 +5,7 @@ var store = require('store');
 var debug = require('debug')('game:services:sessions');
 var mediator = require('../mediator');
 
-var SessionsService = {
+module.exports = {
   new: function(data) {
     var defer;
 
@@ -37,5 +37,3 @@ var SessionsService = {
     return defer;
   }
 };
-
-module.exports = SessionsService;
