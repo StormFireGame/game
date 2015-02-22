@@ -2,21 +2,22 @@ var debug = require('debug')('game:heroController');
 var _ = require('lodash');
 
 var Hero = require('../models/hero');
+var Skill = require('../models/skill');
 var TableExperience = require('../models/table-experience');
 
 exports.create = function *() {
   var body = this.request.body;
   var hero;
 
-  debug('hero create %s ...', body.login);
+  debug('create %s ...', body.login);
 
   try {
     hero = new Hero(body);
     hero = yield hero.save();
-    debug('hero created');
+    debug('created');
   } catch(err) {
     if (err.name === 'ValidationError') {
-      debug('hero validation errors');
+      debug('validation errors');
       this.status = 422;
     } else {
       this.status = 500;
@@ -30,10 +31,7 @@ exports.create = function *() {
 };
 
 exports.show = function *() {
-  var hero = yield Hero
-    .findById(this.req.user)
-    .populate('skills.skill')
-    .exec();
+  var hero = this.req.user;
 
   var tableExperience = yield TableExperience
     .findOne({ level: hero.level + 1 })
@@ -49,12 +47,13 @@ exports.show = function *() {
 exports.increase = function *() {
   var hero = this.req.user;
   var heroSkill;
+  var skill;
   var area = this.params.area;
   var id = this.params.id;
   var name = this.params.name;
   var paramKey = 'numberOf' + _.capitalize(area);
 
-  debug('hero param increasing %s %s', area, id || name);
+  debug('param increasing %s %s', area, id || name);
 
   if (hero[paramKey] === 0) {
     this.status = 423;
@@ -74,12 +73,28 @@ exports.increase = function *() {
       break;
     case 'skills':
       heroSkill = hero.skills.find(function(heroSkill) {
-        return heroSkill._id + '' === id;
+        return heroSkill.skill + '' === id;
       });
 
       if (!heroSkill) {
-        this.status = 404;
-        return;
+        try {
+          skill = yield Skill.findById(id).exec();
+        } catch(err) {
+          if (err.name === 'CastError') {
+            debug('skill to increase not found');
+            this.status = 404;
+          } else {
+            this.status = 500;
+          }
+          return;
+        }
+
+        hero.skills.push({
+          skill: skill,
+          level: 0
+        });
+
+        heroSkill = hero.skills[hero.skills.length - 1];
       }
 
       heroSkill.level++;
@@ -89,7 +104,7 @@ exports.increase = function *() {
   try {
     yield hero.save();
   } catch(err) {
-    debug('hero save error %o', err);
+    debug('save error %o', err);
     this.status = 500;
   }
 

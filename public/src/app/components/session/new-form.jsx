@@ -1,16 +1,16 @@
 var React = require('react');
 var Router = require('react-router');
 var mui = require('material-ui');
-var debug = require('debug')('game:components:sessions:new-form');
+var debug = require('debug')('game:components:session:new-form');
 
-var SessionsService = require('../../services/sessions');
+var SessionService = require('../../services/session-service');
 
 var Navigation = Router.Navigation;
 
 var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
 
-var SessionsNewForm = React.createClass({
+var SessionNewForm = React.createClass({
   mixins: [Navigation],
   getInitialState: function() {
     return {
@@ -30,7 +30,7 @@ var SessionsNewForm = React.createClass({
 
     debug('submit %o', data);
 
-    SessionsService.new(data)
+    SessionService.new(data)
       .then(function(res) {
         if (res.error) {
           this.setState({
@@ -73,4 +73,4 @@ var SessionsNewForm = React.createClass({
   }
 });
 
-module.exports = SessionsNewForm;
+module.exports = SessionNewForm;

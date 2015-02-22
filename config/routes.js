@@ -1,9 +1,13 @@
 var passport = require('koa-passport');
 
 var oauth2 = require('./middlewares/oauth2');
+
 var heroesController = require('../app/controllers/heroes');
+var skillsController = require('../app/controllers/skills');
 
 module.exports = function(app) {
+  app.post('/oauth/token', oauth2.token);
+
   app.post('/heroes', heroesController.create);
 
   app.get('/heroes/me',
@@ -21,5 +25,8 @@ module.exports = function(app) {
     heroesController.increase
   );
 
-  app.post('/oauth/token', oauth2.token);
+  app.get('/skills',
+    passport.authenticate('bearer', { session: false }),
+    skillsController.index
+  );
 };

@@ -9,7 +9,7 @@ var ToolbarGroup = mui.ToolbarGroup;
 var RaisedButton = mui.RaisedButton;
 var FontIcon = mui.FontIcon;
 
-var HeroesShowPage = React.createClass({
+var HeroShowPage = React.createClass({
   render: function() {
     var style = {
       width: 570
@@ -35,4 +35,4 @@ var HeroesShowPage = React.createClass({
   }
 });
 
-module.exports = HeroesShowPage;
+module.exports = HeroShowPage;

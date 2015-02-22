@@ -1,11 +1,11 @@
 var React = require('react');
 var mui = require('material-ui');
 
-var debug = require('debug')('game:components:heroes:info:information');
+var debug = require('debug')('game:components:hero:info:information');
 
 var Paper = mui.Paper;
 
-var HeroesInfoInformation = React.createClass({
+var HeroInfoInformation = React.createClass({
   render: function() {
     var props = this.props;
     var style = {
@@ -36,4 +36,4 @@ var HeroesInfoInformation = React.createClass({
   }
 });
 
-module.exports = HeroesInfoInformation;
+module.exports = HeroInfoInformation;

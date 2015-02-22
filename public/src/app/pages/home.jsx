@@ -1,7 +1,7 @@
 var React = require('react');
 var debug = require('debug')('game:pages:home');
 
-var SessionsNewForm = require('../components/sessions/new-form');
+var SessionNewForm = require('../components/session/new-form');
 
 var HomePage = React.createClass({
   render: function() {
@@ -10,7 +10,7 @@ var HomePage = React.createClass({
     return (
       <div className="middle">
         <div className="logo" />
-        <SessionsNewForm />
+        <SessionNewForm />
       </div>
     );
   }

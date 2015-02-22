@@ -2,11 +2,11 @@ var React = require('react');
 var mui = require('material-ui');
 
 var debug = require('debug')
-      ('game:components:heroes:info:damage-protection');
+      ('game:components:hero:info:damage-protection');
 
 var Paper = mui.Paper;
 
-var HeroesInfoDamageProtection = React.createClass({
+var HeroInfoDamageProtection = React.createClass({
   render: function() {
     var props = this.props;
     var style = {
@@ -41,4 +41,4 @@ var HeroesInfoDamageProtection = React.createClass({
   }
 });
 
-module.exports = HeroesInfoDamageProtection;
+module.exports = HeroInfoDamageProtection;

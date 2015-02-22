@@ -1,13 +1,13 @@
 var React = require('react');
 var mui = require('material-ui');
 var Router = require('react-router');
-var debug = require('debug')('game:components:heroes:new-form');
+var debug = require('debug')('game:components:hero:new-form');
 
 var utils = require('../../lib/utils');
 var mediator = require('../../mediator');
 var actionTypes = require('../../constants/action-types');
 
-var HeroesService = require('../../services/heroes');
+var HeroService = require('../../services/hero-service');
 
 var RadioButtonGroup = mui.RadioButtonGroup;
 
@@ -18,7 +18,7 @@ var RadioButton = mui.RadioButton;
 var Navigation = Router.Navigation;
 var Toast = mui.Toast;
 
-var HeroesNewForm = React.createClass({
+var HeroNewForm = React.createClass({
   mixins: [Navigation],
   getInitialState: function() {
     return {
@@ -40,7 +40,7 @@ var HeroesNewForm = React.createClass({
 
     debug('submit %o', data);
 
-    HeroesService.new(data)
+    HeroService.new(data)
       .then(function() {
         mediator.emit(actionTypes.MESSAGE, 'Hero created');
         this.transitionTo('/');
@@ -100,4 +100,4 @@ var HeroesNewForm = React.createClass({
   }
 });
 
-module.exports = HeroesNewForm;
+module.exports = HeroNewForm;

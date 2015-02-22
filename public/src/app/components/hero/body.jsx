@@ -1,7 +1,7 @@
 var React = require('react');
 var mui = require('material-ui');
 
-var debug = require('debug')('game:components:heroes:body');
+var debug = require('debug')('game:components:hero:body');
 
 var ThingSlot = require('./body/thing-slot');
 var ImageSlot = require('./body/image-slot');
@@ -9,7 +9,7 @@ var Header = require('./body/header');
 
 var Paper = mui.Paper;
 
-var HeroesBody = React.createClass({
+var HeroBody = React.createClass({
   render: function() {
     var style;
     var proportions = {};
@@ -186,4 +186,4 @@ var HeroesBody = React.createClass({
   }
 });
 
-module.exports = HeroesBody;
+module.exports = HeroBody;

@@ -1,10 +1,10 @@
 var HeroActions = require('../actions/hero-actions');
-var HeroesService = require('../services/heroes');
+var HeroService = require('../services/hero-service');
 
 module.exports = {
 
   fetch: function() {
-    HeroesService.fetch()
+    HeroService.fetch()
       .then(function(response) {
         HeroActions.receive(response);
       });

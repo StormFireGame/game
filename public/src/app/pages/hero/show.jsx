@@ -1,13 +1,14 @@
 var React = require('react');
-var debug = require('debug')('game:pages:heroes:show');
+var debug = require('debug')('game:pages:hero:show');
 var _ = require('lodash');
 
 var HeroApi = require('../../utils/hero-api');
-var HeroStore = require('../../stores/hero');
+var SkillApi = require('../../utils/skill-api');
+var HeroStore = require('../../stores/hero-store');
 var AuthMixin = require('../mixins/auth');
 
-var HeroesBody = require('../../components/heroes/body');
-var HeroesInfo = require('../../components/heroes/info');
+var HeroBody = require('../../components/hero/body');
+var HeroInfo = require('../../components/hero/info');
 
 function getHeroState() {
   return {
@@ -15,13 +16,14 @@ function getHeroState() {
   };
 }
 
-var HeroesShowPage = React.createClass({
+var HeroShowPage = React.createClass({
   mixins: [AuthMixin],
   getInitialState: function() {
     return getHeroState();
   },
   componentDidMount: function() {
     HeroApi.fetch();
+    SkillApi.fetch();
 
     HeroStore.addChangeListener(this._onChange);
   },
@@ -37,16 +39,16 @@ var HeroesShowPage = React.createClass({
     if (_.isEmpty(this.state.hero)) return null;
 
     return (
-      <div id="heroes-show">
+      <div id="hero-show">
         <section className="body-wrapper">
-          <HeroesBody hero={this.state.hero} />
+          <HeroBody hero={this.state.hero} />
         </section>
         <section className="info-wrapper">
-          <HeroesInfo hero={this.state.hero} />
+          <HeroInfo hero={this.state.hero} />
         </section>
       </div>
     );
   }
 });
 
-module.exports = HeroesShowPage;
+module.exports = HeroShowPage;

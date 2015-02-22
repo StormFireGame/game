@@ -2,12 +2,12 @@ var React = require('react');
 var mui = require('material-ui');
 var _ = require('lodash');
 
-var debug = require('debug')('game:components:heroes:info:abilities');
+var debug = require('debug')('game:components:hero:info:abilities');
 
 var Paper = mui.Paper;
 var FontIcon = mui.FontIcon;
 
-var HeroesInfoAbilities = React.createClass({
+var HeroInfoAbilities = React.createClass({
   render: function() {
     var props = this.props;
     var abilities = ['swords', 'axes', 'knives', 'clubs', 'shields'];
@@ -54,4 +54,4 @@ var HeroesInfoAbilities = React.createClass({
   }
 });
 
-module.exports = HeroesInfoAbilities;
+module.exports = HeroInfoAbilities;

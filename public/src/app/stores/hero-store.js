@@ -2,8 +2,9 @@ var AppDispatcher = require('../app-dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var HeroConstants = require('../constants/hero-constants');
+var debug = require('debug')('game:stores:hero');
 
+var HeroConstants = require('../constants/hero-constants');
 
 var CHANGE_EVENT = 'change';
 
@@ -11,6 +12,7 @@ var _hero = {};
 
 function loadData(data) {
   _hero = data;
+  debug('data loaded');
 }
 
 var HeroStore = assign({}, EventEmitter.prototype, {
@@ -19,6 +21,7 @@ var HeroStore = assign({}, EventEmitter.prototype, {
   },
 
   emitChange: function() {
+    debug('changed');
     this.emit(CHANGE_EVENT);
   },
 
@@ -35,7 +38,7 @@ AppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.actionType) {
-    case HeroConstants.RECEIVE:
+    case HeroConstants.HERO_RECEIVE:
       loadData(action.data);
       break;
 

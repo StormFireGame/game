@@ -1,11 +1,11 @@
 var React = require('react');
 var mui = require('material-ui');
 
-var debug = require('debug')('game:components:heroes:body-thing-slot');
+var debug = require('debug')('game:components:hero:body-thing-slot');
 
 var Paper = mui.Paper;
 
-var HeroesBodyThingSlot = React.createClass({
+var HeroBodyThingSlot = React.createClass({
   propTypes: {
     type: React.PropTypes.string,
   },
@@ -27,10 +27,14 @@ var HeroesBodyThingSlot = React.createClass({
     // TODO: props single or double quotes
     return (
       <div>
-        <Paper style={style} rounded={false} innerClassName={`slot-${this.props.type}`} zDepth={1} />
+        <Paper
+          style={style}
+          rounded={false}
+          innerClassName={`slot-${this.props.type}`}
+          zDepth={1} />
       </div>
     );
   }
 });
 
-module.exports = HeroesBodyThingSlot;
+module.exports = HeroBodyThingSlot;

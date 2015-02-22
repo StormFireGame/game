@@ -1,4 +1,1 @@
-var AppActions = {
-};
-
-module.exports = AppActions;
+module.exports = {};

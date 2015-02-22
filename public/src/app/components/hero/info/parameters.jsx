@@ -2,12 +2,12 @@ var React = require('react');
 var mui = require('material-ui');
 var _ = require('lodash');
 
-var debug = require('debug')('game:components:heroes:info:parameters');
+var debug = require('debug')('game:components:hero:info:parameters');
 
 var Paper = mui.Paper;
 var FontIcon = mui.FontIcon;
 
-var HeroesInfoParameters = React.createClass({
+var HeroInfoParameters = React.createClass({
   render: function() {
     var props = this.props;
     var parameters = ['strength', 'dexterity', 'intuition', 'health'];
@@ -73,4 +73,4 @@ var HeroesInfoParameters = React.createClass({
   }
 });
 
-module.exports = HeroesInfoParameters;
+module.exports = HeroInfoParameters;

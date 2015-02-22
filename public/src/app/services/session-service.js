@@ -2,7 +2,7 @@
 
 var request = require('../lib/superagent');
 var store = require('store');
-var debug = require('debug')('game:services:sessions');
+var debug = require('debug')('game:services:session');
 var mediator = require('../mediator');
 
 module.exports = {

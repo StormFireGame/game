@@ -1,8 +1,9 @@
 var request = require('../lib/superagent');
-var debug = require('debug')('game:services:heroes');
+var debug = require('debug')('game:services:hero');
 var mediator = require('../mediator');
 var makeUrl = require('make-url');
 
+// TODO: plural on single name
 module.exports = {
   new: function(data) {
     var defer;

@@ -29,7 +29,7 @@ server.exchange(oauth2orize.exchange.password(
 
         debug('access token removed');
 
-        token = utils.uid(256);
+        token = utils.uid(8);
 
         accessToken = new AccessToken({
           token: token,

@@ -2,11 +2,11 @@ var React = require('react');
 var mui = require('material-ui');
 var moment = require('moment');
 
-var debug = require('debug')('game:components:heroes:body-header');
+var debug = require('debug')('game:components:hero:body-header');
 
 var FontIcon = mui.FontIcon;
 
-var HeroesBodyHeader = React.createClass({
+var HeroBodyHeader = React.createClass({
   getInitialState: function() {
     var [currentHp] = this.props.hp.split('|');
 
@@ -63,4 +63,4 @@ var HeroesBodyHeader = React.createClass({
   }
 });
 
-module.exports = HeroesBodyHeader;
+module.exports = HeroBodyHeader;

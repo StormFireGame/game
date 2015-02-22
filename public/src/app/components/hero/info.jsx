@@ -1,9 +1,9 @@
 var React = require('react');
 var mui = require('material-ui');
 
-var debug = require('debug')('game:components:heroes:info');
+var debug = require('debug')('game:components:hero:info');
 
-var HeroesService = require('../../services/heroes');
+var HeroService = require('../../services/hero-service');
 var HeroApi = require('../../utils/hero-api');
 
 var Parameters = require('./info/parameters');
@@ -13,11 +13,11 @@ var DamageProtection = require('./info/damage-protection');
 var Skills = require('./info/skills');
 var Abilities = require('./info/abilities');
 
-var HeroesInfo = React.createClass({
+var HeroInfo = React.createClass({
   _increase: function(area) {
     var idOrName = arguments[1];
 
-    HeroesService.increase(area, idOrName)
+    HeroService.increase(area, idOrName)
       .then(HeroApi.fetch);
   },
   render: function() {
@@ -88,4 +88,4 @@ var HeroesInfo = React.createClass({
   }
 });
 
-module.exports = HeroesInfo;
+module.exports = HeroInfo;

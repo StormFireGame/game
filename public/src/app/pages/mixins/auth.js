@@ -1,6 +1,6 @@
 var Router = require('react-router');
 
-var SessionsHelper = require('../../helpers/sessions');
+var SessionHelper = require('../../helpers/session-helper');
 var debug = require('debug')('game:pages:mixins:auth');
 var mediator = require('../../mediator');
 var actionTypes = require('../../constants/action-types');
@@ -21,7 +21,7 @@ var AuthMixin = {
   },
   statics: {
     willTransitionTo: function(transition) {
-      if (!SessionsHelper.checkRouteAccessWithoutAuth(transition.path)) {
+      if (!SessionHelper.isSignin()) {
         transition.abort();
         debug('access closed %s', transition.path);
         transition.redirect('/');

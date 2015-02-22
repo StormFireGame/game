@@ -1,16 +1,33 @@
 var React = require('react');
 var mui = require('material-ui');
+var _ = require('lodash');
 
-var debug = require('debug')('game:components:heroes:info:skills');
+var SkillStore = require('../../../stores/skill-store');
+
+var debug = require('debug')('game:components:hero:info:skills');
 
 var Paper = mui.Paper;
 var FontIcon = mui.FontIcon;
 
-var HeroesInfoSkills = React.createClass({
+function getInfoSkillsState() {
+  return {
+    skills: SkillStore.get(),
+    page: 0
+  };
+}
+
+var HeroInfoSkills = React.createClass({
   getInitialState: function() {
-    return {
-      page: 0
-    };
+    return getInfoSkillsState();
+  },
+  componentDidMount: function() {
+    SkillStore.addChangeListener(this._onChange);
+  },
+  componentWillUnmount: function() {
+    SkillStore.removeChangeListener(this._onChange);
+  },
+  _onChange: function() {
+    this.setState(getInfoSkillsState());
   },
   _nextPage: function() {
     this.setState({
@@ -25,7 +42,7 @@ var HeroesInfoSkills = React.createClass({
   render: function() {
     var props = this.props;
     var perPage = 5;
-    var skills = props.skills
+    var skills = this.state.skills
       .slice(this.state.page * perPage, this.state.page * perPage + perPage);
     var style = {
       width: 170,
@@ -34,13 +51,19 @@ var HeroesInfoSkills = React.createClass({
     };
 
     var items = skills
-      .map(function(item) {
+      .map(function(skill) {
+        var item = _(props.skills).find((heroSkill) => {
+          return heroSkill.skill === skill._id;
+        });
+
         return (
           <div>
-            <dt>{item.skill.name}</dt>
-            <dd>{item.level}
+            <dt>{skill.name}</dt>
+            <dd>{item ? item.level : 0}
               {props.numberOfSkills ?
-                <FontIcon onClick={props.onIncrease.bind(this, 'skills', item._id)} className="mdfi_content_add" /> : null}
+                <FontIcon
+                  onClick={props.onIncrease.bind(this, 'skills', skill._id)}
+                  className="mdfi_content_add" /> : null}
             </dd>
           </div>
         );
@@ -65,7 +88,7 @@ var HeroesInfoSkills = React.createClass({
           <div className="pagination">
             {this.state.page > 0 ?
               <FontIcon onClick={this._prevPage} className="mdfi_image_navigate_before" /> : null}
-            {(this.state.page + 1) * perPage < props.skills.length ?
+            {(this.state.page + 1) * perPage < this.state.skills.length ?
               <FontIcon onClick={this._nextPage} className="mdfi_image_navigate_next" /> : null}
           </div>
         </Paper>
@@ -74,4 +97,4 @@ var HeroesInfoSkills = React.createClass({
   }
 });
 
-module.exports = HeroesInfoSkills;
+module.exports = HeroInfoSkills;

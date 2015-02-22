@@ -2,7 +2,7 @@ var React = require('react');
 var mui = require('material-ui');
 var debug = require('debug')('game:components:info');
 
-var HeroStore = require('../stores/hero');
+var HeroStore = require('../stores/hero-store');
 
 var FontIcon = mui.FontIcon;
 
