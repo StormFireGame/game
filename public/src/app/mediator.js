@@ -2,7 +2,7 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 var mediator = assign(new EventEmitter(), {
-  accessToken: 'dbYRwX1K',
+  accessToken: 'PJvn04SH',
   currentHero: null
 });
 

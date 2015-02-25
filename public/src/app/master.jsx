@@ -19,11 +19,14 @@ var Master = React.createClass({
 
     debug('master render %s', this.getPath());
 
-    if (this.isActive('/heroes/show')) {
+    if (this.isActive('/heroes/show') ||
+        this.isActive('/heroes/preferences')) {
       container = (
         <div>
           <Header />
-          <RouteHandler {...this.props} />
+          <div className="main-wrapper">
+            <RouteHandler {...this.props} />
+          </div>
         </div>
       );
     } else {

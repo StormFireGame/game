@@ -21,10 +21,20 @@ var HeroShowPage = React.createClass({
       <nav id="menu" style={style}>
         <Toolbar>
           <ToolbarGroup key={0} float="left">
-            <RaisedButton label="Hero" primary={true} />
-            <RaisedButton label="Inventary" />
-            <RaisedButton label="References" />
-            <RaisedButton label="Info" />
+            <RaisedButton
+              label="Hero"
+              linkButton={true}
+              href="#/heroes/show" />
+            <RaisedButton
+              linkButton={true}
+              label="Inventary" />
+            <RaisedButton
+              label="Preferences"
+              linkButton={true}
+              href="#/heroes/preferences" />
+            <RaisedButton
+              linkButton={true}
+              label="Info" />
           </ToolbarGroup>
           <ToolbarGroup key={1} float="right">
             <FontIcon className="mdfi_content_undo" />
