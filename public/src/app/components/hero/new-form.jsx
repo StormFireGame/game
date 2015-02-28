@@ -26,8 +26,8 @@ var HeroNewForm = React.createClass({
     };
   },
   _onSubmit: function(e) {
-    var refs = this.refs,
-        data;
+    var refs = this.refs;
+    var data;
 
     e.preventDefault();
 
@@ -54,7 +54,6 @@ var HeroNewForm = React.createClass({
   },
   render: function() {
     var errors = this.state.errors;
-    this.state.errors = {};
 
     debug('render');
 

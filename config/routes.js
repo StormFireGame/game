@@ -25,6 +25,11 @@ module.exports = function(app) {
     heroesController.increase
   );
 
+  app.patch('/heroes/me',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.update
+  );
+
   app.get('/skills',
     passport.authenticate('bearer', { session: false }),
     skillsController.index

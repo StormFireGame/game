@@ -106,7 +106,29 @@ exports.increase = function *() {
   } catch(err) {
     debug('save error %o', err);
     this.status = 500;
+    this.body = err;
+    return;
   }
+
+  this.status = 204;
+};
+
+exports.update = function *() {
+  var hero = this.req.user;
+  var body = this.request.body;
+
+  debug('udpate %s %o ...', hero.login, body);
+
+  try {
+    yield Hero.update({ _id: hero._id }, body).exec();
+  } catch(err) {
+    debug('save error %o', err);
+    this.status = 500;
+    this.body = err;
+    return;
+  }
+
+  debug('updated');
 
   this.status = 204;
 };

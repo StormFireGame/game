@@ -24,14 +24,14 @@ var HeroShowPage = React.createClass({
             <RaisedButton
               label="Hero"
               linkButton={true}
-              href="#/heroes/show" />
+              href="#/hero" />
             <RaisedButton
               linkButton={true}
               label="Inventary" />
             <RaisedButton
               label="Preferences"
               linkButton={true}
-              href="#/heroes/preferences" />
+              href="#/hero/preferences/general" />
             <RaisedButton
               linkButton={true}
               label="Info" />

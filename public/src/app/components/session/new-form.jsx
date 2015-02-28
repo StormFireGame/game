@@ -43,7 +43,6 @@ var SessionNewForm = React.createClass({
   },
   render: function() {
     var error = this.state.error;
-    this.state.error = null;
 
     debug('render');
 
