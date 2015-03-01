@@ -30,6 +30,11 @@ module.exports = function(app) {
     heroesController.update
   );
 
+  app.put('/heroes/me/change-password',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.changePassword
+  );
+
   app.get('/skills',
     passport.authenticate('bearer', { session: false }),
     skillsController.index

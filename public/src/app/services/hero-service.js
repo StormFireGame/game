@@ -80,5 +80,23 @@ module.exports = {
       });
 
     return defer;
+  },
+
+  changePassword: function(data) {
+    var defer;
+
+    debug('update hero password %o', data);
+
+    defer = request
+      .put('/heroes/me/change-password')
+      .send(data)
+      .promise();
+
+    defer
+      .then(function() {
+        debug('updated password');
+      });
+
+    return defer;
   }
 };

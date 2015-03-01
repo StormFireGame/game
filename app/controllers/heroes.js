@@ -132,3 +132,32 @@ exports.update = function *() {
 
   this.status = 204;
 };
+
+exports.changePassword = function *() {
+  var hero = this.req.user;
+  var body = this.request.body;
+  var correctPassword = yield hero.comparePassword(body.password);
+
+  debug('changing password %s ...', hero.login);
+
+  if (!correctPassword) {
+    debug('wrong password');
+    this.status = 422;
+    return;
+  }
+
+  hero.password = body.newPassword;
+
+  try {
+    yield hero.save();
+  } catch(err) {
+    debug('save error %o', err);
+    this.status = 500;
+    this.body = err;
+    return;
+  }
+
+  debug('password updated');
+
+  this.status = 204;
+};

@@ -62,6 +62,7 @@ var HeroNewForm = React.createClass({
         <TextField
           ref="login"
           name="login"
+          required
           errorText={errors.login}
           hintText="Login" />
         <br />
@@ -69,12 +70,14 @@ var HeroNewForm = React.createClass({
           ref="password"
           type="password"
           name="password"
+          required
           errorText={errors.password}
           hintText="Password" />
         <br />
         <TextField
           ref="email"
           type="email"
+          required
           errorText={errors.email}
           hintText="Email"  />
         <br />

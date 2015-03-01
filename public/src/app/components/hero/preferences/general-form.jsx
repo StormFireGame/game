@@ -76,6 +76,7 @@ var HeroPreferencesGeneralForm = React.createClass({
             multiLine={true}
             floatingLabelText="About" />
           <br />
+          <br />
           <RaisedButton label="Save" />
         </form>
       </div>

@@ -52,12 +52,14 @@ var SessionNewForm = React.createClass({
           ref="login"
           errorText={error}
           name="login"
+          required
           hintText="Login" />
         <br />
         <TextField
           ref="password"
           type="password"
           name="password"
+          required
           hintText="Password" />
         <br />
         <RaisedButton label="Signin" />
