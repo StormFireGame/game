@@ -1,4 +1,4 @@
-var debug = require('debug')('game:heroController');
+var debug = require('debug')('game:controllers:heroes');
 var _ = require('lodash');
 
 var Hero = require('../models/hero');
@@ -31,15 +31,24 @@ exports.create = function *() {
 };
 
 exports.show = function *() {
-  var hero = this.req.user;
+  var hero = yield Hero
+      .findById(this.req.user)
+      .populate('image')
+      .exec();
 
   var tableExperience = yield TableExperience
     .findOne({ level: hero.level + 1 })
     .exec();
 
   var heroObj = hero.toJSON();
+  var absoluteUrl = this.request.protocol + '://' + this.request.get('host');
+
 
   heroObj.nextLevelExperience = tableExperience.experience;
+
+  if (heroObj.image) {
+    heroObj.image.image = absoluteUrl + heroObj.image.image;
+  }
 
   this.body = heroObj;
 };
@@ -106,7 +115,60 @@ exports.increase = function *() {
   } catch(err) {
     debug('save error %o', err);
     this.status = 500;
+    this.body = err;
+    return;
   }
+
+  this.status = 204;
+};
+
+exports.update = function *() {
+  var hero = this.req.user;
+  var body = this.request.body;
+
+  debug('udpate %s %o ...', hero.login, body);
+
+  yield hero.save();
+  // TODO: a lot of try catch may be just remove it and add global error handler
+  try {
+    yield Hero.update({ _id: hero._id }, body).exec();
+  } catch(err) {
+    debug('save error %o', err);
+    this.status = 500;
+    this.body = err;
+    return;
+  }
+
+  debug('updated');
+
+  this.status = 204;
+};
+
+exports.changePassword = function *() {
+  var hero = this.req.user;
+  var body = this.request.body;
+  var correctPassword = yield hero.comparePassword(body.password);
+
+  debug('changing password %s ...', hero.login);
+
+  if (!correctPassword) {
+    debug('wrong password');
+    this.status = 422;
+    return;
+  }
+
+  hero.password = body.newPassword;
+
+  try {
+    yield hero.save();
+  } catch(err) {
+    debug('save error %o', err);
+    this.status = 500;
+    this.body = err;
+    return;
+  }
+
+  debug('password updated');
 
   this.status = 204;
 };

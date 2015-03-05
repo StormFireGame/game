@@ -1,4 +1,5 @@
 var React = require('react');
+var _ = require('lodash');
 
 var Menu = require('./menu');
 var Info = require('./info');
@@ -11,8 +12,8 @@ var Header = React.createClass({
 
     return (
       <header id="header">
-        <Menu />
         <Info />
+        <Menu />
       </header>
     );
   }

@@ -15,6 +15,10 @@ function loadData(data) {
   debug('data loaded');
 }
 
+function update(data) {
+  _hero = assign(_hero, data);
+}
+
 var HeroStore = assign({}, EventEmitter.prototype, {
   get: function() {
     return _hero;
@@ -40,6 +44,9 @@ AppDispatcher.register(function(payload) {
   switch(action.actionType) {
     case HeroConstants.HERO_RECEIVE:
       loadData(action.data);
+      break;
+    case HeroConstants.HERO_UPDATED:
+      update(action.data);
       break;
 
     default:

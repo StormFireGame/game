@@ -2,6 +2,7 @@ var request = require('../lib/superagent');
 var debug = require('debug')('game:services:hero');
 var mediator = require('../mediator');
 var makeUrl = require('make-url');
+var assign = require('object-assign');
 
 // TODO: plural on single name
 module.exports = {
@@ -57,6 +58,43 @@ module.exports = {
     defer
       .then(function() {
         debug('increased');
+      });
+
+    return defer;
+  },
+
+  update: function(data) {
+    var defer;
+
+    debug('update hero %o', data);
+
+    defer = request
+      .patch('/heroes/me')
+      .send(data)
+      .promise();
+
+    defer
+      .then(function() {
+        mediator.currentHero = assign(mediator.currentHero, data);
+        debug('updated');
+      });
+
+    return defer;
+  },
+
+  changePassword: function(data) {
+    var defer;
+
+    debug('update hero password %o', data);
+
+    defer = request
+      .put('/heroes/me/change-password')
+      .send(data)
+      .promise();
+
+    defer
+      .then(function() {
+        debug('updated password');
       });
 
     return defer;

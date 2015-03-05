@@ -34,17 +34,18 @@ var HeroShowPage = React.createClass({
     this.setState(getHeroState());
   },
   render: function() {
+    var hero = this.state.hero;
     debug('render');
 
-    if (_.isEmpty(this.state.hero)) return null;
+    if (_.isEmpty(hero)) return null;
 
     return (
       <div id="hero-show">
         <section className="body-wrapper">
-          <HeroBody hero={this.state.hero} />
+          <HeroBody hero={hero} />
         </section>
         <section className="info-wrapper">
-          <HeroInfo hero={this.state.hero} />
+          <HeroInfo hero={hero} />
         </section>
       </div>
     );

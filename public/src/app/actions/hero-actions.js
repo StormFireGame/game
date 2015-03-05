@@ -8,4 +8,10 @@ module.exports = {
       data: data
     });
   },
+  updated: function(data) {
+    AppDispatcher.handleAction({
+      actionType: HeroConstants.HERO_UPDATED,
+      data: data
+    });
+  }
 };

@@ -1,12 +1,12 @@
 var React = require('react');
 var Router = require('react-router');
 
-var Header = require('./components/header');
-var Footer = require('./components/footer');
-var Messages = require('./components/messages');
-var mediator = require('./mediator');
+var Header = require('../components/header');
+var Footer = require('../components/footer');
+var Messages = require('../components/messages');
+var mediator = require('../mediator');
 
-var debug = require('debug')('game:master');
+var debug = require('debug')('game:pages:master');
 
 var RouteHandler = Router.RouteHandler;
 var State = Router.State;
@@ -19,11 +19,13 @@ var Master = React.createClass({
 
     debug('master render %s', this.getPath());
 
-    if (this.isActive('/heroes/show')) {
+    if (!this.isActive('/heroes/new') && !this.isActive('/')) {
       container = (
         <div>
           <Header />
-          <RouteHandler {...this.props} />
+          <div className="main-wrapper">
+            <RouteHandler {...this.props} />
+          </div>
         </div>
       );
     } else {
@@ -38,6 +40,7 @@ var Master = React.createClass({
       <div>
         <div className='container'>
           {container}
+          <div className="push"></div>
         </div>
         <Footer />
         <Messages />

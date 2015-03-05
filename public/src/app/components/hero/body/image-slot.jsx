@@ -9,6 +9,9 @@ var HeroBodyImageSlot = React.createClass({
   render: function() {
     var style;
 
+    var image = (this.props.image) ? this.props.image.image :
+      'images/hero-body/no-hero.png';
+
     style = {
       position: 'absolute',
       width: this.props.width,
@@ -21,7 +24,7 @@ var HeroBodyImageSlot = React.createClass({
 
     return (
       <div className="image-slot" style={style}>
-        <img src="images/hero-body/no-hero.png" alt="" />
+        <img src={image} alt="" />
       </div>
     );
   }

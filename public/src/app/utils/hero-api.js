@@ -8,6 +8,13 @@ module.exports = {
       .then(function(response) {
         HeroActions.receive(response);
       });
+  },
+
+  updateGeneral: function(data) {
+    return HeroService.update(data)
+      .then(function() {
+        HeroActions.updated(data);
+      });
   }
 
 };

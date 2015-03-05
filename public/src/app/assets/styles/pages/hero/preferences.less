@@ -1,0 +1,35 @@
+#hero-preferences {
+  .clearfix();
+  .menu-wrapper {
+    height: 160px;
+    float: left;
+  }
+  .content-wrapper {
+    margin-left: 40px;
+    float: left;
+    width: 802px;
+  }
+}
+
+#hero-preferences-images {
+  form>div:first-child>div {
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 20px;
+    width: auto;
+
+    &:nth-child(-n+4) {
+      margin-top: 0;
+    }
+
+    &:nth-child(4n+4) {
+      margin-right: 0;
+    }
+
+    .mui-enhanced-switch-wrap {
+      left: 50%;
+      margin-left: -12px;
+      top: 10px;
+    }
+  }
+}

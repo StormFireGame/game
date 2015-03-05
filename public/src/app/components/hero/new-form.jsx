@@ -10,13 +10,12 @@ var actionTypes = require('../../constants/action-types');
 var HeroService = require('../../services/hero-service');
 
 var RadioButtonGroup = mui.RadioButtonGroup;
-
 var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
 var RadioButton = mui.RadioButton;
+var Toast = mui.Toast;
 
 var Navigation = Router.Navigation;
-var Toast = mui.Toast;
 
 var HeroNewForm = React.createClass({
   mixins: [Navigation],
@@ -26,8 +25,8 @@ var HeroNewForm = React.createClass({
     };
   },
   _onSubmit: function(e) {
-    var refs = this.refs,
-        data;
+    var refs = this.refs;
+    var data;
 
     e.preventDefault();
 
@@ -54,7 +53,6 @@ var HeroNewForm = React.createClass({
   },
   render: function() {
     var errors = this.state.errors;
-    this.state.errors = {};
 
     debug('render');
 
@@ -63,6 +61,7 @@ var HeroNewForm = React.createClass({
         <TextField
           ref="login"
           name="login"
+          required
           errorText={errors.login}
           hintText="Login" />
         <br />
@@ -70,12 +69,14 @@ var HeroNewForm = React.createClass({
           ref="password"
           type="password"
           name="password"
+          required
           errorText={errors.password}
           hintText="Password" />
         <br />
         <TextField
           ref="email"
           type="email"
+          required
           errorText={errors.email}
           hintText="Email"  />
         <br />
@@ -83,7 +84,6 @@ var HeroNewForm = React.createClass({
         <label>Sex:</label>
         <RadioButtonGroup
           ref="sex"
-          name="sex"
           defaultSelected="male">
             <RadioButton
               value="male"

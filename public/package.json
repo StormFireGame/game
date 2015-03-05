@@ -29,6 +29,7 @@
     "lodash": "^3.2.0",
     "make-url": "0.0.1",
     "material-design-fonticons": "^1.0.0",
+    "moment": "^2.9.0",
     "object-assign": "^2.0.0",
     "promise": "^6.1.0",
     "react": "^0.12.2",
