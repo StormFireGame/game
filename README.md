@@ -38,4 +38,5 @@ gulp watch
 ```
 
 ## Progress
-![Progress](progress.png)
+![Hero](progress-hero.png)
+![Preferences](progress-preferences.png)
