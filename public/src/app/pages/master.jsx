@@ -40,6 +40,7 @@ var Master = React.createClass({
       <div>
         <div className='container'>
           {container}
+          <div className="push"></div>
         </div>
         <Footer />
         <Messages />

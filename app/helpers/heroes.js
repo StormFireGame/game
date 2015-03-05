@@ -1,5 +1,5 @@
 var moment = require('moment');
-var debug = require('debug')('game:heroesHelper');
+var debug = require('debug')('game:helpers:heroes');
 
 var heroConfig = require('../../config/hero');
 var TableExperience = require('../models/table-experience');

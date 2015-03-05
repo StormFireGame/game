@@ -26,6 +26,7 @@ var HeroPreferencesGeneralForm = React.createClass({
       about: refs.about.getValue()
     };
 
+    // TODO: data do extend not correctly so may be do just throw service
     HeroApi.updateGeneral(data)
       .then(function() {
         mediator.emit(actionTypes.MESSAGE, 'Hero updated');

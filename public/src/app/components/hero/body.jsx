@@ -162,7 +162,8 @@ var HeroBody = React.createClass({
             left={width + 2 * offset}
             top={height + 2 * offset}
             width={146}
-            height={259} />
+            height={259}
+            image={hero.image} />
 
           <ThingSlot type='glows' {...proportions.glows} />
           <ThingSlot type='helmet' {...proportions.helmet} />

@@ -1,5 +1,6 @@
 var React = require('react');
 var mui = require('material-ui');
+var Router = require('react-router');
 
 var debug = require('debug')('game:components:menu');
 
@@ -8,8 +9,10 @@ var ToolbarGroup = mui.ToolbarGroup;
 
 var RaisedButton = mui.RaisedButton;
 var FontIcon = mui.FontIcon;
+var State = Router.State;
 
 var HeroShowPage = React.createClass({
+  mixins: [State],
   render: function() {
     var style = {
       width: 570
@@ -24,6 +27,7 @@ var HeroShowPage = React.createClass({
             <RaisedButton
               label="Hero"
               linkButton={true}
+              primary={this.isActive('/hero')}
               href="#/hero" />
             <RaisedButton
               linkButton={true}
@@ -31,6 +35,11 @@ var HeroShowPage = React.createClass({
             <RaisedButton
               label="Preferences"
               linkButton={true}
+              primary={
+                this.isActive('/hero/preferences/general') ||
+                this.isActive('/hero/preferences/security') ||
+                this.isActive('/hero/preferences/images')
+              }
               href="#/hero/preferences/general" />
             <RaisedButton
               linkButton={true}

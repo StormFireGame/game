@@ -1,5 +1,4 @@
 var React = require('react');
-var mui = require('material-ui');
 
 var debug = require('debug')('game:pages:hero:preferences:general');
 

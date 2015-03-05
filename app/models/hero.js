@@ -267,6 +267,7 @@ HeroSchema.methods.comparePassword = function *(candidatePassword) {
 
 HeroSchema.statics.passwordMatches = function *(username, password) {
   var hero = yield this.findOne({ login: username }).exec();
+
   if (!hero) {
     throw new Error('Hero not found');
   }

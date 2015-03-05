@@ -10,13 +10,12 @@ var actionTypes = require('../../constants/action-types');
 var HeroService = require('../../services/hero-service');
 
 var RadioButtonGroup = mui.RadioButtonGroup;
-
 var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
 var RadioButton = mui.RadioButton;
+var Toast = mui.Toast;
 
 var Navigation = Router.Navigation;
-var Toast = mui.Toast;
 
 var HeroNewForm = React.createClass({
   mixins: [Navigation],
@@ -85,7 +84,6 @@ var HeroNewForm = React.createClass({
         <label>Sex:</label>
         <RadioButtonGroup
           ref="sex"
-          name="sex"
           defaultSelected="male">
             <RadioButton
               value="male"

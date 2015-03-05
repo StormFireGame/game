@@ -1,4 +1,4 @@
-var debug = require('debug');
+var debug = require('debug')('game:controllers:skills');
 
 var Skill = require('../models/skill');
 
