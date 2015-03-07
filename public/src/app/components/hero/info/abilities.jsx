@@ -13,7 +13,7 @@ var HeroInfoAbilities = React.createClass({
     var abilities = ['swords', 'axes', 'knives', 'clubs', 'shields'];
     var items;
     var style = {
-      width: 170,
+      width: 205,
       height: 50 + 20 * abilities.length,
       backgroundColor: 'white'
     };

@@ -26,9 +26,28 @@ body {
 }
 
 dl {
+  .clearfix();
   &.dl-horizontal {
     dt, dd {
       float: left;
+    }
+  }
+}
+
+// TODO: check this important
+.mui-toolbar {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  .mui-toolbar-group {
+    margin: 0px !important;
+    &>* {
+      float: left !important;
+      margin-left: 10px !important;
+      margin-right: 0 !important;
+      padding-left: 0 !important;
+      &:first-child {
+        margin-left: 0 !important;
+      }
     }
   }
 }
@@ -41,3 +60,4 @@ dl {
 
 @import "pages/hero/show";
 @import "pages/hero/preferences";
+@import "pages/hero/inventory";
