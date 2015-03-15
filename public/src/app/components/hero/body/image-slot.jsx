@@ -7,12 +7,10 @@ var Paper = mui.Paper;
 
 var HeroBodyImageSlot = React.createClass({
   render: function() {
-    var style;
-
     var image = (this.props.image) ? this.props.image.image :
       'images/hero-body/no-hero.png';
 
-    style = {
+    var style = {
       position: 'absolute',
       width: this.props.width,
       height: this.props.height,

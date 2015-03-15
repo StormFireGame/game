@@ -40,13 +40,13 @@ var HeroShowPage = React.createClass({
     if (_.isEmpty(hero)) return null;
 
     return (
-      <div id="hero-show">
-        <section className="body-wrapper">
+      <div className="row">
+        <div className="col-md-4">
           <HeroBody hero={hero} />
-        </section>
-        <section className="info-wrapper">
+        </div>
+        <div className="col-md-8">
           <HeroInfo hero={hero} />
-        </section>
+        </div>
       </div>
     );
   }

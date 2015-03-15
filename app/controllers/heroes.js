@@ -4,6 +4,9 @@ var _ = require('lodash');
 var Hero = require('../models/hero');
 var Skill = require('../models/skill');
 var TableExperience = require('../models/table-experience');
+var Thing = require('../models/thing');
+
+var heroesHelper = require('../helpers/heroes');
 
 exports.create = function *() {
   var body = this.request.body;
@@ -33,6 +36,7 @@ exports.create = function *() {
 exports.show = function *() {
   var hero = yield Hero
       .findById(this.req.user)
+      .populate('things.thing')
       .populate('image')
       .exec();
 
@@ -43,12 +47,15 @@ exports.show = function *() {
   var heroObj = hero.toJSON();
   var absoluteUrl = this.request.protocol + '://' + this.request.get('host');
 
-
   heroObj.nextLevelExperience = tableExperience.experience;
 
   if (heroObj.image) {
     heroObj.image.image = absoluteUrl + heroObj.image.image;
   }
+
+  heroObj.things.forEach(function(thing) {
+    thing.thing.image = absoluteUrl + thing.thing.image;
+  });
 
   this.body = heroObj;
 };
@@ -170,5 +177,58 @@ exports.changePassword = function *() {
 
   debug('password updated');
 
+  this.status = 204;
+};
+
+exports.removeThing = function *() {
+  var hero = this.req.user;
+  var id = this.params.id;
+
+  debug('removing hero thing %s', id);
+
+  if (!hero.things.pull({ _id: id })) {
+    debug('thing to remove not found %s', id);
+    this.status = 404;
+    return;
+  }
+
+  yield hero.save();
+
+  debug('hero thing removed %s', id);
+
+  this.status = 204;
+};
+
+exports.dressThing = function *() {
+  var hero = this.req.user;
+  var id = this.params.id;
+  var thing;
+
+  debug('dressing hero thing %s', id);
+
+  thing = yield Thing.findById(hero.things.id(id).thing).exec();
+
+  if (!heroesHelper.canBeDressed(hero, thing)) {
+    debug('thing can\'t be dressed %s', thing.id);
+    this.status = 423;
+    return;
+  }
+
+  yield Hero.update({ 'things._id': id },
+    { '$set': { 'things.$.dressed': true } }).exec();
+
+  debug('hero thing dressed %s', id);
+  this.status = 204;
+};
+
+exports.undressThing = function *() {
+  var id = this.params.id;
+
+  debug('undressing hero thing %s', id);
+
+  yield Hero.update({ 'things._id': id },
+    { '$set': { 'things.$.dressed': false } }).exec();
+
+  debug('hero thing undressed %s', id);
   this.status = 204;
 };

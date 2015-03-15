@@ -46,8 +46,7 @@ var HeroInfoSkills = React.createClass({
       .slice(this.state.page * perPage, this.state.page * perPage + perPage);
     var style = {
       width: 210,
-      height: 50 + 20 * skills.length,
-      backgroundColor: 'white'
+      height: 50 + 20 * skills.length
     };
 
     var items = skills

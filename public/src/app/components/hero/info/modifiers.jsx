@@ -10,8 +10,7 @@ var HeroInfoModifiers = React.createClass({
     var props = this.props;
     var style = {
       width: 205,
-      height: 179,
-      backgroundColor: 'white'
+      height: 179
     };
 
     debug('render');

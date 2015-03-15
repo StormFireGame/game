@@ -7,10 +7,18 @@ var HeroInventoryItems = React.createClass({
   render: function() {
     debug('render');
 
+    var items = this.props.things.map(function(thing, index) {
+      return (
+        <Item
+          key={index}
+          thing={thing}
+          hero={this.props.hero} />
+      );
+    }.bind(this));
+
     return (
-      <div>
-        Items
-        <Item />
+      <div className="items-wrapper">
+        {items}
       </div>
     );
   }

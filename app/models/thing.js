@@ -10,7 +10,7 @@ var ThingSchema = new mongoose.Schema({
     enum: [
       'sword', 'axe', 'knive', 'clubs', 'shield',
       'helmet', 'kolchuga', 'armor',
-      'belt', 'pants', 'treetop', 'glove',
+      'belt', 'pants', 'treetop', 'gloves',
       'boot', 'ring', 'amulet', 'potion', 'elixir'
     ],
     required: true
@@ -82,6 +82,13 @@ var ThingSchema = new mongoose.Schema({
   capacity: Number,
   isTwoHands: Boolean,
   timeDuration: Number
+}, {
+  toJSON : {
+    transform: function(doc, ret) {
+      // TODO: think about move to config path
+      ret.image = '/uploads/things/' + ret.image;
+    }
+  }
 });
 
 module.exports = mongoose.model('Thing', ThingSchema);

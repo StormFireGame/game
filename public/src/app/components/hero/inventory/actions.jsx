@@ -26,7 +26,7 @@ var HeroInventoryActions = React.createClass({
       { payload: 'armor', text: 'Armor' },
       { payload: 'belt', text: 'Belt' },
       { payload: 'pants', text: 'Pants' },
-      { payload: 'treetop', text: 'Treetop' },
+      { payload: 'treetops', text: 'Treetops' },
       { payload: 'glove', text: 'Glove' },
       { payload: 'boot', text: 'Boot' },
       { payload: 'ring', text: 'Ring' },

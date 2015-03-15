@@ -1,6 +1,7 @@
 var AppDispatcher = require('../app-dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var _ = require('lodash');
 
 var debug = require('debug')('game:stores:hero');
 
@@ -17,6 +18,11 @@ function loadData(data) {
 
 function update(data) {
   _hero = assign(_hero, data);
+}
+
+function removeThing(id) {
+  var index = _.findIndex(_hero.things, { _id: id });
+  _hero.things.splice(index, 1);
 }
 
 var HeroStore = assign({}, EventEmitter.prototype, {
@@ -47,6 +53,9 @@ AppDispatcher.register(function(payload) {
       break;
     case HeroConstants.HERO_UPDATED:
       update(action.data);
+      break;
+    case HeroConstants.HERO_THING_REMOVED:
+      removeThing(action.id);
       break;
 
     default:

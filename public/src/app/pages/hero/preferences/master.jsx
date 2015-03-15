@@ -17,13 +17,13 @@ var Master = React.createClass({
     debug('master render %s', this.getPath());
 
     return (
-      <div id="hero-preferences">
-        <section className="menu-wrapper">
+      <div className="row">
+        <div className="col-md-3">
           <Menu />
-        </section>
-        <section className="content-wrapper">
+        </div>
+        <div className="col-md-9">
           <RouteHandler {...this.props} />
-        </section>
+        </div>
       </div>
     );
   }

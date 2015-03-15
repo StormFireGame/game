@@ -98,5 +98,56 @@ module.exports = {
       });
 
     return defer;
+  },
+
+  removeThing: function(id) {
+    var defer;
+
+    debug('removing thing %s', id);
+
+    defer = request
+      .del(makeUrl('/heroes/me/things/:id', id))
+      .promise();
+
+    defer
+      .then(function() {
+        debug('thing removed %s', id);
+      });
+
+    return defer;
+  },
+
+  dressThing: function(id) {
+    var defer;
+
+    debug('dress thing %s', id);
+
+    defer = request
+      .put(makeUrl('/heroes/me/things/:id/dress', id))
+      .promise();
+
+    defer
+      .then(function() {
+        debug('thing dressed %s', id);
+      });
+
+    return defer;
+  },
+
+  undressThing: function(id) {
+    var defer;
+
+    debug('undress thing %s', id);
+
+    defer = request
+      .put(makeUrl('/heroes/me/things/:id/undress', id))
+      .promise();
+
+    defer
+      .then(function() {
+        debug('thing undressed %s', id);
+      });
+
+    return defer;
   }
 };

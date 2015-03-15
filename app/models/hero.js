@@ -9,6 +9,7 @@ var heroesHelper = require('../helpers/heroes');
 
 require('./hero-image');
 require('./skill');
+require('./thing');
 
 var HeroSchema = new mongoose.Schema({
   login: {

@@ -14,8 +14,7 @@ var HeroInfoAbilities = React.createClass({
     var items;
     var style = {
       width: 205,
-      height: 50 + 20 * abilities.length,
-      backgroundColor: 'white'
+      height: 50 + 20 * abilities.length
     };
 
     if (props.numberOfAbilities) {

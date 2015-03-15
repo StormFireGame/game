@@ -1,13 +1,20 @@
 #hero-inventory {
-  .body-wrapper {
-    width: 310px;
-    position: absolute;
+  .item {
+    margin-top: 20px;
+    >div {
+      padding: 10px;
+      height: auto;
+    }
+    .content-wrapper {
+      .image-wrapper {
+        margin-left: 40px;
+        margin-top: 13px;
+      }
+      .actions-wrapper {
+        &>div {
+          margin-top: 10px;
+        }
+      }
+    }
   }
-
-  .inventory-wrapper {
-    position: absolute;
-    left: 330px;
-    width: 640px;
-  }
-// TODO: think about toolbar and dropdown do pull request
 }

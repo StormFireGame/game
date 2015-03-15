@@ -15,6 +15,23 @@ module.exports = {
       .then(function() {
         HeroActions.updated(data);
       });
+  },
+
+  removeThing: function(id) {
+    return HeroService.removeThing(id)
+      .then(function() {
+        HeroActions.thingRemoved(id);
+      });
+  },
+
+  dressThing: function(id) {
+    return HeroService.dressThing(id)
+      .then(this.fetch);
+  },
+
+  undressThing: function(id) {
+    return HeroService.undressThing(id)
+      .then(this.fetch);
   }
 
 };

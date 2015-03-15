@@ -10,8 +10,7 @@ var HeroInfoInformation = React.createClass({
     var props = this.props;
     var style = {
       width: 205,
-      height: 140,
-      backgroundColor: 'white'
+      height: 140
     };
 
     debug('render');

@@ -1,6 +1,6 @@
 module.exports = {
   development: {
-    port: 3000,
+    port: 3001,
     mongo: {
       url: 'mongodb://localhost/game'
     }
