@@ -163,9 +163,11 @@ var HeroBody = React.createClass({
       }
 
       return (
-        <div key={index} style={position[type]}>
+        <div
+          onClick={undressHandler}
+          key={index}
+          style={position[type]}>
           <ThingSlot
-            undressHandler={undressHandler}
             thing={thing}
             type={orgType} />
         </div>

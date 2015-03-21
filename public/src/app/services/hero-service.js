@@ -149,5 +149,74 @@ module.exports = {
       });
 
     return defer;
+  },
+
+  undressThings: function() {
+    var defer;
+
+    debug('undress things');
+
+    defer = request
+      .put('/heroes/me/things/undress')
+      .promise();
+
+    defer
+      .then(function() {
+        debug('things undressed');
+      });
+
+    return defer;
+  },
+
+  newComplect: function(data) {
+    var defer;
+
+    debug('new complect %o', data);
+
+    defer = request
+      .post('/heroes/me/complects')
+      .send(data)
+      .promise();
+
+    defer
+      .then(function() {
+        debug('created');
+      });
+
+    return defer;
+  },
+
+  deleteComplect: function(id) {
+    var defer;
+
+    debug('delete complect %s', id);
+
+    defer = request
+      .del(makeUrl('/heroes/me/complects/:id', id))
+      .promise();
+
+    defer
+      .then(function() {
+        debug('complect deleted %s', id);
+      });
+
+    return defer;
+  },
+
+  applyComplect: function(id) {
+    var defer;
+
+    debug('appling complect %s', id);
+
+    defer = request
+      .put(makeUrl('/heroes/me/complects/:id/apply', id))
+      .promise();
+
+    defer
+      .then(function() {
+        debug('complect applied %s', id);
+      });
+
+    return defer;
   }
 };

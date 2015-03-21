@@ -51,6 +51,26 @@ module.exports = function(app) {
     heroesController.undressThing
   );
 
+  app.put('/heroes/me/things/undress',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.undressThings
+  );
+
+  app.post('/heroes/me/complects',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.createComplect
+  );
+
+  app.del('/heroes/me/complects/:id',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.deleteComplect
+  );
+
+  app.put('/heroes/me/complects/:id/apply',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.applyComplect
+  );
+
   app.get('/skills',
     passport.authenticate('bearer', { session: false }),
     skillsController.index

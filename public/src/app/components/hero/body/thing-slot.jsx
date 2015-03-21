@@ -1,5 +1,6 @@
 var React = require('react');
 var mui = require('material-ui');
+var _ = require('lodash');
 
 var debug = require('debug')('game:components:hero:body-thing-slot');
 
@@ -13,9 +14,11 @@ var HeroBodyThingSlot = React.createClass({
   render: function() {
     var props = this.props;
     var type = props.type;
-    var thing = props.thing;
+    var thingWrap = props.thing;
+    var thing = thingWrap ? thingWrap.thing : null;
     var width = 70;
     var height;
+    var info = [];
 
     switch(type) {
       case 'gloves':
@@ -57,19 +60,46 @@ var HeroBodyThingSlot = React.createClass({
       height: height
     };
 
+
+
+    if (thing) {
+      info.push('Name: ' + thing.name);
+      info.push('Money: ' + thing.price);
+      info.push('Stability: ' +
+        thingWrap.stabilityAll  + '/' + thingWrap.stabilityLeft);
+
+      [
+        'strengthGive', 'dexterityGive', 'intuitionGive', 'healthGive',
+        'swordsGive', 'axesGive', 'knivesGive', 'clubsGive', 'shieldsGive',
+        'damageMin', 'damageMax',
+        'protectionHead', 'protectionBreast', 'protectionBelly', 'protectionGroin', 'protectionLegs',
+        'accuracy', 'dodge', 'devastate', 'durability',
+        'blockBreak', 'armorBreak',
+        'hp',
+        'strikeCount', 'blockCount',
+        'capacity',
+        'isTwoHands',
+        'timeDuration'
+      ].forEach((item) => {
+        if (_.isUndefined(thing[item])) return;
+        var label = _.capitalize(item.replace('Give', ''));
+        info.push(label + ': ' + thing[item]);
+      });
+    }
+
     debug('render type %s', type);
 
     // TODO: props single or double quotes
     return (
       <div>
         <Paper
-          onClick={props.undressHandler}
+          title={info.join('\n')}
           style={style}
           rounded={false}
           innerClassName={`slot-${type}`}
           zDepth={1}>
           {thing ?
-            <img src={thing.thing.image} /> : null}
+            <img src={thing.image} /> : null}
         </Paper>
       </div>
     );

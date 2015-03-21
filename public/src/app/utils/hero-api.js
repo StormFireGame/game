@@ -1,3 +1,5 @@
+var assign = require('object-assign');
+
 var HeroActions = require('../actions/hero-actions');
 var HeroService = require('../services/hero-service');
 
@@ -31,6 +33,31 @@ module.exports = {
 
   undressThing: function(id) {
     return HeroService.undressThing(id)
+      .then(this.fetch);
+  },
+
+  undressThings: function() {
+    return HeroService.undressThings()
+      .then(this.fetch);
+  },
+
+  newComplect: function(data) {
+    return HeroService.newComplect(data)
+      .then(function(response) {
+        assign(data, response);
+        HeroActions.complectCreated(data);
+      });
+  },
+
+  deleteComplect: function(id) {
+    return HeroService.deleteComplect(id)
+      .then(function() {
+        HeroActions.complectDeleted(id);
+      });
+  },
+
+  applyComplect: function(id) {
+    return HeroService.applyComplect(id)
       .then(this.fetch);
   }
 

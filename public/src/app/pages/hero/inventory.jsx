@@ -24,6 +24,7 @@ var HeroInventoryPage = React.createClass({
   componentDidMount: function() {
     HeroApi.fetch();
 
+    // TODO: this should be in components not pages
     HeroStore.addChangeListener(this._onChange);
   },
   componentWillUnmount: function() {

@@ -1,3 +1,5 @@
+'use strict';
+
 var moment = require('moment');
 var debug = require('debug')('game:helpers:heroes');
 
@@ -85,7 +87,7 @@ module.exports = {
       debug('hero level up %s %s', hero.login, hero.level);
     });
   },
-  canBeDressed: function(hero, thing) {
+  thingCanBeDressed: function(hero, thing) {
     return (
       (!thing.strengthNeed || thing.strengthNeed <= hero.strength) &&
       (!thing.dexterityNeed || thing.dexterityNeed <= hero.dexterity) &&
@@ -98,5 +100,14 @@ module.exports = {
       (!thing.clubsNeed || thing.clubsNeed <= hero.clubs) &&
       (!thing.shieldsNeed || thing.shieldsNeed <= hero.shields)
     );
+  },
+  thingsCanBeDressed: function(hero, things) {
+    for (let thing of things) {
+      if (!this.thingCanBeDressed(hero, thing)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 };
