@@ -5,109 +5,116 @@
     padding: 0;
     margin-bottom: 10px;
   }
+}
 
-  [class^='slot-'] {
-    &:before {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-    }
+[class^='slot-'] {
+  position: relative;
+  text-align: center;
+  img {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
   }
-  .slot-glows {
-    &:before {
-      background-image: url(../images/hero-body/glows.png);
-      width: 28px;
-      height: 24px;
-    }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
   }
-  .slot-helmet {
-    &:before {
-      background-image: url(../images/hero-body/helmet.png);
-      width: 17px;
-      height: 24px;
-    }
+}
+.slot-gloves {
+  &:before {
+    background-image: url(../images/hero-body/gloves.png);
+    width: 28px;
+    height: 24px;
   }
-  .slot-amulet {
-    &:before {
-      background-image: url(../images/hero-body/amulet.png);
-      width: 20px;
-      height: 26px;
-    }
+}
+.slot-helmet {
+  &:before {
+    background-image: url(../images/hero-body/helmet.png);
+    width: 17px;
+    height: 24px;
   }
-  .slot-treetop {
-    &:before {
-      background-image: url(../images/hero-body/treetop.png);
-      width: 22px;
-      height: 21px;
-    }
+}
+.slot-amulet {
+  &:before {
+    background-image: url(../images/hero-body/amulet.png);
+    width: 20px;
+    height: 26px;
   }
-  .slot-shield {
-    &:before {
-      background-image: url(../images/hero-body/shield.png);
-      width: 19px;
-      height: 26px;
-    }
+}
+.slot-treetops {
+  &:before {
+    background-image: url(../images/hero-body/treetops.png);
+    width: 22px;
+    height: 21px;
   }
-  .slot-ring {
-    &:before {
-      background-image: url(../images/hero-body/ring.png);
-      width: 13px;
-      height: 13px;
-    }
+}
+.slot-shield {
+  &:before {
+    background-image: url(../images/hero-body/shield.png);
+    width: 19px;
+    height: 26px;
   }
-  .slot-belt {
-    &:before {
-      background-image: url(../images/hero-body/belt.png);
-      width: 22px;
-      height: 14px;
-    }
+}
+.slot-ring {
+  &:before {
+    background-image: url(../images/hero-body/ring.png);
+    width: 13px;
+    height: 13px;
   }
-  .slot-boots {
-    &:before {
-      background-image: url(../images/hero-body/boots.png);
-      width: 23px;
-      height: 26px;
-    }
+}
+.slot-belt {
+  &:before {
+    background-image: url(../images/hero-body/belt.png);
+    width: 22px;
+    height: 14px;
   }
-  .slot-elixir {
-    &:before {
-      background-image: url(../images/hero-body/elixir.png);
-      width: 9px;
-      height: 15px;
-    }
+}
+.slot-boots {
+  &:before {
+    background-image: url(../images/hero-body/boots.png);
+    width: 23px;
+    height: 26px;
   }
-  .slot-pants {
-    &:before {
-      background-image: url(../images/hero-body/pants.png);
-      width: 17px;
-      height: 41px;
-    }
+}
+.slot-elixir {
+  &:before {
+    background-image: url(../images/hero-body/elixir.png);
+    width: 9px;
+    height: 15px;
   }
-  .slot-armor {
-    &:before {
-      background-image: url(../images/hero-body/armor.png);
-      width: 27px;
-      height: 32px;
-    }
+}
+.slot-pants {
+  &:before {
+    background-image: url(../images/hero-body/pants.png);
+    width: 17px;
+    height: 41px;
   }
-  .slot-arms {
-    &:before {
-      background-image: url(../images/hero-body/arms.png);
-      width: 20px;
-      height: 27px;
-    }
+}
+.slot-armor {
+  &:before {
+    background-image: url(../images/hero-body/armor.png);
+    width: 27px;
+    height: 32px;
   }
+}
+.slot-arms {
+  &:before {
+    background-image: url(../images/hero-body/arms.png);
+    width: 20px;
+    height: 27px;
+  }
+}
 
-  .image-slot {
-    text-align: center;
-  }
+.image-slot {
+  text-align: center;
 }
 
 .hero-info {
   .group {
     float: left;
-    margin-right: 30px;
+    margin-right: 10px;
 
     &:last-child {
       margin-right: 0;

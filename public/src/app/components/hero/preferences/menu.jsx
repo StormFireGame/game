@@ -33,13 +33,21 @@ var PreferencesMenu = React.createClass({
     }];
     var selectedIndex = _.findIndex(menuItems, 'selected');
 
+    var style = {
+      height: 160
+    };
+
     debug('render');
 
+    // TODO: fix menu height (pr)
     return (
-      <Menu
-        selectedIndex={selectedIndex}
-        onItemClick={this._onItemClickHandler}
-        menuItems={menuItems} />
+      <div style={style}>
+        <Menu
+          autoWidth={false}
+          selectedIndex={selectedIndex}
+          onItemClick={this._onItemClickHandler}
+          menuItems={menuItems} />
+      </div>
     );
   }
 });

@@ -33,7 +33,6 @@ var HeroPreferencesGeneralForm = React.createClass({
     var itemStyle = {
       width: 146,
       height: 259,
-      backgroundColor: 'white',
       textAlign: 'center'
     };
 

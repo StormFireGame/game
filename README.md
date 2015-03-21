@@ -38,5 +38,7 @@ gulp watch
 ```
 
 ## Progress
+![Signin](progress-signin.png)
 ![Hero](progress-hero.png)
 ![Preferences](progress-preferences.png)
+![Inventory](progress-inventory.png)

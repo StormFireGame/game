@@ -1,3 +1,5 @@
+'use strict';
+
 var moment = require('moment');
 var debug = require('debug')('game:helpers:heroes');
 
@@ -41,7 +43,7 @@ module.exports = {
     capacity = (feature.capacity) ? feature.capacity.split('|')[0] : 0;
     feature.capacity = capacity + '|' + hero.capacity;
 
-    // TODO: Skills and things
+    // TODO: Skills and things counting
 
     this.updateModifiers(hero);
 
@@ -84,5 +86,28 @@ module.exports = {
 
       debug('hero level up %s %s', hero.login, hero.level);
     });
+  },
+  thingCanBeDressed: function(hero, thing) {
+    return (
+      (!thing.strengthNeed || thing.strengthNeed <= hero.strength) &&
+      (!thing.dexterityNeed || thing.dexterityNeed <= hero.dexterity) &&
+      (!thing.intuitionNeed || thing.intuitionNeed <= hero.intuition) &&
+      (!thing.healthNeed || thing.healthNeed <= hero.health) &&
+
+      (!thing.swordsNeed || thing.swordsNeed <= hero.swords) &&
+      (!thing.axesNeed || thing.axesNeed <= hero.axes) &&
+      (!thing.knivesNeed || thing.knivesNeed <= hero.knives) &&
+      (!thing.clubsNeed || thing.clubsNeed <= hero.clubs) &&
+      (!thing.shieldsNeed || thing.shieldsNeed <= hero.shields)
+    );
+  },
+  thingsCanBeDressed: function(hero, things) {
+    for (let thing of things) {
+      if (!this.thingCanBeDressed(hero, thing)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 };

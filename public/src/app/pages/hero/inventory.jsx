@@ -1,14 +1,14 @@
 var React = require('react');
-var debug = require('debug')('game:pages:hero:show');
 var _ = require('lodash');
+var debug = require('debug')('game:pages:hero:inventory');
 
 var HeroApi = require('../../utils/hero-api');
-var SkillApi = require('../../utils/skill-api');
 var HeroStore = require('../../stores/hero-store');
+
 var AuthMixin = require('../mixins/auth');
 
 var HeroBody = require('../../components/hero/body');
-var HeroInfo = require('../../components/hero/info');
+var HeroInventory  = require('../../components/hero/inventory');
 
 function getHeroState() {
   return {
@@ -16,15 +16,15 @@ function getHeroState() {
   };
 }
 
-var HeroShowPage = React.createClass({
+var HeroInventoryPage = React.createClass({
   mixins: [AuthMixin],
   getInitialState: function() {
     return getHeroState();
   },
   componentDidMount: function() {
     HeroApi.fetch();
-    SkillApi.fetch();
 
+    // TODO: this should be in components not pages
     HeroStore.addChangeListener(this._onChange);
   },
   componentWillUnmount: function() {
@@ -35,21 +35,22 @@ var HeroShowPage = React.createClass({
   },
   render: function() {
     var hero = this.state.hero;
+
     debug('render');
 
     if (_.isEmpty(hero)) return null;
 
     return (
-      <div className="row">
+      <div id="hero-inventory" className="row">
         <div className="col-md-4">
-          <HeroBody hero={hero} />
+          <HeroBody actions={true} hero={hero} />
         </div>
         <div className="col-md-8">
-          <HeroInfo hero={hero} />
+          <HeroInventory hero={hero} />
         </div>
       </div>
     );
   }
 });
 
-module.exports = HeroShowPage;
+module.exports = HeroInventoryPage;

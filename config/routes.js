@@ -36,6 +36,41 @@ module.exports = function(app) {
     heroesController.changePassword
   );
 
+  app.del('/heroes/me/things/:id',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.removeThing
+  );
+
+  app.put('/heroes/me/things/:id/dress',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.dressThing
+  );
+
+  app.put('/heroes/me/things/:id/undress',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.undressThing
+  );
+
+  app.put('/heroes/me/things/undress',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.undressThings
+  );
+
+  app.post('/heroes/me/complects',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.createComplect
+  );
+
+  app.del('/heroes/me/complects/:id',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.deleteComplect
+  );
+
+  app.put('/heroes/me/complects/:id/apply',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.applyComplect
+  );
+
   app.get('/skills',
     passport.authenticate('bearer', { session: false }),
     skillsController.index
@@ -45,4 +80,5 @@ module.exports = function(app) {
     passport.authenticate('bearer', { session: false }),
     heroImagesController.index
   );
+
 };

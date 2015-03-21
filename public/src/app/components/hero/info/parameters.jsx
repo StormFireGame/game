@@ -13,7 +13,7 @@ var HeroInfoParameters = React.createClass({
     var parameters = ['strength', 'dexterity', 'intuition', 'health'];
     var items;
     var style = {
-      width: 170,
+      width: 205,
       height: 50 + 20 * parameters.length,
       backgroundColor: 'white'
     };

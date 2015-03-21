@@ -10,9 +10,8 @@ var HeroInfoDamageProtection = React.createClass({
   render: function() {
     var props = this.props;
     var style = {
-      width: 170,
-      height: 179,
-      backgroundColor: 'white'
+      width: 205,
+      height: 179
     };
 
     debug('render');

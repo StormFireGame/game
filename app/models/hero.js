@@ -2,10 +2,13 @@ var mongoose = require('mongoose');
 var co = require('co');
 var bcrypt = require('../../lib/bcrypt-thunk');
 var uniqueValidator = require('mongoose-unique-validator');
+var deepPopulate = require('mongoose-deep-populate');
 
 var heroConfig = require('../../config/hero');
 
 var heroesHelper = require('../helpers/heroes');
+
+var HeroThing = require('./hero-thing');
 
 require('./hero-image');
 require('./skill');
@@ -167,22 +170,8 @@ var HeroSchema = new mongoose.Schema({
     ref: 'HeroImage'
   },
   things: [{
-    thing: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Thing'
-    },
-    stabilityAll: Number,
-    stabilityLeft: Number,
-    dressed: Boolean,
-    away: Boolean,
-    features: [{
-      name: {
-        type: String,
-        enum: heroConfig.features,
-        required: true
-      },
-      plus: Number
-    }]
+    type: mongoose.Schema.ObjectId,
+    ref: 'HeroThing'
   }],
   skills: [{
     skill: {
@@ -190,6 +179,16 @@ var HeroSchema = new mongoose.Schema({
       ref: 'Skill'
     },
     level: Number
+  }],
+  complects: [{
+    name: {
+      type: String,
+      required: true
+    },
+    things: [{
+      type: mongoose.Schema.ObjectId,
+      ref: 'HeroThing'
+    }]
   }],
 
   // General info
@@ -211,6 +210,7 @@ var HeroSchema = new mongoose.Schema({
 });
 
 HeroSchema.plugin(uniqueValidator);
+HeroSchema.plugin(deepPopulate);
 
 HeroSchema.set('collection', 'heroes');
 
@@ -251,7 +251,6 @@ HeroSchema.pre('save', function(done) {
           reject(err);
         }
       });
-
     } else {
       resolve();
     }
@@ -277,6 +276,28 @@ HeroSchema.statics.passwordMatches = function *(username, password) {
   }
 
   throw new Error('Password does not match');
+};
+
+HeroSchema.methods.removeThing = function *(id) {
+  var hero = this;
+
+  hero.things.remove(id);
+
+  hero.complects.forEach((complect) => {
+    if (complect.things.indexOf(id) !== -1) {
+      hero.complects.remove(complect._id);
+    }
+  });
+
+  yield hero.save();
+
+  yield HeroThing.findByIdAndRemove(id).exec();
+};
+
+HeroSchema.methods.getThing = function(id) {
+  var hero = this;
+
+  return hero.things.find((model) => model.id === id);
 };
 
 module.exports = mongoose.model('Hero', HeroSchema);

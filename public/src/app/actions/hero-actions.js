@@ -13,5 +13,23 @@ module.exports = {
       actionType: HeroConstants.HERO_UPDATED,
       data: data
     });
+  },
+  thingRemoved: function(id) {
+    AppDispatcher.handleAction({
+      actionType: HeroConstants.HERO_THING_REMOVED,
+      id: id
+    });
+  },
+  complectCreated: function(data) {
+    AppDispatcher.handleAction({
+      actionType: HeroConstants.HERO_COMPLECT_CREATED,
+      data: data
+    });
+  },
+  complectDeleted: function(id) {
+    AppDispatcher.handleAction({
+      actionType: HeroConstants.HERO_COMPLECT_DELETED,
+      id: id
+    });
   }
 };

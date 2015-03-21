@@ -14,14 +14,10 @@ var State = Router.State;
 var HeroShowPage = React.createClass({
   mixins: [State],
   render: function() {
-    var style = {
-      width: 570
-    };
-
     debug('render');
 
     return (
-      <nav id="menu" style={style}>
+      <nav id="menu">
         <Toolbar>
           <ToolbarGroup key={0} float="left">
             <RaisedButton
@@ -31,7 +27,14 @@ var HeroShowPage = React.createClass({
               href="#/hero" />
             <RaisedButton
               linkButton={true}
-              label="Inventary" />
+              label="Inventory"
+              primary={this.isActive('/hero/inventory')}
+              href="#/hero/inventory" />
+            <RaisedButton
+              linkButton={true}
+              label="Combats"
+              primary={this.isActive('/hero/combats')}
+              href="#/hero/combats" />
             <RaisedButton
               label="Preferences"
               linkButton={true}

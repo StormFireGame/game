@@ -5,6 +5,7 @@ var Master = require('./pages/master');
 var Home = require('./pages/home');
 var HeroNewPage = require('./pages/hero/new');
 var HeroShowPage = require('./pages/hero/show');
+var HeroInventoryPage = require('./pages/hero/inventory');
 
 var HeroPreferencesMaster = require('./pages/hero/preferences/master');
 var HeroPreferencesGeneralPage = require('./pages/hero/preferences/general');
@@ -19,6 +20,7 @@ var routes = (
     <Route path='/' handler={Home} />
     <Route path='heroes/new' handler={HeroNewPage} />
     <Route name='hero' path='hero' handler={HeroShowPage} />
+    <Route path='hero/inventory' handler={HeroInventoryPage} />
     <Route path='hero/preferences' handler={HeroPreferencesMaster}>
       <Route path='general' handler={HeroPreferencesGeneralPage} />
       <Route path='security' handler={HeroPreferencesSecurityPage} />

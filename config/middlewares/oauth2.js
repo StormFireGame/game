@@ -1,4 +1,4 @@
-var oauth2orize = require('koa-oauth2orize');
+var oauth2orize = require('oauth2orize');
 var passport = require('koa-passport');
 var compose = require('koa-compose');
 var co = require('co');

@@ -1,17 +1,23 @@
 var React = require('react');
 var mui = require('material-ui');
+var _ = require('lodash');
 
 var debug = require('debug')('game:components:hero:body');
 
 var ThingSlot = require('./body/thing-slot');
 var ImageSlot = require('./body/image-slot');
 
+var HeroApi = require('../../utils/hero-api');
+
 var Paper = mui.Paper;
 
 var HeroBody = React.createClass({
+  _handleUndress: function(id) {
+    HeroApi.undressThing(id);
+  },
   render: function() {
     var style;
-    var proportions = {};
+    var position = {};
     var width = 70;
     var height = 75;
     var offset = 6;
@@ -21,139 +27,152 @@ var HeroBody = React.createClass({
     var ring;
     var hero = this.props.hero;
 
-    proportions.glows = {
-      width: width,
-      height: height,
+    var things = hero.things.filter(function(thing) {
+      return thing.dressed;
+    });
+
+    var getThing = function(type) {
+      return _.find(things, function(thing) {
+        return thing.thing.type === type;
+      });
+    };
+
+    // TODO: do refactoring with body and slots proporties
+    position.gloves = {
       left: offset,
       top: offset
     };
 
-    proportions.helmet = {
-      width: width,
-      height: height,
+    position.helmet = {
       left: width + 2 * offset,
       top: offset
     };
 
-    proportions.amulet = {
-      width: width,
-      height: height,
+    position.amulet = {
       left: 2 * width + 3 * offset,
       top: offset
     };
 
-    proportions.treetop = {
-      width: width,
-      height: height,
+    position.treetops = {
       left: pullRigth,
       top: offset
     };
 
-    proportions.arms = {
-      width: width,
+    position.arms = {
       height: 85,
       left: offset,
       top: height + 2 * offset
     };
 
-    proportions.armor = {
-      width: width,
+    position.armor = {
       height: 90,
       left: offset,
-      top: proportions.arms.top + proportions.arms.height + offset
+      top: position.arms.top + position.arms.height + offset
     };
 
-    proportions.pants = {
-      width: width,
+    position.pants = {
       height: 110,
       left: offset,
-      top: proportions.armor.top + proportions.armor.height + offset
+      top: position.armor.top + position.armor.height + offset
     };
 
-    fullHeight = height + proportions.arms.height +
-      proportions.armor.height + proportions.pants.height + 5 * offset;
+    fullHeight = height + position.arms.height +
+      position.armor.height + position.pants.height + 5 * offset;
 
-    proportions.elixir = {};
-    elixir = proportions.elixir;
+    position.elixir = {};
+    elixir = position.elixir;
     elixir.height = 32;
     elixir.width = elixir.height;
     elixir.left = width + (2 * offset);
     elixir.top = fullHeight - elixir.height - offset;
 
-    proportions.elixir1 = {
-      width: elixir.width,
-      height: elixir.height,
+    position.elixir1 = {
       left: elixir.left + offset + elixir.width,
       top: elixir.top
     };
-    proportions.elixir2 = {
-      width: elixir.width,
-      height: elixir.height,
+    position.elixir2 = {
       left: elixir.left + offset * 2 + elixir.width * 2,
       top: elixir.top
     };
-    proportions.elixir3 = {
-      width: elixir.width,
-      height: elixir.height,
+    position.elixir3 = {
       left: elixir.left + 3 * offset + 3 * elixir.width,
       top: elixir.top
     };
 
-    proportions.shield = {
-      width: width,
+    position.shield = {
       height: 85,
       left: pullRigth,
       top: height + (2 * offset)
     };
 
-    proportions.ring = {};
-    ring = proportions.ring;
+    position.ring = {};
+    ring = position.ring;
     ring.height = 32;
     ring.width = ring.height;
     ring.left = pullRigth;
-    ring.top = proportions.shield.top + proportions.shield.height + offset;
+    ring.top = position.shield.top + position.shield.height + offset;
 
-    proportions.ring1 = {
-      width: ring.width,
-      height: ring.height,
+    position.ring1 = {
       left: ring.left + offset + ring.width,
       top: ring.top
     };
-    proportions.ring2 = {
-      width: ring.width,
-      height: ring.height,
+    position.ring2 = {
       left: ring.left,
       top: ring.top + offset + ring.height
     };
-    proportions.ring3 = {
-      width: ring.width,
-      height: ring.height,
+    position.ring3 = {
       left: ring.left + offset + ring.width,
       top: ring.top + offset + ring.height
     };
 
-    proportions.belt = {
-      width: width,
+    position.belt = {
       height: 50,
       left: pullRigth,
-      top: proportions.ring.top + 2 * proportions.ring.height + 2 * offset
+      top: position.ring.top + 2 * position.ring.height + 2 * offset
     };
 
-    proportions.boots = {
-      width: width,
-      height: 74,
+    position.boots = {
       left: pullRigth,
-      top: proportions.belt.top + proportions.belt.height + offset
+      top: position.belt.top + position.belt.height + offset
     };
+
+    _.forEach(position, function(pos) {
+      pos.position = 'absolute';
+    });
 
     style = {
       position: 'relative',
-      backgroundColor: 'white',
       width: (width * 4) + (offset * 5),
       height: fullHeight
     };
 
     debug('render');
+
+    var thingsSlots = [
+      'gloves', 'helmet', 'amulet', 'treetops',
+      'arms', 'armor', 'shield', 'pants', 'belt', 'boots',
+      'ring', 'ring1', 'ring2', 'ring3',
+      'elixir', 'elixir1', 'elixir2', 'elixir3'
+    ].map(function(type, index) {
+      var orgType = type.replace(/\d+/g, '');
+      var thing = getThing(orgType);
+      var undressHandler;
+
+      if (thing && this.props.actions) {
+        undressHandler = this._handleUndress.bind(null, thing._id);
+      }
+
+      return (
+        <div
+          onClick={undressHandler}
+          key={index}
+          style={position[type]}>
+          <ThingSlot
+            thing={thing}
+            type={orgType} />
+        </div>
+      );
+    }.bind(this));
 
     return (
       <div className="hero-body">
@@ -165,24 +184,7 @@ var HeroBody = React.createClass({
             height={259}
             image={hero.image} />
 
-          <ThingSlot type='glows' {...proportions.glows} />
-          <ThingSlot type='helmet' {...proportions.helmet} />
-          <ThingSlot type='amulet' {...proportions.amulet} />
-          <ThingSlot type='treetop' {...proportions.treetop} />
-          <ThingSlot type='arms' {...proportions.arms} />
-          <ThingSlot type='armor' {...proportions.armor} />
-          <ThingSlot type='pants' {...proportions.pants} />
-          <ThingSlot type='elixir' {...proportions.elixir} />
-          <ThingSlot type='elixir' {...proportions.elixir1} />
-          <ThingSlot type='elixir' {...proportions.elixir2} />
-          <ThingSlot type='elixir' {...proportions.elixir3} />
-          <ThingSlot type='shield' {...proportions.shield} />
-          <ThingSlot type='ring' {...proportions.ring} />
-          <ThingSlot type='ring' {...proportions.ring1} />
-          <ThingSlot type='ring' {...proportions.ring2} />
-          <ThingSlot type='ring' {...proportions.ring3} />
-          <ThingSlot type='belt' {...proportions.belt} />
-          <ThingSlot type='boots' {...proportions.boots} />
+          {thingsSlots}
         </Paper>
       </div>
     );
