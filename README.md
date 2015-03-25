@@ -13,14 +13,14 @@ Browser based massively multiplayer online role playing game
 
 ## Dependencies
 Mongo  
-Node v0.11.x
+Node v0.12.x
 
 ## Usage
 
 ### Backend
 ```
 npm install  
-node --harmony app.js
+npm start
 ```
 
 ### Frontend

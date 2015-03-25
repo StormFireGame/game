@@ -29,11 +29,10 @@ var Info = React.createClass({
   },
   _onChange: function() {
     this.setState(getInfoState());
-    this._setHpInterval = window.setInterval(this._setHp, 1000);
+    // this._setHpInterval = window.setInterval(this._setHp, 1000);
   },
   _setHp: function() {
-    var [currentHp, maxHp, currentTimeHp] =
-      this.state.hero.feature.hp.split('|');
+    var {currentHp, maxHp, currentTimeHp} = this.state.hero.feature.hp;
     var time = moment().valueOf();
     var delay = 1000;
 
@@ -63,7 +62,7 @@ var Info = React.createClass({
 
     if (_.isEmpty(hero)) return null;
 
-    var [currentHp, maxHp] = hero.feature.hp.split('|');
+    var {currentHp, maxHp} = hero.feature.hp;
 
     debug('render');
 

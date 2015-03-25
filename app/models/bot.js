@@ -102,7 +102,10 @@ var BotSchema = new mongoose.Schema({
 
   inCombat: Boolean,
 
-  things: [{ type: mongoose.Schema.ObjectId, ref: 'Thing' }]
+  things: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Thing'
+  }]
 });
 
 module.exports = mongoose.model('Bot', BotSchema);

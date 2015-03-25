@@ -17,17 +17,15 @@ exports.create = function *() {
   try {
     hero = new Hero(body);
     hero = yield hero.save();
+    yield hero.updateFeature();
     debug('created');
   } catch(err) {
     if (err.name === 'ValidationError') {
       debug('validation errors');
       this.status = 422;
-    } else {
-      this.status = 500;
+      this.body = err;
+      return;
     }
-
-    this.body = err;
-    return;
   }
 
   this.status = 204;
@@ -35,27 +33,18 @@ exports.create = function *() {
 
 exports.show = function *() {
   var hero = yield Hero
-      .findById(this.req.user)
-      .populate('image')
-      .deepPopulate('things.thing')
-      .exec();
+    .findById(this.req.user)
+    .populate('image')
+    .deepPopulate('things.thing')
+    .exec();
 
   var tableExperience = yield TableExperience
     .findOne({ level: hero.level + 1 })
     .exec();
 
   var heroObj = hero.toJSON();
-  var absoluteUrl = this.request.protocol + '://' + this.request.get('host');
 
   heroObj.nextLevelExperience = tableExperience.experience;
-
-  if (heroObj.image) {
-    heroObj.image.image = absoluteUrl + heroObj.image.image;
-  }
-
-  heroObj.things.forEach((thing) => {
-    thing.thing.image = absoluteUrl + thing.thing.image;
-  });
 
   this.body = heroObj;
 };
@@ -86,9 +75,13 @@ exports.increase = function *() {
       }
 
       hero[name]++;
+
+      yield hero.updateFeature(true);
+      yield hero.save();
       break;
     case 'skills':
-      heroSkill = hero.skills.find((heroSkill) => heroSkill.skill + '' === id);
+      heroSkill = hero.skills
+        .find((heroSkill) => heroSkill.skill + '' === id);
 
       if (!heroSkill) {
         try {
@@ -97,10 +90,8 @@ exports.increase = function *() {
           if (err.name === 'CastError') {
             debug('skill to increase not found');
             this.status = 404;
-          } else {
-            this.status = 500;
+            return;
           }
-          return;
         }
 
         hero.skills.push({
@@ -112,16 +103,10 @@ exports.increase = function *() {
       }
 
       heroSkill.level++;
-      break;
-  }
 
-  try {
-    yield hero.save();
-  } catch(err) {
-    debug('save error %o', err);
-    this.status = 500;
-    this.body = err;
-    return;
+      yield hero.save();
+      yield hero.updateFeature();
+      break;
   }
 
   this.status = 204;
@@ -134,15 +119,10 @@ exports.update = function *() {
   debug('udpate %s %o ...', hero.login, body);
 
   yield hero.save();
-  // TODO: a lot of try catch may be just remove it and add global error handler
-  try {
-    yield Hero.update({ _id: hero._id }, body).exec();
-  } catch(err) {
-    debug('save error %o', err);
-    this.status = 500;
-    this.body = err;
-    return;
-  }
+
+  yield Hero
+    .update({ _id: hero._id }, body)
+    .exec();
 
   debug('updated');
 
@@ -164,14 +144,7 @@ exports.changePassword = function *() {
 
   hero.password = body.newPassword;
 
-  try {
-    yield hero.save();
-  } catch(err) {
-    debug('save error %o', err);
-    this.status = 500;
-    this.body = err;
-    return;
-  }
+  yield hero.save();
 
   debug('password updated');
 
@@ -197,7 +170,6 @@ exports.dressThing = function *() {
       .findById(this.req.user)
       .deepPopulate('things.thing')
       .exec();
-
   var heroThing = hero.getThing(id);
   var thing;
 
@@ -219,6 +191,8 @@ exports.dressThing = function *() {
 
   heroThing.dressed = true;
   yield heroThing.save();
+
+  yield hero.updateFeature();
 
   debug('hero thing dressed %s', id);
   this.status = 204;
@@ -245,6 +219,8 @@ exports.undressThing = function *() {
 
   yield heroThing.save();
 
+  yield hero.updateFeature();
+
   debug('hero thing undressed %s', id);
   this.status = 204;
 };
@@ -254,10 +230,13 @@ exports.undressThings = function *() {
 
   debug('undressing hero things');
 
-  yield HeroThing.update(
-    { _id: { $in: hero.things }, dressed: true },
-    { $set: { dressed: false } },
-    { multi: true }).exec();
+  yield HeroThing
+    .update({ _id: { $in: hero.things }, dressed: true },
+      { $set: { dressed: false } },
+      { multi: true })
+    .exec();
+
+  yield hero.updateFeature();
 
   debug('hero things undressed');
 
@@ -323,16 +302,14 @@ exports.deleteComplect = function *() {
 exports.applyComplect = function *() {
   var id = this.params.id;
   var hero = yield Hero
-      .findById(this.req.user)
-      .deepPopulate('complects.things.thing')
-      .populate('things')
-      .exec();
+    .findById(this.req.user)
+    .deepPopulate('complects.things.thing')
+    .populate('things')
+    .exec();
 
   debug('appling hero complect %s', id);
 
   var complect = hero.complects.id(id);
-  var dressedThingsIds;
-  var complectThings;
 
   if (!complect) {
     debug('hero complect not found %s', id);
@@ -340,34 +317,7 @@ exports.applyComplect = function *() {
     return;
   }
 
-  // TODO: think about moving this to sep model method
-  dressedThingsIds = hero.things
-    .filter(thing => thing.dressed)
-    .map(thing => thing._id);
-
-  yield HeroThing.update(
-    { _id: { $in: dressedThingsIds } },
-    { $set: { dressed: false } },
-    { multi: true }).exec();
-
-  yield HeroThing.update(
-    { _id: { $in: complect.things }, dressed: false },
-    { $set: { dressed: true } },
-    { multi: true }).exec();
-
-  complectThings = complect.things.map((thing) => thing.thing);
-
-  if (!heroesHelper.thingsCanBeDressed(hero, complectThings)) {
-    yield HeroThing.update(
-      { _id: { $in: complect.things }, dressed: true },
-      { $set: { dressed: false } },
-      { multi: true }).exec();
-
-    yield HeroThing.update(
-      { _id: { $in: dressedThingsIds }, dressed: false },
-      { $set: { dressed: true } },
-      { multi: true }).exec();
-
+  if (!(yield hero.applyComplect(id))) {
     debug('not compatible hero complect %s', id);
     this.status = 423;
     return;

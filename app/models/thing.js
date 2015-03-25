@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var config = require('../../config/application');
 
 var ThingSchema = new mongoose.Schema({
   name: {
@@ -75,18 +76,17 @@ var ThingSchema = new mongoose.Schema({
   armorBreak: Number,
 
   hp: Number,
+  capacity: Number,
 
   strikeCount: Number,
   blockCount: Number,
 
-  capacity: Number,
   isTwoHands: Boolean,
   timeDuration: Number
 }, {
   toJSON : {
     transform: function(doc, ret) {
-      // TODO: think about move to config path
-      ret.image = '/uploads/things/' + ret.image;
+      ret.image = config.staticUrl + config.uploadPaths.things + ret.image;
     }
   }
 });

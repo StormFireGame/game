@@ -23,14 +23,4 @@ var HeroThingSchema = new mongoose.Schema({
   }]
 });
 
-HeroThingSchema.pre('save', function(done) {
-  var hero;
-
-  if (this.isModified('dressed')) {
-    // TODO update features
-  }
-
-  done();
-});
-
 module.exports = mongoose.model('HeroThing', HeroThingSchema);

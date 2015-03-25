@@ -28,10 +28,10 @@ var HeroInfoParameters = React.createClass({
         return output;
       }
 
-      output += '[';
+      output += ' [';
 
       if (feature > orig) {
-        output = '+ ';
+        output += '+ ';
       }
 
       output += feature - orig;
