@@ -17,6 +17,11 @@ function getInfoSkillsState() {
 }
 
 var HeroInfoSkills = React.createClass({
+  propTypes: {
+    skill: React.PropTypes.array,
+    numberOfSkills: React.PropTypes.number,
+    increaseHandler: React.PropTypes.func
+  },
   getInitialState: function() {
     return getInfoSkillsState();
   },
@@ -29,16 +34,6 @@ var HeroInfoSkills = React.createClass({
   _onChange: function() {
     this.setState(getInfoSkillsState());
   },
-  _nextPage: function() {
-    this.setState({
-      page: this.state.page + 1
-    });
-  },
-  _prevPage: function() {
-    this.setState({
-      page: this.state.page - 1
-    });
-  },
   render: function() {
     var props = this.props;
     var perPage = 5;
@@ -50,18 +45,18 @@ var HeroInfoSkills = React.createClass({
     };
 
     var items = skills
-      .map(function(skill) {
+      .map((skill, index) => {
         var item = _(props.skills).find((heroSkill) => {
           return heroSkill.skill === skill._id;
         });
 
         return (
-          <div>
+          <div key={index}>
             <dt>{skill.name}</dt>
             <dd>{item ? item.level : 0}
               {props.numberOfSkills ?
                 <FontIcon
-                  onClick={props.onIncrease.bind(this, 'skills', skill._id)}
+                  onClick={props.increaseHandler.bind(this, 'skills', skill._id)}
                   className="mdfi_content_add" /> : null}
             </dd>
           </div>
@@ -75,24 +70,40 @@ var HeroInfoSkills = React.createClass({
     debug('render');
 
     return (
-      <div>
-        <Paper style={style} rounded={false} zDepth={1} className="block skills-block">
-          <div className="mui-font-style-subhead-1">Skills</div>
-          <dl className="dl-horizontal">
-            {items}
-          </dl>
-          {props.numberOfSkills ?
-            <p>Number of increases {props.numberOfSkills}</p> : null}
+      <Paper
+        style={style}
+        rounded={false}
+        zDepth={1}
+        className="block skills-block">
+        <div className="mui-font-style-subhead-1">Skills</div>
+        <dl className="dl-horizontal">
+          {items}
+        </dl>
+        {props.numberOfSkills ?
+          <p>Number of increases {props.numberOfSkills}</p> : null}
 
-          <div className="pagination">
-            {this.state.page > 0 ?
-              <FontIcon onClick={this._prevPage} className="mdfi_image_navigate_before" /> : null}
-            {(this.state.page + 1) * perPage < this.state.skills.length ?
-              <FontIcon onClick={this._nextPage} className="mdfi_image_navigate_next" /> : null}
-          </div>
-        </Paper>
-      </div>
+        <div className="pagination">
+          {this.state.page > 0 ?
+            <FontIcon
+              onClick={this._onPrevPage}
+              className="mdfi_image_navigate_before" /> : null}
+          {(this.state.page + 1) * perPage < this.state.skills.length ?
+            <FontIcon
+              onClick={this._onNextPage}
+              className="mdfi_image_navigate_next" /> : null}
+        </div>
+      </Paper>
     );
+  },
+   _onNextPage: function() {
+    this.setState({
+      page: this.state.page + 1
+    });
+  },
+  _onPrevPage: function() {
+    this.setState({
+      page: this.state.page - 1
+    });
   }
 });
 

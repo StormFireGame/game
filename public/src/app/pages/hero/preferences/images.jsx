@@ -2,24 +2,13 @@ var React = require('react');
 
 var debug = require('debug')('game:pages:hero:preferences:images');
 
-var HeroImageService = require('../../../services/hero-image-service');
-var HeroStore = require('../../../stores/hero-store');
+var HeroImageApi = require('../../../utils/hero-image-api');
 
 var Form = require('../../../components/hero/preferences/images-form');
 
 var HeroPreferencesImagesPage = React.createClass({
-  getInitialState: function() {
-    return {
-      // TODO: think about empty array or null to see is it fetched
-      heroImages: [],
-      hero: HeroStore.get()
-    };
-  },
   componentDidMount: function() {
-    HeroImageService.fetch()
-      .then(function(response) {
-        this.setState({ heroImages: response });
-      }.bind(this));
+    HeroImageApi.fetch();
   },
   render: function() {
     debug('render');
@@ -27,7 +16,7 @@ var HeroPreferencesImagesPage = React.createClass({
     return (
       <div id="hero-preferences-images">
         <h3>Images</h3>
-        <Form hero={this.state.hero} heroImages={this.state.heroImages} />
+        <Form />
       </div>
     );
   }

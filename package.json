@@ -41,7 +41,6 @@
     "koa-session": "^2.0.0",
     "koa-static": "^1.4.9",
     "lodash": "^3.5.0",
-    "moment": "^2.9.0",
     "mongoose": "3.9.7",
     "mongoose-deep-populate": "^1.0.1",
     "mongoose-unique-validator": "^0.4.1",

@@ -22,7 +22,7 @@ var Messages = React.createClass({
   },
   _setMessage: function(message) {
     debug('new message %s', message);
-    // TODO: hack because transition do another render
+    // TODO hack because transition do another render
     //   mediator render should be last
     _.delay(function() {
       this.setState({
@@ -33,11 +33,11 @@ var Messages = React.createClass({
   render: function() {
     var message = this.state.message;
 
+    if (!message) return null;
+
     this.state.message = null;
 
     debug('render');
-
-    if (!message) return null;
 
     return (
       <Snackbar

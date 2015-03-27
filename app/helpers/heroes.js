@@ -1,6 +1,5 @@
 'use strict';
 
-var moment = require('moment');
 var _ = require('lodash');
 var debug = require('debug')('game:helpers:heroes');
 
@@ -111,7 +110,7 @@ module.exports = {
     feature.hp = {
       current: hp.current || 0,
       max: feature.hp,
-      time: moment().valueOf()
+      time: new Date().getTime()
     };
 
     // Capacity

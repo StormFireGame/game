@@ -24,33 +24,6 @@ var HeroNewForm = React.createClass({
       errors: {}
     };
   },
-  _onSubmit: function(e) {
-    var refs = this.refs;
-    var data;
-
-    e.preventDefault();
-
-    data = {
-      login: refs.login.getValue(),
-      password: refs.password.getValue(),
-      email: refs.email.getValue(),
-      sex: refs.sex.getSelectedValue()
-    };
-
-    debug('submit %o', data);
-
-    HeroService.new(data)
-      .then(function() {
-        mediator.emit(actionTypes.MESSAGE, 'Hero created');
-        this.transitionTo('/');
-      }.bind(this), function(res) {
-        if (res.status === 422) {
-          this.setState({
-            errors: utils.validationMapper(res.body)
-          });
-        }
-      }.bind(this));
-  },
   render: function() {
     var errors = this.state.errors;
 
@@ -83,6 +56,7 @@ var HeroNewForm = React.createClass({
 
         <label>Sex:</label>
         <RadioButtonGroup
+          name="sex"
           ref="sex"
           defaultSelected="male">
             <RadioButton
@@ -97,7 +71,34 @@ var HeroNewForm = React.createClass({
         <RaisedButton label="Signup" />
       </form>
     );
-  }
+  },
+  _onSubmit: function(e) {
+    var refs = this.refs;
+    var data;
+
+    e.preventDefault();
+
+    data = {
+      login: refs.login.getValue(),
+      password: refs.password.getValue(),
+      email: refs.email.getValue(),
+      sex: refs.sex.getSelectedValue()
+    };
+
+    debug('submit %o', data);
+
+    HeroService.new(data)
+      .then(function() {
+        mediator.emit(actionTypes.MESSAGE, 'Hero created');
+        this.transitionTo('/');
+      }.bind(this), function(res) {
+        if (res.status === 422) {
+          this.setState({
+            errors: utils.validationMapper(res.body)
+          });
+        }
+      }.bind(this));
+  },
 });
 
 module.exports = HeroNewForm;

@@ -8,6 +8,10 @@ var Paper = mui.Paper;
 var FontIcon = mui.FontIcon;
 
 var HeroInfoParameters = React.createClass({
+  propTypes: {
+    numberOfAbilities: React.PropTypes.number,
+    increaseHandler: React.PropTypes.func
+  },
   render: function() {
     var props = this.props;
     var parameters = ['strength', 'dexterity', 'intuition', 'health'];
@@ -31,7 +35,7 @@ var HeroInfoParameters = React.createClass({
       output += ' [';
 
       if (feature > orig) {
-        output += '+ ';
+        output += '+';
       }
 
       output += feature - orig;
@@ -41,16 +45,18 @@ var HeroInfoParameters = React.createClass({
     }
 
     items = parameters
-      .map(function(parameter) {
+      .map((parameter, key) => {
         var parameterCap = _.capitalize(parameter);
         return (
-          <div>
+          <div key={key}>
             <dt>{parameterCap}</dt>
             <dd>
               {props[parameter]}
               {renderFeature(props[parameter], props['feature' + parameterCap])}
               {props.numberOfParameters ?
-                <FontIcon onClick={props.onIncrease.bind(this, 'parameters', parameter)} className="mdfi_content_add" /> : null}
+                <FontIcon
+                  onClick={props.increaseHandler.bind(this, 'parameters', parameter)}
+                  className="mdfi_content_add" /> : null}
             </dd>
           </div>
         );
@@ -59,16 +65,14 @@ var HeroInfoParameters = React.createClass({
     debug('render');
 
     return (
-      <div>
-        <Paper style={style} rounded={false} zDepth={1} className="block parameters-block">
-          <div className="mui-font-style-subhead-1">Parameters</div>
-          <dl className="dl-horizontal">
-            {items}
-          </dl>
-          {props.numberOfParameters ?
-            <p>Number of increases {props.numberOfParameters}</p> : null}
-        </Paper>
-      </div>
+      <Paper style={style} rounded={false} zDepth={1} className="block parameters-block">
+        <div className="mui-font-style-subhead-1">Parameters</div>
+        <dl className="dl-horizontal">
+          {items}
+        </dl>
+        {props.numberOfParameters ?
+          <p>Number of increases {props.numberOfParameters}</p> : null}
+      </Paper>
     );
   }
 });

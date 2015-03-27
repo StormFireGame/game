@@ -1,9 +1,11 @@
 var Router = require('react-router');
 
 var SessionHelper = require('../../helpers/session-helper');
-var debug = require('debug')('game:pages:mixins:auth');
 var mediator = require('../../mediator');
 var actionTypes = require('../../constants/action-types');
+var HeroApi = require('../../utils/hero-api');
+
+var debug = require('debug')('game:pages:mixins:auth');
 
 var Navigation = Router.Navigation;
 
@@ -25,6 +27,8 @@ var AuthMixin = {
         transition.abort();
         debug('access closed %s', transition.path);
         transition.redirect('/');
+      } else {
+        HeroApi.fetch();
       }
     }
   }

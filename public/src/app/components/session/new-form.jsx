@@ -17,30 +17,6 @@ var SessionNewForm = React.createClass({
       error: null
     };
   },
-  _onSubmit: function(e) {
-    var refs = this.refs;
-    var data;
-
-    e.preventDefault();
-
-    data = {
-      login: refs.login.getValue(),
-      password: refs.password.getValue(),
-    };
-
-    debug('submit %o', data);
-
-    SessionService.new(data)
-      .then(function(res) {
-        if (res.error) {
-          this.setState({
-            error: res['error_description']
-          });
-        }
-
-        this.transitionTo('hero');
-      }.bind(this));
-  },
   render: function() {
     var error = this.state.error;
 
@@ -71,6 +47,30 @@ var SessionNewForm = React.createClass({
           linkButton={true} />
       </form>
     );
+  },
+  _onSubmit: function(e) {
+    var refs = this.refs;
+    var data;
+
+    e.preventDefault();
+
+    data = {
+      login: refs.login.getValue(),
+      password: refs.password.getValue(),
+    };
+
+    debug('submit %o', data);
+
+    SessionService.new(data)
+      .then(function(res) {
+        if (res.error) {
+          this.setState({
+            error: res['error_description']
+          });
+        }
+
+        this.transitionTo('hero');
+      }.bind(this));
   }
 });
 

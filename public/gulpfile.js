@@ -165,13 +165,13 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest(config.scripts.dest));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function() {
   return gulp.src(config.images.src)
     .pipe($.imagemin())
     .pipe(gulp.dest(config.images.dest));
 });
 
-gulp.task('markup', function(){
+gulp.task('markup', function() {
   return gulp.src(config.markup.src)
     .pipe(gulp.dest(config.markup.dest));
 });
@@ -199,3 +199,4 @@ gulp.task('build', ['clean'], function() {
 
 gulp.task('default', ['jshint']);
 
+gulp.task('start', ['watch']);

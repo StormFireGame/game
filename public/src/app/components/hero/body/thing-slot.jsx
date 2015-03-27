@@ -7,9 +7,9 @@ var debug = require('debug')('game:components:hero:body-thing-slot');
 var Paper = mui.Paper;
 
 var HeroBodyThingSlot = React.createClass({
-  // TODO: add propTypes everywhere
   propTypes: {
     type: React.PropTypes.string,
+    thing: React.PropTypes.object
   },
   render: function() {
     var props = this.props;
@@ -60,8 +60,6 @@ var HeroBodyThingSlot = React.createClass({
       height: height
     };
 
-
-
     if (thing) {
       info.push('Name: ' + thing.name);
       info.push('Money: ' + thing.price);
@@ -71,8 +69,12 @@ var HeroBodyThingSlot = React.createClass({
       [
         'strengthGive', 'dexterityGive', 'intuitionGive', 'healthGive',
         'swordsGive', 'axesGive', 'knivesGive', 'clubsGive', 'shieldsGive',
+
         'damageMin', 'damageMax',
-        'protectionHead', 'protectionBreast', 'protectionBelly', 'protectionGroin', 'protectionLegs',
+
+        'protectionHead', 'protectionBreast', 'protectionBelly',
+        'protectionGroin', 'protectionLegs',
+
         'accuracy', 'dodge', 'devastate', 'durability',
         'blockBreak', 'armorBreak',
         'hp',
@@ -89,19 +91,16 @@ var HeroBodyThingSlot = React.createClass({
 
     debug('render type %s', type);
 
-    // TODO: props single or double quotes
     return (
-      <div>
-        <Paper
-          title={info.join('\n')}
-          style={style}
-          rounded={false}
-          innerClassName={`slot-${type}`}
-          zDepth={1}>
-          {thing ?
-            <img src={thing.image} /> : null}
-        </Paper>
-      </div>
+      <Paper
+        title={info.join('\n')}
+        style={style}
+        rounded={false}
+        innerClassName={`slot-${type}`}
+        zDepth={1}>
+        {thing ?
+          <img src={thing.image} /> : null}
+      </Paper>
     );
   }
 });

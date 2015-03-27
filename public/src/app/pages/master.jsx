@@ -8,6 +8,8 @@ var mediator = require('../mediator');
 
 var debug = require('debug')('game:pages:master');
 
+var HeroApi = require('../utils/hero-api');
+
 var RouteHandler = Router.RouteHandler;
 var State = Router.State;
 var Navigation = Router.Navigation;
@@ -30,9 +32,7 @@ var Master = React.createClass({
       );
     } else {
       container = (
-        <div>
-          <RouteHandler {...this.props} />
-        </div>
+        <RouteHandler {...this.props} />
       );
     }
 
@@ -40,7 +40,7 @@ var Master = React.createClass({
       <div>
         <div className='container'>
           {container}
-          <div className="push"></div>
+          <div className="push" />
         </div>
         <Footer />
         <Messages />

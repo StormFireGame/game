@@ -4,6 +4,9 @@ var debug = require('debug')('game:components:hero:inventory:items');
 var Item = require('./item');
 
 var HeroInventoryItems = React.createClass({
+  propTypes: {
+    things: React.PropTypes.array
+  },
   render: function() {
     debug('render');
 

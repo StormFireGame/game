@@ -15,14 +15,8 @@ var FontIcon = mui.FontIcon;
 var RaisedButton = mui.RaisedButton;
 
 var HeroInventoryItem = React.createClass({
-  _handleRemove: function() {
-    HeroApi.removeThing(this.props.thing._id)
-      .then(function() {
-        mediator.emit(actionTypes.MESSAGE, 'Thing removed');
-      });
-  },
-  _handleDress: function() {
-    HeroApi.dressThing(this.props.thing._id);
+  propTypes: {
+    thing: React.PropTypes.object
   },
   render: function() {
     var thingWrap = this.props.thing;
@@ -46,7 +40,7 @@ var HeroInventoryItem = React.createClass({
       'levelNeed',
       'strengthNeed', 'dexterityNeed', 'intuitionNeed', 'healthNeed',
       'swordsNeed', 'axesNeed', 'knivesNeed', 'clubsNeed', 'shieldsNeed'
-    ].map(function(item) {
+    ].map((item) => {
       var key = item.replace('Need', '');
 
       var label = _.capitalize(key);
@@ -58,7 +52,7 @@ var HeroInventoryItem = React.createClass({
       return renderItem(label, thing[item], hero[key] >= thing[item]);
     });
 
-    var give = [
+    var giveItems = [
       'strengthGive', 'dexterityGive', 'intuitionGive', 'healthGive',
       'swordsGive', 'axesGive', 'knivesGive', 'clubsGive', 'shieldsGive',
       'damageMin', 'damageMax',
@@ -70,9 +64,7 @@ var HeroInventoryItem = React.createClass({
       'capacity',
       'isTwoHands',
       'timeDuration'
-    ];
-
-    var giveItems = give.map(function(item) {
+    ].map((item) => {
       var label = _.capitalize(item.replace('Give', ''));
       return renderItem(label, thing[item]);
     });
@@ -81,10 +73,8 @@ var HeroInventoryItem = React.createClass({
 
     return (
       <Paper className="item" zDepth={1}>
-        <div>
-          <div className="mui-font-style-title">
-            {thing.name}
-          </div>
+        <div className="mui-font-style-title">
+          {thing.name}
         </div>
         <div>
           <FontIcon className="mdfi_action_account_balance_wallet" /> {thing.price}
@@ -120,13 +110,26 @@ var HeroInventoryItem = React.createClass({
           </div>
           <div className="actions-wrapper col-md-2">
             {canBeDressed ?
-              <RaisedButton onClick={this._handleDress} label="Dress" />
+              <RaisedButton
+                onClick={this._onDress}
+                label="Dress" />
               : null}
-            <RaisedButton onClick={this._handleRemove} label="Remove" />
+            <RaisedButton
+              onClick={this._onRemove}
+              label="Remove" />
           </div>
         </div>
       </Paper>
     );
+  },
+  _onDress: function() {
+    HeroApi.dressThing(this.props.thing._id);
+  },
+  _onRemove: function() {
+    HeroApi.removeThing(this.props.thing._id)
+      .then(function() {
+        mediator.emit(actionTypes.MESSAGE, 'Thing removed');
+      });
   }
 });
 

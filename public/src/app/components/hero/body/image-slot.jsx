@@ -6,6 +6,9 @@ var debug = require('debug')('game:components:hero:body-image-slot');
 var Paper = mui.Paper;
 
 var HeroBodyImageSlot = React.createClass({
+  propTypes: {
+    image: React.PropTypes.object
+  },
   render: function() {
     var image = (this.props.image) ? this.props.image.image :
       'images/hero-body/no-hero.png';
@@ -21,7 +24,9 @@ var HeroBodyImageSlot = React.createClass({
     debug('render');
 
     return (
-      <div className="image-slot" style={style}>
+      <div
+        className="image-slot"
+        style={style}>
         <img src={image} alt="" />
       </div>
     );
