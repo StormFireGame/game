@@ -47,12 +47,12 @@ config = {
   scripts: {
     src: paths.app + '/app.js',
     outputName: 'bundle.js',
-    dest: paths.dist + '/scripts',
-    watch: paths.app + '/**/*.js'
+    dest: paths.dist + '/scripts'
   },
   browserify: {
     debug: true,
-    extensions: ['.jsx']
+    extensions: ['.jsx'],
+    transform: ['reactify', { es6: true }]
   },
   images: {
     src: paths.assets + '/images/**/*.{png,jpg,gif,ico}',
@@ -142,7 +142,7 @@ gulp.task('browserify-watch', function() {
   args.extensions = config.browserify.extensions;
   bundler = watchify(browserify(config.scripts.src, args));
 
-  bundler.transform(['reactify', { es6: true }]);
+  bundler.transform(config.browserify.transform);
 
   rebundle = function() {
     bundleLogger.start(config.scripts.outputName);
@@ -161,14 +161,16 @@ gulp.task('browserify-watch', function() {
   rebundle();
 });
 
-// https://medium.com/@sogko/gulp-browserify-the-gulp-y-way-bb359b3f9623
 gulp.task('scripts', function() {
-  return gulp.src(config.scripts.src)
-    .pipe($.browserify({
-      transform: ['reactify']
-    }))
-    .on('error', handleErrors)
-    .pipe($.rename(config.scripts.outputName))
+  var options = {
+    extensions: config.browserify.extensions,
+    debug: config.browserify.debug
+  };
+
+  return browserify(config.scripts.src, options)
+    .transform(config.browserify.transform)
+    .bundle()
+    .pipe(source(config.scripts.outputName))
     .pipe(gulp.dest(config.scripts.dest));
 });
 
@@ -200,12 +202,12 @@ gulp.task('watch:build', ['clean'], function() {
   gulp.start(['styles', 'images', 'fonts', 'markup']);
 });
 
-gulp.task('build', ['clean'], function() {
-  gulp.start(['styles', 'scripts', 'images', 'fonts', 'markup']);
-});
-
-gulp.task('default', ['jshint']);
+gulp.task('lint', ['jshint', 'jsxhint']);
 
 gulp.task('start', ['watch']);
 
-gulp.task('lint', ['jshint', 'jsxhint']);
+gulp.task('build', ['clean', 'lint'], function() {
+  gulp.start(['styles', 'scripts', 'images', 'fonts', 'markup']);
+});
+
+gulp.task('default', ['lint']);

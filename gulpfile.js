@@ -26,4 +26,6 @@ gulp.task('jshint', function() {
     .pipe($.jshint.reporter('fail'));
 });
 
+gulp.task('lint', ['jshint']);
+
 gulp.task('default', ['jshint']);

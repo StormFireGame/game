@@ -1,13 +1,14 @@
 var React = require('react');
 var Router = require('react-router');
+
 var routes = require('./routes');
+
 var debug = require('debug')('game:application');
 
 var injectTapEventPlugin = require('react-tap-event-plugin');
 
 //Needed for React Developer Tools
 window.React = React;
-
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release

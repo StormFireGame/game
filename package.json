@@ -18,8 +18,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "postinstall": "gulp",
-    "start": "gulp start"
+    "start": "gulp start",
+    "lint": "gulp lint"
   },
   "engines": {
     "node": ">=0.12"
