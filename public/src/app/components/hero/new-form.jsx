@@ -13,7 +13,6 @@ var RadioButtonGroup = mui.RadioButtonGroup;
 var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
 var RadioButton = mui.RadioButton;
-var Toast = mui.Toast;
 
 var Navigation = Router.Navigation;
 

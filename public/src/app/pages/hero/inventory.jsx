@@ -1,5 +1,4 @@
 var React = require('react');
-var _ = require('lodash');
 
 var debug = require('debug')('game:pages:hero:inventory');
 

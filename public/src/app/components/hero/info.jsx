@@ -1,5 +1,4 @@
 var React = require('react');
-var mui = require('material-ui');
 var _ = require('lodash');
 
 var debug = require('debug')('game:components:hero:info');

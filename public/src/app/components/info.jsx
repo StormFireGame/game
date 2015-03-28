@@ -71,11 +71,20 @@ var Info = React.createClass({
     return (
       <div id="info">
         <h5 className="text-center">
-          <FontIcon className="mdfi_action_info" /> {hero.login} [{hero.level}]
+          <FontIcon
+            className="mdfi_action_info" />
+          &nbsp;
+          {hero.login} [{hero.level}]
         </h5>
-        <FontIcon className="mdfi_action_favorite" /> {this.state.currentHp}/{hp.max}
+        <FontIcon
+          className="mdfi_action_favorite" />
         &nbsp;
-        <FontIcon className="mdfi_action_account_balance_wallet" /> {hero.money}
+        {this.state.currentHp}/{hp.max}
+        &nbsp;
+        <FontIcon
+          className="mdfi_action_account_balance_wallet" />
+        &nbsp;
+        {hero.money}
       </div>
     );
   }

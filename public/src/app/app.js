@@ -16,7 +16,7 @@ window.React = React;
 injectTapEventPlugin();
 
 Router.run(routes, function(Handler) {
-  React.render(<Handler />, document.body);
+  React.render(React.createElement(Handler), document.body);
 
   debug('game app rendered');
 });

@@ -88,8 +88,8 @@ var HeroInventoryItem = React.createClass({
 
               <div style={
                 {color:
-                  (thingWrap.stabilityAll - thingWrap.stabilityLeft < 2)
-                    ? 'red' : null }}>
+                  (thingWrap.stabilityAll - thingWrap.stabilityLeft < 2) ?
+                    'red' : null }}>
                 {thingWrap.stabilityAll} / {thingWrap.stabilityLeft}
               </div>
             </div>

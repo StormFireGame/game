@@ -39,7 +39,10 @@ config = {
     src: paths.dist
   },
   jshint: {
-    src: paths.app + '/**/*.js'
+    src: {
+      js: ['./gulpfile.js', paths.app + '/**/*.js'],
+      jsx: paths.app + '/**/*.jsx'
+    }
   },
   scripts: {
     src: paths.app + '/app.js',
@@ -75,13 +78,11 @@ config = {
 handleErrors = function() {
   var args = Array.prototype.slice.call(arguments);
 
-  // Send error to notification center with gulp-notify
   $.notify.onError({
     title: 'Compile Error',
     message: '<%= error.message %>'
   }).apply(this, args);
 
-  // Keep gulp from hanging on this task
   this.emit('end');
 };
 
@@ -103,9 +104,16 @@ gulp.task('clean', function(cb) {
   del(config.clean.src, cb);
 });
 
+gulp.task('jsxhint', function() {
+  return gulp.src(config.jshint.src.jsx)
+    .pipe($.react())
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.jshint.reporter('fail'));
+});
+
 gulp.task('jshint', function() {
-  // FIXME: lint jsx
-  return gulp.src(config.jshint.src)
+  return gulp.src(config.jshint.src.js)
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.jshint.reporter('fail'));
@@ -140,7 +148,6 @@ gulp.task('browserify-watch', function() {
     bundleLogger.start(config.scripts.outputName);
 
     return bundler.bundle()
-      // log errors if they happen
       .on('error', handleErrors)
       .on('end', bundleLogger.end)
       .pipe(source(config.scripts.outputName))
@@ -154,7 +161,7 @@ gulp.task('browserify-watch', function() {
   rebundle();
 });
 
-// TODO: check this article https://medium.com/@sogko/gulp-browserify-the-gulp-y-way-bb359b3f9623
+// https://medium.com/@sogko/gulp-browserify-the-gulp-y-way-bb359b3f9623
 gulp.task('scripts', function() {
   return gulp.src(config.scripts.src)
     .pipe($.browserify({
@@ -200,3 +207,5 @@ gulp.task('build', ['clean'], function() {
 gulp.task('default', ['jshint']);
 
 gulp.task('start', ['watch']);
+
+gulp.task('lint', ['jshint', 'jsxhint']);

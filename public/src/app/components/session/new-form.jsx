@@ -63,9 +63,10 @@ var SessionNewForm = React.createClass({
 
     SessionService.new(data)
       .then(function(res) {
+        /* jshint camelcase: false */
         if (res.error) {
           this.setState({
-            error: res['error_description']
+            error: res.error_description
           });
         }
 

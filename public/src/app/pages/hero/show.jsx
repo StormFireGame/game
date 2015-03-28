@@ -1,6 +1,5 @@
 var React = require('react');
 var debug = require('debug')('game:pages:hero:show');
-var _ = require('lodash');
 
 var SkillApi = require('../../utils/skill-api');
 var AuthMixin = require('../mixins/auth');

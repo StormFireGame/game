@@ -4,11 +4,8 @@ var Router = require('react-router');
 var Header = require('../components/header');
 var Footer = require('../components/footer');
 var Messages = require('../components/messages');
-var mediator = require('../mediator');
 
 var debug = require('debug')('game:pages:master');
-
-var HeroApi = require('../utils/hero-api');
 
 var RouteHandler = Router.RouteHandler;
 var State = Router.State;

@@ -13,7 +13,6 @@ var HeroPreferencesSecurityPage = require('./pages/hero/preferences/security');
 var HeroPreferencesImagesPage = require('./pages/hero/preferences/images');
 
 var Route = Router.Route;
-var DefaultRoute = Route.DefaultRoute;
 
 var routes = (
   <Route path='/' handler={Master}>

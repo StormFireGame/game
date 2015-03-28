@@ -1,9 +1,6 @@
 var React = require('react');
-var mui = require('material-ui');
 
 var debug = require('debug')('game:components:hero:body-image-slot');
-
-var Paper = mui.Paper;
 
 var HeroBodyImageSlot = React.createClass({
   propTypes: {
