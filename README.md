@@ -34,7 +34,7 @@ npm install
 rm -rf node_modules/react
 cd ..
 
-gulp watch
+npm start
 ```
 
 ## Progress
