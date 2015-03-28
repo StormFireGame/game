@@ -17,6 +17,40 @@ var HeroPreferencesGeneralForm = React.createClass({
       errors: {}
     };
   },
+  render: function() {
+    var errors = this.state.errors;
+    debug('render');
+
+    return (
+      <form onSubmit={this._onSubmit}>
+        <TextField
+          type="password"
+          ref="password"
+          name="password"
+          errorText={errors.password}
+          required
+          hintText="Password" />
+        <br />
+        <TextField
+          type="password"
+          ref="newPassword"
+          name="new-password"
+          required
+          hintText="New password" />
+        <br />
+        <TextField
+          type="password"
+          ref="repeateNewPassword"
+          name="repeate-new-password"
+          required
+          errorText={errors.repeateNewPassword}
+          hintText="Repeat new password" />
+        <br />
+        <br />
+        <RaisedButton label="Save" />
+      </form>
+    );
+  },
   _validate: function() {
     var refs = this.refs;
     var newPassword = refs.newPassword.getValue();
@@ -64,42 +98,6 @@ var HeroPreferencesGeneralForm = React.createClass({
         }
       }.bind(this));
   },
-  render: function() {
-    var errors = this.state.errors;
-    debug('render');
-
-    return (
-      <div>
-        <form onSubmit={this._onSubmit}>
-          <TextField
-            type="password"
-            ref="password"
-            name="password"
-            errorText={errors.password}
-            required
-            hintText="Password" />
-          <br />
-          <TextField
-            type="password"
-            ref="newPassword"
-            name="new-password"
-            required
-            hintText="New password" />
-          <br />
-          <TextField
-            type="password"
-            ref="repeateNewPassword"
-            name="repeate-new-password"
-            required
-            errorText={errors.repeateNewPassword}
-            hintText="Repeat new password" />
-          <br />
-          <br />
-          <RaisedButton label="Save" />
-        </form>
-      </div>
-    );
-  }
 });
 
 module.exports = HeroPreferencesGeneralForm;

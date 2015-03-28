@@ -9,7 +9,7 @@ var actionTypes = require('../constants/action-types');
 
 superagent.Request.prototype.promise = function() {
   return new Promise(function(resolve, reject) {
-    var accessToken = mediator.accessToken || '111';
+    var accessToken = mediator.accessToken;
 
     if (accessToken) this.set('Authorization', 'Bearer ' + accessToken);
 

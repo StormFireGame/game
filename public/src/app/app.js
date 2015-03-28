@@ -1,6 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
+
 var routes = require('./routes');
+
 var debug = require('debug')('game:application');
 
 var injectTapEventPlugin = require('react-tap-event-plugin');
@@ -15,7 +17,7 @@ window.React = React;
 injectTapEventPlugin();
 
 Router.run(routes, function(Handler) {
-  React.render(<Handler />, document.body);
+  React.render(React.createElement(Handler), document.body);
 
   debug('game app rendered');
 });

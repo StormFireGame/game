@@ -10,10 +10,6 @@ var State = Router.State;
 
 var PreferencesMenu = React.createClass({
   mixins: [State],
-  _onItemClickHandler: function(event, index, item) {
-    // TODO: this is hack untill menuitem will support href
-    document.location = item.href;
-  },
   render: function() {
     var menuItems = [{
       payload: '1',
@@ -39,16 +35,20 @@ var PreferencesMenu = React.createClass({
 
     debug('render');
 
-    // TODO: fix menu height (pr)
+    // TODO fix menu height (pr)
     return (
       <div style={style}>
         <Menu
           autoWidth={false}
           selectedIndex={selectedIndex}
-          onItemClick={this._onItemClickHandler}
+          onItemClick={this._onItemClick}
           menuItems={menuItems} />
       </div>
     );
+  },
+  _onItemClick: function(event, index, item) {
+    // TODO this is hack untill menuitem will support href
+    document.location = item.href;
   }
 });
 

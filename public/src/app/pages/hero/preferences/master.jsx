@@ -1,6 +1,5 @@
 var React = require('react');
 var Router = require('react-router');
-var mui = require('material-ui');
 
 var debug = require('debug')('game:pages:hero:preferences:master');
 

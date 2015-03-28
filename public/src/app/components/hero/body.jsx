@@ -4,6 +4,8 @@ var _ = require('lodash');
 
 var debug = require('debug')('game:components:hero:body');
 
+var HeroListenerMixin = require('./mixins/hero-listener');
+
 var ThingSlot = require('./body/thing-slot');
 var ImageSlot = require('./body/image-slot');
 
@@ -12,10 +14,15 @@ var HeroApi = require('../../utils/hero-api');
 var Paper = mui.Paper;
 
 var HeroBody = React.createClass({
-  _handleUndress: function(id) {
-    HeroApi.undressThing(id);
+  propTypes: {
+    actions: React.PropTypes.bool
   },
+  mixins: [HeroListenerMixin],
   render: function() {
+    var hero = this.state.hero;
+
+    if (_.isEmpty(hero)) return null;
+
     var style;
     var position = {};
     var width = 70;
@@ -25,11 +32,8 @@ var HeroBody = React.createClass({
     var fullHeight;
     var elixir;
     var ring;
-    var hero = this.props.hero;
 
-    var things = hero.things.filter(function(thing) {
-      return thing.dressed;
-    });
+    var things = hero.things.filter(thing => thing.dressed);
 
     var getThing = function(type) {
       return _.find(things, function(thing) {
@@ -37,7 +41,7 @@ var HeroBody = React.createClass({
       });
     };
 
-    // TODO: do refactoring with body and slots proporties
+    // TODO do refactoring with body and slots proporties
     position.gloves = {
       left: offset,
       top: offset
@@ -159,7 +163,7 @@ var HeroBody = React.createClass({
       var undressHandler;
 
       if (thing && this.props.actions) {
-        undressHandler = this._handleUndress.bind(null, thing._id);
+        undressHandler = this._onUndress.bind(null, thing._id);
       }
 
       return (
@@ -188,6 +192,9 @@ var HeroBody = React.createClass({
         </Paper>
       </div>
     );
+  },
+  _onUndress: function(id) {
+    HeroApi.undressThing(id);
   }
 });
 

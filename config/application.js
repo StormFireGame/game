@@ -1,4 +1,8 @@
 module.exports = {
   name: 'Game',
-  uploadPath: 'upload'
+  staticUrl: 'http://localhost:3001',
+  uploadPaths: {
+    heroImages: '/uploads/hero-images/',
+    things: '/uploads/things/'
+  }
 };

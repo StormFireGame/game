@@ -1,10 +1,11 @@
 var React = require('react');
-var mui = require('material-ui');
+var _ = require('lodash');
 
 var debug = require('debug')('game:components:hero:info');
 
 var HeroService = require('../../services/hero-service');
 var HeroApi = require('../../utils/hero-api');
+var HeroListenerMixin = require('./mixins/hero-listener');
 
 var Parameters = require('./info/parameters');
 var Information = require('./info/information');
@@ -14,14 +15,11 @@ var Skills = require('./info/skills');
 var Abilities = require('./info/abilities');
 
 var HeroInfo = React.createClass({
-  _increase: function(area) {
-    var idOrName = arguments[1];
-
-    HeroService.increase(area, idOrName)
-      .then(HeroApi.fetch);
-  },
+  mixins: [HeroListenerMixin],
   render: function() {
-    var hero = this.props.hero;
+    var hero = this.state.hero;
+
+    if (_.isEmpty(hero)) return null;
 
     debug('render');
 
@@ -38,15 +36,13 @@ var HeroInfo = React.createClass({
             health={hero.health}
             featureHealth={hero.feature.health}
             numberOfParameters={hero.numberOfParameters}
-            onIncrease={this._increase}
-          />
+            increaseHandler={this._onIncrease} />
           <Information
             numberOfWins={hero.numberOfWins}
             numberOfLosses={hero.numberOfLosses}
             numberOfDraws={hero.numberOfDraws}
             experience={hero.experience}
-            nextLevelExperience={hero.nextLevelExperience}
-           />
+            nextLevelExperience={hero.nextLevelExperience} />
         </div>
         <div className="group">
           <Modifiers
@@ -55,8 +51,7 @@ var HeroInfo = React.createClass({
             accuracy={hero.feature.accuracy}
             dodge={hero.feature.dodge}
             devastate={hero.feature.devastate}
-            durability={hero.feature.durability}
-          />
+            durability={hero.feature.durability} />
           <DamageProtection
             damageMin={hero.feature.damageMin}
             damageMax={hero.feature.damageMax}
@@ -64,15 +59,13 @@ var HeroInfo = React.createClass({
             protectionBreast={hero.feature.protectionBreast}
             protectionBelly={hero.feature.protectionBelly}
             protectionGroin={hero.feature.protectionGroin}
-            protectionLegs={hero.feature.protectionLegs}
-          />
+            protectionLegs={hero.feature.protectionLegs} />
         </div>
         <div className="group">
           <Skills
             skills={hero.skills}
             numberOfSkills={hero.numberOfSkills}
-            onIncrease={this._increase}
-          />
+            increaseHandler={this._onIncrease} />
           <Abilities
             shields={hero.feature.shields}
             clubs={hero.feature.clubs}
@@ -80,11 +73,16 @@ var HeroInfo = React.createClass({
             axes={hero.feature.axes}
             swords={hero.feature.swords}
             numberOfAbilities={hero.numberOfAbilities}
-            onIncrease={this._increase}
-          />
+            increaseHandler={this._onIncrease} />
         </div>
       </div>
     );
+  },
+  _onIncrease: function(area) {
+    var idOrName = arguments[1];
+
+    HeroService.increase(area, idOrName)
+      .then(HeroApi.fetch);
   }
 });
 

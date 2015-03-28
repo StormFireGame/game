@@ -1,6 +1,5 @@
 var React = require('react');
 var mui = require('material-ui');
-var moment = require('moment');
 var _ = require('lodash');
 
 var debug = require('debug')('game:components:info');
@@ -29,52 +28,63 @@ var Info = React.createClass({
   },
   _onChange: function() {
     this.setState(getInfoState());
+
     this._setHpInterval = window.setInterval(this._setHp, 1000);
   },
   _setHp: function() {
-    var [currentHp, maxHp, currentTimeHp] =
-      this.state.hero.feature.hp.split('|');
-    var time = moment().valueOf();
+    var hp = this.state.hero.feature.hp;
+
+    var time = new Date().getTime();
     var delay = 1000;
 
-    currentHp = Number(currentHp);
-    currentTimeHp = Number(currentTimeHp);
-    maxHp = Number(maxHp);
+    hp.current = Number(hp.current);
+    hp.time = new Date(hp.time).getTime();
+    hp.max = Number(hp.max);
 
-    if (currentHp === maxHp || this.state.currentHp === maxHp) {
-      debug('hp max %s', maxHp);
+    if (hp.current === hp.max || this.state.currentHp === hp.max) {
+      debug('hp max %s', hp.max);
       window.clearInterval(this._setHpInterval);
       return;
     }
 
-    currentHp += ((time - currentTimeHp) / 1000) / (delay / maxHp);
+    hp.current += ((time - hp.time) / 1000) / (delay / hp.max);
 
-    if (currentHp > maxHp) currentHp = maxHp;
+    if (hp.current > hp.max) hp.current = hp.max;
 
-    currentHp = parseInt(currentHp);
-    if (currentHp === this.state.currentHp) return;
+    hp.current = parseInt(hp.current);
+    if (hp.current === this.state.currentHp) return;
 
     this.setState({
-      currentHp: currentHp
+      currentHp: hp.current
     });
   },
   render: function() {
     var hero = this.state.hero;
 
+    // TODO change lodash to modules
     if (_.isEmpty(hero)) return null;
 
-    var [currentHp, maxHp] = hero.feature.hp.split('|');
+    var hp = hero.feature.hp;
 
     debug('render');
 
     return (
       <div id="info">
         <h5 className="text-center">
-          <FontIcon className="mdfi_action_info" /> {hero.login} [{hero.level}]
+          <FontIcon
+            className="mdfi_action_info" />
+          &nbsp;
+          {hero.login} [{hero.level}]
         </h5>
-        <FontIcon className="mdfi_action_favorite" /> {this.state.currentHp}/{maxHp}
+        <FontIcon
+          className="mdfi_action_favorite" />
         &nbsp;
-        <FontIcon className="mdfi_action_account_balance_wallet" /> {hero.money}
+        {this.state.currentHp}/{hp.max}
+        &nbsp;
+        <FontIcon
+          className="mdfi_action_account_balance_wallet" />
+        &nbsp;
+        {hero.money}
       </div>
     );
   }

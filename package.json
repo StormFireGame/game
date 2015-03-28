@@ -3,55 +3,58 @@
   "version": "0.0.0",
   "description": "BBMMORPG",
   "main": "app.js",
+  "author": "ButuzGOL",
+  "homepage": "https://github.com/DragonLegend/game",
+  "keywords": [
+    "BBMMORPG",
+    "game"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DragonLegend/game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DragonLegend/game/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "start": "gulp start",
+    "lint": "gulp lint"
+  },
+  "engines": {
+    "node": ">=0.12"
+  },
   "dependencies": {
-    "bcrypt": "0.8.x",
-    "co": "^4.3.1",
-    "debug": "^2.1.1",
-    "koa": "~0.17.0",
-    "koa-bodyparser": "^1.3.1",
+    "co": "^4.5.1",
+    "co-bcrypt": "^1.0.0",
+    "debug": "^2.1.3",
+    "koa": "~0.18.1",
+    "koa-bodyparser": "^1.4.1",
     "koa-compose": "^2.3.0",
     "koa-compress": "^1.0.8",
     "koa-cors": "0.0.14",
     "koa-error": "^1.1.3",
     "koa-logger": "^1.2.2",
-    "koa-passport": "^1.1.3",
+    "koa-passport": "^1.1.4",
     "koa-response-time": "^1.0.2",
-    "koa-router": "^4.1.0",
+    "koa-router": "^4.2.0",
     "koa-session": "^2.0.0",
     "koa-static": "^1.4.9",
-    "lodash": "^3.2.0",
-    "moment": "^2.9.0",
-    "mongoose": "3.9.x",
+    "lodash": "^3.5.0",
+    "mongoose": "3.9.7",
     "mongoose-deep-populate": "^1.0.1",
     "mongoose-unique-validator": "^0.4.1",
+    "oauth2orize": "^1.0.1",
     "passport-http": "^0.2.2",
     "passport-http-bearer": "^1.0.1",
-    "passport-oauth2-client-password": "^0.1.2"
+    "passport-oauth2-client-password": "^0.1.2",
+    "uid": "0.0.2"
   },
   "devDependencies": {
     "gulp": "^3.8.11",
-    "gulp-jshint": "^1.9.2",
-    "gulp-load-plugins": "^0.8.0",
-    "jshint-stylish": "^1.0.0"
-  },
-  "engines": {
-    "node": ">=0.11.9"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\"",
-    "postinstall": "gulp"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DragonLegend/game.git"
-  },
-  "keywords": [
-    "BBMMORPG",
-    "game"
-  ],
-  "author": "ButuzGOL",
-  "bugs": {
-    "url": "https://github.com/DragonLegend/game/issues"
-  },
-  "homepage": "https://github.com/DragonLegend/game"
+    "gulp-jshint": "^1.9.4",
+    "gulp-load-plugins": "^0.9.0",
+    "gulp-nodemon": "^2.0.2",
+    "jshint-stylish": "^1.0.1"
+  }
 }

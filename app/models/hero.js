@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var co = require('co');
-var bcrypt = require('../../lib/bcrypt-thunk');
+var bcrypt = require('co-bcrypt');
 var uniqueValidator = require('mongoose-unique-validator');
 var deepPopulate = require('mongoose-deep-populate');
 
@@ -158,8 +158,15 @@ var HeroSchema = new mongoose.Schema({
     blockBreak: Number,
     armorBreak: Number,
 
-    hp: String,
-    capacity: String,
+    hp: {
+      current: Number,
+      max: Number,
+      time: Date
+    },
+    capacity: {
+      current: Number,
+      max: Number
+    },
 
     strikeCount: Number,
     blockCount: Number
@@ -219,13 +226,11 @@ HeroSchema.pre('save', function(done) {
   var cryptPassword;
   var levelUp;
 
-  heroesHelper.updateFeature(hero);
-
   cryptPassword = new Promise(function(resolve, reject) {
     if (this.isModified('password')) {
       co(function *() {
-        var salt,
-            hash;
+        var salt;
+        var hash;
 
         try {
           salt = yield bcrypt.genSalt();
@@ -256,8 +261,10 @@ HeroSchema.pre('save', function(done) {
     }
   }.bind(this));
 
-  Promise.all([cryptPassword, levelUp])
+  Promise
+    .all([cryptPassword, levelUp])
     .then(done, done);
+
 });
 
 HeroSchema.methods.comparePassword = function *(candidatePassword) {
@@ -265,15 +272,13 @@ HeroSchema.methods.comparePassword = function *(candidatePassword) {
 };
 
 HeroSchema.statics.passwordMatches = function *(username, password) {
-  var hero = yield this.findOne({ login: username }).exec();
+  var hero = yield this
+    .findOne({ login: username })
+    .exec();
 
-  if (!hero) {
-    throw new Error('Hero not found');
-  }
+  if (!hero) throw new Error('Hero not found');
 
-  if (yield hero.comparePassword(password)) {
-    return hero;
-  }
+  if (yield hero.comparePassword(password)) return hero;
 
   throw new Error('Password does not match');
 };
@@ -291,13 +296,70 @@ HeroSchema.methods.removeThing = function *(id) {
 
   yield hero.save();
 
-  yield HeroThing.findByIdAndRemove(id).exec();
+  yield HeroThing
+    .findByIdAndRemove(id)
+    .exec();
 };
 
 HeroSchema.methods.getThing = function(id) {
   var hero = this;
 
   return hero.things.find((model) => model.id === id);
+};
+
+HeroSchema.methods.levelUp = function() {
+};
+
+HeroSchema.methods.updateFeature = function *(notSave) {
+  var hero = this;
+
+  yield heroesHelper.updateFeature(hero);
+
+  if (!notSave) yield hero.save();
+};
+
+HeroSchema.methods.applyComplect = function *(id) {
+  var hero = this;
+  var complect = hero.complects.id(id);
+  var complectThings;
+
+  var dressedThingsIds = hero.things
+    .filter(thing => thing.dressed)
+    .map(thing => thing._id);
+
+  yield HeroThing
+    .update({ _id: { $in: dressedThingsIds } },
+      { $set: { dressed: false } },
+      { multi: true })
+    .exec();
+
+  yield HeroThing
+    .update({ _id: { $in: complect.things }, dressed: false },
+      { $set: { dressed: true } },
+      { multi: true })
+    .exec();
+
+  complectThings = complect.things.map((thing) => thing.thing);
+
+  if (!heroesHelper.thingsCanBeDressed(hero, complectThings)) {
+    yield HeroThing
+      .update({ _id: { $in: complect.things }, dressed: true },
+        { $set: { dressed: false } },
+        { multi: true })
+      .exec();
+
+    yield HeroThing
+      .update({ _id: { $in: dressedThingsIds }, dressed: false },
+        { $set: { dressed: true } },
+        { multi: true })
+      .exec();
+
+    return false;
+  }
+
+  yield hero.updateFeature();
+
+  return true;
 };
 
 module.exports = mongoose.model('Hero', HeroSchema);

@@ -20,6 +20,11 @@ function update(data) {
   _hero = assign(_hero, data);
 }
 
+function removeComplect(id) {
+  var index = _.findIndex(_hero.complects, { _id: id });
+  _hero.complects.splice(index, 1);
+}
+
 function removeThing(id) {
   var index = _.findIndex(_hero.things, { _id: id });
   _hero.things.splice(index, 1);
@@ -29,11 +34,6 @@ function removeThing(id) {
       removeComplect(complect.id);
     }
   });
-}
-
-function removeComplect(id) {
-  var index = _.findIndex(_hero.complects, { _id: id });
-  _hero.complects.splice(index, 1);
 }
 
 function newComplect(data) {

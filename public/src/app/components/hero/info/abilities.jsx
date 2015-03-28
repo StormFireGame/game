@@ -8,6 +8,10 @@ var Paper = mui.Paper;
 var FontIcon = mui.FontIcon;
 
 var HeroInfoAbilities = React.createClass({
+  propTypes: {
+    numberOfAbilities: React.PropTypes.number,
+    increaseHandler: React.PropTypes.func
+  },
   render: function() {
     var props = this.props;
     var abilities = ['swords', 'axes', 'knives', 'clubs', 'shields'];
@@ -22,15 +26,18 @@ var HeroInfoAbilities = React.createClass({
     }
 
     items = abilities
-      .map(function(ability) {
+      .map((ability, index) => {
         var abilityCap = _.capitalize(ability);
+
         return (
-          <div>
+          <div key={index}>
             <dt>{abilityCap}</dt>
             <dd>
               {props[ability]}
               {props.numberOfAbilities ?
-                <FontIcon onClick={props.onIncrease.bind(this, 'abilities', ability)} className="mdfi_content_add" /> : null}
+                <FontIcon
+                  onClick={props.increaseHandler.bind(this, 'abilities', ability)}
+                  className="mdfi_content_add" /> : null}
             </dd>
           </div>
         );
@@ -39,16 +46,18 @@ var HeroInfoAbilities = React.createClass({
     debug('render');
 
     return (
-      <div>
-        <Paper style={style} rounded={false} zDepth={1} className="block abilities-block">
-          <div className="mui-font-style-subhead-1">Abilities</div>
-          <dl className="dl-horizontal">
-            {items}
-          </dl>
-          {props.numberOfAbilities ?
-            <p>Number of increases {props.numberOfAbilities}</p> : null}
-        </Paper>
-      </div>
+      <Paper
+        style={style}
+        rounded={false}
+        zDepth={1}
+        className="block abilities-block">
+        <div className="mui-font-style-subhead-1">Abilities</div>
+        <dl className="dl-horizontal">
+          {items}
+        </dl>
+        {props.numberOfAbilities ?
+          <p>Number of increases {props.numberOfAbilities}</p> : null}
+      </Paper>
     );
   }
 });

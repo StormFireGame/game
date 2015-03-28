@@ -4,7 +4,6 @@ var Router = require('react-router');
 var Header = require('../components/header');
 var Footer = require('../components/footer');
 var Messages = require('../components/messages');
-var mediator = require('../mediator');
 
 var debug = require('debug')('game:pages:master');
 
@@ -30,9 +29,7 @@ var Master = React.createClass({
       );
     } else {
       container = (
-        <div>
-          <RouteHandler {...this.props} />
-        </div>
+        <RouteHandler {...this.props} />
       );
     }
 
@@ -40,7 +37,7 @@ var Master = React.createClass({
       <div>
         <div className='container'>
           {container}
-          <div className="push"></div>
+          <div className="push" />
         </div>
         <Footer />
         <Messages />

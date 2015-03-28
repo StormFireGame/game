@@ -14,8 +14,10 @@ module.exports = function(passport) {
       debug('client passport strategy clientId: %s clientSecret: %s',
         clientId, clientSecret);
 
-      Client.findOne({ clientId: clientId }).exec()
-        .then(function(client) {
+      Client
+        .findOne({ clientId: clientId })
+        .exec()
+        .then((client) => {
           if (!client) {
             debug('client not found');
             return done(null, false);
@@ -36,8 +38,11 @@ module.exports = function(passport) {
     function(accessToken, done) {
       debug('bearer strategy accessToken: %s', accessToken);
 
-      AccessToken.findOne({ token: accessToken }).populate('hero').exec()
-        .then(function(token) {
+      AccessToken
+        .findOne({ token: accessToken })
+        .populate('hero')
+        .exec()
+        .then((token) => {
           if (!token) {
             debug('token not found');
             return done(null, false);

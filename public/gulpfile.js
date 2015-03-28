@@ -39,17 +39,20 @@ config = {
     src: paths.dist
   },
   jshint: {
-    src: paths.app + '/**/*.js'
+    src: {
+      js: ['./gulpfile.js', paths.app + '/**/*.js'],
+      jsx: paths.app + '/**/*.jsx'
+    }
   },
   scripts: {
     src: paths.app + '/app.js',
     outputName: 'bundle.js',
-    dest: paths.dist + '/scripts',
-    watch: paths.app + '/**/*.js'
+    dest: paths.dist + '/scripts'
   },
   browserify: {
     debug: true,
-    extensions: ['.jsx']
+    extensions: ['.jsx'],
+    transform: ['reactify', { es6: true }]
   },
   images: {
     src: paths.assets + '/images/**/*.{png,jpg,gif,ico}',
@@ -75,13 +78,11 @@ config = {
 handleErrors = function() {
   var args = Array.prototype.slice.call(arguments);
 
-  // Send error to notification center with gulp-notify
   $.notify.onError({
     title: 'Compile Error',
     message: '<%= error.message %>'
   }).apply(this, args);
 
-  // Keep gulp from hanging on this task
   this.emit('end');
 };
 
@@ -103,9 +104,16 @@ gulp.task('clean', function(cb) {
   del(config.clean.src, cb);
 });
 
+gulp.task('jsxhint', function() {
+  return gulp.src(config.jshint.src.jsx)
+    .pipe($.react())
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.jshint.reporter('fail'));
+});
+
 gulp.task('jshint', function() {
-  // FIXME: lint jsx
-  return gulp.src(config.jshint.src)
+  return gulp.src(config.jshint.src.js)
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.jshint.reporter('fail'));
@@ -134,13 +142,12 @@ gulp.task('browserify-watch', function() {
   args.extensions = config.browserify.extensions;
   bundler = watchify(browserify(config.scripts.src, args));
 
-  bundler.transform(['reactify', { es6: true }]);
+  bundler.transform(config.browserify.transform);
 
   rebundle = function() {
     bundleLogger.start(config.scripts.outputName);
 
     return bundler.bundle()
-      // log errors if they happen
       .on('error', handleErrors)
       .on('end', bundleLogger.end)
       .pipe(source(config.scripts.outputName))
@@ -154,24 +161,26 @@ gulp.task('browserify-watch', function() {
   rebundle();
 });
 
-// TODO: check this article https://medium.com/@sogko/gulp-browserify-the-gulp-y-way-bb359b3f9623
 gulp.task('scripts', function() {
-  return gulp.src(config.scripts.src)
-    .pipe($.browserify({
-      transform: ['reactify']
-    }))
-    .on('error', handleErrors)
-    .pipe($.rename(config.scripts.outputName))
+  var options = {
+    extensions: config.browserify.extensions,
+    debug: config.browserify.debug
+  };
+
+  return browserify(config.scripts.src, options)
+    .transform(config.browserify.transform)
+    .bundle()
+    .pipe(source(config.scripts.outputName))
     .pipe(gulp.dest(config.scripts.dest));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function() {
   return gulp.src(config.images.src)
     .pipe($.imagemin())
     .pipe(gulp.dest(config.images.dest));
 });
 
-gulp.task('markup', function(){
+gulp.task('markup', function() {
   return gulp.src(config.markup.src)
     .pipe(gulp.dest(config.markup.dest));
 });
@@ -193,9 +202,12 @@ gulp.task('watch:build', ['clean'], function() {
   gulp.start(['styles', 'images', 'fonts', 'markup']);
 });
 
-gulp.task('build', ['clean'], function() {
+gulp.task('lint', ['jshint', 'jsxhint']);
+
+gulp.task('start', ['watch']);
+
+gulp.task('build', ['clean', 'lint'], function() {
   gulp.start(['styles', 'scripts', 'images', 'fonts', 'markup']);
 });
 
-gulp.task('default', ['jshint']);
-
+gulp.task('default', ['lint']);

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var config = require('../../config/application');
 
 var HeroImageSchema = new mongoose.Schema({
   sex: {
@@ -10,8 +11,7 @@ var HeroImageSchema = new mongoose.Schema({
 }, {
   toJSON : {
     transform: function(doc, ret) {
-      // TODO: think about move to config path
-      ret.image = '/uploads/hero-images/' + ret.image;
+      ret.image = config.staticUrl + config.uploadPaths.heroImages + ret.image;
     }
   }
 });

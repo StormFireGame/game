@@ -1,16 +1,25 @@
 'use strict';
 
-var moment = require('moment');
+var _ = require('lodash');
 var debug = require('debug')('game:helpers:heroes');
 
 var heroConfig = require('../../config/hero');
 var TableExperience = require('../models/table-experience');
 
 module.exports = {
-  updateFeature: function(hero) {
+  updateFeature: function *(hero) {
+    var Hero = require('../models/hero');
+
     var hp;
     var capacity;
-    var feature = hero.feature;
+    var count;
+    var feature = _.clone(hero.feature.toJSON());
+
+    var populatedHero = yield Hero
+      .findById(hero.id)
+      .populate('skills.skill')
+      .deepPopulate('things.thing')
+      .exec();
 
     feature.strength = hero.strength;
     feature.dexterity = hero.dexterity;
@@ -37,46 +46,92 @@ module.exports = {
     feature.strikeCount = heroConfig.default.strikeCount;
     feature.blockCount = heroConfig.default.blockCount;
 
-    hp = (feature.hp) ? feature.hp.split('|')[0] : 0;
-    feature.hp = hp + '|' + hero.hp + '|' + moment().valueOf();
+    hp = feature.hp;
+    capacity = feature.capacity;
 
-    capacity = (feature.capacity) ? feature.capacity.split('|')[0] : 0;
-    feature.capacity = capacity + '|' + hero.capacity;
+    feature.hp = feature.capacity = 0;
 
-    // TODO: Skills and things counting
+    // Skills
+    populatedHero.skills.forEach(skill => {
+      skill.skill.features.forEach(skillFeature => {
+        feature[skillFeature.name] += skill.level * skillFeature.plus;
+      });
+    });
 
-    this.updateModifiers(hero);
+    // Things
+    populatedHero.things
+      .filter(thing => thing.dressed)
+      .forEach(thingWrap => {
+        var thing = thingWrap.thing;
+        [
+          'strengthGive', 'dexterityGive', 'intuitionGive', 'healthGive',
+          'swordsGive', 'axesGive', 'knivesGive', 'clubsGive', 'shieldsGive',
+
+          'damageMin', 'damageMax',
+
+          'protectionHead', 'protectionBreast', 'protectionBelly',
+          'protectionGroin', 'protectionLegs',
+
+          'accuracy', 'dodge', 'devastate', 'durability',
+
+          'blockBreak', 'armorBreak',
+
+          'hp', 'capacity',
+
+          'strikeCount', 'blockCount'
+        ].forEach(attr => {
+          if (!thing[attr]) return;
+          feature[attr.replace('Give', '')] += thing[attr];
+        });
+    });
+
+    // Strike count
+    count = populatedHero.things
+      .filter(thing => {
+        return thing.dressed &&
+          ['sword', 'axe', 'knive', 'clubs'].indexOf(thing.thing.type) !== -1;
+      }).length;
+
+    if (count === 2) feature.strikeCount++;
+
+    // Modifiers
+    feature.damageMin += feature.strength * heroConfig.coefficient.damageMin;
+    feature.damageMax += feature.strength * heroConfig.coefficient.damageMax;
+
+    feature.accuracy += feature.dexterity * heroConfig.coefficient.accuracy;
+    feature.dodge += feature.dexterity * heroConfig.coefficient.accuracy;
+    feature.devastate += feature.intuition * heroConfig.coefficient.devastate;
+    feature.durability += feature.intuition * heroConfig.coefficient.durability;
+
+    feature.hp += feature.health * heroConfig.coefficient.hp;
+    feature.capacity += feature.strength * heroConfig.coefficient.capacity;
+
+    // Hp
+    feature.hp = {
+      current: hp.current || 0,
+      max: feature.hp,
+      time: new Date().getTime()
+    };
+
+    // Capacity
+    feature.capacity = {
+      current: capacity.current || 0,
+      max: feature.capacity,
+    };
+
+    _.assign(hero.feature, feature);
 
     debug('hero features updated %s', hero.login);
   },
-  updateModifiers: function(hero) {
-    var hp;
-    var capacity;
-    var feature = hero.feature;
-
-    feature.damageMin = feature.strength * heroConfig.coefficient.damageMin;
-    feature.damageMax = feature.strength * heroConfig.coefficient.damageMax;
-
-    feature.accuracy = feature.dexterity * heroConfig.coefficient.accuracy;
-    feature.dodge = feature.dexterity * heroConfig.coefficient.accuracy;
-    feature.devastate = feature.intuition * heroConfig.coefficient.devastate;
-    feature.durability = feature.intuition * heroConfig.coefficient.durability;
-
-    hp = feature.hp.split('|');
-    hp[1] = feature.health * heroConfig.coefficient.hp;
-    feature.hp = hp.join('|');
-
-    capacity = feature.capacity.split('|');
-    capacity[1] = feature.strength * heroConfig.coefficient.capacity;
-    feature.capacity = capacity.join('|');
-  },
   levelUp: function *(hero) {
-    var tableExperiences = yield TableExperience.find({
+    var tableExperiences = yield TableExperience
+      .find({
         level: { $gt: hero.level },
         experience: { $lte: hero.experience }
-      }).exec();
+      })
+      .exec();
 
-    tableExperiences.forEach(function(tableExperience) {
+    tableExperiences.forEach((tableExperience) => {
       hero.numberOfAbilities += tableExperience.numberOfAbilities;
       hero.numberOfSkills += tableExperience.numberOfSkills;
       hero.numberOfParameters += tableExperience.numberOfParameters;
@@ -103,9 +158,7 @@ module.exports = {
   },
   thingsCanBeDressed: function(hero, things) {
     for (let thing of things) {
-      if (!this.thingCanBeDressed(hero, thing)) {
-        return false;
-      }
+      if (!this.thingCanBeDressed(hero, thing)) return false;
     }
 
     return true;
