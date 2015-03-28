@@ -3,7 +3,7 @@ var $ = require('gulp-load-plugins')();
 var nodemon = require('gulp-nodemon');
 
 gulp.task('start', function() {
-  /*jshint quotmark: false */
+  /* jshint quotmark: false */
   nodemon({
     script: 'app.js',
     verbose: true,
@@ -13,7 +13,7 @@ gulp.task('start', function() {
     },
     watch: ['*.js', '*.png'],
     events: {
-      /*jslint maxlen: false */
+      /* jslint maxlen: false */
       crash: "osascript -e 'display notification \"Game app crashed\" with title \"nodemon\"'"
     }
   });
