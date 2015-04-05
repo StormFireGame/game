@@ -30,7 +30,7 @@ var HeroInventoryItem = React.createClass({
       return (
         <div key={key}>
           <strong>{key}:</strong>
-          &nbsp;
+          {' '}
           <span style={{color: (safe === false) ? 'red' : null }}>{value}</span>
         </div>
       );
@@ -78,7 +78,7 @@ var HeroInventoryItem = React.createClass({
         </div>
         <div>
           <FontIcon className="mdfi_action_account_balance_wallet" /> {thing.price}
-          &nbsp;
+          {' '}
           <FontIcon className="mdfi_action_work" /> {thing.weight}
         </div>
         <div className="content-wrapper row">

@@ -29,7 +29,9 @@ var Info = React.createClass({
   _onChange: function() {
     this.setState(getInfoState());
 
+    window.clearInterval(this._setHpInterval);
     this._setHpInterval = window.setInterval(this._setHp, 1000);
+    this._setHp();
   },
   _setHp: function() {
     var hp = this.state.hero.feature.hp;
@@ -73,17 +75,17 @@ var Info = React.createClass({
         <h5 className="text-center">
           <FontIcon
             className="mdfi_action_info" />
-          &nbsp;
+          {' '}
           {hero.login} [{hero.level}]
         </h5>
         <FontIcon
           className="mdfi_action_favorite" />
-        &nbsp;
+        {' '}
         {this.state.currentHp}/{hp.max}
-        &nbsp;
+        {' '}
         <FontIcon
           className="mdfi_action_account_balance_wallet" />
-        &nbsp;
+        {' '}
         {hero.money}
       </div>
     );

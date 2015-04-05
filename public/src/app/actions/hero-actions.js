@@ -31,5 +31,12 @@ module.exports = {
       actionType: HeroConstants.HERO_COMPLECT_DELETED,
       id: id
     });
+  },
+  movedOnIsland: function(x, y) {
+    AppDispatcher.handleAction({
+      actionType: HeroConstants.HERO_MOVED_ON_ISLAND,
+      x: x,
+      y: y
+    });
   }
 };

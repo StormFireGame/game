@@ -1,3 +1,5 @@
 module.exports = {
-  environment: 'development'
+  environment: 'development',
+
+  islandMoveTime: 5
 };

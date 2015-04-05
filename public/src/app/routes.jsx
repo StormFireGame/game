@@ -12,6 +12,8 @@ var HeroPreferencesGeneralPage = require('./pages/hero/preferences/general');
 var HeroPreferencesSecurityPage = require('./pages/hero/preferences/security');
 var HeroPreferencesImagesPage = require('./pages/hero/preferences/images');
 
+var IslandPage = require('./pages/island');
+
 var Route = Router.Route;
 
 var routes = (
@@ -25,6 +27,7 @@ var routes = (
       <Route path='security' handler={HeroPreferencesSecurityPage} />
       <Route path='images' handler={HeroPreferencesImagesPage} />
     </Route>
+    <Route path='island' handler={IslandPage } />
   </Route>
 );
 

@@ -28,9 +28,11 @@
     "watchify": "^2.6.2"
   },
   "dependencies": {
+    "array-contains": "0.0.1",
     "debug": "^2.1.3",
     "flexboxgrid": "^6.1.1",
     "flux": "^2.0.1",
+    "is-object-empty": "^1.0.0",
     "keymirror": "^0.1.1",
     "lodash": "^3.6.0",
     "make-url": "0.0.1",
