@@ -1,5 +1,6 @@
 var debug = require('debug')('game:controllers:heroes');
 var _ = require('lodash');
+var arrayContains = require('array-contains');
 
 var Hero = require('../models/hero');
 var Skill = require('../models/skill');
@@ -324,6 +325,35 @@ exports.applyComplect = function *() {
   }
 
   debug('hero complect dressed %s', id);
+
+  this.status = 204;
+};
+
+exports.moveOnIsland = function *() {
+  var x = this.params.x;
+  var y = this.params.y;
+
+  debug('hero move on island %s:%s', x, y);
+
+  var hero = yield Hero
+    .findById(this.req.user)
+    .populate('location.island')
+    .exec();
+
+  var island = hero.location.island;
+
+  if (arrayContains(island.disabledCoordinates, [x, y])) {
+    debug('can\'t do move on island %s:%s', x, y);
+    this.status = 423;
+    return;
+  }
+
+  hero.location.coordinateX = x;
+  hero.location.coordinateY = y;
+
+  yield hero.save();
+
+  debug('hero moved on island %s:%s', x, y);
 
   this.status = 204;
 };

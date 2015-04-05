@@ -12,6 +12,8 @@ var HeroThing = require('./hero-thing');
 
 require('./hero-image');
 require('./skill');
+require('./island');
+require('./building');
 
 var HeroSchema = new mongoose.Schema({
   login: {
@@ -61,7 +63,18 @@ var HeroSchema = new mongoose.Schema({
     default: heroConfig.default.capacity
   },
 
-  location: String,
+  location: {
+    island: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Island'
+    },
+    coordinateX: Number,
+    coordinateY: Number,
+    building: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Building'
+    }
+  },
 
   numberOfWins: {
     type: Number,

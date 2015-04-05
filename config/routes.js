@@ -5,6 +5,7 @@ var oauth2 = require('./middlewares/oauth2');
 var heroesController = require('../app/controllers/heroes');
 var skillsController = require('../app/controllers/skills');
 var heroImagesController = require('../app/controllers/hero-images');
+var islandController = require('../app/controllers/islands');
 
 module.exports = function(app) {
   app.post('/oauth/token', oauth2.token);
@@ -36,6 +37,8 @@ module.exports = function(app) {
     heroesController.changePassword
   );
 
+  // TODO: Think about sep heroes controller to sep
+  //   things, complects, island, building
   app.del('/heroes/me/things/:id',
     passport.authenticate('bearer', { session: false }),
     heroesController.removeThing
@@ -69,6 +72,16 @@ module.exports = function(app) {
   app.put('/heroes/me/complects/:id/apply',
     passport.authenticate('bearer', { session: false }),
     heroesController.applyComplect
+  );
+
+  app.put('/heroes/me/island/move/:x/:y',
+    passport.authenticate('bearer', { session: false }),
+    heroesController.moveOnIsland
+  );
+
+  app.get('/island',
+    passport.authenticate('bearer', { session: false }),
+    islandController.show
   );
 
   app.get('/skills',

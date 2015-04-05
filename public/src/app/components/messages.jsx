@@ -28,6 +28,9 @@ var Messages = React.createClass({
       this.setState({
         message: message
       });
+
+      this.refs.message.dismiss();
+      this.refs.message.show();
     }.bind(this), 20);
   },
   render: function() {
@@ -44,11 +47,10 @@ var Messages = React.createClass({
         ref="message"
         message={message}
         action="Close"
-        openOnMount={true}
-        onActionTouchTap={this._handleClose} />
+        onActionTouchTap={this._onClose} />
     );
   },
-  _handleClose: function() {
+  _onClose: function() {
     this.refs.message.dismiss();
   }
 });

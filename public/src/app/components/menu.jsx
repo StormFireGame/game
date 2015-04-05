@@ -10,6 +10,7 @@ var ToolbarGroup = mui.ToolbarGroup;
 var RaisedButton = mui.RaisedButton;
 var FontIcon = mui.FontIcon;
 var State = Router.State;
+var IconButton = mui.IconButton;
 
 var HeroShowPage = React.createClass({
   mixins: [State],
@@ -49,7 +50,12 @@ var HeroShowPage = React.createClass({
               label="Info" />
           </ToolbarGroup>
           <ToolbarGroup key={1} float="right">
-            <FontIcon className="mdfi_content_undo" />
+            <IconButton
+              linkButton={true}
+              href="#/island"
+              tooltip="Move">
+              <FontIcon className="mdfi_content_undo" />
+            </IconButton>
           </ToolbarGroup>
         </Toolbar>
       </nav>

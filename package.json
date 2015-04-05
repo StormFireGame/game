@@ -25,6 +25,7 @@
     "node": ">=0.12"
   },
   "dependencies": {
+    "array-contains": "0.0.1",
     "co": "^4.5.1",
     "co-bcrypt": "^1.0.0",
     "debug": "^2.1.3",

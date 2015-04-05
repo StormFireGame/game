@@ -45,6 +45,11 @@ function deleteComplect(id) {
   _hero.complects.splice(index, 1);
 }
 
+function movedOnIsland(x, y) {
+  _hero.location.coordinateX = x;
+  _hero.location.coordinateY = y;
+}
+
 var HeroStore = assign({}, EventEmitter.prototype, {
   get: function() {
     return _hero;
@@ -82,6 +87,9 @@ AppDispatcher.register(function(payload) {
       break;
     case HeroConstants.HERO_COMPLECT_DELETED:
       deleteComplect(action.id);
+      break;
+    case HeroConstants.HERO_MOVED_ON_ISLAND:
+      movedOnIsland(action.x, action.y);
       break;
 
     default:

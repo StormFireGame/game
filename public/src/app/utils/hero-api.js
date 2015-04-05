@@ -59,6 +59,13 @@ module.exports = {
   applyComplect: function(id) {
     return HeroService.applyComplect(id)
       .then(this.fetch);
+  },
+
+  moveOnIsland: function(x, y) {
+    return HeroService.moveOnIsland(x, y)
+      .then(function() {
+        HeroActions.movedOnIsland(x, y);
+      });
   }
 
 };

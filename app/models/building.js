@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+require('./island');
+
 var BuildingSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -7,8 +9,15 @@ var BuildingSchema = new mongoose.Schema({
     unique: true
   },
   image: String,
+  island: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Island'
+  },
 
-  parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Building' },
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Building'
+  },
   // defaultChild: Boolean,
 
   module: String,

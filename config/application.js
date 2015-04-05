@@ -3,6 +3,7 @@ module.exports = {
   staticUrl: 'http://localhost:3001',
   uploadPaths: {
     heroImages: '/uploads/hero-images/',
-    things: '/uploads/things/'
+    things: '/uploads/things/',
+    islands: '/uploads/islands/'
   }
 };

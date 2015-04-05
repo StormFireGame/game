@@ -217,5 +217,22 @@ module.exports = {
       });
 
     return defer;
+  },
+
+  moveOnIsland: function(x, y) {
+    var defer;
+
+    debug('move on island to %s:%s', x, y);
+
+    defer = request
+      .put(makeUrl('/heroes/me/island/move/:x/:y', x, y))
+      .promise();
+
+    defer
+      .then(function() {
+        debug('moved on island to %s:%s', x, y);
+      });
+
+    return defer;
   }
 };
