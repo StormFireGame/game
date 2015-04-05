@@ -42,6 +42,7 @@ npm start
 ![Hero](progress-hero.png)
 ![Preferences](progress-preferences.png)
 ![Inventory](progress-inventory.png)
+![Island](progress-island.png)
 
 ## License
 
