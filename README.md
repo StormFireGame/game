@@ -45,4 +45,4 @@ npm start
 
 ## License
 
-MIT © [ButuzGOL](http://butuzgol.github.io)
+MIT © [ButuzGOL](https://butuzgol.github.io)
