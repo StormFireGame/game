@@ -1,0 +1,60 @@
+[{
+  "_id": "552373e47ca756ab005a5670",
+  "login": "Creator",
+  "password": "$2a$10$6r0Ho5HNZfkVSL.5.g0ejOmLbEStB8RnNMBWrWzX7Vb4f7EoM/k/a",
+  "email": "test@test.com",
+  "sex": "male",
+  "created": "1419711667442",
+  "skills": [{
+    "skill": "55223951b64ea90dfdf0f83e",
+    "level": 4
+  }],
+  "things": [
+    "5507c69cbd919812f3720711"
+  ],
+  "feature": {
+  },
+  "location": {
+    "island": "55236b782af3f5a575c6cff9",
+    "coordinateX": 27,
+    "coordinateY": 33
+  },
+
+  "level": 1,
+  "experience": 0,
+
+  "shields": 0,
+  "clubs": 2,
+  "knives": 0,
+  "axes": 2,
+  "swords": 2,
+
+  "health": 5,
+  "intuition": 4,
+  "dexterity": 6,
+  "strength": 10,
+
+  "numberOfSkills": 0,
+  "numberOfAbilities": 0,
+
+  "numberOfParameters": 0,
+  "numberOfDraws": 0,
+  "numberOfLosses": 0,
+  "numberOfWins": 0,
+
+  "capacity": 30,
+  "hp": 30,
+
+  "moneyArt": 0,
+  "money": 100,
+
+  "name": "Slava",
+  "country": "USA",
+  "city": "Los Angeles",
+  "about": "Just coding",
+  "dateOfBirthday": "7777-09-10T03:00:00+0300",
+
+  "image": "55223951b64ea90dfdf0f83c",
+
+  "complects": []
+}]

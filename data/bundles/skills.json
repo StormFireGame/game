@@ -1,0 +1,14 @@
+[{
+  "_id": "55223951b64ea90dfdf0f83e",
+  "name": "1",
+  "features": [{
+    "name": "strength",
+    "plus": 5
+  }]
+}, {
+  "name": "2",
+  "features": [{
+    "name": "health",
+    "plus": 3
+  }]
+}]

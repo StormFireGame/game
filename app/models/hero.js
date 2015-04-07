@@ -320,9 +320,6 @@ HeroSchema.methods.getThing = function(id) {
   return hero.things.find((model) => model.id === id);
 };
 
-HeroSchema.methods.levelUp = function() {
-};
-
 HeroSchema.methods.updateFeature = function *(notSave) {
   var hero = this;
 

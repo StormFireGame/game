@@ -19,7 +19,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "start": "gulp start",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "data": "DEBUG='game:*' node --harmony data/index.js"
   },
   "engines": {
     "node": ">=0.12"

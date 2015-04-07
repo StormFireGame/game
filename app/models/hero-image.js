@@ -7,7 +7,10 @@ var HeroImageSchema = new mongoose.Schema({
     enum: ['female', 'male'],
     required: true
   },
-  image: String
+  image: {
+    type: String,
+    required: true
+  }
 }, {
   toJSON : {
     transform: function(doc, ret) {

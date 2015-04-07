@@ -1,0 +1,25 @@
+[{
+  "level": 0,
+  "experience": 0,
+  "coefficient": 1,
+  "numberOfParameters": 1,
+  "numberOfAbilities": 1,
+  "numberOfSkills": 1,
+  "money": 10.0
+}, {
+  "level": 1,
+  "experience": 200,
+  "coefficient": 1,
+  "numberOfParameters": 1,
+  "numberOfAbilities": 1,
+  "numberOfSkills": 1,
+  "money": 20.0
+}, {
+  "level": 2,
+  "experience": 400,
+  "coefficient": 1,
+  "numberOfParameters": 1,
+  "numberOfAbilities": 1,
+  "numberOfSkills": 1,
+  "money": 40.0
+}]

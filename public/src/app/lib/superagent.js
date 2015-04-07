@@ -20,16 +20,17 @@ superagent.Request.prototype.promise = function() {
     }
 
     this.end(function(err, res) {
+      if (res.status === 401) {
+        mediator.emit(actionTypes.UNAUTHORIZED);
+      }
+
       if (err) {
         debug('error %o', err);
         return reject(err);
       }
+
       if (res.error) {
         debug('response with error %s %o', res.status, res);
-
-        if (res.status === 401) {
-          mediator.emit(actionTypes.UNAUTHORIZED);
-        }
 
         return reject(res);
       }

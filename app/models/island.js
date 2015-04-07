@@ -4,10 +4,12 @@ var config = require('../../config/application');
 var IslandSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
-  image: String,
+  image: {
+    type: String,
+    required: true
+  },
   disabledCoordinates: []
 }, {
   toJSON : {
