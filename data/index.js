@@ -3,6 +3,7 @@
 var co = require('co');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var program = require('commander');
 
 var debug = require('debug')('game:data');
 
@@ -19,15 +20,11 @@ var Thing = require('../app/models/thing');
 var Hero = require('../app/models/hero');
 var HeroThing = require('../app/models/hero-thing');
 
-var dataDefers = [
-  { name: 'Hero images', model: HeroImage },
-  { name: 'Islands', model: Island },
-  { name: 'Skills', model: Skill },
-  { name: 'Table experiences', model: TableExperience },
-  { name: 'Things', model: Thing },
-  { name: 'Hero things', model: HeroThing },
-  { name: 'Heroes', model: Hero }
-].map(function(item) {
+program
+  .option('-o --only <only>', 'Only', function(val) { return val.split(','); })
+  .parse(process.argv);
+
+var dataGenerator = function(item) {
   return new Promise(function(resolve) {
     co(function *() {
       debug(item.name + ' started');
@@ -56,7 +53,20 @@ var dataDefers = [
       resolve();
     });
   });
-});
+};
+
+var dataDefers = [
+  { name: 'Hero images', model: HeroImage },
+  { name: 'Islands', model: Island },
+  { name: 'Skills', model: Skill },
+  { name: 'Table experiences', model: TableExperience },
+  { name: 'Things', model: Thing },
+  { name: 'Hero things', model: HeroThing },
+  { name: 'Heroes', model: Hero }
+].filter(function(item) {
+  return !program.only || program.only.indexOf(_.kebabCase(item.name)) !== -1;
+})
+.map(dataGenerator);
 
 Promise
   .all(dataDefers)

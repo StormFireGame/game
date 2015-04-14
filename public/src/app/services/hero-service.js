@@ -35,7 +35,7 @@ module.exports = {
     defer
       .then(function(response) {
         debug('fetched');
-        mediator.currentHero = response;
+        mediator.currentUser = response;
       });
 
     return defer;
@@ -74,7 +74,7 @@ module.exports = {
 
     defer
       .then(function() {
-        mediator.currentHero = assign(mediator.currentHero, data);
+        mediator.currentUser = assign(mediator.currentUser, data);
         debug('updated');
       });
 

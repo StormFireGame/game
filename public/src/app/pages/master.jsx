@@ -4,6 +4,7 @@ var Router = require('react-router');
 var Header = require('../components/header');
 var Footer = require('../components/footer');
 var Messages = require('../components/messages');
+var Chat = require('../components/chat/index');
 
 var debug = require('debug')('game:pages:master');
 
@@ -24,6 +25,10 @@ var Master = React.createClass({
           <Header />
           <div className="main-wrapper">
             <RouteHandler {...this.props} />
+          </div>
+
+          <div className="chat-wrapper">
+            <Chat />
           </div>
         </div>
       );

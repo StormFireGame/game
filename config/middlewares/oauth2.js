@@ -2,7 +2,7 @@ var oauth2orize = require('oauth2orize');
 var passport = require('koa-passport');
 var compose = require('koa-compose');
 var co = require('co');
-var debug = require('debug')('game:oauth2');
+var debug = require('debug')('game:middlewares:oauth2');
 var uid = require('uid');
 
 var Hero = require('../../app/models/hero');
