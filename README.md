@@ -43,6 +43,7 @@ npm start
 ![Preferences](progress-preferences.png)
 ![Inventory](progress-inventory.png)
 ![Island](progress-island.png)
+![Chat](progress-chat.png)
 
 ## License
 
