@@ -1,11 +1,12 @@
 var debug = require('debug')('game:passport');
 
+var co = require('co');
 var ClientPasswordStrategy =
       require('passport-oauth2-client-password').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
 
 var Client = require('../app/models/client');
-var AccessToken = require('../app/models/access-token');
+var loadUser = require('./middlewares/load-user');
 
 module.exports = function(passport) {
 
@@ -38,19 +39,18 @@ module.exports = function(passport) {
     function(accessToken, done) {
       debug('bearer strategy accessToken: %s', accessToken);
 
-      AccessToken
-        .findOne({ token: accessToken })
-        .populate('hero')
-        .exec()
-        .then((token) => {
-          if (!token) {
-            debug('token not found');
-            return done(null, false);
-          }
+      co(function *() {
+        var user = yield loadUser(accessToken);
 
-          debug('hero provided');
-          done(null, token.hero);
-        }, done);
+        if (!user) {
+          return done(null, false);
+        }
+
+        if (user) {
+          debug('user provided');
+          done(null, user);
+        }
+      });
     }
 ));
 };
