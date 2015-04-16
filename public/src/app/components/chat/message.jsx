@@ -13,7 +13,7 @@ var ChatMessage = React.createClass({
     var style = {};
 
     if (props.command) {
-      props.message = `${props.from.login} to [${props.tail}] ${props.message}`;
+      props.message = `[${props.from.login}] to [${props.tail}] ${props.message}`;
       switch(props.command) {
         case 'to':
           if (props.from._id === mediator.currentUser._id ||
@@ -26,7 +26,7 @@ var ChatMessage = React.createClass({
           break;
       }
     } else if (props.from) {
-      props.message = `${props.from.login}: ${props.message}`;
+      props.message = `[${props.from.login}] ${props.message}`;
     }
 
     return (

@@ -16,19 +16,16 @@ var Master = React.createClass({
   mixins: [State, Navigation],
   render: function() {
     var container;
+    var inside = !this.isActive('/heroes/new') && !this.isActive('/');
 
     debug('master render %s', this.getPath());
 
-    if (!this.isActive('/heroes/new') && !this.isActive('/')) {
+    if (inside) {
       container = (
         <div>
           <Header />
           <div className="main-wrapper">
             <RouteHandler {...this.props} />
-          </div>
-
-          <div className="chat-wrapper">
-            <Chat />
           </div>
         </div>
       );
@@ -44,6 +41,10 @@ var Master = React.createClass({
           {container}
           <div className="push" />
         </div>
+        {(inside) ?
+          <div className="chat-wrapper">
+            <Chat />
+          </div> : null}
         <Footer />
         <Messages />
       </div>

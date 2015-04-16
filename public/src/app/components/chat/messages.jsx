@@ -53,11 +53,10 @@ var ChatMessages = React.createClass({
   render: function() {
     debug('render');
 
-    var style = {
-      height: 100,
+    var innerStyle = {
+      height: '100%',
       overflow: 'auto',
-      padding: 5,
-      border: '1px solid green'
+      padding: 5
     };
 
     var messages = this.state.messages.map((message, index) => {
@@ -74,9 +73,11 @@ var ChatMessages = React.createClass({
 
     return (
       <Paper
-        style={style}
-        rounded={false}
-        zDepth={0}>
+        style={{
+          height: '100%'
+        }}
+        innerStyle={innerStyle}
+        rounded={false}>
         {messages}
       </Paper>
     );

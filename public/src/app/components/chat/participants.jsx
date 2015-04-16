@@ -36,7 +36,6 @@ var ChatParticipants = React.createClass({
     });
   },
   _onLeave: function(participant) {
-    console.log(participant);
     this.setState({
       participants: this.state.participants
         .filter((item) => item._id !== participant._id)
@@ -46,10 +45,9 @@ var ChatParticipants = React.createClass({
     debug('render');
 
     var style = {
-      height: 100,
+      height: '100%',
       overflow: 'auto',
-      padding: 5,
-      border: '1px solid blue'
+      padding: 5
     };
 
     var participants = this.state.participants.map((participant, index) => {
@@ -63,9 +61,14 @@ var ChatParticipants = React.createClass({
 
     return (
       <Paper
-        style={style}
-        rounded={false}
-        zDepth={0}>
+        style={{
+          height: '100%'
+        }}
+        innerStyle={style}
+        rounded={false}>
+        <div className="mui-font-style-subhead-1">
+          {this.state.participants.length} participants
+        </div>
         {participants}
       </Paper>
     );

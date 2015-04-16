@@ -8,7 +8,7 @@ var actionTypes = require('../../constants/action-types');
 var debug = require('debug')('game:components:chat:controls');
 
 var TextField = mui.TextField;
-var FlatButton = mui.FlatButton;
+var RaisedButton = mui.RaisedButton;
 
 var ChatControls = React.createClass({
   render: function() {
@@ -19,7 +19,9 @@ var ChatControls = React.createClass({
         <TextField
           ref="message"
           hintText="Your message..." />
-        <FlatButton
+        {' '}
+        <RaisedButton
+          primary={true}
           onClick={this._onSend}
           label="Send" />
       </div>
