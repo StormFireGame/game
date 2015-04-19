@@ -7,5 +7,5 @@ module.exports = {
       actionType: HeroImageConstants.HERO_IMAGES_RECEIVE,
       data: data
     });
-  },
+  }
 };

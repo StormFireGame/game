@@ -84,7 +84,7 @@ var ThingSchema = new mongoose.Schema({
   isTwoHands: Boolean,
   timeDuration: Number
 }, {
-  toJSON : {
+  toJSON: {
     transform: function(doc, ret) {
       ret.image = config.staticUrl + config.uploadPaths.things + ret.image;
     }

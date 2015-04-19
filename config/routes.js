@@ -89,9 +89,8 @@ module.exports = function(app) {
     skillsController.index
   );
 
-   app.get('/hero-images',
+  app.get('/hero-images',
     passport.authenticate('bearer', { session: false }),
     heroImagesController.index
   );
-
 };

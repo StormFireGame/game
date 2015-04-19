@@ -5,7 +5,7 @@ var HeroImage = require('../models/hero-image');
 exports.index = function *() {
   var hero = this.req.user;
 
-  debug('fetching hero images %s', hero.sex);
+  debug('getting %s', hero.sex);
 
   var heroImages = yield HeroImage
     .find({ sex: hero.sex })

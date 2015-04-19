@@ -6,14 +6,14 @@ var responseTime = require('koa-response-time');
 var bodyParser = require('koa-bodyparser');
 
 var cors = require('koa-cors');
-var serve = require('koa-static');
+// var serve = require('koa-static');
 
 module.exports = function(app) {
   app.use(cors());
   app.use(logger());
   app.use(errorHandler());
 
-  app.use(serve(__dirname + '/../static/'));
+  // app.use(serve(__dirname + '/../static/'));
 
   app.use(bodyParser());
 

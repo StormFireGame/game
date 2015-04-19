@@ -7,5 +7,5 @@ module.exports = {
       actionType: SkillConstants.SKILLS_RECEIVE,
       data: data
     });
-  },
+  }
 };

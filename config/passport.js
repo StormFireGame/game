@@ -9,7 +9,6 @@ var Client = require('../app/models/client');
 var loadUser = require('./middlewares/load-user');
 
 module.exports = function(passport) {
-
   passport.use(new ClientPasswordStrategy(
     function(clientId, clientSecret, done) {
       debug('client passport strategy clientId: %s clientSecret: %s',

@@ -38,7 +38,7 @@ module.exports = {
     'protectionHead', 'protectionBreast', 'protectionBelly',
     'protectionGroin', 'protectionLegs',
 
-    'damageMin','damageMax',
+    'damageMin', 'damageMax',
     'accuracy', 'dodge', 'devastate', 'durability',
     'blockBreak', 'armorBreak',
     'hp',

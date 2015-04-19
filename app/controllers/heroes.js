@@ -252,10 +252,11 @@ exports.createComplect = function *() {
       .findById(this.req.user)
       .populate('things')
       .exec();
+  var dressedIds;
 
   debug('new hero complect %s', name);
 
-  var dressedIds = hero.things
+  dressedIds = hero.things
     .filter(thing => thing.dressed)
     .map(thing => thing.id);
 
@@ -307,10 +308,11 @@ exports.applyComplect = function *() {
     .deepPopulate('complects.things.thing')
     .populate('things')
     .exec();
+  var complect;
 
   debug('appling hero complect %s', id);
 
-  var complect = hero.complects.id(id);
+  complect = hero.complects.id(id);
 
   if (!complect) {
     debug('hero complect not found %s', id);
@@ -332,15 +334,13 @@ exports.applyComplect = function *() {
 exports.moveOnIsland = function *() {
   var x = this.params.x;
   var y = this.params.y;
-
-  debug('hero move on island %s:%s', x, y);
-
   var hero = yield Hero
     .findById(this.req.user)
     .populate('location.island')
     .exec();
-
   var island = hero.location.island;
+
+  debug('hero move on island %s:%s', x, y);
 
   if (arrayContains(island.disabledCoordinates, [x, y])) {
     debug('can\'t do move on island %s:%s', x, y);

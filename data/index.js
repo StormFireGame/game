@@ -21,7 +21,9 @@ var Hero = require('../app/models/hero');
 var HeroThing = require('../app/models/hero-thing');
 
 program
-  .option('-o --only <only>', 'Only', function(val) { return val.split(','); })
+  .option('-o --only <only>', 'Only', function(val) {
+    return val.split(',');
+  })
   .parse(process.argv);
 
 var dataGenerator = function(item) {

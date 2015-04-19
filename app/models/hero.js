@@ -222,7 +222,7 @@ var HeroSchema = new mongoose.Schema({
     default: Date.now
   }
 }, {
-  toJSON : {
+  toJSON: {
     transform: function(doc, ret) {
       delete ret.password;
     }
@@ -277,7 +277,6 @@ HeroSchema.pre('save', function(done) {
   Promise
     .all([cryptPassword, levelUp])
     .then(done, done);
-
 });
 
 HeroSchema.methods.comparePassword = function *(candidatePassword) {

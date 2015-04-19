@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-
 require('./island');
 
 var BuildingSchema = new mongoose.Schema({

@@ -12,7 +12,7 @@ var HeroImageSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  toJSON : {
+  toJSON: {
     transform: function(doc, ret) {
       ret.image = config.staticUrl + config.uploadPaths.heroImages + ret.image;
     }

@@ -93,8 +93,8 @@ bundleLogger = {
   },
 
   end: function() {
-    var taskTime = process.hrtime(startTime),
-        prettyTime = prettyHrtime(taskTime);
+    var taskTime = process.hrtime(startTime);
+    var prettyTime = prettyHrtime(taskTime);
 
     $.util.log('Bundled in', $.util.colors.magenta(prettyTime));
   }
@@ -104,19 +104,11 @@ gulp.task('clean', function(cb) {
   del(config.clean.src, cb);
 });
 
-gulp.task('jsxhint', function() {
-  return gulp.src(config.jshint.src.jsx)
-    .pipe($.react())
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
-});
-
-gulp.task('jshint', function() {
+gulp.task('eslint', function() {
   return gulp.src(config.jshint.src.js)
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failOnError());
 });
 
 gulp.task('styles', function() {
@@ -202,7 +194,7 @@ gulp.task('watch:build', ['clean'], function() {
   gulp.start(['styles', 'images', 'fonts', 'markup']);
 });
 
-gulp.task('lint', ['jshint', 'jsxhint']);
+gulp.task('lint', ['eslint']);
 
 gulp.task('start', ['watch']);
 

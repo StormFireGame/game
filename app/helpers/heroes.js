@@ -83,7 +83,7 @@ module.exports = {
           if (!thing[attr]) return;
           feature[attr.replace('Give', '')] += thing[attr];
         });
-    });
+      });
 
     // Strike count
     count = populatedHero.things
@@ -116,7 +116,7 @@ module.exports = {
     // Capacity
     feature.capacity = {
       current: capacity.current || 0,
-      max: feature.capacity,
+      max: feature.capacity
     };
 
     _.assign(hero.feature, feature);

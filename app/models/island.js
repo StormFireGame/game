@@ -12,7 +12,7 @@ var IslandSchema = new mongoose.Schema({
   },
   disabledCoordinates: []
 }, {
-  toJSON : {
+  toJSON: {
     transform: function(doc, ret) {
       ret.image = config.staticUrl + config.uploadPaths.islands + ret.image;
     }
