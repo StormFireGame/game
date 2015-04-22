@@ -1,21 +1,14 @@
-var request = require('../lib/superagent');
+var fetch = require('../lib/fetch');
 var debug = require('debug')('game:services:hero-image');
 
 module.exports = {
   fetch: function() {
-    var defer;
-
     debug('fetching request');
 
-    defer = request
-      .get('/hero-images')
-      .promise();
-
-    defer
-      .then(function() {
+    return fetch('/hero-images')
+      .then(function(response) {
         debug('fetched');
+        return response;
       });
-
-    return defer;
   }
 };

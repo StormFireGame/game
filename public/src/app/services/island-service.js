@@ -1,4 +1,4 @@
-var request = require('../lib/superagent');
+var fetch = require('../lib/fetch');
 var debug = require('debug')('game:services:island');
 
 module.exports = {
@@ -7,15 +7,11 @@ module.exports = {
 
     debug('fetching request');
 
-    defer = request
-      .get('/island')
-      .promise();
-
-    defer
-      .then(function() {
+    return fetch('/island')
+      .then(function(response) {
         debug('fetched');
-      });
 
-    return defer;
+        return response;
+      });
   }
 };

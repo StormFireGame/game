@@ -1,21 +1,15 @@
-var request = require('../lib/superagent');
+var fetch = require('../lib/fetch');
 var debug = require('debug')('game:services:skill');
 
 module.exports = {
   fetch: function() {
-    var defer;
-
     debug('fetching request');
 
-    defer = request
-      .get('/skills')
-      .promise();
-
-    defer
-      .then(function() {
+    return fetch('/skills')
+      .then(function(response) {
         debug('fetched');
-      });
 
-    return defer;
+        return response;
+      });
   }
 };
