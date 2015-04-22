@@ -16,11 +16,22 @@ var HeroShowPage = React.createClass({
     debug('render');
 
     return (
-      <div className="row">
-        <div className="col-md-4">
+      <div style={{
+        display: 'flex',
+        flexWrap: 'nowrap'
+      }}>
+        <div style={{
+          flexBasis: 310,
+          flexShrink: 0,
+          flexGrow: 0
+        }}>
           <HeroBody />
         </div>
-        <div className="col-md-8">
+        <div style={{
+          flexGrow: 1,
+          flexShrink: 0,
+          marginLeft: 20
+        }}>
           <HeroInfo />
         </div>
       </div>

@@ -16,11 +16,21 @@ var Master = React.createClass({
     debug('master render %s', this.getPath());
 
     return (
-      <div className="row">
-        <div className="col-md-3">
+      <div style={{
+        display: 'flex',
+        flexWrap: 'nowrap'
+      }}>
+        <div style={{
+          flexBasis: 250
+        }}>
           <Menu />
         </div>
-        <div className="col-md-9">
+        <div style={{
+          marginLeft: 20,
+          flexGrow: 1,
+          flexShrink: 0,
+          flexBasis: 300
+        }}>
           <RouteHandler {...this.props} />
         </div>
       </div>

@@ -13,11 +13,22 @@ var HeroInventoryPage = React.createClass({
     debug('render');
 
     return (
-      <div id="hero-inventory" className="row">
-        <div className="col-md-4">
+      <div id="hero-inventory" style={{
+        display: 'flex',
+        flexWrap: 'nowrap'
+      }}>
+        <div style={{
+          flexBasis: 310,
+          flexShrink: 0,
+          flexGrow: 0
+        }}>
           <HeroBody actions={true} />
         </div>
-        <div className="col-md-8">
+        <div style={{
+          flexGrow: 1,
+          flexShrink: 0,
+          marginLeft: 20
+        }}>
           <HeroInventory />
         </div>
       </div>

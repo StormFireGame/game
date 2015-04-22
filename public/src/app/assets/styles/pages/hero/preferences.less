@@ -1,22 +1,25 @@
 #hero-preferences-images {
-  form>div:first-child>div {
-    display: inline-block;
-    margin-right: 20px;
-    margin-top: 20px;
-    width: auto;
+  form>div:first-child {
+    display: flex;
 
-    &:nth-child(-n+4) {
-      margin-top: 0;
-    }
+    &>div {
+      margin-right: 20px;
+      margin-top: 20px;
+      width: auto;
 
-    &:nth-child(4n+4) {
-      margin-right: 0;
-    }
+      &:nth-child(-n+4) {
+        margin-top: 0;
+      }
 
-    .mui-enhanced-switch-wrap {
-      left: 50%;
-      margin-left: -12px;
-      top: 10px;
+      &:nth-child(4n+4) {
+        margin-right: 0;
+      }
+
+      .mui-enhanced-switch-wrap {
+        left: 50%;
+        margin-left: -12px;
+        top: 10px;
+      }
     }
   }
 }

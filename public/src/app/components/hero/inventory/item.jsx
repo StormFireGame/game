@@ -81,8 +81,13 @@ var HeroInventoryItem = React.createClass({
           {' '}
           <FontIcon className="mdfi_action_work" /> {thing.weight}
         </div>
-        <div className="content-wrapper row">
-          <div className="col-md-4">
+        <div className="content-wrapper" style={{
+          display: 'flex',
+          flexWrap: 'nowrap'
+        }}>
+          <div style={{
+            flexBasis: 150
+          }}>
             <div className="image-wrapper">
               <ThingSlot type={thing.type} thing={thingWrap} />
 
@@ -94,21 +99,27 @@ var HeroInventoryItem = React.createClass({
               </div>
             </div>
           </div>
-          <div className="col-md-3">
+          <div style={{
+            flexBasis: 160
+          }}>
             {(needItems) ?
                 <div>
                   <div className="mui-font-style-subhead-1">Requirments</div>
                   {needItems}
                 </div> : null}
           </div>
-          <div className="col-md-3">
+          <div style={{
+            flexBasis: 160
+          }}>
             {(giveItems) ?
                 <div>
                   <div className="mui-font-style-subhead-1">Description</div>
                   {giveItems}
                 </div> : null}
           </div>
-          <div className="actions-wrapper col-md-2">
+          <div className="actions-wrapper" style={{
+            flexBasis: 110
+          }}>
             {canBeDressed ?
               <RaisedButton
                 onClick={this._onDress}

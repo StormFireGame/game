@@ -51,7 +51,7 @@ var Chat = React.createClass({
           style={{
             width: '100%',
             height: 2,
-            cursor: 'n-resize',
+            cursor: 'row-resize',
             position: 'absolute'
           }} />
         <Paper
@@ -59,19 +59,28 @@ var Chat = React.createClass({
             padding: 5
           }}
           rounded={false}>
-          <div className="row">
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'nowrap'
+            }}>
             <div
               style={{
-                height: 'calc(100% - 43px)'
-              }}
-              className="col-md-8">
+                flexGrow: 1,
+                flexShrink: 0,
+                flexBasis: 500,
+                height: 'calc(100% - 43px)',
+                marginRight: 5
+              }}>
               <Messages />
             </div>
             <div
               style={{
-                height: '100%'
-              }}
-              className="col-md-4">
+                height: '100%',
+                flexBasis: 300,
+                flexShrink: 0,
+                flexGrow: 0
+              }}>
               <Participants />
             </div>
           </div>
