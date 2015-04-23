@@ -34,10 +34,10 @@
   "dexterity": 6,
   "strength": 10,
 
-  "numberOfSkills": 0,
-  "numberOfAbilities": 0,
+  "numberOfSkills": 100,
+  "numberOfAbilities": 100,
+  "numberOfParameters": 100,
 
-  "numberOfParameters": 0,
   "numberOfDraws": 0,
   "numberOfLosses": 0,
   "numberOfWins": 0,
@@ -89,8 +89,8 @@
 
   "numberOfSkills": 0,
   "numberOfAbilities": 0,
-
   "numberOfParameters": 0,
+
   "numberOfDraws": 0,
   "numberOfLosses": 0,
   "numberOfWins": 0,
@@ -142,8 +142,8 @@
 
   "numberOfSkills": 0,
   "numberOfAbilities": 0,
-
   "numberOfParameters": 0,
+
   "numberOfDraws": 0,
   "numberOfLosses": 0,
   "numberOfWins": 0,

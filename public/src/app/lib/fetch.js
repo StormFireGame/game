@@ -1,4 +1,3 @@
-var superagent = require('superagent');
 var debug = require('debug')('game:lib:superagent');
 
 var config = require('../config/application');
@@ -24,8 +23,9 @@ module.exports = function(url, options) {
   }
 
   function status(response) {
-    if (response.status >= 200 && response.status < 300)
+    if (response.status >= 200 && response.status < 300) {
       return Promise.resolve(response);
+    }
 
     if (response.status === 401) mediator.emit(actionTypes.UNAUTHORIZED);
 
@@ -34,6 +34,7 @@ module.exports = function(url, options) {
   }
 
   function json(response) {
+    if (response.status === 204) return;
     return response.json();
   }
 

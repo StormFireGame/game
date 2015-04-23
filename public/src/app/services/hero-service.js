@@ -41,12 +41,9 @@ module.exports = {
     }).then(function() {
         debug('increased');
       });
-
   },
 
   update: function(data) {
-    var defer;
-
     debug('update hero %o', data);
 
     return fetch('/heroes/me', {

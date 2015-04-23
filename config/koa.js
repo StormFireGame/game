@@ -10,7 +10,9 @@ var cors = require('koa-cors');
 var serve = require('koa-static');
 
 module.exports = function(app) {
-  app.use(cors());
+  app.use(cors({
+    methods: ['GET', 'POST', 'HEAD', 'OPTIONS', 'PUT', 'DELETE', 'PATCH']
+  }));
   app.use(logger());
   app.use(errorHandler());
 

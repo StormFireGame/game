@@ -5,8 +5,6 @@ var mediator = require('../mediator');
 
 module.exports = {
   new: function(data) {
-    var defer;
-
     data = {
       'grant_type': 'password',
       'client_id': 'test',
@@ -29,6 +27,5 @@ module.exports = {
           mediator.accessToken = accessToken;
         }
       });
-
   }
 };

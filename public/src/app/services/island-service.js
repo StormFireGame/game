@@ -3,8 +3,6 @@ var debug = require('debug')('game:services:island');
 
 module.exports = {
   fetch: function() {
-    var defer;
-
     debug('fetching request');
 
     return fetch('/island')
