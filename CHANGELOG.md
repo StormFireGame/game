@@ -1,4 +1,23 @@
 
+0.2.0 / 2015-04-23
+==================
+
+  * Clean from flexlib
+  * Hotfix fetch and cleaning
+  * Fetch instead of Superagent fixes #33
+  * Display flex fixes #36
+  * Update readme
+  * Eslinter fixes #35
+  * Merge pull request #44 from DragonLegend/chat
+  * update Readme (chat progress)
+  * Chat style closes #45
+  * Base functionality closes #43
+  * Add start/fake data generation fixes #27
+  * Merge pull request #39 from DragonLegend/Island
+  * Progress readme
+  * Update website s
+  * Island fixes #37 #38
+
 0.1.0 / 2015-03-28
 ==================
 
