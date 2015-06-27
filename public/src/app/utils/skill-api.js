@@ -1,11 +1,11 @@
-var SkillActions = require('../actions/skill-actions');
-var SkillService = require('../services/skill-service');
+import SkillActions from '../actions/skill-actions';
+import SkillService from '../services/skill-service';
 
-module.exports = {
+export default {
 
-  fetch: function() {
+  fetch() {
     SkillService.fetch()
-      .then(function(response) {
+      .then((response) => {
         SkillActions.receive(response);
       });
   }

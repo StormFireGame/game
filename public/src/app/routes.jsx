@@ -1,22 +1,22 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 
-var Master = require('./pages/master');
-var Home = require('./pages/home');
-var HeroNewPage = require('./pages/hero/new');
-var HeroShowPage = require('./pages/hero/show');
-var HeroInventoryPage = require('./pages/hero/inventory');
+import Master from './pages/master';
+import Home from './pages/home';
+import HeroNewPage from './pages/hero/new';
+import HeroShowPage from './pages/hero/show';
+import HeroInventoryPage from './pages/hero/inventory';
 
-var HeroPreferencesMaster = require('./pages/hero/preferences/master');
-var HeroPreferencesGeneralPage = require('./pages/hero/preferences/general');
-var HeroPreferencesSecurityPage = require('./pages/hero/preferences/security');
-var HeroPreferencesImagesPage = require('./pages/hero/preferences/images');
+import HeroPreferencesMaster from './pages/hero/preferences/master';
+import HeroPreferencesGeneralPage from './pages/hero/preferences/general';
+import HeroPreferencesSecurityPage from './pages/hero/preferences/security';
+import HeroPreferencesImagesPage from './pages/hero/preferences/images';
 
-var IslandPage = require('./pages/island');
+import IslandPage from './pages/island';
 
-var Route = Router.Route;
+const Route = Router.Route;
 
-var routes = (
+export default (
   <Route path='/' handler={Master}>
     <Route path='/' handler={Home} />
     <Route path='heroes/new' handler={HeroNewPage} />
@@ -30,5 +30,3 @@ var routes = (
     <Route path='island' handler={IslandPage } />
   </Route>
 );
-
-module.exports = routes;

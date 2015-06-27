@@ -1,18 +1,20 @@
-var React = require('react');
-var debug = require('debug')('game:pages:hero:show');
+import React from 'react';
+import debugLib from '../../lib/debug';
 
-var SkillApi = require('../../utils/skill-api');
-var AuthMixin = require('../mixins/auth');
+import SkillApi from '../../utils/skill-api';
+import AuthMixin from '../mixins/auth';
 
-var HeroBody = require('../../components/hero/body');
-var HeroInfo = require('../../components/hero/info');
+import HeroBody from '../../components/hero/body';
+import HeroInfo from '../../components/hero/info';
 
-var HeroShowPage = React.createClass({
-  mixins: [AuthMixin],
-  componentDidMount: function() {
+const debug = debugLib('pages:hero:show');
+
+export default class HeroShowPage extends React.Component {
+  // mixins: [AuthMixin],
+  componentDidMount() {
     SkillApi.fetch();
-  },
-  render: function() {
+  }
+  render() {
     debug('render');
 
     return (
@@ -37,6 +39,4 @@ var HeroShowPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HeroShowPage;
+}

@@ -1,41 +1,40 @@
-var React = require('react');
-var mui = require('material-ui');
+import React from 'react';
+import { Paper } from 'material-ui';
 
-var dom = require('../../lib/dom');
+import dom from '../../lib/dom';
 
-var Messages = require('./messages');
-var Participants = require('./participants');
-var Controls = require('./controls');
+import Messages from './messages';
+import Participants from './participants';
+import Controls from './controls';
 
-var debug = require('debug')('game:components:chat');
+import debugLib from '../../lib/debug';
 
-var Paper = mui.Paper;
+const debug = debugLib('components:chat');
 
-var Chat = React.createClass({
-  componentDidMount: function () {
+export default class Chat extends React.Component {
+  componentDidMount() {
     this._resizeHandle();
-  },
-  _resizeHandle: function() {
-    var resizer = this.refs.resizer.getDOMNode();
-    var wrapper = this.refs.wrapper.getDOMNode();
-    var start;
-    var wrapperHeight;
+  }
+  _resizeHandle() {
+    const resizer = this.refs.resizer.getDOMNode();
+    const wrapper = this.refs.wrapper.getDOMNode();
+    let start;
+    let wrapperHeight;
 
-
-    dom.on(resizer, 'dragstart', function(e) {
+    dom.on(resizer, 'dragstart', (e) => {
       start = e.clientY;
       wrapperHeight = parseInt(wrapper.style.height, 10);
     });
 
-    dom.on(resizer, 'drag', function(e) {
+    dom.on(resizer, 'drag', (e) => {
       if (e.clientY === 0) return;
       wrapper.style.height = wrapperHeight + (start - e.clientY);
     });
-  },
-  render: function() {
+  }
+  render() {
     debug('render');
 
-    var style = {
+    const style = {
       height: 200,
       minHeight: 150,
       maxHeight: 350
@@ -94,6 +93,4 @@ var Chat = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Chat;
+}

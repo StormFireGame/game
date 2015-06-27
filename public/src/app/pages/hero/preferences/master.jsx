@@ -1,19 +1,21 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import { RouteHandler } from 'react-router';
 
-var debug = require('debug')('game:pages:hero:preferences:master');
+import debugLib from '../../../lib/debug';
 
-var Menu = require('../../../components/hero/preferences/menu');
-var AuthMixin = require('../../mixins/auth');
+import Menu from '../../../components/hero/preferences/menu';
+import AuthMixin from '../../mixins/auth';
 
-var RouteHandler = Router.RouteHandler;
-var State = Router.State;
+const debug = debugLib('pages:hero:preferences:master');
 
-var Master = React.createClass({
-  mixins: [AuthMixin, State],
-  render: function() {
+export default class HeroPreferencesMaster extends React.Component {
+  // mixins: [AuthMixin, State],
+  static contextTypes = {
+    router: React.PropTypes.func
+  };
+  render() {
 
-    debug('master render %s', this.getPath());
+    debug('master render %s', this.getCurrentPath());
 
     return (
       <div style={{
@@ -36,6 +38,4 @@ var Master = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Master;
+}

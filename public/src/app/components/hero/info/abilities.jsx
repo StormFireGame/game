@@ -1,22 +1,22 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { Paper, FontIcon } from 'material-ui';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:info:abilities');
+import debugLib from '../../../lib/debug';
 
-var Paper = mui.Paper;
-var FontIcon = mui.FontIcon;
+const debug = debugLib('components:hero:info:abilities');
 
-var HeroInfoAbilities = React.createClass({
-  propTypes: {
+export default class HeroInfoAbilities extends React.Component {
+  static propTypes = {
     numberOfAbilities: React.PropTypes.number,
     increaseHandler: React.PropTypes.func
-  },
-  render: function() {
-    var props = this.props;
-    var abilities = ['swords', 'axes', 'knives', 'clubs', 'shields'];
-    var items;
-    var style = {
+  };
+
+  render() {
+    const props = this.props;
+    const abilities = ['swords', 'axes', 'knives', 'clubs', 'shields'];
+    let items;
+    let style = {
       width: 204,
       height: 50 + 20 * abilities.length
     };
@@ -60,6 +60,4 @@ var HeroInfoAbilities = React.createClass({
       </Paper>
     );
   }
-});
-
-module.exports = HeroInfoAbilities;
+}

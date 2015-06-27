@@ -1,24 +1,20 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { TextField, RaisedButton } from 'material-ui';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:preferences:security-form');
+import debugLib from '../../../lib/debug';
 
-var HeroService = require('../../../services/hero-service');
-var mediator = require('../../../mediator');
-var actionTypes = require('../../../constants/action-types');
+import HeroService from '../../../services/hero-service';
+import mediator from '../../../mediator';
+import actionTypes from '../../../constants/action-types';
 
-var TextField = mui.TextField;
-var RaisedButton = mui.RaisedButton;
+const debug = debugLib('components:hero:preferences:security-form');
 
-var HeroPreferencesGeneralForm = React.createClass({
-  getInitialState: function() {
-    return {
-      errors: {}
-    };
-  },
-  render: function() {
-    var errors = this.state.errors;
+export default class HeroPreferencesGeneralForm extends React.Component {
+  state = { errors: {} };
+
+  render() {
+    const errors = this.state.errors;
     debug('render');
 
     return (
@@ -50,25 +46,24 @@ var HeroPreferencesGeneralForm = React.createClass({
         <RaisedButton label="Save" />
       </form>
     );
-  },
-  _validate: function() {
-    var refs = this.refs;
-    var newPassword = refs.newPassword.getValue();
-    var repeateNewPassword = refs.repeateNewPassword.getValue();
-    var errors = {};
+  }
+  _validate() {
+    const refs = this.refs;
+    const newPassword = refs.newPassword.getValue();
+    const repeateNewPassword = refs.repeateNewPassword.getValue();
+    const errors = {};
 
     if (newPassword !== repeateNewPassword) {
       errors.repeateNewPassword = 'Repeate password doesn\'t match';
     }
 
     return errors;
-  },
-  _onSubmit: function(e) {
+  }
+  _onSubmit(e) {
     e.preventDefault();
 
-    var refs = this.refs;
-    var data;
-    var errors = this._validate();
+    const refs = this.refs;
+    const errors = this._validate();
 
     if (!_.isEmpty(errors)) {
       this.setState({
@@ -77,18 +72,18 @@ var HeroPreferencesGeneralForm = React.createClass({
       return;
     }
 
-    data = {
+    const data = {
       password: refs.password.getValue(),
       newPassword: refs.newPassword.getValue()
     };
 
     HeroService.changePassword(data)
-      .then(function() {
+      .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Password changed');
         this.setState({
           errors: {}
         });
-      }.bind(this), function(res) {
+      }, (res) => {
         if (res.status === 422) {
           this.setState({
             errors: {
@@ -96,8 +91,6 @@ var HeroPreferencesGeneralForm = React.createClass({
             }
           });
         }
-      }.bind(this));
-  },
-});
-
-module.exports = HeroPreferencesGeneralForm;
+      });
+  }
+}

@@ -1,41 +1,43 @@
-var AppDispatcher = require('../app-dispatcher');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+import AppDispatcher from '../app-dispatcher';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
 
-var HeroImageConstants = require('../constants/hero-image-constants');
+import HeroImageConstants from '../constants/hero-image-constants';
 
-var debug = require('debug')('game:stores:hero-images');
+import debugLib from '../lib/debug';
 
-var CHANGE_EVENT = 'change';
+const debug = debugLib('stores:hero-images');
 
-var _heroImages = [];
+const CHANGE_EVENT = 'change';
+
+let _heroImages = [];
 
 function loadData(data) {
   _heroImages = data;
   debug('data loaded');
 }
 
-var HeroImageStore = assign({}, EventEmitter.prototype, {
-  get: function() {
+const HeroImageStore = assign({}, EventEmitter.prototype, {
+  get() {
     return _heroImages;
   },
 
-  emitChange: function() {
+  emitChange() {
     debug('changed');
     this.emit(CHANGE_EVENT);
   },
 
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener: function(callback) {
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
 });
 
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+AppDispatcher.register((payload) => {
+  const action = payload.action;
 
   switch(action.actionType) {
     case HeroImageConstants.HERO_IMAGES_RECEIVE:
@@ -51,4 +53,4 @@ AppDispatcher.register(function(payload) {
   return true;
 });
 
-module.exports = HeroImageStore;
+export default HeroImageStore;

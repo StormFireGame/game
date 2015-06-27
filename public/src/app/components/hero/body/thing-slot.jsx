@@ -1,24 +1,25 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { Paper } from 'material-ui';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:body-thing-slot');
+import debugLib from '../../../lib/debug';
 
-var Paper = mui.Paper;
+const debug = debugLib('components:hero:body-thing-slot');
 
-var HeroBodyThingSlot = React.createClass({
-  propTypes: {
+export default class HeroBodyThingSlot extends React.Component {
+  static propTypes = {
     type: React.PropTypes.string,
     thing: React.PropTypes.object
-  },
-  render: function() {
-    var props = this.props;
-    var type = props.type;
-    var thingWrap = props.thing;
-    var thing = thingWrap ? thingWrap.thing : null;
-    var width = 70;
-    var height;
-    var info = [];
+  };
+
+  render() {
+    const props = this.props;
+    const type = props.type;
+    const thingWrap = props.thing;
+    const thing = thingWrap ? thingWrap.thing : null;
+    let width = 70;
+    let height;
+    let info = [];
 
     switch(type) {
       case 'gloves':
@@ -55,7 +56,7 @@ var HeroBodyThingSlot = React.createClass({
         break;
     }
 
-    var style = {
+    const style = {
       width: width,
       height: height
     };
@@ -84,7 +85,7 @@ var HeroBodyThingSlot = React.createClass({
         'timeDuration'
       ].forEach((item) => {
         if (_.isUndefined(thing[item])) return;
-        var label = _.capitalize(item.replace('Give', ''));
+        const label = _.capitalize(item.replace('Give', ''));
         info.push(label + ': ' + thing[item]);
       });
     }
@@ -103,6 +104,4 @@ var HeroBodyThingSlot = React.createClass({
       </Paper>
     );
   }
-});
-
-module.exports = HeroBodyThingSlot;
+}

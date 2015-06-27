@@ -1,11 +1,11 @@
-var React = require('react');
+import React from 'react';
+import debugLib from '../../../lib/debug';
+import Form from '../../../components/hero/preferences/security-form';
 
-var debug = require('debug')('game:pages:hero:preferences:security');
+const debug = debugLib('pages:hero:preferences:security');
 
-var Form = require('../../../components/hero/preferences/security-form');
-
-var HeroPreferencesSecurityPage = React.createClass({
-  render: function() {
+export default class HeroPreferencesSecurityPage extends React.Component {
+  render() {
 
     debug('render');
 
@@ -16,6 +16,4 @@ var HeroPreferencesSecurityPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HeroPreferencesSecurityPage;
+}

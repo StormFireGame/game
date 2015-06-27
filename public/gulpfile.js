@@ -1,11 +1,13 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
+var connect = require('gulp-connect');
 var del = require('del');
 
 var browserify = require('browserify');
 var watchify = require('watchify');
 var source = require('vinyl-source-stream');
+var babelify = require('babelify');
 
 var prettyHrtime = require('pretty-hrtime');
 
@@ -51,8 +53,7 @@ config = {
   },
   browserify: {
     debug: true,
-    extensions: ['.jsx'],
-    transform: ['reactify', { es6: true }]
+    extensions: ['.jsx']
   },
   images: {
     src: paths.assets + '/images/**/*.{png,jpg,gif,ico}',
@@ -61,6 +62,11 @@ config = {
   markup: {
     src: paths.src + '/*.html',
     dest: paths.dist
+  },
+  connect: {
+    root: [paths.dist, paths.src],
+    livereload: true,
+    port: 9008
   },
   browserSync: {
     open: false,
@@ -134,7 +140,9 @@ gulp.task('browserify-watch', function() {
   args.extensions = config.browserify.extensions;
   bundler = watchify(browserify(config.scripts.src, args));
 
-  bundler.transform(config.browserify.transform);
+  bundler.transform(babelify.configure({
+    stage: 0
+  }));
 
   rebundle = function() {
     bundleLogger.start(config.scripts.outputName);
@@ -145,7 +153,7 @@ gulp.task('browserify-watch', function() {
       .pipe(source(config.scripts.outputName))
       .pipe(gulp.dest(config.scripts.dest))
       .pipe($.notify('Bundled in'))
-      .pipe(browserSync.reload({ stream: true }));
+      .pipe(connect.reload());
   };
 
   bundler.on('update', rebundle);
@@ -177,17 +185,21 @@ gulp.task('markup', function() {
     .pipe(gulp.dest(config.markup.dest));
 });
 
-gulp.task('watch', ['browserSync'], function() {
-  gulp.watch(config.styles.watch, ['styles', browserSync.reload]);
-  gulp.watch(config.images.src, ['images', browserSync.reload]);
-  gulp.watch(config.markup.src, ['markup', browserSync.reload]);
-  gulp.watch(config.fonts.src, ['fonts', browserSync.reload]);
+gulp.task('watch', ['connect'], function() {
+  gulp.watch(config.styles.watch, ['styles', connect.reload]);
+  gulp.watch(config.images.src, ['images', connect.reload]);
+  gulp.watch(config.markup.src, ['markup', connect.reload]);
+  gulp.watch(config.fonts.src, ['fonts', connect.reload]);
 
   gulp.start('browserify-watch');
 });
 
 gulp.task('browserSync', ['watch:build'], function() {
   browserSync(config.browserSync);
+});
+
+gulp.task('connect', function() {
+  connect.server(config.connect);
 });
 
 gulp.task('watch:build', ['clean'], function() {

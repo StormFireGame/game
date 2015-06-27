@@ -1,14 +1,16 @@
-var AppDispatcher = require('../app-dispatcher');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+import AppDispatcher from '../app-dispatcher';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
 
-var debug = require('debug')('game:stores:island');
+import debugLib from '../lib/debug';
 
-var IslandConstants = require('../constants/island-constants');
+import IslandConstants from '../constants/island-constants';
 
-var CHANGE_EVENT = 'change';
+const debug = debugLib('stores:island');
 
-var _island = {};
+const CHANGE_EVENT = 'change';
+
+let _island = {};
 
 function loadData(data) {
   _island = data;
@@ -16,26 +18,26 @@ function loadData(data) {
 }
 
 var IslandStore = assign({}, EventEmitter.prototype, {
-  get: function() {
+  get() {
     return _island;
   },
 
-  emitChange: function() {
+  emitChange() {
     debug('changed');
     this.emit(CHANGE_EVENT);
   },
 
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener: function(callback) {
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
 });
 
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+AppDispatcher.register((payload) => {
+  const action = payload.action;
 
   switch(action.actionType) {
     case IslandConstants.ISLAND_RECEIVE:
@@ -51,4 +53,4 @@ AppDispatcher.register(function(payload) {
   return true;
 });
 
-module.exports = IslandStore;
+export default IslandStore;

@@ -1,11 +1,11 @@
-var IslandActions = require('../actions/island-actions');
-var IslandService = require('../services/island-service');
+import IslandActions from '../actions/island-actions';
+import IslandService from '../services/island-service';
 
-module.exports = {
+export default {
 
-  fetch: function() {
+  fetch() {
     IslandService.fetch()
-      .then(function(response) {
+      .then((response) => {
         IslandActions.receive(response);
       });
   }

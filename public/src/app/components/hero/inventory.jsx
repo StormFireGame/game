@@ -1,30 +1,31 @@
-var React = require('react');
-var _ = require('lodash');
-var assign = require('object-assign');
+import React from 'react';
+import _ from 'lodash';
+import assign from 'object-assign';
 
-var debug = require('debug')('game:components:hero:inventory');
+import debugLib from '../../lib/debug';
 
-var HeroListenerMixin = require('./mixins/hero-listener');
+import HeroListenerMixin from './mixins/hero-listener';
 
-var Actions = require('./inventory/actions');
-var Items = require('./inventory/items');
+import Actions from './inventory/actions';
+import Items from './inventory/items';
 
-var HeroInventory = React.createClass({
-  mixins: [HeroListenerMixin],
-  getInitialState: function() {
-    return assign({
-      filter: null
-    }, HeroListenerMixin.getInitialState);
-  },
-  render: function() {
-    var hero = this.state.hero;
+const debug = debugLib('components:hero:inventory');
+
+export default class HeroInventory extends React.Component {
+  // mixins: [HeroListenerMixin],
+  state = assign({
+    filter: null
+  }, HeroListenerMixin.getInitialState);
+
+  render() {
+    const hero = this.state.hero;
 
     if (_.isEmpty(hero)) return null;
 
-    var things = hero.things.filter(function(thing) {
-      var filter = this.state.filter;
+    const things = hero.things.filter((thing) => {
+      const filter = this.state.filter;
       return !thing.dressed && (!filter || thing.thing.type === filter);
-    }.bind(this));
+    });
 
     debug('render');
 
@@ -38,12 +39,10 @@ var HeroInventory = React.createClass({
           things={things} />
       </div>
     );
-  },
-  _filterHandler: function(type) {
+  }
+  _filterHandler(type) {
     this.setState({
       filter: type
     });
   }
-});
-
-module.exports = HeroInventory;
+}

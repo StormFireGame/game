@@ -1,8 +1,8 @@
-var AppDispatcher = require('../app-dispatcher');
-var SkillConstants = require('../constants/skill-constants');
+import AppDispatcher from '../app-dispatcher';
+import SkillConstants from '../constants/skill-constants';
 
-module.exports = {
-  receive: function(data) {
+export default {
+  receive(data) {
     AppDispatcher.handleAction({
       actionType: SkillConstants.SKILLS_RECEIVE,
       data: data

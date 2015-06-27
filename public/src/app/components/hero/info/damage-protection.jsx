@@ -1,15 +1,14 @@
-var React = require('react');
-var mui = require('material-ui');
+import React from 'react';
+import { Paper } from 'material-ui';
 
-var debug = require('debug')
-      ('game:components:hero:info:damage-protection');
+import debugLib from '../../../lib/debug';
 
-var Paper = mui.Paper;
+const debug = debugLib('components:hero:info:damage-protection');
 
-var HeroInfoDamageProtection = React.createClass({
-  render: function() {
-    var props = this.props;
-    var style = {
+export default class HeroInfoDamageProtection extends React.Component {
+  render() {
+    const props = this.props;
+    const style = {
       width: 205,
       height: 179
     };
@@ -40,6 +39,4 @@ var HeroInfoDamageProtection = React.createClass({
       </Paper>
     );
   }
-});
-
-module.exports = HeroInfoDamageProtection;
+}

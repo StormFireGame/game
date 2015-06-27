@@ -1,38 +1,38 @@
-var AppDispatcher = require('../app-dispatcher');
-var HeroConstants = require('../constants/hero-constants');
+import AppDispatcher from '../app-dispatcher';
+import HeroConstants from '../constants/hero-constants';
 
-module.exports = {
-  receive: function(data) {
+export default {
+  receive(data) {
     AppDispatcher.handleAction({
       actionType: HeroConstants.HERO_RECEIVE,
       data: data
     });
   },
-  updated: function(data) {
+  updated(data) {
     AppDispatcher.handleAction({
       actionType: HeroConstants.HERO_UPDATED,
       data: data
     });
   },
-  thingRemoved: function(id) {
+  thingRemoved(id) {
     AppDispatcher.handleAction({
       actionType: HeroConstants.HERO_THING_REMOVED,
       id: id
     });
   },
-  complectCreated: function(data) {
+  complectCreated(data) {
     AppDispatcher.handleAction({
       actionType: HeroConstants.HERO_COMPLECT_CREATED,
       data: data
     });
   },
-  complectDeleted: function(id) {
+  complectDeleted(id) {
     AppDispatcher.handleAction({
       actionType: HeroConstants.HERO_COMPLECT_DELETED,
       id: id
     });
   },
-  movedOnIsland: function(x, y) {
+  movedOnIsland(x, y) {
     AppDispatcher.handleAction({
       actionType: HeroConstants.HERO_MOVED_ON_ISLAND,
       x: x,

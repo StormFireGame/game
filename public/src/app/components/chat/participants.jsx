@@ -1,56 +1,55 @@
-var React = require('react');
-var mui = require('material-ui');
+import React from 'react';
+import { Paper } from 'material-ui';
 
-var mediator = require('../../mediator');
+import mediator from '../../mediator';
 
-var Participant = require('./participant.jsx');
+import Participant from './participant.jsx';
 
-var debug = require('debug')('game:components:chat:participants');
+import debugLib from '../../lib/debug';
 
-var Paper = mui.Paper;
+const debug = debugLib('components:chat:participants');
 
-var ChatParticipants = React.createClass({
-  getInitialState: function() {
-    return {
-      participants: []
-    };
-  },
-  componentDidMount: function() {
+export default class ChatParticipants extends React.Component {
+  state = {
+    participants: []
+  };
+
+  componentDidMount() {
     mediator.socket.on('chat/join', this._onJoin);
     mediator.socket.on('chat/leave', this._onLeave);
     mediator.socket.on('chat/participants', this._onParticipants);
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     mediator.socket.removeListener('chat/join', this._onJoin);
     mediator.socket.removeListener('chat/leave', this._onLeave);
     mediator.socket.removeListener('chat/participants', this._onParticipants);
-  },
-  _onParticipants: function(participants) {
+  }
+  _onParticipants(participants) {
     this.setState({
       participants: participants
     });
-  },
-  _onJoin: function(participant) {
+  }
+  _onJoin(participant) {
     this.setState({
       participants: this.state.participants.concat([participant])
     });
-  },
-  _onLeave: function(participant) {
+  }
+  _onLeave(participant) {
     this.setState({
       participants: this.state.participants
         .filter((item) => item._id !== participant._id)
     });
-  },
-  render: function() {
+  }
+  render() {
     debug('render');
 
-    var style = {
+    const style = {
       height: '100%',
       overflow: 'auto',
       padding: 5
     };
 
-    var participants = this.state.participants.map((participant, index) => {
+    const participants = this.state.participants.map((participant, index) => {
       return (
         <Participant
           key={index}
@@ -73,6 +72,4 @@ var ChatParticipants = React.createClass({
       </Paper>
     );
   }
-});
-
-module.exports = ChatParticipants;
+}

@@ -1,13 +1,15 @@
-var debug = require('debug')('game:lib:superagent');
+import debugLib from '../lib/debug';
 
-var config = require('../config/application');
-var environmentConfig = require('../config/environment');
+import config from '../config/application';
+import environmentConfig from '../config/environment';
 
-var mediator = require('../mediator');
-var actionTypes = require('../constants/action-types');
+import mediator from '../mediator';
+import actionTypes from '../constants/action-types';
 
-module.exports = function(url, options) {
-  var accessToken = mediator.accessToken;
+const debug = debugLib('lib:superagent');
+
+export default (url, options) => {
+  const accessToken = mediator.accessToken;
 
   options = options || {};
   options.headers = options.headers || {};

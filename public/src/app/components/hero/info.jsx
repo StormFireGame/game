@@ -1,23 +1,25 @@
-var React = require('react');
-var _ = require('lodash');
+import React from 'react';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:info');
+import debugLib from '../../lib/debug';
 
-var HeroService = require('../../services/hero-service');
-var HeroApi = require('../../utils/hero-api');
-var HeroListenerMixin = require('./mixins/hero-listener');
+import HeroService from '../../services/hero-service';
+import HeroApi from '../../utils/hero-api';
+import HeroListenerMixin from './mixins/hero-listener';
 
-var Parameters = require('./info/parameters');
-var Information = require('./info/information');
-var Modifiers = require('./info/modifiers');
-var DamageProtection = require('./info/damage-protection');
-var Skills = require('./info/skills');
-var Abilities = require('./info/abilities');
+import Parameters from './info/parameters';
+import Information from './info/information';
+import Modifiers from './info/modifiers';
+import DamageProtection from './info/damage-protection';
+import Skills from './info/skills';
+import Abilities from './info/abilities';
 
-var HeroInfo = React.createClass({
-  mixins: [HeroListenerMixin],
-  render: function() {
-    var hero = this.state.hero;
+const debug = debugLib('components:hero:info');
+
+export default class HeroInfo extends React.Component {
+  // mixins: [HeroListenerMixin],
+  render() {
+    const hero = this.state.hero;
 
     if (_.isEmpty(hero)) return null;
 
@@ -77,13 +79,11 @@ var HeroInfo = React.createClass({
         </div>
       </div>
     );
-  },
-  _onIncrease: function(area) {
-    var idOrName = arguments[1];
+  }
+  _onIncrease(area) {
+    const idOrName = arguments[1];
 
     HeroService.increase(area, idOrName)
       .then(HeroApi.fetch);
   }
-});
-
-module.exports = HeroInfo;
+}

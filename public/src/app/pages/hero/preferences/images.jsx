@@ -1,16 +1,16 @@
-var React = require('react');
+import React from 'react';
 
-var debug = require('debug')('game:pages:hero:preferences:images');
+import debugLib from '../../../lib/debug';
+import HeroImageApi from '../../../utils/hero-image-api';
+import Form from '../../../components/hero/preferences/images-form';
 
-var HeroImageApi = require('../../../utils/hero-image-api');
+const debug = debugLib('pages:hero:preferences:images');
 
-var Form = require('../../../components/hero/preferences/images-form');
-
-var HeroPreferencesImagesPage = React.createClass({
-  componentDidMount: function() {
+export default class HeroPreferencesImagesPage extends React.Component {
+  componentDidMount() {
     HeroImageApi.fetch();
-  },
-  render: function() {
+  }
+  render() {
     debug('render');
 
     return (
@@ -20,6 +20,4 @@ var HeroPreferencesImagesPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HeroPreferencesImagesPage;
+}

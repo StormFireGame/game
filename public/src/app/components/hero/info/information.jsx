@@ -1,14 +1,14 @@
-var React = require('react');
-var mui = require('material-ui');
+import React from 'react';
+import { Paper } from 'material-ui';
 
-var debug = require('debug')('game:components:hero:info:information');
+import debugLib from '../../../lib/debug';
 
-var Paper = mui.Paper;
+const debug = debugLib('components:hero:info:information');
 
-var HeroInfoInformation = React.createClass({
-  render: function() {
-    var props = this.props;
-    var style = {
+export default class HeroInfoInformation extends React.Component {
+  render() {
+    const props = this.props;
+    const style = {
       width: 205,
       height: 140
     };
@@ -35,6 +35,4 @@ var HeroInfoInformation = React.createClass({
       </Paper>
     );
   }
-});
-
-module.exports = HeroInfoInformation;
+}

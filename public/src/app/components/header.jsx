@@ -1,12 +1,14 @@
-var React = require('react');
+import React from 'react';
 
-var Menu = require('./menu');
-var Info = require('./info');
+import Menu from './menu';
+import Info from './info';
 
-var debug = require('debug')('game:components:header');
+import debugLib from '../lib/debug';
 
-var Header = React.createClass({
-  render: function() {
+const debug = debugLib('components:header');
+
+export default class Header extends React.Component {
+  render() {
     debug('render');
 
     return (
@@ -16,6 +18,4 @@ var Header = React.createClass({
       </header>
     );
   }
-});
-
-module.exports = Header;
+}

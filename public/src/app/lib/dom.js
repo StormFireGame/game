@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = {
-  on: function(el, type, callback) {
+export default {
+  on(el, type, callback) {
     if (el.length) {
       for(let i = 0; i < el.length; i++) {
         this.on(el[i], type, callback);
@@ -12,7 +10,7 @@ module.exports = {
       el.attachEvent('on' + type, callback.bind(el));
     }
   },
-  off: function(el, type, callback) {
+  off(el, type, callback) {
     if (el.removeEventListener) {
       el.removeEventListener(type, callback);
     } else {

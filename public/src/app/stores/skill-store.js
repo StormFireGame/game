@@ -1,14 +1,16 @@
-var AppDispatcher = require('../app-dispatcher');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+import AppDispatcher from '../app-dispatcher';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
 
-var SkillConstants = require('../constants/skill-constants');
+import SkillConstants from '../constants/skill-constants';
 
-var debug = require('debug')('game:stores:skill');
+import debugLib from '../lib/debug';
 
-var CHANGE_EVENT = 'change';
+const debug = debugLib('stores:skill');
 
-var _skills = [];
+const CHANGE_EVENT = 'change';
+
+let _skills = [];
 
 function loadData(data) {
   _skills = data;
@@ -16,26 +18,26 @@ function loadData(data) {
 }
 
 var SkillStore = assign({}, EventEmitter.prototype, {
-  get: function() {
+  get() {
     return _skills;
   },
 
-  emitChange: function() {
+  emitChange() {
     debug('changed');
     this.emit(CHANGE_EVENT);
   },
 
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener: function(callback) {
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
 });
 
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+AppDispatcher.register((payload) => {
+  const action = payload.action;
 
   switch(action.actionType) {
     case SkillConstants.SKILLS_RECEIVE:
@@ -51,4 +53,4 @@ AppDispatcher.register(function(payload) {
   return true;
 });
 
-module.exports = SkillStore;
+export default SkillStore;

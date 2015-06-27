@@ -1,15 +1,17 @@
-var AppDispatcher = require('../app-dispatcher');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var _ = require('lodash');
+import AppDispatcher from '../app-dispatcher';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
+import _ from 'lodash';
 
-var debug = require('debug')('game:stores:hero');
+import debugLib from '../lib/debug';
 
-var HeroConstants = require('../constants/hero-constants');
+import HeroConstants from '../constants/hero-constants';
 
-var CHANGE_EVENT = 'change';
+const debug = debugLib('stores:hero');
 
-var _hero = {};
+const CHANGE_EVENT = 'change';
+
+let _hero = {};
 
 function loadData(data) {
   _hero = data;
@@ -50,27 +52,27 @@ function movedOnIsland(x, y) {
   _hero.location.coordinateY = y;
 }
 
-var HeroStore = assign({}, EventEmitter.prototype, {
-  get: function() {
+const HeroStore = assign({}, EventEmitter.prototype, {
+  get() {
     return _hero;
   },
 
-  emitChange: function() {
+  emitChange() {
     debug('changed');
     this.emit(CHANGE_EVENT);
   },
 
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener: function(callback) {
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
 });
 
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+AppDispatcher.register((payload) => {
+  const action = payload.action;
 
   switch(action.actionType) {
     case HeroConstants.HERO_RECEIVE:
@@ -101,4 +103,4 @@ AppDispatcher.register(function(payload) {
   return true;
 });
 
-module.exports = HeroStore;
+export default HeroStore;

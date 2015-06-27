@@ -1,15 +1,17 @@
-var React = require('react');
+import React from 'react';
 
-var debug = require('debug')('game:pages:hero:inventory');
+import debugLib from '../../lib/debug';
 
-var AuthMixin = require('../mixins/auth');
+import AuthMixin from '../mixins/auth';
 
-var HeroBody = require('../../components/hero/body');
-var HeroInventory  = require('../../components/hero/inventory');
+import HeroBody from '../../components/hero/body';
+import HeroInventory  from '../../components/hero/inventory';
 
-var HeroInventoryPage = React.createClass({
-  mixins: [AuthMixin],
-  render: function() {
+const debug = debugLib('pages:hero:inventory');
+
+export default class HeroInventoryPage extends React.Component {
+  // mixins: [AuthMixin],
+  render() {
     debug('render');
 
     return (
@@ -34,6 +36,4 @@ var HeroInventoryPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HeroInventoryPage;
+}

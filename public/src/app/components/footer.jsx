@@ -1,12 +1,12 @@
-var React = require('react');
-var mui = require('material-ui');
+import React from 'react';
+import { IconButton } from 'material-ui';
 
-var IconButton = mui.IconButton;
+import debugLib from '../lib/debug';
 
-var debug = require('debug')('game:components:footer');
+const debug = debugLib('components:footer');
 
-var Footer = React.createClass({
-  render: function() {
+export default class Footer extends React.Component {
+  render() {
     debug('render');
 
     return (
@@ -18,6 +18,4 @@ var Footer = React.createClass({
       </footer>
     );
   }
-});
-
-module.exports = Footer;
+}

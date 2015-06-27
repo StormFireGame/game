@@ -1,35 +1,37 @@
-var fetch = require('../lib/fetch');
-var debug = require('debug')('game:services:hero');
-var mediator = require('../mediator');
-var makeUrl = require('make-url');
-var assign = require('object-assign');
+import fetch from '../lib/fetch';
+import debugLib from '../lib/debug';
+import mediator from '../mediator';
+import makeUrl from 'make-url';
+import assign from 'object-assign';
 
-module.exports = {
-  new: function(data) {
+const debug = debugLib('services:hero');
+
+export default {
+  new(data) {
     debug('new request %o', data);
 
     return fetch('/heroes', {
       method: 'POST',
       body: data
-    }).then(function(response) {
-        debug('created');
-        return response;
-      });
+    }).then((response) => {
+      debug('created');
+      return response;
+    });
   },
 
-  fetch: function() {
+  fetch() {
     debug('fetching request');
 
     return fetch('/heroes/me')
-      .then(function(response) {
+      .then((response) => {
         debug('fetched');
         mediator.currentUser = response;
         return response;
       });
   },
 
-  increase: function(area) {
-    var idOrName = arguments[1];
+  increase(area) {
+    const idOrName = arguments[1];
 
     debug('increasing request %s %s', area, idOrName);
 
@@ -38,114 +40,114 @@ module.exports = {
       idOrName: idOrName
     }), {
       method: 'PUT'
-    }).then(function() {
-        debug('increased');
-      });
+    }).then(() => {
+      debug('increased');
+    });
   },
 
-  update: function(data) {
+  update(data) {
     debug('update hero %o', data);
 
     return fetch('/heroes/me', {
       method: 'PATCH',
       body: data
-    }).then(function() {
-        mediator.currentUser = assign(mediator.currentUser, data);
-        debug('updated');
-      });
+    }).then(() => {
+      mediator.currentUser = assign(mediator.currentUser, data);
+      debug('updated');
+    });
   },
 
-  changePassword: function(data) {
+  changePassword(data) {
     debug('update hero password %o', data);
 
     return fetch('/heroes/me/change-password', {
       method: 'PUT',
       body: data
-    }).then(function() {
-        debug('updated password');
-      });
+    }).then(() => {
+      debug('updated password');
+    });
   },
 
-  removeThing: function(id) {
+  removeThing(id) {
     debug('removing thing %s', id);
 
     return fetch(makeUrl('/heroes/me/things/:id', id), {
       method: 'DELETE'
-    }).then(function() {
-        debug('thing removed %s', id);
-      });
+    }).then(() => {
+      debug('thing removed %s', id);
+    });
   },
 
-  dressThing: function(id) {
+  dressThing(id) {
     debug('dress thing %s', id);
 
     return fetch(makeUrl('/heroes/me/things/:id/dress', id), {
       method: 'PUT'
-    }).then(function() {
-        debug('thing dressed %s', id);
-      });
+    }).then(() => {
+      debug('thing dressed %s', id);
+    });
   },
 
-  undressThing: function(id) {
+  undressThing(id) {
     debug('undress thing %s', id);
 
     return fetch(makeUrl('/heroes/me/things/:id/undress', id), {
       method: 'PUT'
-    }).then(function() {
-        debug('thing undressed %s', id);
-      });
+    }).then(() => {
+      debug('thing undressed %s', id);
+    });
   },
 
-  undressThings: function() {
+  undressThings() {
     debug('undress things');
 
     return fetch('/heroes/me/things/undress', {
       method: 'PUT'
-    }).then(function() {
-        debug('things undressed');
-      });
+    }).then(() => {
+      debug('things undressed');
+    });
   },
 
-  newComplect: function(data) {
+  newComplect(data) {
     debug('new complect %o', data);
 
     return fetch('/heroes/me/complects', {
       method: 'POST',
       body: data
-    }).then(function(response) {
-        debug('created');
+    }).then((response) => {
+      debug('created');
 
-        return response;
-      });
+      return response;
+    });
   },
 
-  deleteComplect: function(id) {
+  deleteComplect(id) {
     debug('delete complect %s', id);
 
     return fetch(makeUrl('/heroes/me/complects/:id', id), {
       method: 'DELETE'
-    }).then(function() {
-        debug('complect deleted %s', id);
-      });
+    }).then(() => {
+      debug('complect deleted %s', id);
+    });
   },
 
-  applyComplect: function(id) {
+  applyComplect(id) {
     debug('appling complect %s', id);
 
     return fetch(makeUrl('/heroes/me/complects/:id/apply', id), {
       method: 'PUT'
-    }).then(function() {
-        debug('complect applied %s', id);
-      });
+    }).then(() => {
+      debug('complect applied %s', id);
+    });
   },
 
-  moveOnIsland: function(x, y) {
+  moveOnIsland(x, y) {
     debug('move on island to %s:%s', x, y);
 
     return fetch(makeUrl('/heroes/me/island/move/:x/:y', x, y), {
       method: 'PUT'
-    }).then(function() {
-        debug('moved on island to %s:%s', x, y);
-      });
+    }).then(() => {
+      debug('moved on island to %s:%s', x, y);
+    });
   }
 };

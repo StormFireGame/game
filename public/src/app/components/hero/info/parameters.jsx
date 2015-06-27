@@ -1,22 +1,22 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { Paper, FontIcon } from 'material-ui';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:info:parameters');
+import debugLib from '../../../lib/debug';
 
-var Paper = mui.Paper;
-var FontIcon = mui.FontIcon;
+const debug = debugLib('components:hero:info:parameters');
 
-var HeroInfoParameters = React.createClass({
-  propTypes: {
+export default class HeroInfoParameters extends React.Component {
+  static propTypes = {
     numberOfAbilities: React.PropTypes.number,
     increaseHandler: React.PropTypes.func
-  },
-  render: function() {
-    var props = this.props;
-    var parameters = ['strength', 'dexterity', 'intuition', 'health'];
-    var items;
-    var style = {
+  };
+
+  render() {
+    const props = this.props;
+    const parameters = ['strength', 'dexterity', 'intuition', 'health'];
+    let items;
+    let style = {
       width: 205,
       height: 50 + 20 * parameters.length,
       backgroundColor: 'white'
@@ -27,7 +27,7 @@ var HeroInfoParameters = React.createClass({
     }
 
     function renderFeature(orig, feature) {
-      var output = '';
+      let output = '';
       if (orig - feature === 0) {
         return output;
       }
@@ -46,7 +46,7 @@ var HeroInfoParameters = React.createClass({
 
     items = parameters
       .map((parameter, key) => {
-        var parameterCap = _.capitalize(parameter);
+        const parameterCap = _.capitalize(parameter);
         return (
           <div key={key}>
             <dt>{parameterCap}</dt>
@@ -75,6 +75,4 @@ var HeroInfoParameters = React.createClass({
       </Paper>
     );
   }
-});
-
-module.exports = HeroInfoParameters;
+}

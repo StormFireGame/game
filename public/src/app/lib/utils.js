@@ -1,8 +1,6 @@
-'use strict';
-
-module.exports = {
-  validationMapper: function(body) {
-    var errors = {};
+export default {
+  validationMapper(body) {
+    let errors = {};
 
     for(let key in body.errors) {
       let error = body.errors[key];

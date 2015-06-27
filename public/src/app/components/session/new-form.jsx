@@ -1,24 +1,19 @@
-var React = require('react');
-var Router = require('react-router');
-var mui = require('material-ui');
-var debug = require('debug')('game:components:session:new-form');
+import React from 'react';
+import { TextField, RaisedButton } from 'material-ui';
+import debugLib from '../../lib/debug';
 
-var SessionService = require('../../services/session-service');
+import SessionService from '../../services/session-service';
 
-var Navigation = Router.Navigation;
+const debug = debugLib('components:session:new-form');
 
-var TextField = mui.TextField;
-var RaisedButton = mui.RaisedButton;
+export default class SessionNewForm extends React.Component {
+  // mixins: [Navigation],
+  state = {
+    error: null
+  };
 
-var SessionNewForm = React.createClass({
-  mixins: [Navigation],
-  getInitialState: function() {
-    return {
-      error: null
-    };
-  },
-  render: function() {
-    var error = this.state.error;
+  render() {
+    const error = this.state.error;
 
     debug('render');
 
@@ -28,14 +23,14 @@ var SessionNewForm = React.createClass({
           ref="login"
           errorText={error}
           name="login"
-          required
+        import
           hintText="Login" />
         <br />
         <TextField
           ref="password"
           type="password"
           name="password"
-          required
+        import
           hintText="Password" />
         <br />
         <RaisedButton label="Signin" />
@@ -47,8 +42,8 @@ var SessionNewForm = React.createClass({
           linkButton={true} />
       </form>
     );
-  },
-  _onSubmit: function(e) {
+  }
+  _onSubmit(e) {
     var refs = this.refs;
     var data;
 
@@ -62,8 +57,7 @@ var SessionNewForm = React.createClass({
     debug('submit %o', data);
 
     SessionService.new(data)
-      .then(function(res) {
-        /* jshint camelcase: false */
+      .then((res) => {
         if (res.error) {
           this.setState({
             error: res.error_description
@@ -71,8 +65,6 @@ var SessionNewForm = React.createClass({
         }
 
         this.transitionTo('hero');
-      }.bind(this));
+      });
   }
-});
-
-module.exports = SessionNewForm;
+}

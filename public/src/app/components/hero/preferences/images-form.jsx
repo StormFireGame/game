@@ -1,21 +1,23 @@
-var React = require('react');
-var mui = require('material-ui');
-var assign = require('object-assign');
-var _ = require('lodash');
+import React from 'react';
+import {
+  RadioButtonGroup,
+  RadioButton,
+  RaisedButton,
+  Paper
+} from 'material-ui';
+import assign from 'object-assign';
+import _ from 'lodash';
 
-var mediator = require('../../../mediator');
-var HeroApi = require('../../../utils/hero-api');
-var actionTypes = require('../../../constants/action-types');
+import mediator from '../../../mediator';
+import HeroApi from '../../../utils/hero-api';
+import actionTypes from '../../../constants/action-types';
 
-var HeroImageStore = require('../../../stores/hero-image-store');
-var HeroStore = require('../../../stores/hero-store');
+import HeroImageStore from '../../../stores/hero-image-store';
+import HeroStore from '../../../stores/hero-store';
 
-var debug = require('debug')('game:components:hero:preferences:images-form');
+import debugLib from '../../../lib/debug';
 
-var RadioButtonGroup = mui.RadioButtonGroup;
-var RadioButton = mui.RadioButton;
-var RaisedButton = mui.RaisedButton;
-var Paper = mui.Paper;
+const debug = debugLib('components:hero:preferences:images-form');
 
 function getHeroState() {
   return {
@@ -23,42 +25,41 @@ function getHeroState() {
   };
 }
 
-var getHeroImagesState = function() {
+function getHeroImagesState() {
   return {
     heroImages: HeroImageStore.get()
   };
 };
 
-var HeroPreferencesGeneralForm = React.createClass({
-  getInitialState: function() {
-    return assign({},
-      getHeroState(),
-      getHeroImagesState()
-    );
-  },
-  componentDidMount: function() {
+export default class HeroPreferencesGeneralForm extends React.Component {
+  state = assign({},
+    getHeroState(),
+    getHeroImagesState()
+  );
+
+  componentDidMount() {
     HeroImageStore.addChangeListener(this._onChangeHeroImages);
     HeroStore.addChangeListener(this._onChangeHero);
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     HeroImageStore.removeChangeListener(this._onChangeHeroImages);
     HeroStore.removeChangeListener(this._onChangeHero);
-  },
-  _onChangeHeroImages: function() {
+  }
+  _onChangeHeroImages() {
     this.setState(getHeroImagesState());
-  },
-  _onChangeHero: function() {
+  }
+  _onChangeHero() {
     this.setState(getHeroState());
-  },
-  render: function() {
-    var hero = this.state.hero;
-    var heroImages = this.state.heroImages;
+  }
+  render() {
+    const hero = this.state.hero;
+    const heroImages = this.state.heroImages;
 
     if (_.isEmpty(hero) || !heroImages.length) return null;
 
-    var items;
-    var heroImage = (hero.image) ? hero.image._id : -1;
-    var itemStyle = {
+    let items;
+    const heroImage = (hero.image) ? hero.image._id : -1;
+    const itemStyle = {
       width: 146,
       height: 259,
       textAlign: 'center'
@@ -107,20 +108,18 @@ var HeroPreferencesGeneralForm = React.createClass({
         <RaisedButton label="Save" />
       </form>
     );
-  },
-  _onSubmit: function(e) {
+  }
+  _onSubmit(e) {
     e.preventDefault();
 
-    var data = {
+    const data = {
       image: this.refs.heroImage.getSelectedValue()
     };
 
     // TODO data do extend not correctly so may be do just throw service
     HeroApi.updateGeneral(data)
-      .then(function() {
+      .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Hero image updated');
-      }.bind(this));
+      });
   }
-});
-
-module.exports = HeroPreferencesGeneralForm;
+}

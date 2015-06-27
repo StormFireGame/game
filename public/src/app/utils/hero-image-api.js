@@ -1,11 +1,11 @@
-var HeroImageActions = require('../actions/hero-image-actions');
-var HeroImageService = require('../services/hero-image-service');
+import HeroImageActions from '../actions/hero-image-actions';
+import HeroImageService from '../services/hero-image-service';
 
-module.exports = {
+export default {
 
-  fetch: function() {
+  fetch() {
     HeroImageService.fetch()
-      .then(function(response) {
+      .then((response) => {
         HeroImageActions.receive(response);
       });
   }

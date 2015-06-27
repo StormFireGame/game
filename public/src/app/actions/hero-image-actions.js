@@ -1,8 +1,8 @@
-var AppDispatcher = require('../app-dispatcher');
-var HeroImageConstants = require('../constants/hero-image-constants');
+import AppDispatcher from '../app-dispatcher';
+import HeroImageConstants from '../constants/hero-image-constants';
 
-module.exports = {
-  receive: function(data) {
+export default {
+  receive(data) {
     AppDispatcher.handleAction({
       actionType: HeroImageConstants.HERO_IMAGES_RECEIVE,
       data: data

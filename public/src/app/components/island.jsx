@@ -1,20 +1,19 @@
-var React = require('react');
-var mui = require('material-ui');
-var isEmpty = require('is-object-empty');
-var assign = require('object-assign');
-var arrayContains = require('array-contains');
+import React from 'react';
+import { Paper, FontIcon } from 'material-ui';
+import isEmpty from 'is-object-empty';
+import assign from 'object-assign';
+import arrayContains from 'array-contains';
 
-var IslandStore = require('../stores/island-store');
-var HeroStore = require('../stores/hero-store');
-var HeroApi = require('../utils/hero-api');
-var mediator = require('../mediator');
-var actionTypes = require('../constants/action-types');
-var applicationConfig = require('../config/application');
+import IslandStore from '../stores/island-store';
+import HeroStore from '../stores/hero-store';
+import HeroApi from '../utils/hero-api';
+import mediator from '../mediator';
+import actionTypes from '../constants/action-types';
+import applicationConfig from '../config/application';
 
-var debug = require('debug')('game:components:island');
+import debugLib from '../lib/debug';
 
-var Paper = mui.Paper;
-var FontIcon = mui.FontIcon;
+const debug = debugLib('components:island');
 
 function getIslandState() {
   return {
@@ -28,52 +27,51 @@ function getHeroState() {
   };
 }
 
-var Island = React.createClass({
-  getInitialState: function() {
-    return assign({ moveTime: 0 },
-      getIslandState(),
-      getHeroState()
-    );
-  },
-  componentDidMount: function() {
+export default class Island extends React.Component {
+  state = assign({ moveTime: 0 },
+    getIslandState(),
+    getHeroState()
+  );
+
+  componentDidMount() {
     IslandStore.addChangeListener(this._onChangeIsland);
     HeroStore.addChangeListener(this._onChangeHero);
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     IslandStore.removeChangeListener(this._onChangeIsland);
     HeroStore.removeChangeListener(this._onChangeHero);
 
     window.clearInterval(this._moveInterval);
-  },
-  _onChangeIsland: function() {
+  }
+  _onChangeIsland() {
     this.setState(getIslandState());
-  },
-  _onChangeHero: function() {
+  }
+  _onChangeHero() {
     this.setState(getHeroState());
-  },
-  render: function() {
-    var state = this.state;
+  }
+  render() {
+    const state = this.state;
     if (isEmpty(state.island) || isEmpty(state.hero)) return null;
 
-    var island = state.island;
-    var hero = state.hero;
-    var location = hero.location;
+    const island = state.island;
+    const hero = state.hero;
+    const location = hero.location;
 
     // TODO Think about where to get image dimensions on client or backend
-    var islandDimensions = {
+    const islandDimensions = {
       width: 1980,
       height: 1280
     };
-    var mapDimensions = {
+    const mapDimensions = {
       width: 960,
       height: 480
     };
 
-    var heroPosition = {
+    const heroPosition = {
       left: location.coordinateX * 20,
       top: location.coordinateY * 20
     };
-    var mapMargin = {
+    const mapMargin = {
       left: heroPosition.left - mapDimensions.width / 2,
       top: heroPosition.top - mapDimensions.height / 2
     };
@@ -92,28 +90,28 @@ var Island = React.createClass({
         mapDimensions.height - (islandDimensions.height - mapMargin.top);
     }
 
-    var style = {
+    const style = {
       overflow: 'hidden',
       height: mapDimensions.height,
       width: mapDimensions.width
     };
 
-    var mapStyle = {
+    const mapStyle = {
       marginTop: -mapMargin.top,
       marginLeft: -mapMargin.left
     };
-    var mapOffset = {
+    const mapOffset = {
       top: mapMargin.top / 20,
       left: mapMargin.left / 20
     };
 
-    var handlerStyle = {
+    const handlerStyle = {
       position: 'absolute',
       top: heroPosition.top - mapMargin.top - 10,
       left: heroPosition.left - mapMargin.left - 2
     };
 
-    var infoStyle = {
+    const infoStyle = {
       position: 'absolute',
       width: 150,
       height: 80,
@@ -124,15 +122,15 @@ var Island = React.createClass({
       textAlign: 'center'
     };
 
-    var squares = [];
-    for(var i = 0; i < mapDimensions.width / 20; i++) {
-      for(var j = 0; j < mapDimensions.height / 20; j++) {
-        var x = (i + mapOffset.left);
-        var y = (j + mapOffset.top);
-        var coordX = location.coordinateX;
-        var coordY = location.coordinateY;
+    let squares = [];
+    for(let i = 0; i < mapDimensions.width / 20; i++) {
+      for(let j = 0; j < mapDimensions.height / 20; j++) {
+        const x = (i + mapOffset.left);
+        const y = (j + mapOffset.top);
+        const coordX = location.coordinateX;
+        const coordY = location.coordinateY;
 
-        var handled = (
+        const handled = (
           coordX - x === -1 && coordY - y === -1 ||
           coordX - x === 0 && coordY - y === -1 ||
           coordX - x === 1 && coordY - y === -1 ||
@@ -158,8 +156,8 @@ var Island = React.createClass({
               width: 20,
               height: 20
             }}
-            onClick={(handled) ? this._onMove.bind(null, x, y) : function(e) {
-              var style = e.target.style;
+            onClick={(handled) ? this._onMove.bind(null, x, y) : (e) => {
+              const style = e.target.style;
               style.background = (style.background === 'red') ? '' : 'red';
             }}
             title={'x: ' + x + ' y: ' + y} />
@@ -204,20 +202,20 @@ var Island = React.createClass({
         </Paper>
       </div>
     );
-  },
-  _onMove: function(x, y) {
+  }
+  _onMove(x, y) {
     if (arrayContains(this.state.island.disabledCoordinates, [x, y])) {
       mediator.emit(actionTypes.MESSAGE, 'You can\'t move there');
       return;
     }
 
-    var counter = applicationConfig.islandMoveTime;
+    let counter = applicationConfig.islandMoveTime;
 
     this.setState({
       moveTime: counter
     });
 
-    this._moveInterval = window.setInterval(function() {
+    this._moveInterval = window.setInterval(() => {
       counter--;
 
       this.setState({
@@ -228,9 +226,9 @@ var Island = React.createClass({
         window.clearInterval(this._moveInterval);
         HeroApi.moveOnIsland(x, y);
       }
-    }.bind(this) , 1000);
-  },
-  _onCancelMove: function(e) {
+    } , 1000);
+  }
+  _onCancelMove(e) {
     e.preventDefault();
 
     window.clearInterval(this._moveInterval);
@@ -238,6 +236,4 @@ var Island = React.createClass({
       moveTime: 0
     });
   }
-});
-
-module.exports = Island;
+}

@@ -1,40 +1,40 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import {
+  Toolbar,
+  ToolbarGroup,
+  RaisedButton,
+  FlatButton,
+  DropDownMenu,
+  FontIcon,
+  IconButton,
+  Dialog,
+  TextField
+} from 'material-ui';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:inventory:actions');
+import debugLib from '../../../lib/debug';
 
-var HeroApi = require('../../../utils/hero-api');
-var mediator = require('../../../mediator');
-var actionTypes = require('../../../constants/action-types');
+import HeroApi from '../../../utils/hero-api';
+import mediator from '../../../mediator';
+import actionTypes from '../../../constants/action-types';
 
-var Toolbar = mui.Toolbar;
-var ToolbarGroup = mui.ToolbarGroup;
-var RaisedButton = mui.RaisedButton;
-var FlatButton = mui.FlatButton;
-var DropDownMenu = mui.DropDownMenu;
-var FontIcon = mui.FontIcon;
-var IconButton = mui.IconButton;
-var Dialog = mui.Dialog;
-var TextField = mui.TextField;
+const debug = debugLib('components:hero:inventory:actions');
 
-var HeroInventoryActions = React.createClass({
-  propTypes: {
+export default class HeroInventoryActions extends React.Component {
+  static propTypes = {
     hero: React.PropTypes.object,
     filterHandler: React.PropTypes.func
-  },
-  getInitialState: function() {
-    return {
-      selectedComplect: null
-    };
-  },
-  render: function() {
-    var hero = this.props.hero;
-    var anyThingDressed = hero.things.some(thing => thing.dressed);
-    var disabledComplectActions = !this.state.selectedComplect;
-    var selectedComplectIndex;
+  };
 
-    var filterOptions = [
+  state = { selectedComplect: null };
+
+  render() {
+    const hero = this.props.hero;
+    const anyThingDressed = hero.things.some(thing => thing.dressed);
+    const disabledComplectActions = !this.state.selectedComplect;
+    let selectedComplectIndex;
+
+    const filterOptions = [
       { payload: null, text: 'All' },
       { payload: 'sword', text: 'Sword' },
       { payload: 'axe', text: 'Axe' },
@@ -55,20 +55,20 @@ var HeroInventoryActions = React.createClass({
       { payload: 'elixir', text: 'Elixir' }
     ];
 
-    var complectOptions = hero.complects.map((complect) => {
+    let complectOptions = hero.complects.map((complect) => {
       return {
         payload: complect._id,
         text: complect.name
       };
     });
 
-    // TODO wrong handling empty dropdown (pr)
+    // TODO: wrong handling empty dropdown (pr)
     complectOptions.unshift({ payload: null, text: 'Empty' });
 
     selectedComplectIndex = _.findIndex(complectOptions,
         (option) => option.payload === this.state.selectedComplect);
 
-    var newComplectActions = [
+    const newComplectActions = [
       <FlatButton
         key="cancel"
         label="Cancel"
@@ -129,55 +129,54 @@ var HeroInventoryActions = React.createClass({
           <form id="newComplectForm" onSubmit={this._onNewComplectSubmit}>
             <TextField
               ref="complectName"
-              hintText="Complect name" required />
+              hintText="Complect name"
+              required />
           </form>
         </Dialog>
       </div>
     );
-  },
-  _onUndress: function() {
+  }
+  _onUndress() {
     HeroApi.undressThings();
-  },
-  _onFilter: function(e, selectedIndex, menuItem) {
+  }
+  _onFilter(e, selectedIndex, menuItem) {
     this.props.filterHandler(menuItem.payload);
-  },
-  _onComplect: function(e, selectedIndex, menuItem) {
+  }
+  _onComplect(e, selectedIndex, menuItem) {
     this.setState({
       selectedComplect: menuItem.payload
     });
-  },
-  _onNewComplectDialog: function() {
+  }
+  _onNewComplectDialog() {
     this.refs.newComplectDialog.show();
-  },
-  _onNewComplectDialogCancel: function() {
+  }
+  _onNewComplectDialogCancel() {
     this.refs.newComplectDialog.dismiss();
-  },
-  _onNewComplectSubmit: function(e) {
+  }
+  _onNewComplectSubmit(e) {
     e.preventDefault();
 
-    var ids = this.props.hero.things
+    const ids = this.props.hero.things
       .filter(thing => thing.dressed)
       .map(thing => thing._id);
 
     HeroApi.newComplect({
       name: this.refs.complectName.getValue(),
       ids: ids
-    }).then(function() {
+    }).then(() => {
         this.refs.newComplectDialog.dismiss();
         this.refs.complectName.setValue('');
         mediator.emit(actionTypes.MESSAGE, 'Complect created');
-      }.bind(this));
-  },
-  _onApplyComplect: function() {
+      });
+  }
+  _onApplyComplect() {
     HeroApi.applyComplect(this.state.selectedComplect);
-  },
-  _onDeleteComplect: function() {
+  }
+  _onDeleteComplect() {
     HeroApi.deleteComplect(this.state.selectedComplect)
-      .then(function() {
+      .then(() => {
         this.state.selectedComplect = null;
         mediator.emit(actionTypes.MESSAGE, 'Complect deleted');
-      }.bind(this));
+      });
   }
-});
-
-module.exports = HeroInventoryActions;
+}

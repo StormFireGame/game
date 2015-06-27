@@ -1,10 +1,12 @@
-var React = require('react');
-var debug = require('debug')('game:pages:home');
+import React from 'react';
+import debugLib from '../lib/debug';
 
-var SessionNewForm = require('../components/session/new-form');
+import SessionNewForm from '../components/session/new-form';
 
-var HomePage = React.createClass({
-  render: function() {
+const debug = debugLib('pages:home');
+
+export default class HomePage extends React.Component {
+  render() {
     debug('render');
 
     return (
@@ -14,6 +16,4 @@ var HomePage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HomePage;
+}

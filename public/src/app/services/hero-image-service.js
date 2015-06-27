@@ -1,12 +1,14 @@
-var fetch = require('../lib/fetch');
-var debug = require('debug')('game:services:hero-image');
+import fetch from '../lib/fetch';
+import debugLib from '../lib/debug';
+
+const debug = debugLib('services:hero-image');
 
 module.exports = {
-  fetch: function() {
+  fetch() {
     debug('fetching request');
 
     return fetch('/hero-images')
-      .then(function(response) {
+      .then((response) => {
         debug('fetched');
         return response;
       });

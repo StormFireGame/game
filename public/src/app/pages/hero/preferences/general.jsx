@@ -1,11 +1,11 @@
-var React = require('react');
+import React from 'react';
+import debugLib from '../../../lib/debug';
+import Form from '../../../components/hero/preferences/general-form';
 
-var debug = require('debug')('game:pages:hero:preferences:general');
+const debug = debugLib('pages:hero:preferences:general');
 
-var Form = require('../../../components/hero/preferences/general-form');
-
-var HeroPreferencesGeneralPage = React.createClass({
-  render: function() {
+export default class HeroPreferencesGeneralPage extends React.Component {
+  render() {
     debug('render');
 
     return (
@@ -15,6 +15,4 @@ var HeroPreferencesGeneralPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HeroPreferencesGeneralPage;
+}

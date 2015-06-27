@@ -1,7 +1,7 @@
-var mediator = require('../mediator');
+import mediator from '../mediator';
 
-module.exports = {
-  isSignin: function() {
+export default {
+  isSignin() {
     return mediator.accessToken !== null;
   }
 };

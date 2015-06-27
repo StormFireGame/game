@@ -1,12 +1,12 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { FontIcon } from 'material-ui';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:info');
+import debugLib from '../lib/debug';
 
-var HeroStore = require('../stores/hero-store');
+import HeroStore from '../stores/hero-store';
 
-var FontIcon = mui.FontIcon;
+const debug = debugLib('components:info');
 
 function getInfoState() {
   return {
@@ -15,29 +15,29 @@ function getInfoState() {
   };
 }
 
-var Info = React.createClass({
-  getInitialState: function() {
-    return getInfoState();
-  },
-  componentDidMount: function() {
+export default class Info extends React.Component {
+  state = getInfoState();
+  componentDidMount() {
     HeroStore.addChangeListener(this._onChange);
-  },
-  componentWillUnmount: function() {
+  }
+
+  componentWillUnmount() {
     HeroStore.removeChangeListener(this._onChange);
     window.clearInterval(this._setHpInterval);
-  },
-  _onChange: function() {
+  }
+
+  _onChange() {
     this.setState(getInfoState());
 
     window.clearInterval(this._setHpInterval);
     this._setHpInterval = window.setInterval(this._setHp, 1000);
     this._setHp();
-  },
-  _setHp: function() {
-    var hp = this.state.hero.feature.hp;
+  }
 
-    var time = new Date().getTime();
-    var delay = 1000;
+  _setHp() {
+    const hp = this.state.hero.feature.hp;
+    const time = new Date().getTime();
+    const delay = 1000;
 
     hp.current = Number(hp.current);
     hp.time = new Date(hp.time).getTime();
@@ -59,14 +59,14 @@ var Info = React.createClass({
     this.setState({
       currentHp: hp.current
     });
-  },
-  render: function() {
-    var hero = this.state.hero;
+  }
+  render() {
+    const hero = this.state.hero;
 
     // TODO change lodash to modules
     if (_.isEmpty(hero)) return null;
 
-    var hp = hero.feature.hp;
+    const hp = hero.feature.hp;
 
     debug('render');
 
@@ -90,6 +90,4 @@ var Info = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Info;
+}

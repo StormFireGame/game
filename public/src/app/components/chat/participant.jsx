@@ -1,12 +1,12 @@
-var React = require('react');
-var mui = require('material-ui');
+import React from 'react';
+import { FontIcon } from 'material-ui';
 
-var debug = require('debug')('game:components:chat:participant');
+import debugLib from '../../lib/debug';
 
-var FontIcon = mui.FontIcon;
+const debug = debugLib('components:chat:participant');
 
-var ChatParticipant = React.createClass({
-  render: function() {
+export default class ChatParticipant extends React.Component {
+  render() {
     debug('render');
 
     return (
@@ -19,6 +19,4 @@ var ChatParticipant = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = ChatParticipant;
+}

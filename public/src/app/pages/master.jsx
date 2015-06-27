@@ -1,24 +1,39 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import { RouteHandler } from 'react-router';
+import mui from 'material-ui';
 
-var Header = require('../components/header');
-var Footer = require('../components/footer');
-var Messages = require('../components/messages');
-var Chat = require('../components/chat/index');
+import Header from '../components/header';
+import Footer from '../components/footer';
+import Messages from '../components/messages';
+import Chat from '../components/chat/index';
 
-var debug = require('debug')('game:pages:master');
+import debugLib from '../lib/debug'
 
-var RouteHandler = Router.RouteHandler;
-var State = Router.State;
-var Navigation = Router.Navigation;
+const debug = debugLib('pages:master');
 
-var Master = React.createClass({
-  mixins: [State, Navigation],
-  render: function() {
-    var container;
-    var inside = !this.isActive('/heroes/new') && !this.isActive('/');
+const ThemeManager = new mui.Styles.ThemeManager();
 
-    debug('master render %s', this.getPath());
+export default class Master extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.func
+  };
+
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object
+  };
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  }
+
+  render() {
+    let container;
+    const router = this.context.router;
+    const inside = !router.isActive('/heroes/new') && !router.isActive('/');
+
+    debug('master render %s', router.getCurrentPath());
 
     if (inside) {
       container = (
@@ -50,6 +65,4 @@ var Master = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Master;
+}

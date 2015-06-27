@@ -1,16 +1,19 @@
-var React = require('react');
+import React from 'react';
 
-var debug = require('debug')('game:components:hero:body-image-slot');
+import debugLib from '../../../lib/debug';
 
-var HeroBodyImageSlot = React.createClass({
-  propTypes: {
+const debug = debugLib('components:hero:body-image-slot');
+
+export default class HeroBodyImageSlot extends React.Component {
+  static propTypes = {
     image: React.PropTypes.object
-  },
-  render: function() {
-    var image = (this.props.image) ? this.props.image.image :
+  };
+
+  render() {
+    const image = (this.props.image) ? this.props.image.image :
       'images/hero-body/no-hero.png';
 
-    var style = {
+    const style = {
       position: 'absolute',
       width: this.props.width,
       height: this.props.height,
@@ -28,6 +31,4 @@ var HeroBodyImageSlot = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HeroBodyImageSlot;
+}

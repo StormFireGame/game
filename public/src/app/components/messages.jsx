@@ -1,40 +1,37 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
-var debug = require('debug')('game:components:messages');
+import React from 'react';
+import { Snackbar } from 'material-ui';
+import _ from 'lodash';
+import debugLib from '../lib/debug';
 
-var mediator = require('../mediator');
-var actionTypes = require('../constants/action-types');
+import mediator from '../mediator';
+import actionTypes from '../constants/action-types';
 
-var Snackbar = mui.Snackbar;
+const debug = debugLib('components:messages');
 
-var Messages = React.createClass({
-  getInitialState: function() {
-    return {
-      message: null
-    };
-  },
-  componentDidMount: function() {
+export default class Messages extends React.Component {
+  state = { message: null };
+
+  componentDidMount() {
     mediator.on(actionTypes.MESSAGE, this._setMessage);
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     mediator.removeListener(actionTypes.MESSAGE, this._setMessage);
-  },
-  _setMessage: function(message) {
+  }
+  _setMessage(message) {
     debug('new message %s', message);
     // TODO hack because transition do another render
     //   mediator render should be last
-    _.delay(function() {
+    _.delay(() => {
       this.setState({
         message: message
       });
 
       this.refs.message.dismiss();
       this.refs.message.show();
-    }.bind(this), 20);
-  },
-  render: function() {
-    var message = this.state.message;
+    }, 20);
+  }
+  render() {
+    const message = this.state.message;
 
     if (!message) return null;
 
@@ -49,10 +46,8 @@ var Messages = React.createClass({
         action="Close"
         onActionTouchTap={this._onClose} />
     );
-  },
-  _onClose: function() {
+  }
+  _onClose() {
     this.refs.message.dismiss();
   }
-});
-
-module.exports = Messages;
+}

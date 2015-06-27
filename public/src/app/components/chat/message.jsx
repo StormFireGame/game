@@ -1,16 +1,18 @@
-var React = require('react');
-var moment = require('moment');
+import React from 'react';
+import moment from 'moment';
 
-var debug = require('debug')('game:components:chat:message');
+import debugLib from '../../lib/debug';
 
-var mediator = require('../../mediator');
+import mediator from '../../mediator';
 
-var ChatMessage = React.createClass({
-  render: function() {
+const debug = debugLib('components:chat:message');
+
+export default class ChatMessage extends React.Component {
+  render() {
     debug('render');
 
-    var props = this.props;
-    var style = {};
+    const props = this.props;
+    let style = {};
 
     if (props.command) {
       props.message = `[${props.from.login}] to [${props.tail}] ${props.message}`;
@@ -37,6 +39,4 @@ var ChatMessage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = ChatMessage;
+}

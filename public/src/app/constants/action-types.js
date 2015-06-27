@@ -1,6 +1,6 @@
-var keyMirror = require('keymirror');
+import keyMirror from 'keymirror';
 
-module.exports = keyMirror({
+export default keyMirror({
   MESSAGE: null,
   UNAUTHORIZED: null,
   CHAT_MESSAGE: null

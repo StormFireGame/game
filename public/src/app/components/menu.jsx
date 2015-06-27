@@ -1,20 +1,23 @@
-var React = require('react');
-var mui = require('material-ui');
-var Router = require('react-router');
+import React from 'react';
+import {
+  Toolbar,
+  ToolbarGroup,
+  RaisedButton,
+  FontIcon,
+  IconButton
+} from 'material-ui';
+import Router from 'react-router';
 
-var debug = require('debug')('game:components:menu');
+import debugLib from '../lib/debug';
 
-var Toolbar = mui.Toolbar;
-var ToolbarGroup = mui.ToolbarGroup;
+const debug = debugLib('components:menu');
 
-var RaisedButton = mui.RaisedButton;
-var FontIcon = mui.FontIcon;
-var State = Router.State;
-var IconButton = mui.IconButton;
+export default class Menu extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.func
+  };
 
-var HeroShowPage = React.createClass({
-  mixins: [State],
-  render: function() {
+  render() {
     debug('render');
 
     return (
@@ -61,6 +64,4 @@ var HeroShowPage = React.createClass({
       </nav>
     );
   }
-});
-
-module.exports = HeroShowPage;
+}

@@ -1,13 +1,12 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { Paper, FontIcon } from 'material-ui';
+import _ from 'lodash';
 
-var SkillStore = require('../../../stores/skill-store');
+import SkillStore from '../../../stores/skill-store';
 
-var debug = require('debug')('game:components:hero:info:skills');
+import debugLib from '../../../lib/debug';
 
-var Paper = mui.Paper;
-var FontIcon = mui.FontIcon;
+const debug = debugLib('components:hero:info:skills');
 
 function getInfoSkillsState() {
   return {
@@ -16,35 +15,35 @@ function getInfoSkillsState() {
   };
 }
 
-var HeroInfoSkills = React.createClass({
-  propTypes: {
+export default class HeroInfoSkills extends React.Component {
+  static propTypes = {
     skill: React.PropTypes.array,
     numberOfSkills: React.PropTypes.number,
     increaseHandler: React.PropTypes.func
-  },
-  getInitialState: function() {
-    return getInfoSkillsState();
-  },
-  componentDidMount: function() {
+  };
+
+  state = getInfoSkillsState();
+
+  componentDidMount() {
     SkillStore.addChangeListener(this._onChange);
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     SkillStore.removeChangeListener(this._onChange);
-  },
-  _onChange: function() {
+  }
+  _onChange() {
     this.setState(getInfoSkillsState());
-  },
-  render: function() {
-    var props = this.props;
-    var perPage = 5;
-    var skills = this.state.skills
+  }
+  render() {
+    const props = this.props;
+    const perPage = 5;
+    const skills = this.state.skills
       .slice(this.state.page * perPage, this.state.page * perPage + perPage);
-    var style = {
+    let style = {
       width: 204,
       height: 50 + 20 * skills.length
     };
 
-    var items = skills
+    const items = skills
       .map((skill, index) => {
         var item = _(props.skills).find((heroSkill) => {
           return heroSkill.skill === skill._id;
@@ -94,17 +93,15 @@ var HeroInfoSkills = React.createClass({
         </div>
       </Paper>
     );
-  },
-   _onNextPage: function() {
+  }
+   _onNextPage() {
     this.setState({
       page: this.state.page + 1
     });
-  },
-  _onPrevPage: function() {
+  }
+  _onPrevPage() {
     this.setState({
       page: this.state.page - 1
     });
   }
-});
-
-module.exports = HeroInfoSkills;
+}

@@ -1,42 +1,42 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { Paper } from 'material-ui';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:body');
+import debugLib from '../../lib/debug';
 
-var HeroListenerMixin = require('./mixins/hero-listener');
+import HeroListenerMixin from './mixins/hero-listener';
 
-var ThingSlot = require('./body/thing-slot');
-var ImageSlot = require('./body/image-slot');
+import ThingSlot from './body/thing-slot';
+import ImageSlot from './body/image-slot';
 
-var HeroApi = require('../../utils/hero-api');
+import HeroApi from '../../utils/hero-api';
 
-var Paper = mui.Paper;
+const debug = debugLib('components:hero:body');
 
-var HeroBody = React.createClass({
-  propTypes: {
+export default class HeroBody extends React.Component {
+  static propTypes = {
     actions: React.PropTypes.bool
-  },
-  mixins: [HeroListenerMixin],
-  render: function() {
-    var hero = this.state.hero;
+  };
+  // mixins: [HeroListenerMixin],
+  render() {
+    const hero = this.state.hero;
 
     if (_.isEmpty(hero)) return null;
 
-    var style;
-    var position = {};
-    var width = 70;
-    var height = 75;
-    var offset = 6;
-    var pullRigth = (3 * width) + (4 * offset);
-    var fullHeight;
-    var elixir;
-    var ring;
+    let style;
+    let position = {};
+    let width = 70;
+    let height = 75;
+    let offset = 6;
+    let pullRigth = (3 * width) + (4 * offset);
+    let fullHeight;
+    let elixir;
+    let ring;
 
-    var things = hero.things.filter(thing => thing.dressed);
+    let things = hero.things.filter(thing => thing.dressed);
 
-    var getThing = function(type) {
-      return _.find(things, function(thing) {
+    function getThing(type) {
+      return _.find(things, (thing) => {
         return thing.thing.type === type;
       });
     };
@@ -140,7 +140,7 @@ var HeroBody = React.createClass({
       top: position.belt.top + position.belt.height + offset
     };
 
-    _.forEach(position, function(pos) {
+    _.forEach(position, (pos) => {
       pos.position = 'absolute';
     });
 
@@ -152,15 +152,15 @@ var HeroBody = React.createClass({
 
     debug('render');
 
-    var thingsSlots = [
+    const thingsSlots = [
       'gloves', 'helmet', 'amulet', 'treetops',
       'arms', 'armor', 'shield', 'pants', 'belt', 'boots',
       'ring', 'ring1', 'ring2', 'ring3',
       'elixir', 'elixir1', 'elixir2', 'elixir3'
-    ].map(function(type, index) {
-      var orgType = type.replace(/\d+/g, '');
-      var thing = getThing(orgType);
-      var undressHandler;
+    ].map((type, index) => {
+      const orgType = type.replace(/\d+/g, '');
+      const thing = getThing(orgType);
+      let undressHandler;
 
       if (thing && this.props.actions) {
         undressHandler = this._onUndress.bind(null, thing._id);
@@ -176,7 +176,7 @@ var HeroBody = React.createClass({
             type={orgType} />
         </div>
       );
-    }.bind(this));
+    });
 
     return (
       <div className="hero-body">
@@ -192,10 +192,8 @@ var HeroBody = React.createClass({
         </Paper>
       </div>
     );
-  },
-  _onUndress: function(id) {
+  }
+  _onUndress(id) {
     HeroApi.undressThing(id);
   }
-});
-
-module.exports = HeroBody;
+}

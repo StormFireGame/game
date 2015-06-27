@@ -1,69 +1,69 @@
-var assign = require('object-assign');
+import assign from 'object-assign';
 
-var HeroActions = require('../actions/hero-actions');
-var HeroService = require('../services/hero-service');
+import HeroActions from '../actions/hero-actions';
+import HeroService from '../services/hero-service';
 
-module.exports = {
+export default {
 
-  fetch: function() {
+  fetch() {
     HeroService.fetch()
-      .then(function(response) {
+      .then((response) => {
         HeroActions.receive(response);
       });
   },
 
-  updateGeneral: function(data) {
+  updateGeneral(data) {
     return HeroService.update(data)
-      .then(function() {
+      .then(() => {
         HeroActions.updated(data);
       });
   },
 
-  removeThing: function(id) {
+  removeThing(id) {
     return HeroService.removeThing(id)
-      .then(function() {
+      .then(() => {
         HeroActions.thingRemoved(id);
       });
   },
 
-  dressThing: function(id) {
+  dressThing(id) {
     return HeroService.dressThing(id)
       .then(this.fetch);
   },
 
-  undressThing: function(id) {
+  undressThing(id) {
     return HeroService.undressThing(id)
       .then(this.fetch);
   },
 
-  undressThings: function() {
+  undressThings() {
     return HeroService.undressThings()
       .then(this.fetch);
   },
 
-  newComplect: function(data) {
+  newComplect(data) {
     return HeroService.newComplect(data)
-      .then(function(response) {
+      .then((response) => {
         assign(data, response);
         HeroActions.complectCreated(data);
       });
   },
 
-  deleteComplect: function(id) {
+  deleteComplect(id) {
     return HeroService.deleteComplect(id)
-      .then(function() {
+      .then(() => {
         HeroActions.complectDeleted(id);
       });
   },
 
-  applyComplect: function(id) {
+  applyComplect(id) {
     return HeroService.applyComplect(id)
       .then(this.fetch);
   },
 
-  moveOnIsland: function(x, y) {
+  moveOnIsland(x, y) {
     return HeroService.moveOnIsland(x, y)
-      .then(function() {
+      .then(() => {
         HeroActions.movedOnIsland(x, y);
       });
   }

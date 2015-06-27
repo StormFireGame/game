@@ -1,5 +1,5 @@
-var keyMirror = require('keymirror');
+import keyMirror from 'keymirror';
 
-module.exports = keyMirror({
+export default keyMirror({
   HERO_IMAGES_RECEIVE: null
 });

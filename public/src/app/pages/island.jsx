@@ -1,18 +1,18 @@
-var React = require('react');
+import React from 'react';
 
-var IslandApi = require('../utils/island-api');
-var Island = require('../components/island');
+import IslandApi from '../utils/island-api';
+import Island from '../components/island';
 
-var debug = require('debug')('game:pages:island');
+import debugLib from '../lib/debug';
 
-var AuthMixin = require('./mixins/auth');
+const debug = debugLib('pages:island');
 
-var IslandPage = React.createClass({
-  mixins: [AuthMixin],
-  componentDidMount: function() {
+export default class IslandPage extends React.Component {
+  // TODO: mixins: [AuthMixin],
+  componentDidMount() {
     IslandApi.fetch();
-  },
-  render: function() {
+  }
+  render() {
     debug('render');
 
     return (
@@ -21,6 +21,4 @@ var IslandPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = IslandPage;
+}

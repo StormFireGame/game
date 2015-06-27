@@ -1,10 +1,8 @@
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
 
-var mediator = assign(new EventEmitter(), {
+export default assign(new EventEmitter(), {
   accessToken: window.localStorage.getItem('accessToken'),
   currentUser: null,
   socket: null
 });
-
-module.exports = mediator;

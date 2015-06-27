@@ -1,12 +1,14 @@
-var fetch = require('../lib/fetch');
-var debug = require('debug')('game:services:island');
+import fetch from '../lib/fetch';
+import debugLib from '../lib/debug'
 
-module.exports = {
-  fetch: function() {
+const debug = debugLib('services:island');
+
+export default {
+  fetch() {
     debug('fetching request');
 
     return fetch('/island')
-      .then(function(response) {
+      .then((response) => {
         debug('fetched');
 
         return response;

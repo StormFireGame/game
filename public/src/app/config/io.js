@@ -1,15 +1,17 @@
-var mediator = require('../mediator');
+import mediator from '../mediator';
 
-var debug = require('debug')('game:config:socket');
+import debugLib from '../lib/debug';
 
-module.exports = function(io) {
+const debug = debugLib('config:socket');
+
+export default (io) => {
   mediator.socket = io;
 
-  io.on('connect', function() {
+  io.on('connect', () => {
     debug('connected');
   });
 
-  io.on('disconnect', function() {
+  io.on('disconnect', () => {
     debug('disconnected');
   });
 };

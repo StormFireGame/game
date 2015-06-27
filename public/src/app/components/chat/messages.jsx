@@ -1,47 +1,46 @@
-var React = require('react');
-var mui = require('material-ui');
+import React from 'react';
+import { Paper} from 'material-ui';
 
-var mediator = require('../../mediator');
-var actionTypes = require('../../constants/action-types');
+import mediator from '../../mediator';
+import actionTypes from '../../constants/action-types';
 
-var Message = require('./message.jsx');
+import Message from './message.jsx';
 
-var debug = require('debug')('game:components:chat:messages');
+import debugLib from '../../lib/debug';
 
-var Paper = mui.Paper;
+const debug = debugLib('components:chat:messages');
 
-var ChatMessages = React.createClass({
-  getInitialState: function() {
-    return {
-      messages: []
-    };
-  },
-  componentDidMount: function() {
+export default class ChatMessages extends React.Component {
+  state = {
+    messages: []
+  };
+
+  componentDidMount() {
     mediator.socket.on('chat/message', this._onMessage);
     mediator.socket.on('chat/join', this._onJoin);
     mediator.socket.on('chat/leave', this._onLeave);
     mediator.on(actionTypes.CHAT_MESSAGE, this._onMessage);
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     mediator.socket.removeListener('chat/message', this._onMessage);
     mediator.socket.removeListener('chat/join', this._onJoin);
     mediator.socket.removeListener('chat/leave', this._onLeave);
     mediator.removeListener(actionTypes.CHAT_MESSAGE, this._onMessage);
-  },
-  _onJoin: function(participant) {
+  }
+  _onJoin(participant) {
     this._addMessage({
       message: `${participant.login} joined`
     });
-  },
-  _onLeave: function(participant) {
+  }
+  _onLeave(participant) {
     this._addMessage({
       message: `${participant.login} left`
     });
-  },
-  _onMessage: function(message) {
+  }
+  _onMessage(message) {
     this._addMessage(message);
-  },
-  _addMessage: function(message) {
+  }
+  _addMessage(message) {
     if (!message.datetime) {
       message.datetime = new Date().getTime();
     }
@@ -49,17 +48,17 @@ var ChatMessages = React.createClass({
     this.setState({
       messages: this.state.messages.concat([message])
     });
-  },
-  render: function() {
+  }
+  render() {
     debug('render');
 
-    var innerStyle = {
+    const innerStyle = {
       height: '100%',
       overflow: 'auto',
       padding: 5
     };
 
-    var messages = this.state.messages.map((message, index) => {
+    const messages = this.state.messages.map((message, index) => {
       return (
         <Message
           key={index}
@@ -82,6 +81,4 @@ var ChatMessages = React.createClass({
       </Paper>
     );
   }
-});
-
-module.exports = ChatMessages;
+}

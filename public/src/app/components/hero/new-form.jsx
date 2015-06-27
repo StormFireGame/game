@@ -1,30 +1,28 @@
-var React = require('react');
-var mui = require('material-ui');
-var Router = require('react-router');
-var debug = require('debug')('game:components:hero:new-form');
+import React from 'react';
+import {
+  RadioButtonGroup,
+  TextField,
+  RaisedButton,
+  RadioButton
+} from 'material-ui';
+import Router from 'react-router';
+import debugLib from '../../lib/debug';
 
-var utils = require('../../lib/utils');
-var mediator = require('../../mediator');
-var actionTypes = require('../../constants/action-types');
+import utils from '../../lib/utils';
+import mediator from '../../mediator';
+import actionTypes from '../../constants/action-types';
 
-var HeroService = require('../../services/hero-service');
+import HeroService from '../../services/hero-service';
 
-var RadioButtonGroup = mui.RadioButtonGroup;
-var TextField = mui.TextField;
-var RaisedButton = mui.RaisedButton;
-var RadioButton = mui.RadioButton;
+const debug = debugLib('components:hero:new-form');
 
-var Navigation = Router.Navigation;
+export default class HeroNewForm extends React.Component {
+  state = {
+    errors: {}
+  };
 
-var HeroNewForm = React.createClass({
-  mixins: [Navigation],
-  getInitialState: function() {
-    return {
-      errors: {}
-    };
-  },
-  render: function() {
-    var errors = this.state.errors;
+  render() {
+    const errors = this.state.errors;
 
     debug('render');
 
@@ -33,7 +31,7 @@ var HeroNewForm = React.createClass({
         <TextField
           ref="login"
           name="login"
-          required
+        import
           errorText={errors.login}
           hintText="Login" />
         <br />
@@ -41,14 +39,14 @@ var HeroNewForm = React.createClass({
           ref="password"
           type="password"
           name="password"
-          required
+        import
           errorText={errors.password}
           hintText="Password" />
         <br />
         <TextField
           ref="email"
           type="email"
-          required
+        import
           errorText={errors.email}
           hintText="Email"  />
         <br />
@@ -70,10 +68,10 @@ var HeroNewForm = React.createClass({
         <RaisedButton label="Signup" />
       </form>
     );
-  },
-  _onSubmit: function(e) {
-    var refs = this.refs;
-    var data;
+  }
+  _onSubmit(e) {
+    const refs = this.refs;
+    let data;
 
     e.preventDefault();
 
@@ -87,17 +85,15 @@ var HeroNewForm = React.createClass({
     debug('submit %o', data);
 
     HeroService.new(data)
-      .then(function() {
+      .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Hero created');
         this.transitionTo('/');
-      }.bind(this), function(res) {
+      }, (res) => {
         if (res.status === 422) {
           this.setState({
             errors: utils.validationMapper(res.body)
           });
         }
-      }.bind(this));
-  },
-});
-
-module.exports = HeroNewForm;
+      });
+  }
+}

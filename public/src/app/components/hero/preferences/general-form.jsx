@@ -1,27 +1,26 @@
-var React = require('react');
-var mui = require('material-ui');
-var moment = require('moment');
-var _ = require('lodash');
+import React from 'react';
+import { TextField, RaisedButton } from 'material-ui';
+import moment from 'moment';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:hero:preferences:general-form');
+import debugLib from '../../../lib/debug';
 
-var HeroApi = require('../../../utils/hero-api');
-var mediator = require('../../../mediator');
-var actionTypes = require('../../../constants/action-types');
+import HeroApi from '../../../utils/hero-api';
+import mediator from '../../../mediator';
+import actionTypes from '../../../constants/action-types';
 
-var HeroListenerMixin = require('../mixins/hero-listener');
+import HeroListenerMixin from '../mixins/hero-listener';
 
-var TextField = mui.TextField;
-var RaisedButton = mui.RaisedButton;
+const debug = debugLib('components:hero:preferences:general-form');
 
-var HeroPreferencesGeneralForm = React.createClass({
-  mixins: [HeroListenerMixin],
-  render: function() {
-    var hero = this.state.hero;
+export default class HeroPreferencesGeneralForm extends React.Component {
+  // mixins: [HeroListenerMixin],
+  render() {
+    const hero = this.state.hero;
 
     if (_.isEmpty(hero)) return null;
 
-    var dateOfBirthday;
+    let dateOfBirthday;
 
     debug('render');
 
@@ -67,14 +66,12 @@ var HeroPreferencesGeneralForm = React.createClass({
         <RaisedButton label="Save" />
       </form>
     );
-  },
-  _onSubmit: function(e) {
-    var refs = this.refs;
-    var data;
-
+  }
+  _onSubmit(e) {
+    const refs = this.refs;
     e.preventDefault();
 
-    data = {
+    const data = {
       name: refs.name.getValue(),
       dateOfBirthday: refs.dateOfBirthday.getValue(),
       country: refs.country.getValue(),
@@ -84,10 +81,8 @@ var HeroPreferencesGeneralForm = React.createClass({
 
     // TODO data do extend not correctly so may be do just throw service
     HeroApi.updateGeneral(data)
-      .then(function() {
+      .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Hero updated');
-      }.bind(this));
+      });
   }
-});
-
-module.exports = HeroPreferencesGeneralForm;
+}

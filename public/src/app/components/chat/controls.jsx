@@ -1,17 +1,16 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { TextField, RaisedButton } from 'material-ui';
+import _ from 'lodash';
 
-var mediator = require('../../mediator');
-var actionTypes = require('../../constants/action-types');
+import mediator from '../../mediator';
+import actionTypes from '../../constants/action-types';
 
-var debug = require('debug')('game:components:chat:controls');
+import debugLib from '../../lib/debug';
 
-var TextField = mui.TextField;
-var RaisedButton = mui.RaisedButton;
+const debug = debugLib('components:chat:controls');
 
-var ChatControls = React.createClass({
-  render: function() {
+export default class ChatControls extends React.Component {
+  render() {
     debug('render');
 
     return (
@@ -26,11 +25,11 @@ var ChatControls = React.createClass({
           label="Send" />
       </div>
     );
-  },
-  _parseValue: function(value) {
-    var command;
-    var message;
-    var tail;
+  }
+  _parseValue(value) {
+    let command;
+    let message;
+    let tail;
 
     if (value[0] !== '[') {
       return {
@@ -47,9 +46,9 @@ var ChatControls = React.createClass({
         message: message
       };
     }
-  },
-  _onSend: function() {
-    var message = this._parseValue(this.refs.message.getValue());
+  }
+  _onSend() {
+    let message = this._parseValue(this.refs.message.getValue());
     message.datetime = new Date().getTime();
     message.from = _.pick(mediator.currentUser, '_id', 'login');
 
@@ -59,6 +58,4 @@ var ChatControls = React.createClass({
 
     this.refs.message.clearValue();
   }
-});
-
-module.exports = ChatControls;
+}

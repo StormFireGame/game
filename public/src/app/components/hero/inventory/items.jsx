@@ -1,30 +1,29 @@
-var React = require('react');
-var debug = require('debug')('game:components:hero:inventory:items');
+import React from 'react';
+import debugLib from '../../../lib/debug';
 
-var Item = require('./item');
+import Item from './item';
 
-var HeroInventoryItems = React.createClass({
-  propTypes: {
+const debug = debugLib('components:hero:inventory:items');
+
+export default class HeroInventoryItems extends React.Component {
+  static propTypes = {
     things: React.PropTypes.array
-  },
-  render: function() {
-    debug('render');
+  };
 
-    var items = this.props.things.map(function(thing, index) {
-      return (
-        <Item
-          key={index}
-          thing={thing}
-          hero={this.props.hero} />
-      );
-    }.bind(this));
+  render() {
+    debug('render');
 
     return (
       <div className="items-wrapper">
-        {items}
+        {this.props.things.map((thing, index) => {
+          return (
+            <Item
+              key={index}
+              thing={thing}
+              hero={this.props.hero} />
+          );
+        })}
       </div>
     );
   }
-});
-
-module.exports = HeroInventoryItems;
+}

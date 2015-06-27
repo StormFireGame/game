@@ -1,9 +1,9 @@
-var assign = require('object-assign');
-var Dispatcher = require('flux').Dispatcher;
+import assign from 'object-assign';
+import { Dispatcher } from 'flux';
 
-var AppDispatcher = assign(new Dispatcher(), {
+export default assign(new Dispatcher(), {
 
-  handleAction: function(action) {
+  handleAction(action) {
     this.dispatch({
       source: 'VIEW_ACTION',
       action: action
@@ -11,5 +11,3 @@ var AppDispatcher = assign(new Dispatcher(), {
   }
 
 });
-
-module.exports = AppDispatcher;

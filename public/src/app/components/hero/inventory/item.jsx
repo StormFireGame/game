@@ -1,30 +1,29 @@
-var React = require('react');
-var mui = require('material-ui');
-var _ = require('lodash');
+import React from 'react';
+import { Paper, FontIcon, RaisedButton } from 'material-ui';
+import _ from 'lodash';
 
-var HeroApi = require('../../../utils/hero-api');
-var mediator = require('../../../mediator');
-var actionTypes = require('../../../constants/action-types');
+import HeroApi from '../../../utils/hero-api';
+import mediator from '../../../mediator';
+import actionTypes from '../../../constants/action-types';
 
-var ThingSlot = require('../body/thing-slot');
+import ThingSlot from '../body/thing-slot';
 
-var debug = require('debug')('game:components:hero:inventory:item');
+import debugLib from '../../../lib/debug';
 
-var Paper = mui.Paper;
-var FontIcon = mui.FontIcon;
-var RaisedButton = mui.RaisedButton;
+const debug = debugLib('components:hero:inventory:item');
 
-var HeroInventoryItem = React.createClass({
-  propTypes: {
+export default class HeroInventoryItem extends React.Component {
+  static propTypes = {
     thing: React.PropTypes.object
-  },
-  render: function() {
-    var thingWrap = this.props.thing;
-    var thing = thingWrap.thing;
-    var hero = this.props.hero;
-    var canBeDressed = true;
+  };
 
-    var renderItem = function(key, value, safe) {
+  render() {
+    const thingWrap = this.props.thing;
+    const thing = thingWrap.thing;
+    const hero = this.props.hero;
+    let canBeDressed = true;
+
+    function renderItem(key, value, safe) {
       if (_.isUndefined(value)) return;
 
       return (
@@ -36,14 +35,13 @@ var HeroInventoryItem = React.createClass({
       );
     };
 
-    var needItems = [
+    const needItems = [
       'levelNeed',
       'strengthNeed', 'dexterityNeed', 'intuitionNeed', 'healthNeed',
       'swordsNeed', 'axesNeed', 'knivesNeed', 'clubsNeed', 'shieldsNeed'
     ].map((item) => {
-      var key = item.replace('Need', '');
-
-      var label = _.capitalize(key);
+      const key = item.replace('Need', '');
+      const label = _.capitalize(key);
 
       if (hero[key] < thing[item]) {
         canBeDressed = false;
@@ -52,7 +50,7 @@ var HeroInventoryItem = React.createClass({
       return renderItem(label, thing[item], hero[key] >= thing[item]);
     });
 
-    var giveItems = [
+    const giveItems = [
       'strengthGive', 'dexterityGive', 'intuitionGive', 'healthGive',
       'swordsGive', 'axesGive', 'knivesGive', 'clubsGive', 'shieldsGive',
       'damageMin', 'damageMax',
@@ -65,7 +63,7 @@ var HeroInventoryItem = React.createClass({
       'isTwoHands',
       'timeDuration'
     ].map((item) => {
-      var label = _.capitalize(item.replace('Give', ''));
+      const label = _.capitalize(item.replace('Give', ''));
       return renderItem(label, thing[item]);
     });
 
@@ -132,16 +130,14 @@ var HeroInventoryItem = React.createClass({
         </div>
       </Paper>
     );
-  },
-  _onDress: function() {
+  }
+  _onDress() {
     HeroApi.dressThing(this.props.thing._id);
-  },
-  _onRemove: function() {
+  }
+  _onRemove() {
     HeroApi.removeThing(this.props.thing._id)
-      .then(function() {
+      .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Thing removed');
       });
   }
-});
-
-module.exports = HeroInventoryItem;
+}

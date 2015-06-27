@@ -1,10 +1,11 @@
-var React = require('react');
-var debug = require('debug')('game:pages:hero:new');
+import React from 'react';
+import Form from '../../components/hero/new-form';
+import debugLib from '../../lib/debug';
 
-var Form = require('../../components/hero/new-form');
+const debug = debugLib('pages:hero:new');
 
-var HeroNewPage = React.createClass({
-  render: function() {
+export default class HeroNewPage extends React.Component {
+  render() {
     debug('render');
 
     return (
@@ -15,6 +16,4 @@ var HeroNewPage = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = HeroNewPage;
+}

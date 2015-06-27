@@ -1,10 +1,13 @@
-var fetch = require('../lib/fetch');
-var store = require('store');
-var debug = require('debug')('game:services:session');
-var mediator = require('../mediator');
+import fetch from '../lib/fetch';
+import store from 'store';
+import mediator from '../mediator';
 
-module.exports = {
-  new: function(data) {
+import debugLib from '../lib/debug';
+
+const debug = debugLib('services:session');
+
+export default {
+  new(data) {
     data = {
       'grant_type': 'password',
       'client_id': 'test',
@@ -14,18 +17,19 @@ module.exports = {
     };
 
     debug('new request %o', data);
+
     return fetch('/oauth/token', {
       method: 'POST',
       body: data
-    }).then(function(response) {
-        var accessToken = response.access_token;
+    }).then((response) => {
+      const accessToken = response.access_token;
 
-        if (accessToken) {
-          store.set('accessToken', accessToken);
-          debug('get access token %s', accessToken);
+      if (accessToken) {
+        store.set('accessToken', accessToken);
+        debug('get access token %s', accessToken);
 
-          mediator.accessToken = accessToken;
-        }
-      });
+        mediator.accessToken = accessToken;
+      }
+    });
   }
 };

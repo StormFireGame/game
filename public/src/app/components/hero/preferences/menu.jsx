@@ -1,17 +1,19 @@
-var React = require('react');
-var mui = require('material-ui');
-var Router = require('react-router');
-var _ = require('lodash');
+import React from 'react';
+import { Menu } from 'material-ui';
+import Router from 'react-router';
+import _ from 'lodash';
 
-var debug = require('debug')('game:components:preferences:menu');
+import debugLib from '../../../lib/debug';
 
-var Menu = mui.Menu;
-var State = Router.State;
+const debug = debugLib('components:preferences:menu');
 
-var PreferencesMenu = React.createClass({
-  mixins: [State],
-  render: function() {
-    var menuItems = [{
+export default class PreferencesMenu extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.func
+  };
+
+  render() {
+    const menuItems = [{
       payload: '1',
       text: 'General',
       href: '#/hero/preferences/general',
@@ -27,15 +29,15 @@ var PreferencesMenu = React.createClass({
       href: '#/hero/preferences/images',
       selected: this.isActive('/hero/preferences/images')
     }];
-    var selectedIndex = _.findIndex(menuItems, 'selected');
+    const selectedIndex = _.findIndex(menuItems, 'selected');
 
-    var style = {
+    const style = {
       height: 160
     };
 
     debug('render');
 
-    // TODO fix menu height (pr)
+    // TODO: fix menu height (pr)
     return (
       <div style={style}>
         <Menu
@@ -45,11 +47,9 @@ var PreferencesMenu = React.createClass({
           menuItems={menuItems} />
       </div>
     );
-  },
-  _onItemClick: function(event, index, item) {
-    // TODO this is hack untill menuitem will support href
+  }
+  _onItemClick(e, index, item) {
+    // TODO: this is hack untill menuitem will support href
     document.location = item.href;
   }
-});
-
-module.exports = PreferencesMenu;
+}
