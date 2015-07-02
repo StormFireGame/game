@@ -18,7 +18,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
     debug('render');
 
     return (
-      <form onSubmit={this._onSubmit}>
+      <form onSubmit={::this._onSubmit}>
         <TextField
           type="password"
           ref="password"

@@ -14,7 +14,7 @@ export default class HeroPreferencesImagesPage extends React.Component {
     debug('render');
 
     return (
-      <div id="hero-preferences-images">
+      <div>
         <h3>Images</h3>
         <Form />
       </div>

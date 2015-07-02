@@ -10,11 +10,19 @@ export default class HeroInventoryItems extends React.Component {
     things: React.PropTypes.array
   };
 
+  getStyles() {
+    return {
+      base: {
+        marginTop: 20
+      }
+    };
+  }
+
   render() {
     debug('render');
 
     return (
-      <div className="items-wrapper">
+      <div style={this.getStyles().base}>
         {this.props.things.map((thing, index) => {
           return (
             <Item

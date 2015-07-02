@@ -7,33 +7,60 @@ import AuthMixin from '../mixins/auth';
 import HeroBody from '../../components/hero/body';
 import HeroInventory  from '../../components/hero/inventory';
 
+import SessionHelper from '../../helpers/session-helper';
+import HeroApi from '../../utils/hero-api';
+
 const debug = debugLib('pages:hero:inventory');
 
+@auth
 export default class HeroInventoryPage extends React.Component {
   // mixins: [AuthMixin],
+
+  getStyles() {
+    return {
+      base: {
+        display: 'flex',
+        flexWrap: 'nowrap'
+      },
+      body: {
+        flexBasis: 310,
+        flexShrink: 0,
+        flexGrow: 0
+      },
+      content: {
+        flexGrow: 1,
+        flexShrink: 0,
+        marginLeft: 20
+      }
+    };
+  }
+
   render() {
+    const styles = this.getStyles();
+
     debug('render');
 
     return (
-      <div id="hero-inventory" style={{
-        display: 'flex',
-        flexWrap: 'nowrap'
-      }}>
-        <div style={{
-          flexBasis: 310,
-          flexShrink: 0,
-          flexGrow: 0
-        }}>
+      <div style={styles.base}>
+        <div style={styles.body}>
           <HeroBody actions={true} />
         </div>
-        <div style={{
-          flexGrow: 1,
-          flexShrink: 0,
-          marginLeft: 20
-        }}>
+        <div style={styles.content}>
           <HeroInventory />
         </div>
       </div>
     );
   }
+}
+
+function auth(target) {
+  target.willTransitionTo = function(transition) {
+    if (!SessionHelper.isSignin()) {
+      transition.abort();
+      debug('access closed %s', transition.path);
+      transition.redirect('/');
+    } else {
+      HeroApi.fetch();
+    }
+  };
 }

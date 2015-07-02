@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, FontIcon } from 'material-ui';
+import { List, ListItem, IconButton } from 'material-ui';
 import _ from 'lodash';
 
 import debugLib from '../../../lib/debug';
@@ -12,19 +12,16 @@ export default class HeroInfoParameters extends React.Component {
     increaseHandler: React.PropTypes.func
   };
 
+  getStyles() {
+    return {
+      base: {
+        width: 200
+      }
+    };
+  }
+
   render() {
     const props = this.props;
-    const parameters = ['strength', 'dexterity', 'intuition', 'health'];
-    let items;
-    let style = {
-      width: 205,
-      height: 50 + 20 * parameters.length,
-      backgroundColor: 'white'
-    };
-
-    if (props.numberOfParameters) {
-      style.height += 30;
-    }
 
     function renderFeature(orig, feature) {
       let output = '';
@@ -44,35 +41,33 @@ export default class HeroInfoParameters extends React.Component {
       return output;
     }
 
-    items = parameters
-      .map((parameter, key) => {
-        const parameterCap = _.capitalize(parameter);
-        return (
-          <div key={key}>
-            <dt>{parameterCap}</dt>
-            <dd>
-              {props[parameter]}
-              {renderFeature(props[parameter], props['feature' + parameterCap])}
-              {props.numberOfParameters ?
-                <FontIcon
-                  onClick={props.increaseHandler.bind(this, 'parameters', parameter)}
-                  className="mdfi_content_add" /> : null}
-            </dd>
-          </div>
-        );
-      });
-
     debug('render');
 
     return (
-      <Paper style={style} rounded={false} zDepth={1} className="block parameters-block">
-        <div className="mui-font-style-subhead-1">Parameters</div>
-        <dl className="dl-horizontal">
-          {items}
-        </dl>
+      <List
+        style={this.getStyles().base}
+        subheader="Parameters">
+        {['strength', 'dexterity', 'intuition', 'health'].map((parameter, index) => {
+          const parameterCap = _.capitalize(parameter);
+          return (
+            <ListItem
+              key={index}
+              rightIconButton={
+                props.numberOfParameters ?
+                  <IconButton
+                    onClick={props.increaseHandler.bind(this, 'parameters', parameter)}
+                    iconClassName="mdfi_content_add" /> : null}>
+              {parameterCap}{': '}
+              {props[parameter]}
+              {renderFeature(props[parameter], props['feature' + parameterCap])}
+            </ListItem>
+          );
+        })}
         {props.numberOfParameters ?
-          <p>Number of increases {props.numberOfParameters}</p> : null}
-      </Paper>
+          (<ListItem>
+            To increase: {props.numberOfParameters}
+          </ListItem>) : null}
+      </List>
     );
   }
 }

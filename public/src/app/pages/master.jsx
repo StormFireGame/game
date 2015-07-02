@@ -28,10 +28,33 @@ export default class Master extends React.Component {
     };
   }
 
+  getStyle() {
+    return {
+      main: {
+        position: 'relative'
+      },
+      chat: {
+        position: 'fixed',
+        bottom: 55,
+        left: 10,
+        right: 10,
+        minWidth: 960
+      },
+      container: {
+        maxWidth: 960,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        position: 'relative',
+        paddingBottom: 60
+      }
+    }
+  }
+
   render() {
     let container;
     const router = this.context.router;
     const inside = !router.isActive('/heroes/new') && !router.isActive('/');
+    const style = this.getStyle();
 
     debug('master render %s', router.getCurrentPath());
 
@@ -39,7 +62,7 @@ export default class Master extends React.Component {
       container = (
         <div>
           <Header />
-          <div className="main-wrapper">
+          <div style={style.main}>
             <RouteHandler {...this.props} />
           </div>
         </div>
@@ -52,12 +75,11 @@ export default class Master extends React.Component {
 
     return (
       <div>
-        <div className='container'>
+        <div style={style.container}>
           {container}
-          <div className="push" />
         </div>
         {(inside) ?
-          <div className="chat-wrapper">
+          <div style={style.chat}>
             <Chat />
           </div> : null}
         <Footer />

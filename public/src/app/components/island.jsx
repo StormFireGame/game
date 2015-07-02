@@ -34,12 +34,12 @@ export default class Island extends React.Component {
   );
 
   componentDidMount() {
-    IslandStore.addChangeListener(this._onChangeIsland);
-    HeroStore.addChangeListener(this._onChangeHero);
+    IslandStore.addChangeListener(::this._onChangeIsland);
+    HeroStore.addChangeListener(::this._onChangeHero);
   }
   componentWillUnmount() {
-    IslandStore.removeChangeListener(this._onChangeIsland);
-    HeroStore.removeChangeListener(this._onChangeHero);
+    IslandStore.removeChangeListener(::this._onChangeIsland);
+    HeroStore.removeChangeListener(::this._onChangeHero);
 
     window.clearInterval(this._moveInterval);
   }
@@ -49,6 +49,22 @@ export default class Island extends React.Component {
   _onChangeHero() {
     this.setState(getHeroState());
   }
+
+  getStyles() {
+    return {
+      info: {
+        position: 'absolute',
+        width: 150,
+        height: 80,
+        top: 10,
+        left: '50%',
+        transform: 'translate(-50%, 0%)',
+        zIndex: 9,
+        textAlign: 'center'
+      }
+    };
+  }
+
   render() {
     const state = this.state;
     if (isEmpty(state.island) || isEmpty(state.hero)) return null;
@@ -56,8 +72,9 @@ export default class Island extends React.Component {
     const island = state.island;
     const hero = state.hero;
     const location = hero.location;
+    const styles = this.getStyles();
 
-    // TODO Think about where to get image dimensions on client or backend
+    // TODO: Think about where to get image dimensions on client or backend
     const islandDimensions = {
       width: 1980,
       height: 1280
@@ -96,30 +113,9 @@ export default class Island extends React.Component {
       width: mapDimensions.width
     };
 
-    const mapStyle = {
-      marginTop: -mapMargin.top,
-      marginLeft: -mapMargin.left
-    };
     const mapOffset = {
       top: mapMargin.top / 20,
       left: mapMargin.left / 20
-    };
-
-    const handlerStyle = {
-      position: 'absolute',
-      top: heroPosition.top - mapMargin.top - 10,
-      left: heroPosition.left - mapMargin.left - 2
-    };
-
-    const infoStyle = {
-      position: 'absolute',
-      width: 150,
-      height: 80,
-      top: 10,
-      left: '50%',
-      transform: 'translate(-50%, 0%)',
-      zIndex: 9,
-      textAlign: 'center'
     };
 
     let squares = [];
@@ -156,7 +152,7 @@ export default class Island extends React.Component {
               width: 20,
               height: 20
             }}
-            onClick={(handled) ? this._onMove.bind(null, x, y) : (e) => {
+            onClick={(handled) ? this._onMove.bind(this, x, y) : (e) => {
               const style = e.target.style;
               style.background = (style.background === 'red') ? '' : 'red';
             }}
@@ -173,7 +169,7 @@ export default class Island extends React.Component {
     return (
       <div>
         <Paper
-          style={infoStyle}
+          style={styles.info}
           zDepth={2}>
           <p>
             Position: {location.coordinateX}:{location.coordinateY}
@@ -182,7 +178,7 @@ export default class Island extends React.Component {
             <p>
               Moving: {this.state.moveTime}
               {' '}
-              <a href="" onClick={this._onCancelMove}>Cancel</a>
+              <a href="" onClick={::this._onCancelMove}>Cancel</a>
             </p> : null}
         </Paper>
         <Paper
@@ -191,13 +187,20 @@ export default class Island extends React.Component {
           style={style}>
           <div>
             <img
-              style={mapStyle}
+              style={{
+                marginTop: -mapMargin.top,
+                marginLeft: -mapMargin.left
+              }}
               src={island.image}
               alt="" />
             {squares}
           </div>
           <FontIcon
-            style={handlerStyle}
+            style={{
+              position: 'absolute',
+              top: heroPosition.top - mapMargin.top - 10,
+              left: heroPosition.left - mapMargin.left - 2
+            }}
             className="mdfi_communication_location_on" />
         </Paper>
       </div>
@@ -226,7 +229,7 @@ export default class Island extends React.Component {
         window.clearInterval(this._moveInterval);
         HeroApi.moveOnIsland(x, y);
       }
-    } , 1000);
+    }, 1000);
   }
   _onCancelMove(e) {
     e.preventDefault();

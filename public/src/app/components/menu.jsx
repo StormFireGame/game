@@ -17,38 +17,61 @@ export default class Menu extends React.Component {
     router: React.PropTypes.func
   };
 
+  getStyles() {
+    return {
+      base: {
+        float: 'right',
+        width: 650
+      },
+      button: {
+        marginLeft: 2,
+        marginRight: 2
+      }
+    }
+  }
+
   render() {
+    const router = this.context.router;
+    const styles = this.getStyles();
+
     debug('render');
 
     return (
-      <nav id="menu">
+      <nav style={styles.base}>
         <Toolbar>
-          <ToolbarGroup key={0} float="left">
+          <ToolbarGroup
+            key={0}
+            float="left">
             <RaisedButton
+              style={styles.button}
               label="Hero"
               linkButton={true}
-              primary={this.isActive('/hero')}
+              primary={router.isActive('/hero')}
               href="#/hero" />
             <RaisedButton
+              style={styles.button}
               linkButton={true}
               label="Inventory"
-              primary={this.isActive('/hero/inventory')}
+              primary={router.isActive('/hero/inventory')}
               href="#/hero/inventory" />
             <RaisedButton
+              style={styles.button}
               linkButton={true}
               label="Combats"
-              primary={this.isActive('/hero/combats')}
+              primary={router.isActive('/hero/combats')}
               href="#/hero/combats" />
             <RaisedButton
+              style={styles.button}
               label="Preferences"
               linkButton={true}
               primary={
-                this.isActive('/hero/preferences/general') ||
-                this.isActive('/hero/preferences/security') ||
-                this.isActive('/hero/preferences/images')
+                router.isActive('/hero/preferences/general') ||
+                router.isActive('/hero/preferences/security') ||
+                router.isActive('/hero/preferences/images')
               }
               href="#/hero/preferences/general" />
             <RaisedButton
+              style={styles.button}
               linkButton={true}
               label="Info" />
           </ToolbarGroup>

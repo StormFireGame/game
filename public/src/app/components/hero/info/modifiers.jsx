@@ -1,42 +1,47 @@
 import React from 'react';
-import { Paper } from 'material-ui';
+import { List, ListItem } from 'material-ui';
 
 import debugLib from '../../../lib/debug';
 
 const debug = debugLib('components:hero:info:modifiers');
 
 export default class HeroInfoModifiers extends React.Component {
+  getStyles() {
+    return {
+      base: {
+        width: 200
+      }
+    };
+  }
+
   render() {
     const props = this.props;
-    const style = {
-      width: 205,
-      height: 179
-    };
 
     debug('render');
 
     return (
-      <Paper
-        style={style}
-        rounded={false}
-        zDepth={1}
-        className="block modifiers-block">
-        <div className="mui-font-style-subhead-1">Modifiers</div>
-        <dl className="dl-horizontal">
-          <dt>Accuracy</dt>
-          <dd>{props.accuracy}%</dd>
-          <dt>Dodge</dt>
-          <dd>{props.dodge}%</dd>
-          <dt>Devastate</dt>
-          <dd>{props.devastate}%</dd>
-          <dt>Durability</dt>
-          <dd>{props.durability}%</dd>
-          <dt>Block break</dt>
-          <dd>{props.blockBreak}%</dd>
-          <dt>Armor break</dt>
-          <dd>{props.armorBreak}%</dd>
-        </dl>
-      </Paper>
+      <List
+        style={this.getStyles().base}
+        subheader="Modifiers">
+        <ListItem>
+          Accuracy: {props.accuracy}%
+        </ListItem>
+        <ListItem>
+          Dodge: {props.dodge}%
+        </ListItem>
+        <ListItem>
+          Devastate: {props.devastate}%
+        </ListItem>
+        <ListItem>
+          Durability: {props.durability}%
+        </ListItem>
+        <ListItem>
+          Block break: {props.blockBreak}%
+        </ListItem>
+        <ListItem>
+          Armor break: {props.armorBreak}%
+        </ListItem>
+      </List>
     );
   }
 }

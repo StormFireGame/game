@@ -4,18 +4,34 @@ import assign from 'object-assign';
 
 import debugLib from '../../lib/debug';
 
-import HeroListenerMixin from './mixins/hero-listener';
+import HeroStore from '../../stores/hero-store';
 
 import Actions from './inventory/actions';
 import Items from './inventory/items';
 
 const debug = debugLib('components:hero:inventory');
 
+function getHeroState() {
+  return {
+    hero: HeroStore.get()
+  };
+}
+
 export default class HeroInventory extends React.Component {
   // mixins: [HeroListenerMixin],
   state = assign({
     filter: null
-  }, HeroListenerMixin.getInitialState);
+  }, getHeroState());
+
+  componentDidMount() {
+    HeroStore.addChangeListener(::this._onChange);
+  }
+  componentWillUnmount() {
+    HeroStore.removeChangeListener(::this._onChange);
+  }
+  _onChange() {
+    this.setState(getHeroState());
+  }
 
   render() {
     const hero = this.state.hero;
@@ -33,7 +49,7 @@ export default class HeroInventory extends React.Component {
       <div>
         <Actions
           hero={hero}
-          filterHandler={this._filterHandler} />
+          filterHandler={::this._filterHandler} />
         <Items
           hero={hero}
           things={things} />

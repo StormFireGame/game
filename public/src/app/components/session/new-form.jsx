@@ -7,7 +7,6 @@ import SessionService from '../../services/session-service';
 const debug = debugLib('components:session:new-form');
 
 export default class SessionNewForm extends React.Component {
-  // mixins: [Navigation],
   state = {
     error: null
   };
@@ -18,38 +17,36 @@ export default class SessionNewForm extends React.Component {
     debug('render');
 
     return (
-      <form onSubmit={this._onSubmit}>
+      <form onSubmit={::this._onSubmit}>
         <TextField
           ref="login"
           errorText={error}
           name="login"
-        import
+          required={true}
           hintText="Login" />
         <br />
         <TextField
           ref="password"
           type="password"
           name="password"
-        import
+          required={true}
           hintText="Password" />
         <br />
         <RaisedButton label="Signin" />
         <RaisedButton
+          style={{ float: 'right' }}
           href="#/heroes/new"
           label="Signup"
-          className="pull-right"
           primary={true}
           linkButton={true} />
       </form>
     );
   }
   _onSubmit(e) {
-    var refs = this.refs;
-    var data;
-
     e.preventDefault();
 
-    data = {
+    const refs = this.refs;
+    const data = {
       login: refs.login.getValue(),
       password: refs.password.getValue(),
     };

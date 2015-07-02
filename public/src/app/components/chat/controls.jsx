@@ -21,7 +21,7 @@ export default class ChatControls extends React.Component {
         {' '}
         <RaisedButton
           primary={true}
-          onClick={this._onSend}
+          onClick={::this._onSend}
           label="Send" />
       </div>
     );

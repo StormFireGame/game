@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper } from 'material-ui';
 import _ from 'lodash';
+import assign from 'object-assign';
 
 import debugLib from '../../lib/debug';
 
@@ -11,68 +12,88 @@ import ImageSlot from './body/image-slot';
 
 import HeroApi from '../../utils/hero-api';
 
+import HeroStore from '../../stores/hero-store';
+
 const debug = debugLib('components:hero:body');
 
+function getHeroState() {
+  return {
+    hero: HeroStore.get()
+  };
+}
+
 export default class HeroBody extends React.Component {
+  // mixins: [HeroListenerMixin],
   static propTypes = {
     actions: React.PropTypes.bool
   };
-  // mixins: [HeroListenerMixin],
-  render() {
-    const hero = this.state.hero;
 
-    if (_.isEmpty(hero)) return null;
+  state = getHeroState();
 
-    let style;
-    let position = {};
-    let width = 70;
-    let height = 75;
-    let offset = 6;
-    let pullRigth = (3 * width) + (4 * offset);
+  componentDidMount() {
+    HeroStore.addChangeListener(::this._onChange);
+  }
+  componentWillUnmount() {
+    HeroStore.removeChangeListener(::this._onChange);
+  }
+  _onChange() {
+    this.setState(getHeroState());
+  }
+
+  getStyles() {
+    const offset = 6;
+    const width = 70;
+
+    return {
+      base: {
+        position: 'relative',
+        width: 310,
+        height: 390
+      }
+    }
+  }
+
+  getThingPositions() {
+    const offset = 6;
+    const width = 70;
+    const height = 75;
+    const pullRigth = (3 * width) + (4 * offset);
     let fullHeight;
-    let elixir;
-    let ring;
 
-    let things = hero.things.filter(thing => thing.dressed);
-
-    function getThing(type) {
-      return _.find(things, (thing) => {
-        return thing.thing.type === type;
-      });
-    };
-
-    // TODO do refactoring with body and slots proporties
-    position.gloves = {
-      left: offset,
-      top: offset
-    };
-
-    position.helmet = {
-      left: width + 2 * offset,
-      top: offset
-    };
-
-    position.amulet = {
-      left: 2 * width + 3 * offset,
-      top: offset
-    };
-
-    position.treetops = {
-      left: pullRigth,
-      top: offset
-    };
-
-    position.arms = {
-      height: 85,
-      left: offset,
-      top: height + 2 * offset
+    let position = {
+      gloves: {
+        left: offset,
+        top: offset
+      },
+      helmet: {
+        left: width + 2 * offset,
+        top: offset
+      },
+      amulet: {
+        left: 2 * width + 3 * offset,
+        top: offset
+      },
+      treetops: {
+        left: pullRigth,
+        top: offset
+      },
+      arms: {
+        height: 85,
+        left: offset,
+        top: height + 2 * offset
+      },
+      shield: {
+        height: 85,
+        left: pullRigth,
+        top: height + (2 * offset)
+      }
     };
 
     position.armor = {
       height: 90,
       left: offset,
       top: position.arms.top + position.arms.height + offset
-    };
+    }
 
     position.pants = {
       height: 110,
@@ -80,11 +101,11 @@ export default class HeroBody extends React.Component {
       top: position.armor.top + position.armor.height + offset
     };
 
-    fullHeight = height + position.arms.height +
-      position.armor.height + position.pants.height + 5 * offset;
+    fullHeight = height + position.arms.height + position.armor.height +
+      position.pants.height + 5 * offset;
 
     position.elixir = {};
-    elixir = position.elixir;
+    let elixir = position.elixir;
     elixir.height = 32;
     elixir.width = elixir.height;
     elixir.left = width + (2 * offset);
@@ -103,14 +124,8 @@ export default class HeroBody extends React.Component {
       top: elixir.top
     };
 
-    position.shield = {
-      height: 85,
-      left: pullRigth,
-      top: height + (2 * offset)
-    };
-
     position.ring = {};
-    ring = position.ring;
+    let ring = position.ring;
     ring.height = 32;
     ring.width = ring.height;
     ring.left = pullRigth;
@@ -140,14 +155,35 @@ export default class HeroBody extends React.Component {
       top: position.belt.top + position.belt.height + offset
     };
 
-    _.forEach(position, (pos) => {
-      pos.position = 'absolute';
-    });
-
-    style = {
+    position.base = {
       position: 'relative',
       width: (width * 4) + (offset * 5),
       height: fullHeight
+    };
+
+    position.image = {
+      left: width + 2 * offset,
+      top: height + 2 * offset,
+      width: 146,
+      height: 259
+    };
+
+    return position;
+  }
+
+  render() {
+    const hero = this.state.hero;
+
+    if (_.isEmpty(hero)) return null;
+
+    let things = hero.things.filter(thing => thing.dressed);
+    const position = this.getThingPositions();
+    const styles = this.getStyles();
+
+    function getThing(type) {
+      return _.find(things, (thing) => {
+        return thing.thing.type === type;
+      });
     };
 
     debug('render');
@@ -163,34 +199,30 @@ export default class HeroBody extends React.Component {
       let undressHandler;
 
       if (thing && this.props.actions) {
-        undressHandler = this._onUndress.bind(null, thing._id);
+        undressHandler = this._onUndress.bind(this, thing._id);
       }
 
       return (
-        <div
-          onClick={undressHandler}
+        <ThingSlot
           key={index}
-          style={position[type]}>
-          <ThingSlot
-            thing={thing}
-            type={orgType} />
-        </div>
+          position={position[type]}
+          thing={thing}
+          type={orgType} />
       );
     });
 
     return (
-      <div className="hero-body">
-        <Paper zDepth={2} style={style}>
-          <ImageSlot
-            left={width + 2 * offset}
-            top={height + 2 * offset}
-            width={146}
-            height={259}
-            image={hero.image} />
-
-          {thingsSlots}
-        </Paper>
-      </div>
+      <Paper
+        style={styles.base}
+        zDepth={2}>
+        <ImageSlot
+          position={{
+            top: 87,
+            left: 82
+          }}
+          image={hero.image} />
+        {thingsSlots}
+      </Paper>
     );
   }
   _onUndress(id) {

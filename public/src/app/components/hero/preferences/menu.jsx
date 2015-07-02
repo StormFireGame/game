@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from 'material-ui';
+import { Menu, MenuItem } from 'material-ui';
 import Router from 'react-router';
 import _ from 'lodash';
 
@@ -12,44 +12,44 @@ export default class PreferencesMenu extends React.Component {
     router: React.PropTypes.func
   };
 
-  render() {
-    const menuItems = [{
-      payload: '1',
-      text: 'General',
-      href: '#/hero/preferences/general',
-      selected: this.isActive('/hero/preferences/general')
-    }, {
-      payload: '2',
-      text: 'Security',
-      href: '#/hero/preferences/security',
-      selected: this.isActive('/hero/preferences/security')
-    }, {
-      payload: '3',
-      text: 'Images',
-      href: '#/hero/preferences/images',
-      selected: this.isActive('/hero/preferences/images')
-    }];
-    const selectedIndex = _.findIndex(menuItems, 'selected');
-
-    const style = {
-      height: 160
+  getStyles() {
+    return {
+      link: {
+        textDecoration: 'none',
+        color: 'black'
+      }
     };
+  }
+
+  render() {
+    const router = this.context.router;
+
+    const menuItems = [{
+      type: MenuItem.Types.LINK,
+      text: 'General',
+      payload: '#/hero/preferences/general',
+      selected: router.isActive('/hero/preferences/general')
+    }, {
+      type: MenuItem.Types.LINK,
+      text: 'Security',
+      payload: '#/hero/preferences/security',
+      selected: router.isActive('/hero/preferences/security')
+    }, {
+      type: MenuItem.Types.LINK,
+      text: 'Images',
+      payload: '#/hero/preferences/images',
+      selected: router.isActive('/hero/preferences/images')
+    }];
 
     debug('render');
 
-    // TODO: fix menu height (pr)
+    // FIXME: bug with selected
     return (
-      <div style={style}>
-        <Menu
-          autoWidth={false}
-          selectedIndex={selectedIndex}
-          onItemClick={this._onItemClick}
-          menuItems={menuItems} />
-      </div>
+      <Menu
+        menuItemStyleLink={this.getStyles().link}
+        autoWidth={false}
+        selectedIndex={_.findIndex(menuItems, 'selected')}
+        menuItems={menuItems} />
     );
-  }
-  _onItemClick(e, index, item) {
-    // TODO: this is hack untill menuitem will support href
-    document.location = item.href;
   }
 }

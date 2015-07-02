@@ -8,13 +8,31 @@ import debugLib from '../../../lib/debug';
 import HeroApi from '../../../utils/hero-api';
 import mediator from '../../../mediator';
 import actionTypes from '../../../constants/action-types';
+import HeroStore from '../../../stores/hero-store';
 
 import HeroListenerMixin from '../mixins/hero-listener';
 
 const debug = debugLib('components:hero:preferences:general-form');
 
+function getHeroState() {
+  return {
+    hero: HeroStore.get()
+  };
+}
+
 export default class HeroPreferencesGeneralForm extends React.Component {
   // mixins: [HeroListenerMixin],
+  state = getHeroState();
+
+  componentDidMount() {
+    HeroStore.addChangeListener(::this._onChange);
+  }
+  componentWillUnmount() {
+    HeroStore.removeChangeListener(::this._onChange);
+  }
+  _onChange() {
+    this.setState(getHeroState());
+  }
   render() {
     const hero = this.state.hero;
 
@@ -29,7 +47,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
     }
 
     return (
-      <form onSubmit={this._onSubmit}>
+      <form onSubmit={::this._onSubmit}>
         <TextField
           ref="name"
           name="name"
@@ -79,7 +97,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
       about: refs.about.getValue()
     };
 
-    // TODO data do extend not correctly so may be do just throw service
+    // TODO: data do extend not correctly so may be do just throw service
     HeroApi.updateGeneral(data)
       .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Hero updated');

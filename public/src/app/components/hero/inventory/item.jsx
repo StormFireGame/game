@@ -17,6 +17,31 @@ export default class HeroInventoryItem extends React.Component {
     thing: React.PropTypes.object
   };
 
+  getStyles() {
+    return {
+      base: {
+        padding: 10,
+        height: 'auto'
+      },
+      content: {
+        display: 'flex',
+        flexWrap: 'nowrap'
+      },
+      image: {
+        flexBasis: 150
+      },
+      requirments: {
+        flexBasis: 160
+      },
+      description: {
+        flexBasis: 160
+      },
+      actions: {
+        flexBasis: 110
+      }
+    };
+  }
+
   render() {
     const thingWrap = this.props.thing;
     const thing = thingWrap.thing;
@@ -34,6 +59,8 @@ export default class HeroInventoryItem extends React.Component {
         </div>
       );
     };
+
+    const styles = this.getStyles();
 
     const needItems = [
       'levelNeed',
@@ -70,23 +97,20 @@ export default class HeroInventoryItem extends React.Component {
     debug('render');
 
     return (
-      <Paper className="item" zDepth={1}>
-        <div className="mui-font-style-title">
+      <Paper
+        style={styles.base}
+        zDepth={1}>
+        <h3>
           {thing.name}
-        </div>
+        </h3>
         <div>
           <FontIcon className="mdfi_action_account_balance_wallet" /> {thing.price}
           {' '}
           <FontIcon className="mdfi_action_work" /> {thing.weight}
         </div>
-        <div className="content-wrapper" style={{
-          display: 'flex',
-          flexWrap: 'nowrap'
-        }}>
-          <div style={{
-            flexBasis: 150
-          }}>
-            <div className="image-wrapper">
+        <div style={styles.content}>
+          <div style={styles.image}>
+            <div>
               <ThingSlot type={thing.type} thing={thingWrap} />
 
               <div style={
@@ -97,34 +121,32 @@ export default class HeroInventoryItem extends React.Component {
               </div>
             </div>
           </div>
-          <div style={{
-            flexBasis: 160
-          }}>
+          <div style={styles.requirments}>
             {(needItems) ?
                 <div>
                   <div className="mui-font-style-subhead-1">Requirments</div>
                   {needItems}
                 </div> : null}
           </div>
-          <div style={{
-            flexBasis: 160
-          }}>
+          <div style={styles.description}>
             {(giveItems) ?
                 <div>
                   <div className="mui-font-style-subhead-1">Description</div>
                   {giveItems}
                 </div> : null}
           </div>
-          <div className="actions-wrapper" style={{
-            flexBasis: 110
-          }}>
+          <div style={styles.actions}>
             {canBeDressed ?
-              <RaisedButton
-                onClick={this._onDress}
-                label="Dress" />
+              <span>
+                <RaisedButton
+                  onClick={::this._onDress}
+                  label="Dress" />
+                <br />
+                <br />
+              </span>
               : null}
             <RaisedButton
-              onClick={this._onRemove}
+              onClick={::this._onRemove}
               label="Remove" />
           </div>
         </div>

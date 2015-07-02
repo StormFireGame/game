@@ -1,4 +1,4 @@
-var HeroStore = require('../../../stores/hero-store');
+import HeroStore from '../../../stores/hero-store';
 
 function getHeroState() {
   return {
@@ -7,16 +7,16 @@ function getHeroState() {
 }
 
 var HeroListenerMixin = {
-  getInitialState: function() {
+  getInitialState() {
     return getHeroState();
   },
-  componentDidMount: function() {
+  componentDidMount() {
     HeroStore.addChangeListener(this._onChange);
   },
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     HeroStore.removeChangeListener(this._onChange);
   },
-  _onChange: function() {
+  _onChange() {
     this.setState(getHeroState());
   }
 };

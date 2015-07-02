@@ -17,20 +17,21 @@ function getInfoState() {
 
 export default class Info extends React.Component {
   state = getInfoState();
+
   componentDidMount() {
-    HeroStore.addChangeListener(this._onChange);
+    HeroStore.addChangeListener(::this._onChange);
   }
 
   componentWillUnmount() {
-    HeroStore.removeChangeListener(this._onChange);
-    window.clearInterval(this._setHpInterval);
+    HeroStore.removeChangeListener(::this._onChange);
+    window.clearInterval(::this._setHpInterval);
   }
 
   _onChange() {
     this.setState(getInfoState());
 
     window.clearInterval(this._setHpInterval);
-    this._setHpInterval = window.setInterval(this._setHp, 1000);
+    this._setHpInterval = window.setInterval(::this._setHp, 1000);
     this._setHp();
   }
 
@@ -60,24 +61,35 @@ export default class Info extends React.Component {
       currentHp: hp.current
     });
   }
+
+  getStyles() {
+    return {
+      base: {
+        position: 'absolute',
+        width: 310
+      }
+    };
+  }
+
   render() {
     const hero = this.state.hero;
 
-    // TODO change lodash to modules
+    // TODO: change lodash to modules
     if (_.isEmpty(hero)) return null;
 
+    const styles = this.getStyles();
     const hp = hero.feature.hp;
 
     debug('render');
 
     return (
-      <div id="info">
-        <h5 className="text-center">
+      <div style={styles.base}>
+        <div>
           <FontIcon
             className="mdfi_action_info" />
           {' '}
           {hero.login} [{hero.level}]
-        </h5>
+        </div>
         <FontIcon
           className="mdfi_action_favorite" />
         {' '}

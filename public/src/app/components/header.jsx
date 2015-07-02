@@ -8,11 +8,18 @@ import debugLib from '../lib/debug';
 const debug = debugLib('components:header');
 
 export default class Header extends React.Component {
+  getStyles() {
+    return {
+      base: {
+        height: 80
+      }
+    };
+  }
   render() {
     debug('render');
 
     return (
-      <header id="header">
+      <header style={this.getStyles().base}>
         <Info />
         <Menu />
       </header>

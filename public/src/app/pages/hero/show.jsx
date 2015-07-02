@@ -7,10 +7,13 @@ import AuthMixin from '../mixins/auth';
 import HeroBody from '../../components/hero/body';
 import HeroInfo from '../../components/hero/info';
 
+import SessionHelper from '../../helpers/session-helper';
+import HeroApi from '../../utils/hero-api';
+
 const debug = debugLib('pages:hero:show');
 
+@auth
 export default class HeroShowPage extends React.Component {
-  // mixins: [AuthMixin],
   componentDidMount() {
     SkillApi.fetch();
   }
@@ -39,4 +42,16 @@ export default class HeroShowPage extends React.Component {
       </div>
     );
   }
+}
+
+function auth(target) {
+  target.willTransitionTo = function(transition) {
+    if (!SessionHelper.isSignin()) {
+      transition.abort();
+      debug('access closed %s', transition.path);
+      transition.redirect('/');
+    } else {
+      HeroApi.fetch();
+    }
+  };
 }

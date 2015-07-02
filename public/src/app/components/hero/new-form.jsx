@@ -27,11 +27,11 @@ export default class HeroNewForm extends React.Component {
     debug('render');
 
     return (
-      <form onSubmit={this._onSubmit}>
+      <form onSubmit={::this._onSubmit}>
         <TextField
           ref="login"
           name="login"
-        import
+          required={true}
           errorText={errors.login}
           hintText="Login" />
         <br />
@@ -39,14 +39,14 @@ export default class HeroNewForm extends React.Component {
           ref="password"
           type="password"
           name="password"
-        import
+          required={true}
           errorText={errors.password}
           hintText="Password" />
         <br />
         <TextField
           ref="email"
           type="email"
-        import
+          required={true}
           errorText={errors.email}
           hintText="Email"  />
         <br />
@@ -70,12 +70,10 @@ export default class HeroNewForm extends React.Component {
     );
   }
   _onSubmit(e) {
-    const refs = this.refs;
-    let data;
-
     e.preventDefault();
 
-    data = {
+    const refs = this.refs;
+    const data = {
       login: refs.login.getValue(),
       password: refs.password.getValue(),
       email: refs.email.getValue(),

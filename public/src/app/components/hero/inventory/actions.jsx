@@ -73,7 +73,7 @@ export default class HeroInventoryActions extends React.Component {
         key="cancel"
         label="Cancel"
         secondary={true}
-        onClick={this._onNewComplectDialogCancel} />,
+        onClick={::this._onNewComplectDialogCancel} />,
       <FlatButton
         key="save"
         label="Save"
@@ -84,19 +84,19 @@ export default class HeroInventoryActions extends React.Component {
     debug('render');
 
     return (
-      <div className="actions-wrapper">
+      <div>
         <Toolbar>
           <ToolbarGroup key={0} float="left">
             <RaisedButton
-              onClick={this._onUndress}
+              onClick={::this._onUndress}
               label="Undress" />
             <DropDownMenu
-              onChange={this._onFilter}
+              onChange={::this._onFilter}
               menuItems={filterOptions} />
           </ToolbarGroup>
           <ToolbarGroup key={1} float="right">
             <IconButton
-              onClick={this._onNewComplectDialog}
+              onClick={::this._onNewComplectDialog}
               tooltip="New complect"
               disabled={!anyThingDressed}>
               <FontIcon className="mdfi_content_add_box"/>
@@ -106,15 +106,15 @@ export default class HeroInventoryActions extends React.Component {
                 (selectedComplectIndex === -1) ? 0 : selectedComplectIndex
               }
               menuItems={complectOptions}
-              onChange={this._onComplect} />
+              onChange={::this._onComplect} />
             <IconButton
-              onClick={this._onApplyComplect}
+              onClick={::this._onApplyComplect}
               tooltip="Apply complect"
               disabled={disabledComplectActions}>
               <FontIcon className="mdfi_action_accessibility" />
             </IconButton>
             <IconButton
-              onClick={this._onDeleteComplect}
+              onClick={::this._onDeleteComplect}
               tooltip="Delete complect"
               disabled={disabledComplectActions}>
               <FontIcon className="mdfi_action_delete" />
@@ -126,11 +126,11 @@ export default class HeroInventoryActions extends React.Component {
           ref="newComplectDialog"
           title="New Complect"
           actions={newComplectActions}>
-          <form id="newComplectForm" onSubmit={this._onNewComplectSubmit}>
+          <form id="newComplectForm" onSubmit={::this._onNewComplectSubmit}>
             <TextField
               ref="complectName"
               hintText="Complect name"
-              required />
+              required={true} />
           </form>
         </Dialog>
       </div>

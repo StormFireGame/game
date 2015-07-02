@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, FontIcon } from 'material-ui';
+import { List, ListItem, IconButton } from 'material-ui';
 import _ from 'lodash';
 
 import SkillStore from '../../../stores/skill-store';
@@ -10,8 +10,7 @@ const debug = debugLib('components:hero:info:skills');
 
 function getInfoSkillsState() {
   return {
-    skills: SkillStore.get(),
-    page: 0
+    skills: SkillStore.get()
   };
 }
 
@@ -25,83 +24,56 @@ export default class HeroInfoSkills extends React.Component {
   state = getInfoSkillsState();
 
   componentDidMount() {
-    SkillStore.addChangeListener(this._onChange);
+    SkillStore.addChangeListener(::this._onChange);
   }
   componentWillUnmount() {
-    SkillStore.removeChangeListener(this._onChange);
+    SkillStore.removeChangeListener(::this._onChange);
   }
   _onChange() {
     this.setState(getInfoSkillsState());
   }
+
+  getStyles() {
+    return {
+      base: {
+        width: 200
+      }
+    };
+  }
+
   render() {
     const props = this.props;
-    const perPage = 5;
-    const skills = this.state.skills
-      .slice(this.state.page * perPage, this.state.page * perPage + perPage);
-    let style = {
-      width: 204,
-      height: 50 + 20 * skills.length
-    };
-
-    const items = skills
-      .map((skill, index) => {
-        var item = _(props.skills).find((heroSkill) => {
-          return heroSkill.skill === skill._id;
-        });
-
-        return (
-          <div key={index}>
-            <dt>{skill.name}</dt>
-            <dd>{item ? item.level : 0}
-              {props.numberOfSkills ?
-                <FontIcon
-                  onClick={props.increaseHandler.bind(this, 'skills', skill._id)}
-                  className="mdfi_content_add" /> : null}
-            </dd>
-          </div>
-        );
-      });
-
-    if (props.numberOfSkills) {
-      style.height += 30;
-    }
 
     debug('render');
 
     return (
-      <Paper
-        style={style}
-        rounded={false}
-        zDepth={1}
-        className="block skills-block">
-        <div className="mui-font-style-subhead-1">Skills</div>
-        <dl className="dl-horizontal">
-          {items}
-        </dl>
-        {props.numberOfSkills ?
-          <p>Number of increases {props.numberOfSkills}</p> : null}
+      <List
+        style={this.getStyles().base}
+        subheader="Skills">
+        {this.state.skills.map((skill, index) => {
+          const item = _(props.skills).find((heroSkill) => {
+            return heroSkill.skill === skill._id;
+          });
 
-        <div className="pagination">
-          {this.state.page > 0 ?
-            <FontIcon
-              onClick={this._onPrevPage}
-              className="mdfi_image_navigate_before" /> : null}
-          {(this.state.page + 1) * perPage < this.state.skills.length ?
-            <FontIcon
-              onClick={this._onNextPage}
-              className="mdfi_image_navigate_next" /> : null}
-        </div>
-      </Paper>
+          return (
+            <ListItem
+              key={index}
+              rightIconButton={
+                props.numberOfSkills ?
+                  <IconButton
+                    onClick={props.increaseHandler.bind(this, 'skills', skill._id)}
+                    iconClassName="mdfi_content_add" /> : null}>
+              {skill.name}{': '}
+              {item ? item.level : 0}
+            </ListItem>
+          );
+        })}
+
+        {props.numberOfSkills ?
+          (<ListItem>
+            To increase: {props.numberOfSkills}
+          </ListItem>) : null}
+      </List>
     );
-  }
-   _onNextPage() {
-    this.setState({
-      page: this.state.page + 1
-    });
-  }
-  _onPrevPage() {
-    this.setState({
-      page: this.state.page - 1
-    });
   }
 }

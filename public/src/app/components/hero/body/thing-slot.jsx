@@ -2,6 +2,8 @@ import React from 'react';
 import { Paper } from 'material-ui';
 import _ from 'lodash';
 
+import assign from 'object-assign';
+
 import debugLib from '../../../lib/debug';
 
 const debug = debugLib('components:hero:body-thing-slot');
@@ -9,19 +11,16 @@ const debug = debugLib('components:hero:body-thing-slot');
 export default class HeroBodyThingSlot extends React.Component {
   static propTypes = {
     type: React.PropTypes.string,
-    thing: React.PropTypes.object
+    thing: React.PropTypes.object,
+    position: React.PropTypes.object,
   };
 
-  render() {
+  getStyles() {
     const props = this.props;
-    const type = props.type;
-    const thingWrap = props.thing;
-    const thing = thingWrap ? thingWrap.thing : null;
     let width = 70;
     let height;
-    let info = [];
 
-    switch(type) {
+    switch(props.type) {
       case 'gloves':
       case 'helmet':
       case 'amulet':
@@ -56,10 +55,46 @@ export default class HeroBodyThingSlot extends React.Component {
         break;
     }
 
-    const style = {
-      width: width,
-      height: height
+    let styles = {
+      base: assign({
+        width: width,
+        height: height,
+        position: 'absolute'
+      })
     };
+
+    if (props.position) {
+      assign(styles.base, {
+        left: props.position.left,
+        top: props.position.top
+      });
+    }
+
+    [
+      'gloves', 'helmet', 'amulet', 'treetops', 'shield', 'ring', 'belt',
+      'boots', 'elixir', 'pants', 'armor', 'arms'
+    ].forEach((item) => {
+      styles[item] = {
+        position: 'absolute',
+        top: 2,
+        left: 2,
+        backgroundImage: `url(../images/hero-body/${item}.png)`,
+        width: '100%',
+        height: '100%',
+        backgroundRepeat: 'no-repeat'
+      };
+    });
+
+    return styles;
+  }
+
+  render() {
+    const type = this.props.type;
+    const thingWrap = this.props.thing;
+    const thing = thingWrap ? thingWrap.thing : null;
+    let info = [];
+
+    const styles = this.getStyles();
 
     if (thing) {
       info.push('Name: ' + thing.name);
@@ -95,10 +130,10 @@ export default class HeroBodyThingSlot extends React.Component {
     return (
       <Paper
         title={info.join('\n')}
-        style={style}
+        style={styles.base}
         rounded={false}
-        innerClassName={`slot-${type}`}
         zDepth={1}>
+        <div style={styles[type]}></div>
         {thing ?
           <img src={thing.image} /> : null}
       </Paper>

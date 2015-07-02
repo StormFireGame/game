@@ -38,12 +38,12 @@ export default class HeroPreferencesGeneralForm extends React.Component {
   );
 
   componentDidMount() {
-    HeroImageStore.addChangeListener(this._onChangeHeroImages);
-    HeroStore.addChangeListener(this._onChangeHero);
+    HeroImageStore.addChangeListener(::this._onChangeHeroImages);
+    HeroStore.addChangeListener(::this._onChangeHero);
   }
   componentWillUnmount() {
-    HeroImageStore.removeChangeListener(this._onChangeHeroImages);
-    HeroStore.removeChangeListener(this._onChangeHero);
+    HeroImageStore.removeChangeListener(::this._onChangeHeroImages);
+    HeroStore.removeChangeListener(::this._onChangeHero);
   }
   _onChangeHeroImages() {
     this.setState(getHeroImagesState());
@@ -51,19 +51,31 @@ export default class HeroPreferencesGeneralForm extends React.Component {
   _onChangeHero() {
     this.setState(getHeroState());
   }
+
+  getStyles() {
+    return {
+      radio: {
+        width: 'auto',
+        height: 280,
+        display: 'inline-block',
+        marginRight: 20
+      },
+      item: {
+        width: 146,
+        height: 259,
+        textAlign: 'center'
+      }
+    }
+  }
   render() {
     const hero = this.state.hero;
     const heroImages = this.state.heroImages;
 
     if (_.isEmpty(hero) || !heroImages.length) return null;
 
+    const styles = this.getStyles();
     let items;
     const heroImage = (hero.image) ? hero.image._id : -1;
-    const itemStyle = {
-      width: 146,
-      height: 259,
-      textAlign: 'center'
-    };
 
     debug('render');
 
@@ -72,10 +84,10 @@ export default class HeroPreferencesGeneralForm extends React.Component {
         return (
           <RadioButton
             key={index}
-            className="item"
+            style={styles.radio}
             value={heroImage._id}>
             <Paper
-              style={itemStyle}
+              style={styles.item}
               zDepth={1}>
               <img src={heroImage.image} alt="" />
             </Paper>
@@ -86,10 +98,10 @@ export default class HeroPreferencesGeneralForm extends React.Component {
     items.unshift(
       (<RadioButton
         key="-1"
+        style={styles.radio}
         value="-1">
         <Paper
-          className="item"
-          style={itemStyle}
+          style={styles.item}
           zDepth={1}>
           <img src="images/hero-body/no-hero.png" alt="" />
         </Paper>
@@ -97,7 +109,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
     );
 
     return (
-      <form onSubmit={this._onSubmit}>
+      <form onSubmit={::this._onSubmit}>
         <RadioButtonGroup
           name="heroImage"
           ref="heroImage"
@@ -116,7 +128,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
       image: this.refs.heroImage.getSelectedValue()
     };
 
-    // TODO data do extend not correctly so may be do just throw service
+    // TODO: data do extend not correctly so may be do just throw service
     HeroApi.updateGeneral(data)
       .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Hero image updated');

@@ -1,42 +1,47 @@
 import React from 'react';
-import { Paper } from 'material-ui';
+import { List, ListItem } from 'material-ui';
 
 import debugLib from '../../../lib/debug';
 
 const debug = debugLib('components:hero:info:damage-protection');
 
 export default class HeroInfoDamageProtection extends React.Component {
+  getStyles() {
+    return {
+      base: {
+        width: 200
+      }
+    };
+  }
+
   render() {
     const props = this.props;
-    const style = {
-      width: 205,
-      height: 179
-    };
 
     debug('render');
 
     return (
-      <Paper
-        style={style}
-        rounded={false}
-        zDepth={1}
-        className="block damage-protection-block">
-        <div className="mui-font-style-subhead-1">Damage &amp; protection</div>
-        <dl className="dl-horizontal">
-          <dt className="damage">Damage</dt>
-          <dd>{props.damageMin} - {props.damageMax}</dd>
-          <dt>Protection head</dt>
-          <dd>{props.protectionHead}%</dd>
-          <dt>Protection breast</dt>
-          <dd>{props.protectionBreast}%</dd>
-          <dt>Protection belly</dt>
-          <dd>{props.protectionBelly}%</dd>
-          <dt>Protection groin</dt>
-          <dd>{props.protectionGroin}%</dd>
-          <dt>Protection legs</dt>
-          <dd>{props.protectionLegs}%</dd>
-        </dl>
-      </Paper>
+      <List
+        style={this.getStyles().base}
+        subheader="Damage & protection">
+        <ListItem>
+          Damage: {props.damageMin} - {props.damageMax}
+        </ListItem>
+        <ListItem>
+          Protection head: {props.protectionHead}%
+        </ListItem>
+        <ListItem>
+          Protection breast: {props.protectionBreast}%
+        </ListItem>
+        <ListItem>
+          Protection belly: {props.protectionBelly}%
+        </ListItem>
+        <ListItem>
+          Protection groin: {props.protectionGroin}%
+        </ListItem>
+        <ListItem>
+          Protection legs: {props.protectionLegs}%
+        </ListItem>
+      </List>
     );
   }
 }

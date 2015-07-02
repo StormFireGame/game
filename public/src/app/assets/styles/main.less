@@ -1,53 +1,16 @@
-@import "bootstrap";
-@import "mixins";
+@import (less)"../../../../node_modules/material-design-fonticons/styles/mdfi.css";
+@import "icons";
 
 body {
-  // background-color: @grey-100;
+  background-color: #F5F5F5;
   height: auto !important;
   min-width: 960px;
 }
 
-.container {
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  padding-bottom: 60px;
-}
-
-.logo {
-  background-image: url(../images/logo.png);
-  width: 256px;
-  height: 256px;
-  margin: 0 auto;
-}
-
-.main-wrapper {
-  position: relative;
-}
-
-.chat-wrapper {
-  position: fixed;
-  bottom: 55px;
-  left: 10px;
-  right: 10px;
-  min-width: 960px;
-}
-
 dl {
-  .clearfix();
   &.dl-horizontal {
     dt, dd {
       float: left;
     }
   }
 }
-
-@import "header";
-@import "menu";
-@import "info";
-@import "hero";
-@import "footer";
-
-@import "pages/hero/preferences";
-@import "pages/hero/inventory";

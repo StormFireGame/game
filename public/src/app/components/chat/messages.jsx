@@ -16,16 +16,16 @@ export default class ChatMessages extends React.Component {
   };
 
   componentDidMount() {
-    mediator.socket.on('chat/message', this._onMessage);
-    mediator.socket.on('chat/join', this._onJoin);
-    mediator.socket.on('chat/leave', this._onLeave);
-    mediator.on(actionTypes.CHAT_MESSAGE, this._onMessage);
+    mediator.socket.on('chat/message', ::this._onMessage);
+    mediator.socket.on('chat/join', ::this._onJoin);
+    mediator.socket.on('chat/leave', ::this._onLeave);
+    mediator.on(actionTypes.CHAT_MESSAGE, ::this._onMessage);
   }
   componentWillUnmount() {
-    mediator.socket.removeListener('chat/message', this._onMessage);
-    mediator.socket.removeListener('chat/join', this._onJoin);
-    mediator.socket.removeListener('chat/leave', this._onLeave);
-    mediator.removeListener(actionTypes.CHAT_MESSAGE, this._onMessage);
+    mediator.socket.removeListener('chat/message', ::this._onMessage);
+    mediator.socket.removeListener('chat/join', ::this._onJoin);
+    mediator.socket.removeListener('chat/leave', ::this._onLeave);
+    mediator.removeListener(actionTypes.CHAT_MESSAGE, ::this._onMessage);
   }
   _onJoin(participant) {
     this._addMessage({
@@ -49,14 +49,19 @@ export default class ChatMessages extends React.Component {
       messages: this.state.messages.concat([message])
     });
   }
+
+  getStyles() {
+    return {
+      base: {
+        height: '100%'
+      }
+    };
+  }
+
   render() {
     debug('render');
 
-    const innerStyle = {
-      height: '100%',
-      overflow: 'auto',
-      padding: 5
-    };
+    const styles = this.getStyles();
 
     const messages = this.state.messages.map((message, index) => {
       return (
@@ -72,10 +77,7 @@ export default class ChatMessages extends React.Component {
 
     return (
       <Paper
-        style={{
-          height: '100%'
-        }}
-        innerStyle={innerStyle}
+        style={styles.base}
         rounded={false}>
         {messages}
       </Paper>

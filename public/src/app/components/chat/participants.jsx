@@ -15,14 +15,14 @@ export default class ChatParticipants extends React.Component {
   };
 
   componentDidMount() {
-    mediator.socket.on('chat/join', this._onJoin);
-    mediator.socket.on('chat/leave', this._onLeave);
-    mediator.socket.on('chat/participants', this._onParticipants);
+    mediator.socket.on('chat/join', ::this._onJoin);
+    mediator.socket.on('chat/leave', ::this._onLeave);
+    mediator.socket.on('chat/participants', ::this._onParticipants);
   }
   componentWillUnmount() {
-    mediator.socket.removeListener('chat/join', this._onJoin);
-    mediator.socket.removeListener('chat/leave', this._onLeave);
-    mediator.socket.removeListener('chat/participants', this._onParticipants);
+    mediator.socket.removeListener('chat/join', ::this._onJoin);
+    mediator.socket.removeListener('chat/leave', ::this._onLeave);
+    mediator.socket.removeListener('chat/participants', ::this._onParticipants);
   }
   _onParticipants(participants) {
     this.setState({
@@ -40,14 +40,19 @@ export default class ChatParticipants extends React.Component {
         .filter((item) => item._id !== participant._id)
     });
   }
+
+  getStyles() {
+    return {
+      base: {
+        height: '100%'
+      }
+    };
+  }
+
   render() {
     debug('render');
 
-    const style = {
-      height: '100%',
-      overflow: 'auto',
-      padding: 5
-    };
+    const styles = this.getStyles();
 
     const participants = this.state.participants.map((participant, index) => {
       return (
@@ -60,14 +65,11 @@ export default class ChatParticipants extends React.Component {
 
     return (
       <Paper
-        style={{
-          height: '100%'
-        }}
-        innerStyle={style}
+        style={styles.base}
         rounded={false}>
-        <div className="mui-font-style-subhead-1">
+        <h3>
           {this.state.participants.length} participants
-        </div>
+        </h3>
         {participants}
       </Paper>
     );

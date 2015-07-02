@@ -31,62 +31,70 @@ export default class Chat extends React.Component {
       wrapper.style.height = wrapperHeight + (start - e.clientY);
     });
   }
-  render() {
-    debug('render');
 
-    const style = {
-      height: 200,
-      minHeight: 150,
-      maxHeight: 350
+  getStyles() {
+    return {
+      base: {
+        height: 200,
+        minHeight: 150,
+        maxHeight: 350
+      },
+      resizer: {
+        width: '100%',
+        height: 2,
+        cursor: 'row-resize',
+        position: 'absolute'
+      },
+      wrapper: {
+        display: 'flex',
+        flexWrap: 'nowrap'
+      },
+      messages: {
+        flexGrow: 1,
+        flexShrink: 0,
+        flexBasis: 500,
+        height: 'calc(100% - 43px)',
+        marginRight: 5
+      },
+      participants: {
+        height: '100%',
+        flexBasis: 300,
+        flexShrink: 0,
+        flexGrow: 0
+      },
+      controls: {
+        position: 'absolute',
+        bottom: 0
+      }
     };
+  }
+  render() {
+    const styles = this.getStyles();
+
+    debug('render');
 
     return (
       <div
-        style={style}
+        style={styles.base}
         ref="wrapper">
         <div
           ref="resizer"
           draggable="true"
-          style={{
-            width: '100%',
-            height: 2,
-            cursor: 'row-resize',
-            position: 'absolute'
-          }} />
+          style={styles.resizer} />
         <Paper
           innerStyle={{
             padding: 5
           }}
           rounded={false}>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'nowrap'
-            }}>
-            <div
-              style={{
-                flexGrow: 1,
-                flexShrink: 0,
-                flexBasis: 500,
-                height: 'calc(100% - 43px)',
-                marginRight: 5
-              }}>
+          <div style={styles.wrapper}>
+            <div style={styles.messages}>
               <Messages />
             </div>
-            <div
-              style={{
-                height: '100%',
-                flexBasis: 300,
-                flexShrink: 0,
-                flexGrow: 0
-              }}>
+            <div style={styles.participants}>
               <Participants />
             </div>
           </div>
-          <div style={{
-            position: 'absolute',
-            bottom: 0
-          }}>
+          <div style={styles.controls}>
             <Controls />
           </div>
         </Paper>
