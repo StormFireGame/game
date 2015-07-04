@@ -20,6 +20,7 @@
     "test": "echo \"Error: no test specified\"",
     "start": "gulp start",
     "lint": "gulp lint",
+    "build": "npm run lint",
     "data": "DEBUG='game:*' node --harmony data/index.js"
   },
   "engines": {

@@ -47,6 +47,6 @@
     "webpack": "^1.9.11"
   },
   "browser": {
-    "material-ui": "./material-ui/src/index.js"
+    "material-ui": "./vendor/material-ui/src/index.js"
   }
 }

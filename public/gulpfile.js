@@ -165,7 +165,9 @@ gulp.task('scripts', function() {
   };
 
   return browserify(config.scripts.src, options)
-    .transform(config.browserify.transform)
+    .transform(babelify.configure({
+      stage: 0
+    }))
     .bundle()
     .pipe(source(config.scripts.outputName))
     .pipe(gulp.dest(config.scripts.dest));

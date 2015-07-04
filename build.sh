@@ -1,12 +1,13 @@
 npm install
-npm run lint
+npm run build
 
 cd public
-npm install
 
+cd vendor
 git clone https://github.com/callemall/material-ui.git
 cd material-ui
 npm install
-cd ..
+cd ../..
 
+npm install
 npm run build
