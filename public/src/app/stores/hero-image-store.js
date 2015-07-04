@@ -39,7 +39,7 @@ const HeroImageStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register((payload) => {
   const action = payload.action;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case HeroImageConstants.HERO_IMAGES_RECEIVE:
       loadData(action.data);
       break;

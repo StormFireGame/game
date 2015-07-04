@@ -1,5 +1,3 @@
-'use strict';
-
 var co = require('co');
 var mongoose = require('mongoose');
 var _ = require('lodash');
@@ -41,15 +39,15 @@ var dataGenerator = function(item) {
       debug(item.name + ' created');
 
       switch (item.name) {
-      case 'Heroes':
-        var heroes = yield Hero.find().exec();
+        case 'Heroes':
+          var heroes = yield Hero.find().exec();
 
-        for (let hero of heroes) {
-          yield hero.updateFeature();
-        }
+          for (let hero of heroes) {
+            yield hero.updateFeature();
+          }
 
-        debug('Heroes modified');
-        break;
+          debug('Heroes modified');
+          break;
       }
 
       resolve();

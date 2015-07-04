@@ -1,7 +1,7 @@
 export default {
   on(el, type, callback) {
     if (el.length) {
-      for(let i = 0; i < el.length; i++) {
+      for (let i = 0; i < el.length; i++) {
         this.on(el[i], type, callback);
       }
     } else if (el.addEventListener) {

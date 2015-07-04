@@ -1,5 +1,5 @@
 import fetch from '../lib/fetch';
-import debugLib from '../lib/debug'
+import debugLib from '../lib/debug';
 
 const debug = debugLib('services:skill');
 

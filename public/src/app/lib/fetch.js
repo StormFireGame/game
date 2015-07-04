@@ -8,10 +8,9 @@ import actionTypes from '../constants/action-types';
 
 const debug = debugLib('lib:superagent');
 
-export default (url, options) => {
+export default (url, options = {}) => {
   const accessToken = mediator.accessToken;
 
-  options = options || {};
   options.headers = options.headers || {};
 
   if (options.body) options.body = JSON.stringify(options.body);

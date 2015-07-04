@@ -23,7 +23,7 @@ module.exports = function(io) {
       var client;
       if (message.command === 'private') {
         client = io.sockets.sockets
-          .find((client) => client.user.login === message.tail);
+          .find((item) => item.user.login === message.tail);
         client.emit('chat/message', message);
       } else {
         socket.broadcast.emit('chat/message', message);

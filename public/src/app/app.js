@@ -6,7 +6,7 @@ import config from './config/application';
 import environmentConfig from './config/environment';
 import mediator from './mediator';
 
-import routes from './routes'
+import routes from './routes';
 
 import debugLib from './lib/debug';
 

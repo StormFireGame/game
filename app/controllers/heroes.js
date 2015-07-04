@@ -67,7 +67,7 @@ exports.increase = function *() {
   }
   hero[paramKey]--;
 
-  switch(area) {
+  switch (area) {
     case 'abilities':
     case 'parameters':
       if (_.isUndefined(hero[name])) {
@@ -82,7 +82,7 @@ exports.increase = function *() {
       break;
     case 'skills':
       heroSkill = hero.skills
-        .find((heroSkill) => heroSkill.skill + '' === id);
+        .find((item) => item.skill + '' === id);
 
       if (!heroSkill) {
         try {

@@ -39,7 +39,7 @@ var IslandStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register((payload) => {
   const action = payload.action;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case IslandConstants.ISLAND_RECEIVE:
       loadData(action.data);
       break;

@@ -39,7 +39,7 @@ var SkillStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register((payload) => {
   const action = payload.action;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case SkillConstants.SKILLS_RECEIVE:
       loadData(action.data);
       break;

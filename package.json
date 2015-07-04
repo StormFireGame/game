@@ -54,6 +54,7 @@
     "uid": "0.0.2"
   },
   "devDependencies": {
+    "babel-eslint": "^3.1.20",
     "commander": "^2.8.1",
     "gulp": "^3.9.0",
     "gulp-eslint": "^0.14.0",
