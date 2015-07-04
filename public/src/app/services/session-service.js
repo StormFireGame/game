@@ -29,6 +29,8 @@ export default {
         debug('get access token %s', accessToken);
 
         mediator.accessToken = accessToken;
+
+        mediator.connectSocket();
       }
     });
   }

@@ -1,25 +1,12 @@
 import React from 'react';
 import Router from 'react-router';
-import socket from 'socket.io-client';
-
-import config from './config/application';
-import environmentConfig from './config/environment';
-import mediator from './mediator';
 
 import routes from './routes';
-
 import debugLib from './lib/debug';
-
-const debug = debugLib('application');
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-const io = socket.connect(environmentConfig[config.environment].api.root, {
-  query: 'token=' + mediator.accessToken
-});
-
-import configIO from './config/io';
-configIO(io);
+const debug = debugLib('application');
 
 // Needed for React Developer Tools
 window.React = React;

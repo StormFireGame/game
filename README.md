@@ -1,6 +1,7 @@
 # Game BBMMORPG
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/DragonLegend/game?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://img.shields.io/travis/DragonLegend/game/master.svg?style=flat-square)](https://travis-ci.org/DragonLegend/game)  
+[![Build Status](https://img.shields.io/travis/DragonLegend/game/master.svg?style=flat-square)](https://travis-ci.org/DragonLegend/game)
+[![Heroku](http://heroku-badge.herokuapp.com/?app=dragonlegend&style=flat)](https://dragonlegend.herokuapp.com/)  
 Browser based massively multiplayer online role playing game
 
 ## Technologies
@@ -18,23 +19,18 @@ Node v0.12.x
 
 ## Usage
 
-### Backend
+### Quick start
 ```
 npm install  
 npm start
 ```
 
-### Frontend
+### Development
 ```
-cd public
-npm install
+npm install  
+npm run start-dev  
 
-git clone git@github.com:callemall/material-ui.git
-cd material-ui
-npm install
-rm -rf node_modules/react
-cd ..
-
+cd public  
 npm start
 ```
 

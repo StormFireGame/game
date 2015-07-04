@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
-var connect = require('gulp-connect');
 var del = require('del');
 
 var browserify = require('browserify');
@@ -57,8 +56,11 @@ config = {
     dest: paths.dist + '/images'
   },
   markup: {
-    src: paths.src + '/*.html',
-    dest: paths.dist
+    src: paths.src + '/index.html',
+    dest: paths.dist,
+    data: {
+      env: 'development'
+    }
   },
   connect: {
     root: [paths.dist, paths.src],
@@ -150,7 +152,7 @@ gulp.task('browserify-watch', function() {
       .pipe(source(config.scripts.outputName))
       .pipe(gulp.dest(config.scripts.dest))
       .pipe($.notify('Bundled in'))
-      .pipe(connect.reload());
+      .pipe($.connect.reload());
   };
 
   bundler.on('update', rebundle);
@@ -181,14 +183,17 @@ gulp.task('images', function() {
 
 gulp.task('markup', function() {
   return gulp.src(config.markup.src)
+    .pipe($.processhtml({
+      data: config.markup.data
+    }))
     .pipe(gulp.dest(config.markup.dest));
 });
 
 gulp.task('watch', ['connect'], function() {
-  gulp.watch(config.styles.watch, ['styles', connect.reload]);
-  gulp.watch(config.images.src, ['images', connect.reload]);
-  gulp.watch(config.markup.src, ['markup', connect.reload]);
-  gulp.watch(config.fonts.src, ['fonts', connect.reload]);
+  gulp.watch(config.styles.watch, ['styles', $.connect.reload]);
+  gulp.watch(config.images.src, ['images', $.connect.reload]);
+  gulp.watch(config.markup.src, ['markup', $.connect.reload]);
+  gulp.watch(config.fonts.src, ['fonts', $.connect.reload]);
 
   gulp.start('browserify-watch');
 });
@@ -198,7 +203,7 @@ gulp.task('browserSync', ['watch:build'], function() {
 });
 
 gulp.task('connect', function() {
-  connect.server(config.connect);
+  $.connect.server(config.connect);
 });
 
 gulp.task('watch:build', ['clean'], function() {
@@ -210,6 +215,7 @@ gulp.task('lint', ['eslint']);
 gulp.task('start', ['watch']);
 
 gulp.task('build', ['clean', 'lint'], function() {
+  config.markup.data.env = 'stage';
   gulp.start(['styles', 'scripts', 'images', 'fonts', 'markup']);
 });
 

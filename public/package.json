@@ -3,7 +3,8 @@
   "scripts": {
     "start": "gulp start",
     "lint": "gulp lint",
-    "build": "gulp build"
+    "build": "gulp build",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
@@ -20,6 +21,7 @@
     "gulp-less": "^3.0.3",
     "gulp-load-plugins": "^1.0.0-rc",
     "gulp-notify": "^2.2.0",
+    "gulp-processhtml": "^1.1.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.5",
     "gulp-watch": "^4.2.4",
@@ -36,6 +38,7 @@
     "lodash": "^3.9.3",
     "make-url": "0.0.1",
     "material-design-fonticons": "^1.0.0",
+    "material-ui": "^0.9.2",
     "moment": "^2.10.3",
     "node-libs-browser": "^0.5.2",
     "object-assign": "^3.0.0",
@@ -47,6 +50,6 @@
     "webpack": "^1.9.11"
   },
   "browser": {
-    "material-ui": "./vendor/material-ui/src/index.js"
+    "_material-ui": "./vendor/material-ui/src/index.js"
   }
 }

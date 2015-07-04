@@ -9,6 +9,10 @@ const debug = debugLib('components:session:new-form');
 export default class SessionNewForm extends React.Component {
   state = { error: null };
 
+  static contextTypes = {
+    router: React.PropTypes.func
+  };
+
   render() {
     const error = this.state.error;
 
@@ -43,6 +47,7 @@ export default class SessionNewForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const router = this.context.router;
     const refs = this.refs;
     const data = {
       login: refs.login.getValue(),
@@ -59,7 +64,7 @@ export default class SessionNewForm extends React.Component {
           });
         }
 
-        this.transitionTo('hero');
+        router.transitionTo('hero');
       });
   }
 }

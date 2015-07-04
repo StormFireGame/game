@@ -20,6 +20,10 @@ export default class HeroNewForm extends React.Component {
     errors: {}
   };
 
+  static contextTypes = {
+    router: React.PropTypes.func
+  };
+
   render() {
     const errors = this.state.errors;
 
@@ -71,6 +75,7 @@ export default class HeroNewForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const router = this.context.router;
     const refs = this.refs;
     const data = {
       login: refs.login.getValue(),
@@ -84,7 +89,7 @@ export default class HeroNewForm extends React.Component {
     HeroService.new(data)
       .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Hero created');
-        this.transitionTo('/');
+        router.transitionTo('/');
       }, (res) => {
         if (res.status === 422) {
           this.setState({

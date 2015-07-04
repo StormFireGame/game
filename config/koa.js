@@ -17,6 +17,7 @@ module.exports = function(app) {
   app.use(errorHandler());
 
   app.use(serve(path.join(__dirname, '../static/')));
+  app.use(serve(path.join(__dirname, '../public/dist/')));
 
   app.use(bodyParser());
 
