@@ -10,16 +10,16 @@ const debug = debugLib('stores:hero-images');
 
 const CHANGE_EVENT = 'change';
 
-let _heroImages = [];
+let heroImages = [];
 
 function loadData(data) {
-  _heroImages = data;
+  heroImages = data;
   debug('data loaded');
 }
 
 const HeroImageStore = assign({}, EventEmitter.prototype, {
   get() {
-    return _heroImages;
+    return heroImages;
   },
 
   emitChange() {

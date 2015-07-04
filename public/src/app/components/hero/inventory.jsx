@@ -18,18 +18,17 @@ function getHeroState() {
 }
 
 export default class HeroInventory extends React.Component {
-  // mixins: [HeroListenerMixin],
   state = assign({
     filter: null
   }, getHeroState());
 
   componentDidMount() {
-    HeroStore.addChangeListener(::this._onChange);
+    HeroStore.addChangeListener(::this.onChange);
   }
   componentWillUnmount() {
-    HeroStore.removeChangeListener(::this._onChange);
+    HeroStore.removeChangeListener(::this.onChange);
   }
-  _onChange() {
+  onChange() {
     this.setState(getHeroState());
   }
 
@@ -49,14 +48,14 @@ export default class HeroInventory extends React.Component {
       <div>
         <Actions
           hero={hero}
-          filterHandler={::this._filterHandler} />
+          filterHandler={::this.handleFilter} />
         <Items
           hero={hero}
           things={things} />
       </div>
     );
   }
-  _filterHandler(type) {
+  handleFilter(type) {
     this.setState({
       filter: type
     });

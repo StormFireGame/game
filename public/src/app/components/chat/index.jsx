@@ -13,23 +13,7 @@ const debug = debugLib('components:chat');
 
 export default class Chat extends React.Component {
   componentDidMount() {
-    this._resizeHandle();
-  }
-  _resizeHandle() {
-    const resizer = this.refs.resizer.getDOMNode();
-    const wrapper = this.refs.wrapper.getDOMNode();
-    let start;
-    let wrapperHeight;
-
-    dom.on(resizer, 'dragstart', (e) => {
-      start = e.clientY;
-      wrapperHeight = parseInt(wrapper.style.height, 10);
-    });
-
-    dom.on(resizer, 'drag', (e) => {
-      if (e.clientY === 0) return;
-      wrapper.style.height = wrapperHeight + (start - e.clientY);
-    });
+    this.resizeHandle();
   }
 
   getStyles() {
@@ -101,4 +85,22 @@ export default class Chat extends React.Component {
       </div>
     );
   }
+
+  resizeHandle() {
+    const resizer = this.refs.resizer.getDOMNode();
+    const wrapper = this.refs.wrapper.getDOMNode();
+    let start;
+    let wrapperHeight;
+
+    dom.on(resizer, 'dragstart', (e) => {
+      start = e.clientY;
+      wrapperHeight = parseInt(wrapper.style.height, 10);
+    });
+
+    dom.on(resizer, 'drag', (e) => {
+      if (e.clientY === 0) return;
+      wrapper.style.height = wrapperHeight + (start - e.clientY);
+    });
+  }
+
 }

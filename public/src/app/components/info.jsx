@@ -19,23 +19,23 @@ export default class Info extends React.Component {
   state = getInfoState();
 
   componentDidMount() {
-    HeroStore.addChangeListener(::this._onChange);
+    HeroStore.addChangeListener(::this.onChange);
   }
 
   componentWillUnmount() {
-    HeroStore.removeChangeListener(::this._onChange);
-    window.clearInterval(::this._setHpInterval);
+    HeroStore.removeChangeListener(::this.onChange);
+    window.clearInterval(::this.setHpInterval);
   }
 
-  _onChange() {
+  onChange() {
     this.setState(getInfoState());
 
-    window.clearInterval(this._setHpInterval);
-    this._setHpInterval = window.setInterval(::this._setHp, 1000);
-    this._setHp();
+    window.clearInterval(this.setHpInterval);
+    this.setHpInterval = window.setInterval(::this.setHp, 1000);
+    this.setHp();
   }
 
-  _setHp() {
+  setHp() {
     const hp = this.state.hero.feature.hp;
     const time = new Date().getTime();
     const delay = 1000;
@@ -46,7 +46,7 @@ export default class Info extends React.Component {
 
     if (hp.current === hp.max || this.state.currentHp === hp.max) {
       debug('hp max %s', hp.max);
-      window.clearInterval(this._setHpInterval);
+      window.clearInterval(this.setHpInterval);
       return;
     }
 
@@ -54,7 +54,7 @@ export default class Info extends React.Component {
 
     if (hp.current > hp.max) hp.current = hp.max;
 
-    hp.current = parseInt(hp.current);
+    hp.current = parseInt(hp.current, 10);
     if (hp.current === this.state.currentHp) return;
 
     this.setState({
@@ -86,17 +86,17 @@ export default class Info extends React.Component {
       <div style={styles.base}>
         <div>
           <FontIcon
-            className="mdfi_action_info" />
+            className="mdfiactioninfo" />
           {' '}
           {hero.login} [{hero.level}]
         </div>
         <FontIcon
-          className="mdfi_action_favorite" />
+          className="mdfiactionfavorite" />
         {' '}
         {this.state.currentHp}/{hp.max}
         {' '}
         <FontIcon
-          className="mdfi_action_account_balance_wallet" />
+          className="mdfiactionaccountbalancewallet" />
         {' '}
         {hero.money}
       </div>

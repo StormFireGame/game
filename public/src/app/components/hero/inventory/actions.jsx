@@ -57,7 +57,7 @@ export default class HeroInventoryActions extends React.Component {
 
     let complectOptions = hero.complects.map((complect) => {
       return {
-        payload: complect._id,
+        payload: complect.id,
         text: complect.name
       };
     });
@@ -73,7 +73,7 @@ export default class HeroInventoryActions extends React.Component {
         key="cancel"
         label="Cancel"
         secondary={true}
-        onClick={::this._onNewComplectDialogCancel} />,
+        onClick={::this.handleNewComplectDialogCancel} />,
       <FlatButton
         key="save"
         label="Save"
@@ -88,36 +88,36 @@ export default class HeroInventoryActions extends React.Component {
         <Toolbar>
           <ToolbarGroup key={0} float="left">
             <RaisedButton
-              onClick={::this._onUndress}
+              onClick={::this.handleUndress}
               label="Undress" />
             <DropDownMenu
-              onChange={::this._onFilter}
+              onChange={::this.handleFilter}
               menuItems={filterOptions} />
           </ToolbarGroup>
           <ToolbarGroup key={1} float="right">
             <IconButton
-              onClick={::this._onNewComplectDialog}
+              onClick={::this.handleNewComplectDialog}
               tooltip="New complect"
               disabled={!anyThingDressed}>
-              <FontIcon className="mdfi_content_add_box"/>
+              <FontIcon className="mdficontentaddbox"/>
             </IconButton>
             <DropDownMenu
               selectedIndex={
                 (selectedComplectIndex === -1) ? 0 : selectedComplectIndex
               }
               menuItems={complectOptions}
-              onChange={::this._onComplect} />
+              onChange={::this.handleComplect} />
             <IconButton
-              onClick={::this._onApplyComplect}
+              onClick={::this.handleApplyComplect}
               tooltip="Apply complect"
               disabled={disabledComplectActions}>
-              <FontIcon className="mdfi_action_accessibility" />
+              <FontIcon className="mdfiactionaccessibility" />
             </IconButton>
             <IconButton
-              onClick={::this._onDeleteComplect}
+              onClick={::this.handleDeleteComplect}
               tooltip="Delete complect"
               disabled={disabledComplectActions}>
-              <FontIcon className="mdfi_action_delete" />
+              <FontIcon className="mdfiactiondelete" />
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
@@ -126,7 +126,7 @@ export default class HeroInventoryActions extends React.Component {
           ref="newComplectDialog"
           title="New Complect"
           actions={newComplectActions}>
-          <form id="newComplectForm" onSubmit={::this._onNewComplectSubmit}>
+          <form id="newComplectForm" onSubmit={::this.handleNewComplectSubmit}>
             <TextField
               ref="complectName"
               hintText="Complect name"
@@ -136,43 +136,43 @@ export default class HeroInventoryActions extends React.Component {
       </div>
     );
   }
-  _onUndress() {
+  handleUndress() {
     HeroApi.undressThings();
   }
-  _onFilter(e, selectedIndex, menuItem) {
+  handleFilter(e, selectedIndex, menuItem) {
     this.props.filterHandler(menuItem.payload);
   }
-  _onComplect(e, selectedIndex, menuItem) {
+  handleComplect(e, selectedIndex, menuItem) {
     this.setState({
       selectedComplect: menuItem.payload
     });
   }
-  _onNewComplectDialog() {
+  handleNewComplectDialog() {
     this.refs.newComplectDialog.show();
   }
-  _onNewComplectDialogCancel() {
+  handleNewComplectDialogCancel() {
     this.refs.newComplectDialog.dismiss();
   }
-  _onNewComplectSubmit(e) {
+  handleNewComplectSubmit(e) {
     e.preventDefault();
 
     const ids = this.props.hero.things
       .filter(thing => thing.dressed)
-      .map(thing => thing._id);
+      .map(thing => thing.id);
 
     HeroApi.newComplect({
       name: this.refs.complectName.getValue(),
       ids: ids
     }).then(() => {
-        this.refs.newComplectDialog.dismiss();
-        this.refs.complectName.setValue('');
-        mediator.emit(actionTypes.MESSAGE, 'Complect created');
-      });
+      this.refs.newComplectDialog.dismiss();
+      this.refs.complectName.setValue('');
+      mediator.emit(actionTypes.MESSAGE, 'Complect created');
+    });
   }
-  _onApplyComplect() {
+  handleApplyComplect() {
     HeroApi.applyComplect(this.state.selectedComplect);
   }
-  _onDeleteComplect() {
+  handleDeleteComplect() {
     HeroApi.deleteComplect(this.state.selectedComplect)
       .then(() => {
         this.state.selectedComplect = null;

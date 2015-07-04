@@ -7,7 +7,7 @@ import Footer from '../components/footer';
 import Messages from '../components/messages';
 import Chat from '../components/chat/index';
 
-import debugLib from '../lib/debug'
+import debugLib from '../lib/debug';
 
 const debug = debugLib('pages:master');
 
@@ -47,7 +47,7 @@ export default class Master extends React.Component {
         position: 'relative',
         paddingBottom: 60
       }
-    }
+    };
   }
 
   render() {

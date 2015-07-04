@@ -1,6 +1,5 @@
 import React from 'react';
 import { Menu, MenuItem } from 'material-ui';
-import Router from 'react-router';
 import _ from 'lodash';
 
 import debugLib from '../../../lib/debug';

@@ -15,29 +15,29 @@ export default class ChatParticipants extends React.Component {
   };
 
   componentDidMount() {
-    mediator.socket.on('chat/join', ::this._onJoin);
-    mediator.socket.on('chat/leave', ::this._onLeave);
-    mediator.socket.on('chat/participants', ::this._onParticipants);
+    mediator.socket.on('chat/join', ::this.onJoin);
+    mediator.socket.on('chat/leave', ::this.onLeave);
+    mediator.socket.on('chat/participants', ::this.onParticipants);
   }
   componentWillUnmount() {
-    mediator.socket.removeListener('chat/join', ::this._onJoin);
-    mediator.socket.removeListener('chat/leave', ::this._onLeave);
-    mediator.socket.removeListener('chat/participants', ::this._onParticipants);
+    mediator.socket.removeListener('chat/join', ::this.onJoin);
+    mediator.socket.removeListener('chat/leave', ::this.onLeave);
+    mediator.socket.removeListener('chat/participants', ::this.onParticipants);
   }
-  _onParticipants(participants) {
+  onParticipants(participants) {
     this.setState({
       participants: participants
     });
   }
-  _onJoin(participant) {
+  onJoin(participant) {
     this.setState({
       participants: this.state.participants.concat([participant])
     });
   }
-  _onLeave(participant) {
+  onLeave(participant) {
     this.setState({
       participants: this.state.participants
-        .filter((item) => item._id !== participant._id)
+        .filter((item) => item.id !== participant.id)
     });
   }
 

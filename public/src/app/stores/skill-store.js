@@ -10,16 +10,16 @@ const debug = debugLib('stores:skill');
 
 const CHANGE_EVENT = 'change';
 
-let _skills = [];
+let skills = [];
 
 function loadData(data) {
-  _skills = data;
+  skills = data;
   debug('data loaded');
 }
 
 var SkillStore = assign({}, EventEmitter.prototype, {
   get() {
-    return _skills;
+    return skills;
   },
 
   emitChange() {

@@ -32,21 +32,20 @@ export default class Island extends React.Component {
     getIslandState(),
     getHeroState()
   );
-
   componentDidMount() {
-    IslandStore.addChangeListener(::this._onChangeIsland);
-    HeroStore.addChangeListener(::this._onChangeHero);
+    IslandStore.addChangeListener(::this.onChangeIsland);
+    HeroStore.addChangeListener(::this.onChangeHero);
   }
   componentWillUnmount() {
-    IslandStore.removeChangeListener(::this._onChangeIsland);
-    HeroStore.removeChangeListener(::this._onChangeHero);
+    IslandStore.removeChangeListener(::this.onChangeIsland);
+    HeroStore.removeChangeListener(::this.onChangeHero);
 
-    window.clearInterval(this._moveInterval);
+    window.clearInterval(this.moveInterval);
   }
-  _onChangeIsland() {
+  onChangeIsland() {
     this.setState(getIslandState());
   }
-  _onChangeHero() {
+  onChangeHero() {
     this.setState(getHeroState());
   }
 
@@ -119,8 +118,14 @@ export default class Island extends React.Component {
     };
 
     let squares = [];
-    for(let i = 0; i < mapDimensions.width / 20; i++) {
-      for(let j = 0; j < mapDimensions.height / 20; j++) {
+
+    function markSquareRed(e) {
+      const targetStyle = e.target.style;
+      targetStyle.background = (targetStyle.background === 'red') ? '' : 'red';
+    }
+
+    for (let i = 0; i < mapDimensions.width / 20; i++) {
+      for (let j = 0; j < mapDimensions.height / 20; j++) {
         const x = (i + mapOffset.left);
         const y = (j + mapOffset.top);
         const coordX = location.coordinateX;
@@ -138,12 +143,18 @@ export default class Island extends React.Component {
           coordX - x === -1 && coordY - y === 0 ||
           coordX - x === 1 && coordY - y === 0);
 
+        let background = '';
+        if (handled) {
+          background = 'white';
+        } else if (arrayContains(island.disabledCoordinates, [x, y])) {
+          background = 'red';
+        }
+
         squares.push(
           <div
             key={i + '-' + j}
             style={{
-              background: (handled) ? 'white' :
-                ((arrayContains(island.disabledCoordinates, [x, y])) ? 'red' : ''),
+              background: background,
               cursor: (handled) ? 'pointer' : '',
               opacity: '.2',
               position: 'absolute',
@@ -152,10 +163,7 @@ export default class Island extends React.Component {
               width: 20,
               height: 20
             }}
-            onClick={(handled) ? this._onMove.bind(this, x, y) : (e) => {
-              const style = e.target.style;
-              style.background = (style.background === 'red') ? '' : 'red';
-            }}
+            onClick={(handled) ? this.handleMove.bind(this, x, y) : markSquareRed}
             title={'x: ' + x + ' y: ' + y} />
         );
       }
@@ -178,7 +186,7 @@ export default class Island extends React.Component {
             <p>
               Moving: {this.state.moveTime}
               {' '}
-              <a href="" onClick={::this._onCancelMove}>Cancel</a>
+              <a href="" onClick={::this.handledCancelMove}>Cancel</a>
             </p> : null}
         </Paper>
         <Paper
@@ -201,12 +209,12 @@ export default class Island extends React.Component {
               top: heroPosition.top - mapMargin.top - 10,
               left: heroPosition.left - mapMargin.left - 2
             }}
-            className="mdfi_communication_location_on" />
+            className="mdficommunicationlocationon" />
         </Paper>
       </div>
     );
   }
-  _onMove(x, y) {
+  handleMove(x, y) {
     if (arrayContains(this.state.island.disabledCoordinates, [x, y])) {
       mediator.emit(actionTypes.MESSAGE, 'You can\'t move there');
       return;
@@ -218,7 +226,7 @@ export default class Island extends React.Component {
       moveTime: counter
     });
 
-    this._moveInterval = window.setInterval(() => {
+    this.moveInterval = window.setInterval(() => {
       counter--;
 
       this.setState({
@@ -226,15 +234,15 @@ export default class Island extends React.Component {
       });
 
       if (counter === 0) {
-        window.clearInterval(this._moveInterval);
+        window.clearInterval(this.moveInterval);
         HeroApi.moveOnIsland(x, y);
       }
     }, 1000);
   }
-  _onCancelMove(e) {
+  handleCancelMove(e) {
     e.preventDefault();
 
-    window.clearInterval(this._moveInterval);
+    window.clearInterval(this.moveInterval);
     this.setState({
       moveTime: 0
     });

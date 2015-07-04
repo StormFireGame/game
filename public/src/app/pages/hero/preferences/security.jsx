@@ -5,8 +5,8 @@ import Form from '../../../components/hero/preferences/security-form';
 const debug = debugLib('pages:hero:preferences:security');
 
 export default class HeroPreferencesSecurityPage extends React.Component {
-  render() {
 
+  render() {
     debug('render');
 
     return (

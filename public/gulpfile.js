@@ -40,11 +40,8 @@ config = {
   clean: {
     src: paths.dist
   },
-  jshint: {
-    src: {
-      js: ['./gulpfile.js', paths.app + '/**/*.js'],
-      jsx: paths.app + '/**/*.jsx'
-    }
+  lint: {
+    src: ['./gulpfile.js', paths.app + '/**/*.js', paths.app + '/**/*.jsx']
   },
   scripts: {
     src: paths.app + '/app.js',
@@ -111,7 +108,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('eslint', function() {
-  return gulp.src(config.jshint.src.js)
+  return gulp.src(config.lint.src)
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.eslint.failOnError());

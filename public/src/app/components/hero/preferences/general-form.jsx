@@ -10,8 +10,6 @@ import mediator from '../../../mediator';
 import actionTypes from '../../../constants/action-types';
 import HeroStore from '../../../stores/hero-store';
 
-import HeroListenerMixin from '../mixins/hero-listener';
-
 const debug = debugLib('components:hero:preferences:general-form');
 
 function getHeroState() {
@@ -21,16 +19,15 @@ function getHeroState() {
 }
 
 export default class HeroPreferencesGeneralForm extends React.Component {
-  // mixins: [HeroListenerMixin],
   state = getHeroState();
 
   componentDidMount() {
-    HeroStore.addChangeListener(::this._onChange);
+    HeroStore.addChangeListener(::this.onChange);
   }
   componentWillUnmount() {
-    HeroStore.removeChangeListener(::this._onChange);
+    HeroStore.removeChangeListener(::this.onChange);
   }
-  _onChange() {
+  onChange() {
     this.setState(getHeroState());
   }
   render() {
@@ -47,7 +44,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
     }
 
     return (
-      <form onSubmit={::this._onSubmit}>
+      <form onSubmit={::this.handleSubmit}>
         <TextField
           ref="name"
           name="name"
@@ -85,7 +82,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
       </form>
     );
   }
-  _onSubmit(e) {
+  handleSubmit(e) {
     const refs = this.refs;
     e.preventDefault();
 

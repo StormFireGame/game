@@ -1,6 +1,5 @@
 import React from 'react';
 import { List, ListItem, IconButton } from 'material-ui';
-import _ from 'lodash';
 
 import SkillStore from '../../../stores/skill-store';
 
@@ -24,12 +23,12 @@ export default class HeroInfoSkills extends React.Component {
   state = getInfoSkillsState();
 
   componentDidMount() {
-    SkillStore.addChangeListener(::this._onChange);
+    SkillStore.addChangeListener(::this.onChange);
   }
   componentWillUnmount() {
-    SkillStore.removeChangeListener(::this._onChange);
+    SkillStore.removeChangeListener(::this.onChange);
   }
-  _onChange() {
+  onChange() {
     this.setState(getInfoSkillsState());
   }
 
@@ -51,8 +50,8 @@ export default class HeroInfoSkills extends React.Component {
         style={this.getStyles().base}
         subheader="Skills">
         {this.state.skills.map((skill, index) => {
-          const item = _(props.skills).find((heroSkill) => {
-            return heroSkill.skill === skill._id;
+          const item = (props.skills).find((heroSkill) => {
+            return heroSkill.skill === skill.id;
           });
 
           return (
@@ -61,8 +60,8 @@ export default class HeroInfoSkills extends React.Component {
               rightIconButton={
                 props.numberOfSkills ?
                   <IconButton
-                    onClick={props.increaseHandler.bind(this, 'skills', skill._id)}
-                    iconClassName="mdfi_content_add" /> : null}>
+                    onClick={props.increaseHandler.bind(this, 'skills', skill.id)}
+                    iconClassName="mdficontentadd" /> : null}>
               {skill.name}{': '}
               {item ? item.level : 0}
             </ListItem>

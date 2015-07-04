@@ -11,12 +11,12 @@ var HeroListenerMixin = {
     return getHeroState();
   },
   componentDidMount() {
-    HeroStore.addChangeListener(this._onChange);
+    HeroStore.addChangeListener(this.onChange);
   },
   componentWillUnmount() {
-    HeroStore.removeChangeListener(this._onChange);
+    HeroStore.removeChangeListener(this.onChange);
   },
-  _onChange() {
+  onChange() {
     this.setState(getHeroState());
   }
 };

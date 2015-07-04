@@ -12,7 +12,7 @@ export default class HeroBodyThingSlot extends React.Component {
   static propTypes = {
     type: React.PropTypes.string,
     thing: React.PropTypes.object,
-    position: React.PropTypes.object,
+    position: React.PropTypes.object
   };
 
   getStyles() {
@@ -20,7 +20,7 @@ export default class HeroBodyThingSlot extends React.Component {
     let width = 70;
     let height;
 
-    switch(props.type) {
+    switch (props.type) {
       case 'gloves':
       case 'helmet':
       case 'amulet':
@@ -99,8 +99,8 @@ export default class HeroBodyThingSlot extends React.Component {
     if (thing) {
       info.push('Name: ' + thing.name);
       info.push('Money: ' + thing.price);
-      info.push('Stability: ' +
-        thingWrap.stabilityAll  + '/' + thingWrap.stabilityLeft);
+      info.push(
+        `Stability: ${thingWrap.stabilityAll}/${thingWrap.stabilityLeft}`);
 
       [
         'strengthGive', 'dexterityGive', 'intuitionGive', 'healthGive',

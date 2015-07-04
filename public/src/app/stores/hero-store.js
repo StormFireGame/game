@@ -11,27 +11,27 @@ const debug = debugLib('stores:hero');
 
 const CHANGE_EVENT = 'change';
 
-let _hero = {};
+let hero = {};
 
 function loadData(data) {
-  _hero = data;
+  hero = data;
   debug('data loaded');
 }
 
 function update(data) {
-  _hero = assign(_hero, data);
+  hero = assign(hero, data);
 }
 
 function removeComplect(id) {
-  var index = _.findIndex(_hero.complects, { _id: id });
-  _hero.complects.splice(index, 1);
+  const index = _.findIndex(hero.complects, { id: id });
+  hero.complects.splice(index, 1);
 }
 
 function removeThing(id) {
-  var index = _.findIndex(_hero.things, { _id: id });
-  _hero.things.splice(index, 1);
+  const index = _.findIndex(hero.things, { id: id });
+  hero.things.splice(index, 1);
 
-  _hero.complects.forEach((complect) => {
+  hero.complects.forEach((complect) => {
     if (complect.things.indexOf(id) !== -1) {
       removeComplect(complect.id);
     }
@@ -39,22 +39,22 @@ function removeThing(id) {
 }
 
 function newComplect(data) {
-  _hero.complects.push(data);
+  hero.complects.push(data);
 }
 
 function deleteComplect(id) {
-  var index = _.findIndex(_hero.complects, { _id: id });
-  _hero.complects.splice(index, 1);
+  const index = _.findIndex(hero.complects, { id: id });
+  hero.complects.splice(index, 1);
 }
 
 function movedOnIsland(x, y) {
-  _hero.location.coordinateX = x;
-  _hero.location.coordinateY = y;
+  hero.location.coordinateX = x;
+  hero.location.coordinateY = y;
 }
 
 const HeroStore = assign({}, EventEmitter.prototype, {
   get() {
-    return _hero;
+    return hero;
   },
 
   emitChange() {

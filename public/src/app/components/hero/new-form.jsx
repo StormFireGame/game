@@ -5,7 +5,6 @@ import {
   RaisedButton,
   RadioButton
 } from 'material-ui';
-import Router from 'react-router';
 import debugLib from '../../lib/debug';
 
 import utils from '../../lib/utils';
@@ -27,7 +26,7 @@ export default class HeroNewForm extends React.Component {
     debug('render');
 
     return (
-      <form onSubmit={::this._onSubmit}>
+      <form onSubmit={::this.handleSubmit}>
         <TextField
           ref="login"
           name="login"
@@ -48,7 +47,7 @@ export default class HeroNewForm extends React.Component {
           type="email"
           required={true}
           errorText={errors.email}
-          hintText="Email"  />
+          hintText="Email" />
         <br />
 
         <label>Sex:</label>
@@ -69,7 +68,7 @@ export default class HeroNewForm extends React.Component {
       </form>
     );
   }
-  _onSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     const refs = this.refs;

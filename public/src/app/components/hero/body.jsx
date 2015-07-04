@@ -1,11 +1,8 @@
 import React from 'react';
 import { Paper } from 'material-ui';
 import _ from 'lodash';
-import assign from 'object-assign';
 
 import debugLib from '../../lib/debug';
-
-import HeroListenerMixin from './mixins/hero-listener';
 
 import ThingSlot from './body/thing-slot';
 import ImageSlot from './body/image-slot';
@@ -23,7 +20,6 @@ function getHeroState() {
 }
 
 export default class HeroBody extends React.Component {
-  // mixins: [HeroListenerMixin],
   static propTypes = {
     actions: React.PropTypes.bool
   };
@@ -31,26 +27,23 @@ export default class HeroBody extends React.Component {
   state = getHeroState();
 
   componentDidMount() {
-    HeroStore.addChangeListener(::this._onChange);
+    HeroStore.addChangeListener(::this.onChange);
   }
   componentWillUnmount() {
-    HeroStore.removeChangeListener(::this._onChange);
+    HeroStore.removeChangeListener(::this.onChange);
   }
-  _onChange() {
+  onChange() {
     this.setState(getHeroState());
   }
 
   getStyles() {
-    const offset = 6;
-    const width = 70;
-
     return {
       base: {
         position: 'relative',
         width: 310,
         height: 390
       }
-    }
+    };
   }
 
   getThingPositions() {
@@ -93,7 +86,7 @@ export default class HeroBody extends React.Component {
       height: 90,
       left: offset,
       top: position.arms.top + position.arms.height + offset
-    }
+    };
 
     position.pants = {
       height: 110,
@@ -184,7 +177,7 @@ export default class HeroBody extends React.Component {
       return _.find(things, (thing) => {
         return thing.thing.type === type;
       });
-    };
+    }
 
     debug('render');
 
@@ -196,11 +189,11 @@ export default class HeroBody extends React.Component {
     ].map((type, index) => {
       const orgType = type.replace(/\d+/g, '');
       const thing = getThing(orgType);
-      let undressHandler;
-
-      if (thing && this.props.actions) {
-        undressHandler = this._onUndress.bind(this, thing._id);
-      }
+      // let undressHandler;
+      //
+      // if (thing && this.props.actions) {
+      //   undressHandler = this.handleUndress.bind(this, thing.id);
+      // }
 
       return (
         <ThingSlot
@@ -225,7 +218,7 @@ export default class HeroBody extends React.Component {
       </Paper>
     );
   }
-  _onUndress(id) {
+  handleUndress(id) {
     HeroApi.undressThing(id);
   }
 }

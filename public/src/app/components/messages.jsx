@@ -12,12 +12,12 @@ export default class Messages extends React.Component {
   state = { message: null };
 
   componentDidMount() {
-    mediator.on(actionTypes.MESSAGE, ::this._setMessage);
+    mediator.on(actionTypes.MESSAGE, ::this.setMessage);
   }
   componentWillUnmount() {
-    mediator.removeListener(actionTypes.MESSAGE, ::this._setMessage);
+    mediator.removeListener(actionTypes.MESSAGE, ::this.setMessage);
   }
-  _setMessage(message) {
+  setMessage(message) {
     debug('new message %s', message);
     // TODO: hack because transition do another render
     //   mediator render should be last
@@ -44,10 +44,10 @@ export default class Messages extends React.Component {
         ref="message"
         message={message}
         action="Close"
-        onActionTouchTap={::this._onClose} />
+        onActionTouchTap={::this.handleClose} />
     );
   }
-  _onClose() {
+  handleClose() {
     this.refs.message.dismiss();
   }
 }

@@ -16,38 +16,29 @@ export default class ChatMessages extends React.Component {
   };
 
   componentDidMount() {
-    mediator.socket.on('chat/message', ::this._onMessage);
-    mediator.socket.on('chat/join', ::this._onJoin);
-    mediator.socket.on('chat/leave', ::this._onLeave);
-    mediator.on(actionTypes.CHAT_MESSAGE, ::this._onMessage);
+    mediator.socket.on('chat/message', ::this.onMessage);
+    mediator.socket.on('chat/join', ::this.onJoin);
+    mediator.socket.on('chat/leave', ::this.onLeave);
+    mediator.on(actionTypes.CHATMESSAGE, ::this.onMessage);
   }
   componentWillUnmount() {
-    mediator.socket.removeListener('chat/message', ::this._onMessage);
-    mediator.socket.removeListener('chat/join', ::this._onJoin);
-    mediator.socket.removeListener('chat/leave', ::this._onLeave);
-    mediator.removeListener(actionTypes.CHAT_MESSAGE, ::this._onMessage);
+    mediator.socket.removeListener('chat/message', ::this.onMessage);
+    mediator.socket.removeListener('chat/join', ::this.onJoin);
+    mediator.socket.removeListener('chat/leave', ::this.onLeave);
+    mediator.removeListener(actionTypes.CHATMESSAGE, ::this.onMessage);
   }
-  _onJoin(participant) {
-    this._addMessage({
+  onJoin(participant) {
+    this.addMessage({
       message: `${participant.login} joined`
     });
   }
-  _onLeave(participant) {
-    this._addMessage({
+  onLeave(participant) {
+    this.addMessage({
       message: `${participant.login} left`
     });
   }
-  _onMessage(message) {
-    this._addMessage(message);
-  }
-  _addMessage(message) {
-    if (!message.datetime) {
-      message.datetime = new Date().getTime();
-    }
-
-    this.setState({
-      messages: this.state.messages.concat([message])
-    });
+  onMessage(message) {
+    this.addMessage(message);
   }
 
   getStyles() {
@@ -82,5 +73,15 @@ export default class ChatMessages extends React.Component {
         {messages}
       </Paper>
     );
+  }
+
+  addMessage(message) {
+    if (!message.datetime) {
+      message.datetime = new Date().getTime();
+    }
+
+    this.setState({
+      messages: this.state.messages.concat([message])
+    });
   }
 }

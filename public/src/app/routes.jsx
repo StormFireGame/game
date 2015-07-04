@@ -17,16 +17,16 @@ import IslandPage from './pages/island';
 const Route = Router.Route;
 
 export default (
-  <Route path='/' handler={Master}>
-    <Route path='/' handler={Home} />
-    <Route path='heroes/new' handler={HeroNewPage} />
-    <Route name='hero' path='hero' handler={HeroShowPage} />
-    <Route path='hero/inventory' handler={HeroInventoryPage} />
-    <Route path='hero/preferences' handler={HeroPreferencesMaster}>
-      <Route path='general' handler={HeroPreferencesGeneralPage} />
-      <Route path='security' handler={HeroPreferencesSecurityPage} />
-      <Route path='images' handler={HeroPreferencesImagesPage} />
+  <Route path="/" handler={Master}>
+    <Route path="/" handler={Home} />
+    <Route path="heroes/new" handler={HeroNewPage} />
+    <Route name="hero" path="hero" handler={HeroShowPage} />
+    <Route path="hero/inventory" handler={HeroInventoryPage} />
+    <Route path="hero/preferences" handler={HeroPreferencesMaster}>
+      <Route path="general" handler={HeroPreferencesGeneralPage} />
+      <Route path="security" handler={HeroPreferencesSecurityPage} />
+      <Route path="images" handler={HeroPreferencesImagesPage} />
     </Route>
-    <Route path='island' handler={IslandPage } />
+    <Route path="island" handler={IslandPage } />
   </Route>
 );

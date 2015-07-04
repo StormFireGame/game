@@ -29,7 +29,7 @@ function getHeroImagesState() {
   return {
     heroImages: HeroImageStore.get()
   };
-};
+}
 
 export default class HeroPreferencesGeneralForm extends React.Component {
   state = assign({},
@@ -38,17 +38,17 @@ export default class HeroPreferencesGeneralForm extends React.Component {
   );
 
   componentDidMount() {
-    HeroImageStore.addChangeListener(::this._onChangeHeroImages);
-    HeroStore.addChangeListener(::this._onChangeHero);
+    HeroImageStore.addChangeListener(::this.onChangeHeroImages);
+    HeroStore.addChangeListener(::this.onChangeHero);
   }
   componentWillUnmount() {
-    HeroImageStore.removeChangeListener(::this._onChangeHeroImages);
-    HeroStore.removeChangeListener(::this._onChangeHero);
+    HeroImageStore.removeChangeListener(::this.onChangeHeroImages);
+    HeroStore.removeChangeListener(::this.onChangeHero);
   }
-  _onChangeHeroImages() {
+  onChangeHeroImages() {
     this.setState(getHeroImagesState());
   }
-  _onChangeHero() {
+  onChangeHero() {
     this.setState(getHeroState());
   }
 
@@ -65,7 +65,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
         height: 259,
         textAlign: 'center'
       }
-    }
+    };
   }
   render() {
     const hero = this.state.hero;
@@ -75,21 +75,21 @@ export default class HeroPreferencesGeneralForm extends React.Component {
 
     const styles = this.getStyles();
     let items;
-    const heroImage = (hero.image) ? hero.image._id : -1;
+    const heroImage = (hero.image) ? hero.image.id : -1;
 
     debug('render');
 
     items = heroImages
-      .map((heroImage, index) => {
+      .map((item, index) => {
         return (
           <RadioButton
             key={index}
             style={styles.radio}
-            value={heroImage._id}>
+            value={item.id}>
             <Paper
               style={styles.item}
               zDepth={1}>
-              <img src={heroImage.image} alt="" />
+              <img src={item.image} alt="" />
             </Paper>
           </RadioButton>
         );
@@ -109,7 +109,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
     );
 
     return (
-      <form onSubmit={::this._onSubmit}>
+      <form onSubmit={::this.handleSubmit}>
         <RadioButtonGroup
           name="heroImage"
           ref="heroImage"
@@ -121,7 +121,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
       </form>
     );
   }
-  _onSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     const data = {

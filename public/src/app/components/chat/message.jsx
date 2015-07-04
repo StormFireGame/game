@@ -16,9 +16,9 @@ export default class ChatMessage extends React.Component {
 
     if (props.command) {
       props.message = `[${props.from.login}] to [${props.tail}] ${props.message}`;
-      switch(props.command) {
+      switch (props.command) {
         case 'to':
-          if (props.from._id === mediator.currentUser._id ||
+          if (props.from.id === mediator.currentUser.id ||
               props.tail === mediator.currentUser.login) {
             style.color = 'blue';
           }

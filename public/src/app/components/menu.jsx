@@ -6,7 +6,6 @@ import {
   FontIcon,
   IconButton
 } from 'material-ui';
-import Router from 'react-router';
 
 import debugLib from '../lib/debug';
 
@@ -27,7 +26,7 @@ export default class Menu extends React.Component {
         marginLeft: 2,
         marginRight: 2
       }
-    }
+    };
   }
 
   render() {
@@ -80,7 +79,7 @@ export default class Menu extends React.Component {
               linkButton={true}
               href="#/island"
               tooltip="Move">
-              <FontIcon className="mdfi_content_undo" />
+              <FontIcon className="mdficontentundo" />
             </IconButton>
           </ToolbarGroup>
         </Toolbar>

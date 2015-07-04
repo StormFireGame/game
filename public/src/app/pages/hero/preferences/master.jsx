@@ -4,15 +4,25 @@ import { RouteHandler } from 'react-router';
 import debugLib from '../../../lib/debug';
 
 import Menu from '../../../components/hero/preferences/menu';
-import AuthMixin from '../../mixins/auth';
 import SessionHelper from '../../../helpers/session-helper';
 import HeroApi from '../../../utils/hero-api';
 
 const debug = debugLib('pages:hero:preferences:master');
 
+function auth(target) {
+  target.willTransitionTo = function(transition) {
+    if (!SessionHelper.isSignin()) {
+      transition.abort();
+      debug('access closed %s', transition.path);
+      transition.redirect('/');
+    } else {
+      HeroApi.fetch();
+    }
+  };
+}
+
 @auth
 export default class HeroPreferencesMaster extends React.Component {
-  // mixins: [AuthMixin, State],
   static contextTypes = {
     router: React.PropTypes.func
   };
@@ -52,16 +62,4 @@ export default class HeroPreferencesMaster extends React.Component {
       </div>
     );
   }
-}
-
-function auth(target) {
-  target.willTransitionTo = function(transition) {
-    if (!SessionHelper.isSignin()) {
-      transition.abort();
-      debug('access closed %s', transition.path);
-      transition.redirect('/');
-    } else {
-      HeroApi.fetch();
-    }
-  };
 }

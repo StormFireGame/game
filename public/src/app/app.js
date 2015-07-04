@@ -18,8 +18,8 @@ const io = socket.connect(environmentConfig[config.environment].api.root, {
   query: 'token=' + mediator.accessToken
 });
 
-import configIo from './config/io';
-configIo(io);
+import configIO from './config/io';
+configIO(io);
 
 // Needed for React Developer Tools
 window.React = React;

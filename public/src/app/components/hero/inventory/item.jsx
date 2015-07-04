@@ -58,7 +58,7 @@ export default class HeroInventoryItem extends React.Component {
           <span style={{color: (safe === false) ? 'red' : null }}>{value}</span>
         </div>
       );
-    };
+    }
 
     const styles = this.getStyles();
 
@@ -104,9 +104,9 @@ export default class HeroInventoryItem extends React.Component {
           {thing.name}
         </h3>
         <div>
-          <FontIcon className="mdfi_action_account_balance_wallet" /> {thing.price}
+          <FontIcon className="mdfiactionaccountbalancewallet" /> {thing.price}
           {' '}
-          <FontIcon className="mdfi_action_work" /> {thing.weight}
+          <FontIcon className="mdfiactionwork" /> {thing.weight}
         </div>
         <div style={styles.content}>
           <div style={styles.image}>
@@ -139,25 +139,25 @@ export default class HeroInventoryItem extends React.Component {
             {canBeDressed ?
               <span>
                 <RaisedButton
-                  onClick={::this._onDress}
+                  onClick={::this.handleDress}
                   label="Dress" />
                 <br />
                 <br />
               </span>
               : null}
             <RaisedButton
-              onClick={::this._onRemove}
+              onClick={::this.handleRemove}
               label="Remove" />
           </div>
         </div>
       </Paper>
     );
   }
-  _onDress() {
-    HeroApi.dressThing(this.props.thing._id);
+  handleDress() {
+    HeroApi.dressThing(this.props.thing.id);
   }
-  _onRemove() {
-    HeroApi.removeThing(this.props.thing._id)
+  handleRemove() {
+    HeroApi.removeThing(this.props.thing.id)
       .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Thing removed');
       });

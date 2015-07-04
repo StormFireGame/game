@@ -10,16 +10,16 @@ const debug = debugLib('stores:island');
 
 const CHANGE_EVENT = 'change';
 
-let _island = {};
+let island = {};
 
 function loadData(data) {
-  _island = data;
+  island = data;
   debug('data loaded');
 }
 
 var IslandStore = assign({}, EventEmitter.prototype, {
   get() {
-    return _island;
+    return island;
   },
 
   emitChange() {

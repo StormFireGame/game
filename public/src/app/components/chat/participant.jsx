@@ -7,15 +7,17 @@ const debug = debugLib('components:chat:participant');
 
 export default class ChatParticipant extends React.Component {
   render() {
+    const props = this.props;
+
     debug('render');
 
     return (
       <div>
         <FontIcon
           style={{ fontSize: 15 }}
-          className="mdfi_action_info" />
+          className="mdfiactioninfo" />
         {' '}
-        [{this.props.level}] {this.props.login}
+        [{props.level}] {props.login}
       </div>
     );
   }

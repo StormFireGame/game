@@ -6,7 +6,6 @@ import debugLib from '../../lib/debug';
 
 import HeroService from '../../services/hero-service';
 import HeroApi from '../../utils/hero-api';
-import HeroListenerMixin from './mixins/hero-listener';
 import HeroStore from '../../stores/hero-store';
 
 import Parameters from './info/parameters';
@@ -25,16 +24,15 @@ function getHeroState() {
 }
 
 export default class HeroInfo extends React.Component {
-  // mixins: [HeroListenerMixin],
   state = getHeroState();
 
   componentDidMount() {
-    HeroStore.addChangeListener(::this._onChange);
+    HeroStore.addChangeListener(::this.onChange);
   }
   componentWillUnmount() {
-    HeroStore.removeChangeListener(::this._onChange);
+    HeroStore.removeChangeListener(::this.onChange);
   }
-  _onChange() {
+  onChange() {
     this.setState(getHeroState());
   }
 
@@ -44,7 +42,7 @@ export default class HeroInfo extends React.Component {
         float: 'left',
         marginRight: 10
       }
-    }
+    };
   }
   render() {
     const hero = this.state.hero;
@@ -67,7 +65,7 @@ export default class HeroInfo extends React.Component {
             health={hero.health}
             featureHealth={hero.feature.health}
             numberOfParameters={hero.numberOfParameters}
-            increaseHandler={::this._onIncrease} />
+            increaseHandler={::this.handleIncrease} />
           <ListDivider />
           <Information
             numberOfWins={hero.numberOfWins}
@@ -98,7 +96,7 @@ export default class HeroInfo extends React.Component {
           <Skills
             skills={hero.skills}
             numberOfSkills={hero.numberOfSkills}
-            increaseHandler={::this._onIncrease} />
+            increaseHandler={::this.handleIncrease} />
           <ListDivider />
           <Abilities
             shields={hero.feature.shields}
@@ -107,12 +105,12 @@ export default class HeroInfo extends React.Component {
             axes={hero.feature.axes}
             swords={hero.feature.swords}
             numberOfAbilities={hero.numberOfAbilities}
-            increaseHandler={::this._onIncrease} />
+            increaseHandler={::this.handleIncrease} />
         </div>
       </div>
     );
   }
-  _onIncrease(area) {
+  handleIncrease(area) {
     const idOrName = arguments[1];
 
     HeroService.increase(area, idOrName)

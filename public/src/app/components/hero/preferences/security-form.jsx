@@ -18,7 +18,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
     debug('render');
 
     return (
-      <form onSubmit={::this._onSubmit}>
+      <form onSubmit={::this.handleSubmit}>
         <TextField
           type="password"
           ref="password"
@@ -47,23 +47,11 @@ export default class HeroPreferencesGeneralForm extends React.Component {
       </form>
     );
   }
-  _validate() {
-    const refs = this.refs;
-    const newPassword = refs.newPassword.getValue();
-    const repeateNewPassword = refs.repeateNewPassword.getValue();
-    const errors = {};
-
-    if (newPassword !== repeateNewPassword) {
-      errors.repeateNewPassword = 'Repeate password doesn\'t match';
-    }
-
-    return errors;
-  }
-  _onSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     const refs = this.refs;
-    const errors = this._validate();
+    const errors = this.validate();
 
     if (!_.isEmpty(errors)) {
       this.setState({
@@ -92,5 +80,18 @@ export default class HeroPreferencesGeneralForm extends React.Component {
           });
         }
       });
+  }
+
+  validate() {
+    const refs = this.refs;
+    const newPassword = refs.newPassword.getValue();
+    const repeateNewPassword = refs.repeateNewPassword.getValue();
+    const errors = {};
+
+    if (newPassword !== repeateNewPassword) {
+      errors.repeateNewPassword = 'Repeate password doesn\'t match';
+    }
+
+    return errors;
   }
 }

@@ -9,9 +9,20 @@ import debugLib from '../lib/debug';
 
 const debug = debugLib('pages:island');
 
+function auth(target) {
+  target.willTransitionTo = function(transition) {
+    if (!SessionHelper.isSignin()) {
+      transition.abort();
+      debug('access closed %s', transition.path);
+      transition.redirect('/');
+    } else {
+      HeroApi.fetch();
+    }
+  };
+}
+
 @auth
 export default class IslandPage extends React.Component {
-  // mixins: [AuthMixin],
   componentDidMount() {
     IslandApi.fetch();
   }
@@ -24,16 +35,4 @@ export default class IslandPage extends React.Component {
       </div>
     );
   }
-}
-
-function auth(target) {
-  target.willTransitionTo = function(transition) {
-    if (!SessionHelper.isSignin()) {
-      transition.abort();
-      debug('access closed %s', transition.path);
-      transition.redirect('/');
-    } else {
-      HeroApi.fetch();
-    }
-  };
 }
