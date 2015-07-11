@@ -57,6 +57,7 @@
     "uid": "0.0.2"
   },
   "devDependencies": {
+    "airbnb-style": "^2.0.0",
     "babel-core": "^5.6.15",
     "babel-eslint": "^3.1.20",
     "commander": "^2.8.1",

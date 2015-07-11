@@ -1,14 +1,6 @@
 {
   "plugins": ["react"],
-  "env": {                           // http://eslint.org/docs/user-guide/configuring.html#specifying-environments
-    "browser": true,                 // browser global variables
-  },
-  "ecmaFeatures": {
-    "jsx": true
-  },
-
   "rules": {
-    //"no-var": 2,
     /**
  * JSX style
  */
