@@ -1,24 +1,18 @@
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
-var browserSync = require('browser-sync');
-var del = require('del');
+import gulp from 'gulp';
+import loadPlugins from 'gulp-load-plugins';
+import del from 'del';
 
-var browserify = require('browserify');
-var watchify = require('watchify');
-var source = require('vinyl-source-stream');
-var babelify = require('babelify');
+import browserify from 'browserify';
+import watchify from 'watchify';
+import source from 'vinyl-source-stream';
+import babelify from 'babelify';
 
-var prettyHrtime = require('pretty-hrtime');
+import prettyHrtime from 'pretty-hrtime';
 
-var startTime;
+const $ = loadPlugins();
+let startTime;
 
-var paths;
-var config;
-
-var handleErrors;
-var bundleLogger;
-
-paths = {
+const paths = {
   src: './src',
   app: './src/app',
   assets: './src/app/assets',
@@ -26,7 +20,7 @@ paths = {
   dist: './dist'
 };
 
-config = {
+const config = {
   styles: {
     src: paths.assets + '/styles/main.less',
     watch: paths.assets + '/styles/**/*.less',
@@ -80,8 +74,8 @@ config = {
   }
 };
 
-handleErrors = function() {
-  var args = Array.prototype.slice.call(arguments);
+function handleErrors() {
+  const args = Array.prototype.slice.call(arguments);
 
   $.notify.onError({
     title: 'Compile Error',
@@ -89,34 +83,34 @@ handleErrors = function() {
   }).apply(this, args);
 
   this.emit('end');
-};
+}
 
-bundleLogger = {
-  start: function(filepath) {
+const bundleLogger = {
+  start(filepath) {
     startTime = process.hrtime();
     $.util.log('Bundling', $.util.colors.green(filepath) + '...');
   },
 
-  end: function() {
-    var taskTime = process.hrtime(startTime);
-    var prettyTime = prettyHrtime(taskTime);
+  end() {
+    const taskTime = process.hrtime(startTime);
+    const prettyTime = prettyHrtime(taskTime);
 
     $.util.log('Bundled in', $.util.colors.magenta(prettyTime));
   }
 };
 
-gulp.task('clean', function(cb) {
+gulp.task('clean', (cb) => {
   del(config.clean.src, cb);
 });
 
-gulp.task('eslint', function() {
+gulp.task('eslint', () => {
   return gulp.src(config.lint.src)
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.eslint.failOnError());
 });
 
-gulp.task('styles', function() {
+gulp.task('styles', () => {
   return gulp.src(config.styles.src)
     .pipe($.sourcemaps.init())
     .pipe($.less())
@@ -125,25 +119,23 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(config.styles.dest));
 });
 
-gulp.task('fonts', function() {
+gulp.task('fonts', () => {
   return gulp.src(config.fonts.src)
     .pipe(gulp.dest(config.fonts.dest));
 });
 
-gulp.task('browserify-watch', function() {
-  var rebundle;
-  var args = watchify.args;
-  var bundler;
+gulp.task('browserify-watch', () => {
+  const args = watchify.args;
 
   args.debug = config.browserify.debug;
   args.extensions = config.browserify.extensions;
-  bundler = watchify(browserify(config.scripts.src, args));
+  const bundler = watchify(browserify(config.scripts.src, args));
 
   bundler.transform(babelify.configure({
     stage: 0
   }));
 
-  rebundle = function() {
+  function rebundle() {
     bundleLogger.start(config.scripts.outputName);
 
     return bundler.bundle()
@@ -153,15 +145,15 @@ gulp.task('browserify-watch', function() {
       .pipe(gulp.dest(config.scripts.dest))
       .pipe($.notify('Bundled in'))
       .pipe($.connect.reload());
-  };
+  }
 
   bundler.on('update', rebundle);
 
   rebundle();
 });
 
-gulp.task('scripts', function() {
-  var options = {
+gulp.task('scripts', () => {
+  const options = {
     extensions: config.browserify.extensions,
     debug: config.browserify.debug
   };
@@ -175,13 +167,13 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest(config.scripts.dest));
 });
 
-gulp.task('images', function() {
+gulp.task('images', () => {
   return gulp.src(config.images.src)
     .pipe($.imagemin())
     .pipe(gulp.dest(config.images.dest));
 });
 
-gulp.task('markup', function() {
+gulp.task('markup', () => {
   return gulp.src(config.markup.src)
     .pipe($.processhtml({
       data: config.markup.data
@@ -189,7 +181,7 @@ gulp.task('markup', function() {
     .pipe(gulp.dest(config.markup.dest));
 });
 
-gulp.task('watch', ['connect'], function() {
+gulp.task('watch', ['connect'], () => {
   gulp.watch(config.styles.watch, ['styles', $.connect.reload]);
   gulp.watch(config.images.src, ['images', $.connect.reload]);
   gulp.watch(config.markup.src, ['markup', $.connect.reload]);
@@ -198,25 +190,21 @@ gulp.task('watch', ['connect'], function() {
   gulp.start('browserify-watch');
 });
 
-gulp.task('browserSync', ['watch:build'], function() {
-  browserSync(config.browserSync);
-});
-
-gulp.task('connect', function() {
+gulp.task('connect', () => {
   $.connect.server(config.connect);
 });
 
-gulp.task('watch:build', ['clean'], function() {
+gulp.task('watch:build', ['clean'], () => {
   gulp.start(['styles', 'images', 'fonts', 'markup']);
 });
 
 gulp.task('lint', ['eslint']);
 
-gulp.task('start', ['styles', 'images', 'fonts', 'markup'], function() {
+gulp.task('start', ['styles', 'images', 'fonts', 'markup'], () => {
   gulp.start(['watch']);
 });
 
-gulp.task('build', ['clean', 'lint'], function() {
+gulp.task('build', ['clean', 'lint'], () => {
   config.markup.data.env = 'stage';
   gulp.start(['styles', 'scripts', 'images', 'fonts', 'markup']);
 });
