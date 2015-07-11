@@ -56,7 +56,7 @@ export default class HeroInfoParameters extends React.Component {
                 props.numberOfParameters ?
                   <IconButton
                     onClick={props.increaseHandler.bind(this, 'parameters', parameter)}
-                    iconClassName="mdficontentadd" /> : null}>
+                    iconClassName="mdfi_content_add" /> : null}>
               {parameterCap}{': '}
               {props[parameter]}
               {renderFeature(props[parameter], props['feature' + parameterCap])}

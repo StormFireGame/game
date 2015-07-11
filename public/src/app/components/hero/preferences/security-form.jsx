@@ -43,7 +43,9 @@ export default class HeroPreferencesGeneralForm extends React.Component {
           hintText="Repeat new password" />
         <br />
         <br />
-        <RaisedButton label="Save" />
+        <RaisedButton
+          type="submit"
+          label="Save" />
       </form>
     );
   }

@@ -78,7 +78,9 @@ export default class HeroPreferencesGeneralForm extends React.Component {
           floatingLabelText="About" />
         <br />
         <br />
-        <RaisedButton label="Save" />
+        <RaisedButton
+          type="submit"
+          label="Save" />
       </form>
     );
   }

@@ -57,7 +57,7 @@ export default class HeroInventoryActions extends React.Component {
 
     let complectOptions = hero.complects.map((complect) => {
       return {
-        payload: complect.id,
+        payload: complect._id,
         text: complect.name
       };
     });
@@ -99,7 +99,7 @@ export default class HeroInventoryActions extends React.Component {
               onClick={::this.handleNewComplectDialog}
               tooltip="New complect"
               disabled={!anyThingDressed}>
-              <FontIcon className="mdficontentaddbox"/>
+              <FontIcon className="mdfi_content_add_box"/>
             </IconButton>
             <DropDownMenu
               selectedIndex={
@@ -111,13 +111,13 @@ export default class HeroInventoryActions extends React.Component {
               onClick={::this.handleApplyComplect}
               tooltip="Apply complect"
               disabled={disabledComplectActions}>
-              <FontIcon className="mdfiactionaccessibility" />
+              <FontIcon className="mdfi_action_accessibility" />
             </IconButton>
             <IconButton
               onClick={::this.handleDeleteComplect}
               tooltip="Delete complect"
               disabled={disabledComplectActions}>
-              <FontIcon className="mdfiactiondelete" />
+              <FontIcon className="mdfi_action_delete" />
             </IconButton>
           </ToolbarGroup>
         </Toolbar>
@@ -158,7 +158,7 @@ export default class HeroInventoryActions extends React.Component {
 
     const ids = this.props.hero.things
       .filter(thing => thing.dressed)
-      .map(thing => thing.id);
+      .map(thing => thing._id);
 
     HeroApi.newComplect({
       name: this.refs.complectName.getValue(),

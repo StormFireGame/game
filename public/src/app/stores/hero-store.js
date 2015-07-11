@@ -33,7 +33,7 @@ function removeThing(id) {
 
   hero.complects.forEach((complect) => {
     if (complect.things.indexOf(id) !== -1) {
-      removeComplect(complect.id);
+      removeComplect(complect._id);
     }
   });
 }
@@ -82,13 +82,13 @@ AppDispatcher.register((payload) => {
       update(action.data);
       break;
     case HeroConstants.HERO_THING_REMOVED:
-      removeThing(action.id);
+      removeThing(action._id);
       break;
     case HeroConstants.HERO_COMPLECT_CREATED:
       newComplect(action.data);
       break;
     case HeroConstants.HERO_COMPLECT_DELETED:
-      deleteComplect(action.id);
+      deleteComplect(action._id);
       break;
     case HeroConstants.HERO_MOVED_ON_ISLAND:
       movedOnIsland(action.x, action.y);

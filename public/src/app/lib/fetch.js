@@ -23,23 +23,30 @@ export default (url, options = {}) => {
     url = environmentConfig[config.environment].api.root + url;
   }
 
-  function status(response) {
-    if (response.status >= 200 && response.status < 300) {
-      return Promise.resolve(response);
-    }
+  function status(res) {
+    if (res.status >= 200 && res.status < 300) return Promise.resolve(res.data);
 
-    if (response.status === 401) mediator.emit(actionTypes.UNAUTHORIZED);
+    debug('res with error %s %o', res.status, res);
 
-    debug('response with error %s %o', response.status, response);
-    return Promise.reject(new Error(response.statusText));
+    if (res.status === 401) mediator.emit(actionTypes.UNAUTHORIZED);
+    if (res.status === 422) return Promise.reject(res);
+
+    return Promise.reject(new Error(res.statusText));
   }
 
-  function json(response) {
-    if (response.status === 204) return;
-    return response.json();
+  function json(res) {
+    if (res.status === 204) return res;
+
+    return new Promise((resolve) => {
+      res.json()
+        .then((data) => {
+          res.data = data;
+          resolve(res);
+        });
+    });
   }
 
   return fetch(url, options)
-    .then(status)
-    .then(json);
+    .then(json)
+    .then(status);
 };

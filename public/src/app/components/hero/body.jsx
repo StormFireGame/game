@@ -192,7 +192,7 @@ export default class HeroBody extends React.Component {
       // let undressHandler;
       //
       // if (thing && this.props.actions) {
-      //   undressHandler = this.handleUndress.bind(this, thing.id);
+      //   undressHandler = this.handleUndress.bind(this, thing._id);
       // }
 
       return (

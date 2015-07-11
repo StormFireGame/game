@@ -104,9 +104,9 @@ export default class HeroInventoryItem extends React.Component {
           {thing.name}
         </h3>
         <div>
-          <FontIcon className="mdfiactionaccountbalancewallet" /> {thing.price}
+          <FontIcon className="mdfi_action_account_balance_wallet" /> {thing.price}
           {' '}
-          <FontIcon className="mdfiactionwork" /> {thing.weight}
+          <FontIcon className="mdfi_action_work" /> {thing.weight}
         </div>
         <div style={styles.content}>
           <div style={styles.image}>
@@ -154,10 +154,10 @@ export default class HeroInventoryItem extends React.Component {
     );
   }
   handleDress() {
-    HeroApi.dressThing(this.props.thing.id);
+    HeroApi.dressThing(this.props.thing._id);
   }
   handleRemove() {
-    HeroApi.removeThing(this.props.thing.id)
+    HeroApi.removeThing(this.props.thing._id)
       .then(() => {
         mediator.emit(actionTypes.MESSAGE, 'Thing removed');
       });

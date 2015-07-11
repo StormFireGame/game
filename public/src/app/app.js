@@ -3,10 +3,13 @@ import Router from 'react-router';
 
 import routes from './routes';
 import debugLib from './lib/debug';
+import mediator from './mediator';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 const debug = debugLib('application');
+
+mediator.connectSocket();
 
 // Needed for React Developer Tools
 window.React = React;

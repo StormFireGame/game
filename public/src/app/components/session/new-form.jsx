@@ -34,7 +34,9 @@ export default class SessionNewForm extends React.Component {
           required={true}
           hintText="Password" />
         <br />
-        <RaisedButton label="Signin" />
+        <RaisedButton
+          type="submit"
+          label="Signin" />
         <RaisedButton
           style={{ float: 'right' }}
           href="#/heroes/new"
@@ -60,11 +62,11 @@ export default class SessionNewForm extends React.Component {
       .then((res) => {
         if (res.error) {
           this.setState({
-            error: res.errordescription
+            error: res.error_description
           });
+        } else {
+          router.transitionTo('hero');
         }
-
-        router.transitionTo('hero');
       });
   }
 }

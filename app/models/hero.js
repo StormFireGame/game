@@ -9,6 +9,7 @@ var heroConfig = require('../../config/hero');
 var heroesHelper = require('../helpers/heroes');
 
 var HeroThing = require('./hero-thing');
+var Island = require('./island');
 
 require('./hero-image');
 require('./skill');
@@ -325,6 +326,18 @@ HeroSchema.methods.updateFeature = function *(notSave) {
   yield heroesHelper.updateFeature(hero);
 
   if (!notSave) yield hero.save();
+};
+
+HeroSchema.methods.setInitLocation = function *() {
+  var hero = this;
+
+  var island = yield Island
+    .findOne()
+    .exec();
+
+  hero.location.island = island;
+  hero.location.coordinateX = 27;
+  hero.location.coordinateY = 33;
 };
 
 HeroSchema.methods.applyComplect = function *(id) {

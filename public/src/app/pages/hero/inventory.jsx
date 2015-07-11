@@ -5,22 +5,9 @@ import debugLib from '../../lib/debug';
 import HeroBody from '../../components/hero/body';
 import HeroInventory from '../../components/hero/inventory';
 
-import SessionHelper from '../../helpers/session-helper';
-import HeroApi from '../../utils/hero-api';
+import auth from '../decorators/auth';
 
 const debug = debugLib('pages:hero:inventory');
-
-function auth(target) {
-  target.willTransitionTo = function(transition) {
-    if (!SessionHelper.isSignin()) {
-      transition.abort();
-      debug('access closed %s', transition.path);
-      transition.redirect('/');
-    } else {
-      HeroApi.fetch();
-    }
-  };
-}
 
 @auth
 export default class HeroInventoryPage extends React.Component {

@@ -86,17 +86,17 @@ export default class Info extends React.Component {
       <div style={styles.base}>
         <div>
           <FontIcon
-            className="mdfiactioninfo" />
+            className="mdfi_action_info" />
           {' '}
           {hero.login} [{hero.level}]
         </div>
         <FontIcon
-          className="mdfiactionfavorite" />
+          className="mdfi_action_favorite" />
         {' '}
         {this.state.currentHp}/{hp.max}
         {' '}
         <FontIcon
-          className="mdfiactionaccountbalancewallet" />
+          className="mdfi_action_account_balance_wallet" />
         {' '}
         {hero.money}
       </div>

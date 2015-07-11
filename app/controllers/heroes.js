@@ -18,11 +18,11 @@ exports.create = function *() {
   try {
     hero = new Hero(body);
     hero = yield hero.save();
+    yield hero.setInitLocation();
     yield hero.updateFeature();
     debug('created');
   } catch(err) {
     if (err.name === 'ValidationError') {
-      debug('validation errors');
       this.status = 422;
       this.body = err;
       return;

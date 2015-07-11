@@ -32,6 +32,8 @@ export default {
 
         mediator.connectSocket();
       }
+
+      return response;
     });
   }
 };

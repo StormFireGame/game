@@ -18,10 +18,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "DEBUG='game:*' babel-node --harmony app.js",
+    "start": "DEBUG='game:*' babel-node --harmony_proxies --harmony_generators app.js",
     "start-dev": "gulp start",
     "lint": "gulp lint",
-    "data": "DEBUG='game:*' node --harmony data/index.js",
+    "data": "DEBUG='game:*' babel-node --harmony data/index.js",
     "postinstall": "npm --prefix ./public install"
   },
   "engines": {
@@ -40,6 +40,7 @@
     "koa-cors": "0.0.16",
     "koa-error": "^1.1.3",
     "koa-logger": "^1.2.2",
+    "koa-oauth2orize": "^0.1.3",
     "koa-passport": "^1.1.6",
     "koa-response-time": "^1.0.2",
     "koa-router": "^4.2.0",
@@ -49,7 +50,6 @@
     "mongoose": "4.0.5",
     "mongoose-deep-populate": "^1.1.0",
     "mongoose-unique-validator": "^0.4.1",
-    "oauth2orize": "^1.0.1",
     "passport-http": "^0.2.2",
     "passport-http-bearer": "^1.0.1",
     "passport-oauth2-client-password": "^0.1.2",
@@ -57,8 +57,10 @@
     "uid": "0.0.2"
   },
   "devDependencies": {
+    "babel-core": "^5.6.15",
     "babel-eslint": "^3.1.20",
     "commander": "^2.8.1",
+    "eslint": "^0.24.0",
     "gulp": "^3.9.0",
     "gulp-eslint": "^0.14.0",
     "gulp-load-plugins": "^1.0.0-rc",

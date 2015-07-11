@@ -212,7 +212,9 @@ gulp.task('watch:build', ['clean'], function() {
 
 gulp.task('lint', ['eslint']);
 
-gulp.task('start', ['watch']);
+gulp.task('start', ['styles', 'images', 'fonts', 'markup'], function() {
+  gulp.start(['watch']);
+});
 
 gulp.task('build', ['clean', 'lint'], function() {
   config.markup.data.env = 'stage';

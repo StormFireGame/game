@@ -79,7 +79,7 @@ export default class Menu extends React.Component {
               linkButton={true}
               href="#/island"
               tooltip="Move">
-              <FontIcon className="mdficontentundo" />
+              <FontIcon className="mdfi_content_undo" />
             </IconButton>
           </ToolbarGroup>
         </Toolbar>

@@ -9,7 +9,7 @@ gulp.task('start', function() {
     verbose: true,
     ignore: ['public/*', 'node_modules/*'],
     execMap: {
-      js: "DEBUG='game:*' babel-node --harmony --debug"
+      js: "DEBUG='game:*' babel-node --harmony_proxies --harmony_generators --debug"
     },
     watch: ['*.js', '*.png'],
     events: {

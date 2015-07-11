@@ -51,7 +51,7 @@ export default class HeroInfoSkills extends React.Component {
         subheader="Skills">
         {this.state.skills.map((skill, index) => {
           const item = (props.skills).find((heroSkill) => {
-            return heroSkill.skill === skill.id;
+            return heroSkill.skill === skill._id;
           });
 
           return (
@@ -60,8 +60,8 @@ export default class HeroInfoSkills extends React.Component {
               rightIconButton={
                 props.numberOfSkills ?
                   <IconButton
-                    onClick={props.increaseHandler.bind(this, 'skills', skill.id)}
-                    iconClassName="mdficontentadd" /> : null}>
+                    onClick={props.increaseHandler.bind(this, 'skills', skill._id)}
+                    iconClassName="mdfi_content_add" /> : null}>
               {skill.name}{': '}
               {item ? item.level : 0}
             </ListItem>

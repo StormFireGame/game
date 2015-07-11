@@ -75,7 +75,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
 
     const styles = this.getStyles();
     let items;
-    const heroImage = (hero.image) ? hero.image.id : -1;
+    const heroImage = (hero.image) ? hero.image._id : -1;
 
     debug('render');
 
@@ -85,7 +85,7 @@ export default class HeroPreferencesGeneralForm extends React.Component {
           <RadioButton
             key={index}
             style={styles.radio}
-            value={item.id}>
+            value={item._id}>
             <Paper
               style={styles.item}
               zDepth={1}>
@@ -117,7 +117,9 @@ export default class HeroPreferencesGeneralForm extends React.Component {
           {items}
         </RadioButtonGroup>
         <br />
-        <RaisedButton label="Save" />
+        <RaisedButton
+          type="submit"
+          label="Save" />
       </form>
     );
   }

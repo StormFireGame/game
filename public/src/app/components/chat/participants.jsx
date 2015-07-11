@@ -37,7 +37,7 @@ export default class ChatParticipants extends React.Component {
   onLeave(participant) {
     this.setState({
       participants: this.state.participants
-        .filter((item) => item.id !== participant.id)
+        .filter((item) => item._id !== participant._id)
     });
   }
 

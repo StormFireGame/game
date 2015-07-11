@@ -15,7 +15,7 @@ export default class ChatParticipant extends React.Component {
       <div>
         <FontIcon
           style={{ fontSize: 15 }}
-          className="mdfiactioninfo" />
+          className="mdfi_action_info" />
         {' '}
         [{props.level}] {props.login}
       </div>

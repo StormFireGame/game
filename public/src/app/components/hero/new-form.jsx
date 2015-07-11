@@ -68,7 +68,9 @@ export default class HeroNewForm extends React.Component {
         </RadioButtonGroup>
         <br />
 
-        <RaisedButton label="Signup" />
+        <RaisedButton
+          type="submit"
+          label="Signup" />
       </form>
     );
   }
@@ -93,7 +95,7 @@ export default class HeroNewForm extends React.Component {
       }, (res) => {
         if (res.status === 422) {
           this.setState({
-            errors: utils.validationMapper(res.body)
+            errors: utils.validationMapper(res.data)
           });
         }
       });

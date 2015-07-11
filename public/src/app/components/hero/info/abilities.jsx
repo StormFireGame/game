@@ -38,7 +38,7 @@ export default class HeroInfoAbilities extends React.Component {
                 props.numberOfAbilities ?
                   <IconButton
                     onClick={props.increaseHandler.bind(this, 'abilities', ability)}
-                    iconClassName="mdficontentadd" /> : null}>
+                    iconClassName="mdfi_content_add" /> : null}>
               {abilityCap}{': '}
               {props[ability]}
             </ListItem>

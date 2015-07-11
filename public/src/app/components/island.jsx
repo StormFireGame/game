@@ -186,7 +186,7 @@ export default class Island extends React.Component {
             <p>
               Moving: {this.state.moveTime}
               {' '}
-              <a href="" onClick={::this.handledCancelMove}>Cancel</a>
+              <a href="" onClick={::this.handleCancelMove}>Cancel</a>
             </p> : null}
         </Paper>
         <Paper
@@ -209,7 +209,7 @@ export default class Island extends React.Component {
               top: heroPosition.top - mapMargin.top - 10,
               left: heroPosition.left - mapMargin.left - 2
             }}
-            className="mdficommunicationlocationon" />
+            className="mdfi_communication_location_on" />
         </Paper>
       </div>
     );
