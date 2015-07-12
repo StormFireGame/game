@@ -9,7 +9,8 @@ Browser based massively multiplayer online role playing game
 * [Koa](http://koajs.com/)
 * [Mongoose](http://mongoosejs.com/)
 * [Socket.io](http://socket.io/)
-* [React](http://facebook.github.io/react/) + [Flux](http://facebook.github.io/flux/)
+* [React](http://facebook.github.io/react/)
+* [Flux](http://facebook.github.io/flux/)
 * [Material-UI](http://material-ui.com/)
 * [Gulp](http://gulpjs.com/)
 
@@ -33,8 +34,6 @@ npm run start-dev
 cd public  
 npm start
 ```
-
-> Accourding to issue [#42](https://github.com/DragonLegend/game/issues/42) Login is not working so if you have some problems ask in chat
 
 ## Progress
 ![Signin](progress-signin.png)

@@ -1,6 +1,6 @@
 module.exports = {
   name: 'Game',
-  staticUrl: 'http://localhost:3001',
+  staticUrl: 'https://dragonlegend.herokuapp.com',
   uploadPaths: {
     heroImages: '/uploads/hero-images/',
     things: '/uploads/things/',
