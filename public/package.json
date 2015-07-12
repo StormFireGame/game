@@ -37,6 +37,7 @@
     "lodash": "^3.9.3",
     "make-url": "0.0.1",
     "material-design-fonticons": "^1.0.0",
+    "material-ui": "^0.10.0",
     "moment": "^2.10.3",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
