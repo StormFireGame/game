@@ -2,4 +2,4 @@ deployment:
   staging:
     branch: master
     heroku:
-      appname: dregonlegend
+      appname: dragonlegend
