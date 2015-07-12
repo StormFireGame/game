@@ -21,8 +21,10 @@
     "start": "DEBUG='game:*' babel-node --harmony_proxies --harmony_generators app.js",
     "start-dev": "gulp start",
     "lint": "gulp lint",
-    "data": "DEBUG='game:*' babel-node --harmony data/index.js",
-    "postinstall": "npm --prefix ./public install"
+    "_data": "DEBUG='game:*' babel-node --harmony data/index.js",
+    "data-bundles": "npm run _data -- bundles",
+    "data-init": "npm run _data -- init",
+    "postinstall": "npm run data-init && npm --prefix ./public install"
   },
   "engines": {
     "node": ">=0.12"

@@ -17,59 +17,100 @@ var TableExperience = require('../app/models/table-experience');
 var Thing = require('../app/models/thing');
 var Hero = require('../app/models/hero');
 var HeroThing = require('../app/models/hero-thing');
+var Client = require('../app/models/client');
+
+function end() {
+  mongoose.disconnect();
+}
+
+function initCommand() {
+  co(function *() {
+    yield Client.remove().exec();
+
+    debug('Client removed');
+
+    yield Client.create({
+      name: 'test',
+      clientId: 'test',
+      clientSecret: 'test'
+    });
+
+    debug('Client created');
+
+    end();
+  });
+}
+
+function bundlesCommand(items) {
+  function dataGenerator(item) {
+    return new Promise(function(resolve) {
+      co(function *() {
+        debug(item.name + ' started');
+
+        yield item.model.remove().exec();
+
+        debug(item.name + ' removed');
+
+        yield item.model.create(
+          require('./bundles/' + _.kebabCase(item.name) + '.json'));
+
+        debug(item.name + ' created');
+
+        switch (item.name) {
+          case 'Heroes':
+            var heroes = yield Hero.find().exec();
+
+            for (let hero of heroes) {
+              yield hero.updateFeature();
+            }
+
+            debug('Heroes modified');
+            break;
+        }
+
+        resolve();
+      });
+    });
+  }
+
+  var dataDefers = [
+    { name: 'Hero images', model: HeroImage },
+    { name: 'Islands', model: Island },
+    { name: 'Skills', model: Skill },
+    { name: 'Table experiences', model: TableExperience },
+    { name: 'Things', model: Thing },
+    { name: 'Hero things', model: HeroThing },
+    { name: 'Heroes', model: Hero }
+  ].filter(function(item) {
+    return !items.length || items.indexOf(_.kebabCase(item.name)) !== -1;
+  })
+  .map(dataGenerator);
+
+  Promise
+    .all(dataDefers)
+    .then(end);
+}
 
 program
-  .option('-o --only <only>', 'Only', function(val) {
-    return val.split(',');
-  })
-  .parse(process.argv);
+  .usage('<command> [<args>]');
 
-var dataGenerator = function(item) {
-  return new Promise(function(resolve) {
-    co(function *() {
-      debug(item.name + ' started');
+program
+  .command('init')
+  .description('Init data')
+  .action(initCommand);
 
-      yield item.model.remove().exec();
+program
+  .command('bundles [items...]')
+  .description('Bundles data')
+  .action(bundlesCommand);
 
-      debug(item.name + ' removed');
+program.on('*', function() {
+  debug('Unknown Command: ' + program.args.join(' '));
+  program.help();
+});
 
-      yield item.model.create(
-        require('./bundles/' + _.kebabCase(item.name) + '.json'));
+program.parse(process.argv);
 
-      debug(item.name + ' created');
-
-      switch (item.name) {
-        case 'Heroes':
-          var heroes = yield Hero.find().exec();
-
-          for (let hero of heroes) {
-            yield hero.updateFeature();
-          }
-
-          debug('Heroes modified');
-          break;
-      }
-
-      resolve();
-    });
-  });
-};
-
-var dataDefers = [
-  { name: 'Hero images', model: HeroImage },
-  { name: 'Islands', model: Island },
-  { name: 'Skills', model: Skill },
-  { name: 'Table experiences', model: TableExperience },
-  { name: 'Things', model: Thing },
-  { name: 'Hero things', model: HeroThing },
-  { name: 'Heroes', model: Hero }
-].filter(function(item) {
-  return !program.only || program.only.indexOf(_.kebabCase(item.name)) !== -1;
-})
-.map(dataGenerator);
-
-Promise
-  .all(dataDefers)
-  .then(function() {
-    mongoose.disconnect();
-  });
+if (!program.args.length) {
+  program.help();
+}
