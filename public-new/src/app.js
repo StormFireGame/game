@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import HomePage from './components/pages/HomePage';
-import ReadmePage from './components/pages/ReadmePage';
-import NotFoundPage from './components/pages/NotFound';
-import App from './components/App';
+import config from './config';
+import routes from './routes';
 
 import '../node_modules/uikit/dist/css/uikit.css';
 import './assets/css/main.css';
+
+import heroService from './services/heroService';
 
 import rootReducer from './reducers/rootReducer';
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -25,15 +24,25 @@ if (module.hot) {
   });
 }
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route component={App}>
-        <Route path="/" component={HomePage} />
-        <Route path="/readme" component={ReadmePage} />
-        <Route path="*" component={NotFoundPage} />
-      </Route>
-    </Router>
-  </Provider>,
-  document.getElementById('app')
-);
+function run() {
+  ReactDOM.render(
+    <Provider store={store}>
+      {routes}
+    </Provider>,
+    document.getElementById('app')
+  );
+}
+
+window.fbAsyncInit = () => {
+  FB.init({
+    appId: config.facebookAppId,
+    cookie: true,
+    xfbml: true,
+    version: 'v2.5',
+  });
+
+  FB.getLoginStatus((res) => {
+    if (res.status === 'connected') heroService.me().then(run);
+    else run();
+  });
+};

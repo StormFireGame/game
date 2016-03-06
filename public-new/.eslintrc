@@ -5,5 +5,8 @@
     "no-wrap-func": 0,
     "spaced-line-comment": 0,
     "react/prop-types": 0
+  },
+  "globals": {
+    "FB": true
   }
 }

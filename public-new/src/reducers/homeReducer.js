@@ -1,5 +1,5 @@
 import { CHANGE_PROJECT_NAME } from '../constants/AppConstants';
-import assignToEmpty from '../utils/assign';
+import { assignToEmpty } from '../lib/utils';
 
 const initialState = {
   projectName: 'Game',

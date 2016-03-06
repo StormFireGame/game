@@ -3,12 +3,15 @@
   "version": "0.0.1",
   "description": "MMORPG",
   "dependencies": {
+    "debug": "^2.2.0",
+    "firebase": "^2.4.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
     "redux": "^3.3.1",
-    "redux-thunk": "^1.0.3"
+    "redux-thunk": "^1.0.3",
+    "uikit": "^2.25.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
