@@ -14,6 +14,19 @@ Browser based massively multiplayer online role playing game
 * [Material-UI](http://material-ui.com/)
 * [Gulp](http://gulpjs.com/)
 
+Word should be more simple so moving
+
+* [React](http://facebook.github.io/react/)
+* [Redux](http://redux.js.org/)
+* [UIKit](http://getuikit.com/)
+* [Firebase](https://www.firebase.com/)
+* [Webpack](https://webpack.github.io/)
+* [Babel](https://babeljs.io/)
+* [PostCSS](http://postcss.org/)
+* [Facebook](https://www.facebook.com/)
+
+Soon I will update readme
+
 ## Dependencies
 Mongo  
 Node v0.12.x
