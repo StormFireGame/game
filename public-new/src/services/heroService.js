@@ -2,7 +2,9 @@ import mediator from '../mediator';
 import db from '../lib/db';
 import debugLib from '../lib/debug';
 
-const debug = debugLib('heroService');
+import heroHelper from '../helpers/heroHelper';
+
+const debug = debugLib('services:hero');
 
 export default {
   me() {
@@ -14,12 +16,12 @@ export default {
 
         if (!ref[res.id]) {
           ref.set({
-            [res.id]: res,
+            [res.id]: heroHelper.init(res),
           });
         }
-        mediator.currentHero = res;
+        mediator.hero = res;
 
-        debug('Hero ', mediator.currentHero);
+        debug('Hero ', mediator.hero);
 
         resolve();
       });

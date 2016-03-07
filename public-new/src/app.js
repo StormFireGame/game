@@ -4,10 +4,13 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import config from './config';
+import config from './config/index';
 import routes from './routes';
+import db from './lib/db';
 
 import '../node_modules/uikit/dist/css/uikit.css';
+import '../node_modules/uikit/dist/css/components/progress.css';
+
 import './assets/css/main.css';
 
 import heroService from './services/heroService';
@@ -42,7 +45,15 @@ window.fbAsyncInit = () => {
   });
 
   FB.getLoginStatus((res) => {
-    if (res.status === 'connected') heroService.me().then(run);
-    else run();
+    if (res.status === 'connected') {
+      heroService.me().then(run);
+      window.data = {};
+      db.ref.child('tableExperience').on('value', (data) => {
+        window.data.tableExperience = data.val();
+      });
+      db.ref.child('skills').on('value', (data) => {
+        window.data.skills = data.val();
+      });
+    } else run();
   });
 };

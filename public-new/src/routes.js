@@ -12,7 +12,7 @@ export default (
   <Router history={browserHistory}>
     <Route component={Master}>
       <Route path="/" getComponent={(location, cb) => {
-        cb(null, mediator.currentHero ? HeroPage : HomePage);
+        cb(null, mediator.hero ? HeroPage : HomePage);
       }} />
       <Route path="*" component={NotFoundPage} />
     </Route>

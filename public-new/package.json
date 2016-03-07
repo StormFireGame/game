@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "MMORPG",
   "dependencies": {
+    "capitalize": "^1.0.0",
+    "classnames": "^2.2.3",
     "debug": "^2.2.0",
     "firebase": "^2.4.1",
     "react": "^0.14.7",
@@ -15,6 +17,7 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
+    "babel-cli": "^6.6.5",
     "babel-core": "^6.6.5",
     "babel-eslint": "^5.0.0",
     "babel-loader": "^6.2.4",
@@ -42,6 +45,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
+    "data": "babel-node ./data/index.js",
     "lint": "eslint .",
     "start": "node webpack.dev-server.js"
   }

@@ -1,6 +1,6 @@
 import Firebase from 'firebase';
 
-import config from '../config';
+import config from '../config/index';
 
 class DB {
   constructor(path) {
