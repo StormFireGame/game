@@ -1,22 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-
-import config from './config/index';
-import routes from './routes';
-import db from './lib/db';
-
 import '../node_modules/uikit/dist/css/uikit.css';
 import '../node_modules/uikit/dist/css/components/progress.css';
 
 import './assets/css/main.css';
 
-import heroService from './services/heroService';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
+
+import config from './config/index';
+import routes from './routes';
+import mediator from './mediator';
+
+import { fetchHero } from './actions/AppActions';
 
 import rootReducer from './reducers/rootReducer';
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const logger = createLogger();
+const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
 
 // Make reducers hot reloadable, see http://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable
@@ -44,16 +46,5 @@ window.fbAsyncInit = () => {
     version: 'v2.5',
   });
 
-  FB.getLoginStatus((res) => {
-    if (res.status === 'connected') {
-      heroService.me().then(run);
-      window.data = {};
-      db.ref.child('tableExperience').on('value', (data) => {
-        window.data.tableExperience = data.val();
-      });
-      db.ref.child('skills').on('value', (data) => {
-        window.data.skills = data.val();
-      });
-    } else run();
-  });
+  run();
 };

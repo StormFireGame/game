@@ -1,5 +1,7 @@
-import homeReducer from './homeReducer';
+import { combineReducers } from 'redux';
 
-const rootReducer = homeReducer;
+import heroReducer from './heroReducer';
+
+const rootReducer = combineReducers({ hero: heroReducer });
 
 export default rootReducer;

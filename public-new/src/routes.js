@@ -4,15 +4,15 @@ import { Router, Route, browserHistory } from 'react-router';
 import HomePage from './components/pages/Home';
 import NotFoundPage from './components/pages/NotFound';
 import HeroPage from './components/pages/Hero';
-import Master from './components/Master';
+import App from './components/App';
 
 import mediator from './mediator';
 
 export default (
   <Router history={browserHistory}>
-    <Route component={Master}>
+    <Route component={App}>
       <Route path="/" getComponent={(location, cb) => {
-        cb(null, mediator.hero ? HeroPage : HomePage);
+        cb(null, mediator.loggedInHero ? HeroPage : HomePage);
       }} />
       <Route path="*" component={NotFoundPage} />
     </Route>

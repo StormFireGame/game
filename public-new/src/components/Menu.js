@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-
 import classNames from 'classnames';
+
+import mediator from '../mediator';
 
 export default class extends Component {
   static contextTypes = {
@@ -25,6 +26,13 @@ export default class extends Component {
         </ul>
         <div className="uk-navbar-flip">
           <ul className="uk-navbar-nav">
+            <li>
+              <a onClick={() => {
+                FB.logout(() => {
+                  mediator.emit('reload');
+                });
+              }}>Logout</a>
+            </li>
             <li>
               <Link to="/">Back</Link>
             </li>

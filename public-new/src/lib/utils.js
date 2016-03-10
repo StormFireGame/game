@@ -1,5 +1,3 @@
-export default {
-  assignToEmpty: (oldObject, newObject) => {
-    return Object.assign({}, oldObject, newObject);
-  },
-};
+export function assignToEmpty(oldObject, newObject) {
+  return Object.assign({}, oldObject, newObject);
+}

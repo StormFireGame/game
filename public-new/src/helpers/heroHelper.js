@@ -1,6 +1,7 @@
 import debugLib from '../lib/debug';
 
 import heroConfig from '../config/hero';
+import mediator from '../mediator';
 
 const debug = debugLib('helpers:hero');
 
@@ -110,7 +111,7 @@ export default {
     return hero;
   },
   levelUp(hero) {
-    const tableExperience = window.data.tableExperience;
+    const tableExperience = mediator.storage.tableExperience;
 
     const tableExperienceItems = tableExperience
       .filter((item) => item.level > hero.level && item.experience <= hero.experience);

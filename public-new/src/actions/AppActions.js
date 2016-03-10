@@ -1,11 +1,36 @@
-import { CHANGE_PROJECT_NAME } from '../constants/AppConstants';
+import { HERO_INCREASE_PARAMETER, RECIEVE_HERO } from '../constants/AppConstants';
 
-export function changeProjectName(name) {
-  return { type: CHANGE_PROJECT_NAME, name };
+import mediator from '../mediator';
+
+import heroHelper from '../helpers/heroHelper';
+
+export function heroIncreaseParameter(name) {
+  return { type: HERO_INCREASE_PARAMETER, name };
 }
 
-export function asyncChangeProjectName(name) {
-  return (dispatch) => {
-    return dispatch(changeProjectName(name));
+export function receiveHero(data) {
+  return {
+    type: RECIEVE_HERO,
+    data,
   };
+}
+
+export function fetchHero() {
+  return new Promise((resolve) => {
+    FB.api('/me', {
+      fields: 'email,gender,name',
+    }, (res) => {
+      const ref = mediator.db().child('heroes');
+
+      if (!ref[res.id]) {
+        ref.set({
+          [res.id]: heroHelper.init(res),
+        });
+      }
+
+      mediator.loggedInHero = true;
+
+      resolve(res);
+    });
+  });
 }

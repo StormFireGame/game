@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 import mediator from '../mediator';
 
@@ -7,14 +8,15 @@ import debugLib from '../lib/debug';
 
 const debug = debugLib('components:info');
 
-export default class extends Component {
+class Info extends Component {
   state = {};
   componentDidMount() {
     this.setHpInterval = window.setInterval(::this.setHp, 1000);
     this.setHp();
   }
   setHp() {
-    const hp = mediator.hero.feature.hp;
+    const { hero } = this.props;
+    const hp = hero.feature.hp;
     const time = new Date().getTime();
     const delay = 100;
 
@@ -40,7 +42,7 @@ export default class extends Component {
     });
   }
   render() {
-    const hero = mediator.hero;
+    const { hero } = this.props;
     const hp = hero.feature.hp;
     const { currentHp } = this.state;
     const hpReady = currentHp / hp.max;
@@ -66,3 +68,11 @@ export default class extends Component {
     );
   }
 }
+
+function select(state) {
+  return {
+    hero: state.hero,
+  };
+}
+
+export default connect(select)(Info);

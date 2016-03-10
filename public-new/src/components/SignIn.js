@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import heroService from '../services/heroService';
+
+import mediator from '../mediator';
 
 export default class extends Component {
   static contextTypes = {
@@ -8,13 +9,13 @@ export default class extends Component {
 
   onSignIn() {
     FB.login(() => {
-      heroService.me()
-        .then(this.context.router.replace.bind(this, '/'));
+      mediator.emit('initLoad');
     }, { scope: 'public_profile, email' });
   }
+
   render() {
     return (
-      <div style={{ marginTop: 20 }}>
+      <div className="uk-margin-large-top">
         <button
           onClick={::this.onSignIn}
           type="button"
