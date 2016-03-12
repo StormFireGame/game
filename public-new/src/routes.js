@@ -13,7 +13,8 @@ export default (
     <Route component={App}>
       <Route path="/" getComponent={(location, cb) => {
         cb(null, mediator.loggedInHero ? HeroPage : HomePage);
-      }} />
+      }}
+      />
       <Route path="*" component={NotFoundPage} />
     </Route>
   </Router>

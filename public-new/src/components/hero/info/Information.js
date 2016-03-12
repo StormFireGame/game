@@ -24,7 +24,9 @@ export default connect(select)(({ hero }) => {
         <div className="uk-width-5-10">{hero.numberOfDraws}</div>
 
         <div className="uk-width-5-10 uk-margin-small-top">Experience</div>
-        <div className="uk-width-5-10 uk-margin-small-top">{hero.experience} / {tableExperienceItem.experience}</div>
+        <div className="uk-width-5-10 uk-margin-small-top">
+          {hero.experience} / {tableExperienceItem.experience}
+        </div>
       </div>
     </div>
   );

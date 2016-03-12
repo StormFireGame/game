@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
-import mediator from '../mediator';
-
 import debugLib from '../lib/debug';
 
 const debug = debugLib('components:info');
@@ -47,9 +45,10 @@ class Info extends Component {
     const { currentHp } = this.state;
     const hpReady = currentHp / hp.max;
 
-    const progressClassNames = classNames('uk-progress uk-progress-danger uk-progress-small uk-progress-striped', {
-      'uk-active': hpReady !== 1,
-    });
+    const progressClassNames = classNames(
+      'uk-progress uk-progress-danger uk-progress-small uk-progress-striped', {
+        'uk-active': hpReady !== 1,
+      });
     return (
       <div style={{ marginTop: 10 }}>
         <div className="uk-text-center">
@@ -62,7 +61,10 @@ class Info extends Component {
           <div className="uk-progress-bar uk-text-small uk-text-top" style={{
             lineHeight: '14px',
             width: (hpReady * 100) + '%',
-          }}>{currentHp}/{hp.max}</div>
+          }}
+          >
+            {currentHp}/{hp.max}
+          </div>
         </div>
       </div>
     );
@@ -70,9 +72,7 @@ class Info extends Component {
 }
 
 function select(state) {
-  return {
-    hero: state.hero,
-  };
+  return { hero: state.hero };
 }
 
 export default connect(select)(Info);

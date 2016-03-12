@@ -31,7 +31,10 @@ export default class extends Component {
                 FB.logout(() => {
                   mediator.emit('reload');
                 });
-              }}>Logout</a>
+              }}
+              >
+                Logout
+              </a>
             </li>
             <li>
               <Link to="/">Back</Link>

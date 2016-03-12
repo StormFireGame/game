@@ -3,35 +3,38 @@ import { EventEmitter } from 'events';
 
 import config from './config/index';
 
-let db;
-
-export default Object.assign(new EventEmitter(), {
+const mediator = Object.assign(new EventEmitter(), {
   // TOOD: check how to remove this attr
   loggedInHero: false,
-  db() {
-    if (!db) db = new Firebase(config.firebasePath);
-    return db;
-  },
   storage: {},
-  // TOOD: check how to move it another place
-  //       maybe move it to reducers
-  fechStorage() {
-    return Promise.all([
-
-      new Promise((resolve) => {
-        this.db().child('tableExperience').on('value', (data) => {
-          this.storage.tableExperience = data.val();
-          resolve();
-        });
-      }),
-
-      new Promise((resolve) => {
-        this.db().child('skills').on('value', (data) => {
-          this.storage.skills = data.val();
-          resolve();
-        });
-      }),
-
-    ]);
-  },
 });
+
+let dbRef;
+export function db() {
+  if (!dbRef) dbRef = new Firebase(config.firebasePath);
+  return dbRef;
+}
+
+// TOOD: check how to move it another place
+//       maybe move it to reducers
+export function fechStorage() {
+  return Promise.all([
+
+    new Promise((resolve) => {
+      db().child('tableExperience').once('value', (data) => {
+        mediator.storage.tableExperience = data.val();
+        resolve();
+      });
+    }),
+
+    new Promise((resolve) => {
+      db().child('skills').once('value', (data) => {
+        mediator.storage.skills = data.val();
+        resolve();
+      });
+    }),
+
+  ]);
+}
+
+export default mediator;

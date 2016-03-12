@@ -149,21 +149,21 @@ export default class extends Component {
       'arms', 'armor', 'shield', 'pants', 'belt', 'boots',
       'ring', 'ring1', 'ring2', 'ring3',
       'elixir', 'elixir1', 'elixir2', 'elixir3',
-    ].map((type, index) => {
-      return (
-        <ThingSlot
-          key={index}
-          position={thingsPositions[type]}
-          type={type.replace(/\d+/g, '')} />
-      );
-    });
+    ].map((type, index) => (
+      <ThingSlot
+        key={index}
+        position={thingsPositions[type]}
+        type={type.replace(/\d+/g, '')}
+      />
+    ));
 
     return (
       <div
         className="uk-block"
-        style={styles.base}>
+        style={styles.base}
+      >
         <div style={styles.avatar}>
-          <img src={require(`../../assets/img/hero-body/no-hero.png`)} />
+          <img src={require('../../assets/img/hero-body/no-hero.png')} />
         </div>
         {thingsSlots}
       </div>

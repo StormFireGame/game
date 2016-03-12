@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   default: {
     money: 0.00,
     moneyArt: 0.00,

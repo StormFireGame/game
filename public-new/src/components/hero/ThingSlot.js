@@ -14,37 +14,37 @@ export default class extends Component {
     const elixirHeight = 38;
 
     switch (props.type) {
-    case 'arms':
-      height = 85;
-      break;
-    case 'armor':
-      height = 100;
-      break;
-    case 'pants':
-      height = 110;
-      break;
-    case 'elixir':
-      width = height = elixirHeight;
-      break;
-    case 'shield':
-      height = 85;
-      break;
-    case 'ring':
-      width = height = ringHeight;
-      break;
-    case 'belt':
-      height = 50;
-      break;
-    case 'boots':
-      height = 74;
-      break;
-    default:
+      case 'arms':
+        height = 85;
+        break;
+      case 'armor':
+        height = 100;
+        break;
+      case 'pants':
+        height = 110;
+        break;
+      case 'elixir':
+        width = height = elixirHeight;
+        break;
+      case 'shield':
+        height = 85;
+        break;
+      case 'ring':
+        width = height = ringHeight;
+        break;
+      case 'belt':
+        height = 50;
+        break;
+      case 'boots':
+        height = 74;
+        break;
+      default:
     }
 
     const styles = {
       base: {
-        width: width,
-        height: height,
+        width,
+        height,
         position: 'absolute',
         backgroundColor: '#f5f5f5',
       },
@@ -71,7 +71,8 @@ export default class extends Component {
         style={Object.assign(styles.base, {
           left: position.left,
           top: position.top,
-        })}>
+        })}
+      >
         <div style={styles.placeholder}>
           <img src={require(`../../assets/img/hero-body/${type}.png`)} />
         </div>

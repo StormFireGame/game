@@ -1,12 +1,13 @@
 import React from 'react';
 import capitalize from 'capitalize';
 import { connect } from 'react-redux';
+import { increaseParameter } from '../../../actions/heroActions';
 
 function select(state) {
   return { hero: state.hero };
 }
 
-export default connect(select)(({ hero, onIncrease }) => {
+export default connect(select)(({ hero, dispatch }) => {
   function renderFeature(orig, feature) {
     let output = '';
     if (orig - feature === 0) {
@@ -39,7 +40,12 @@ export default connect(select)(({ hero, onIncrease }) => {
             </div>,
             <div className="uk-width-1-10">
               {hero.numberOfParameters ?
-                (<a onClick={onIncrease.bind(this, parameter)} className="uk-icon-hover uk-icon-plus-circle"></a>) : null}
+                (
+                  <a onClick={() => {
+                    dispatch(increaseParameter(parameter));
+                  }} className="uk-icon-hover uk-icon-plus-circle"
+                  />
+                ) : null}
             </div>,
           ];
         })}

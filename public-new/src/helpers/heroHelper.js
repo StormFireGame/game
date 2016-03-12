@@ -16,6 +16,8 @@ export default {
       hp: heroConfig.default.hp,
       capacity: heroConfig.default.capacity,
 
+      skills: [],
+
       numberOfWins: 0,
       numberOfLosses: 0,
       numberOfDraws: 0,
@@ -35,9 +37,10 @@ export default {
       shields: heroConfig.default.shields,
     });
 
-    return this.updateFeature(this.levelUp(hero));
+    this.updateFeature(this.levelUp(hero));
   },
   updateFeature(hero) {
+    const skills = mediator.storage.skills;
     hero.feature = {};
     const feature = hero.feature;
 
@@ -78,6 +81,13 @@ export default {
     feature.hp = feature.capacity = 0;
 
     // Skills
+    hero.skills.forEach((heroSkill) => {
+      const skill = skills.find((item) => item.id === heroSkill.skill);
+      skill.features.forEach(skillFeature => {
+        feature[skillFeature.name] += heroSkill.level * skillFeature.plus;
+      });
+    });
+
     // Things
     // Strike count
 
@@ -107,8 +117,6 @@ export default {
     };
 
     debug('hero features updated %s', hero.login);
-
-    return hero;
   },
   levelUp(hero) {
     const tableExperience = mediator.storage.tableExperience;
@@ -116,7 +124,7 @@ export default {
     const tableExperienceItems = tableExperience
       .filter((item) => item.level > hero.level && item.experience <= hero.experience);
 
-    if (!tableExperienceItems.length) return hero;
+    if (!tableExperienceItems.length) return;
 
     tableExperienceItems.forEach((item) => {
       hero.numberOfAbilities += item.numberOfAbilities;
@@ -128,7 +136,5 @@ export default {
 
       debug('hero level up %s %s', hero.login, hero.level);
     });
-
-    return hero;
   },
 };

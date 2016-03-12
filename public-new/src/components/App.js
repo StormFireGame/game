@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchHero, receiveHero } from '../actions/AppActions';
-import mediator from '../mediator';
+import { fetch as fetchHero, receive as receiveHero } from '../actions/heroActions';
+import mediator, { fechStorage } from '../mediator';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -44,7 +44,7 @@ class App extends Component {
   initLoad() {
     const { dispatch } = this.props;
 
-    mediator.fechStorage()
+    fechStorage()
       .then(() => {
         fetchHero()
           .then((data) => {

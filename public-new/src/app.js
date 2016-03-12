@@ -12,9 +12,6 @@ import createLogger from 'redux-logger';
 
 import config from './config/index';
 import routes from './routes';
-import mediator from './mediator';
-
-import { fetchHero } from './actions/AppActions';
 
 import rootReducer from './reducers/rootReducer';
 const logger = createLogger();
@@ -45,6 +42,6 @@ window.fbAsyncInit = () => {
     xfbml: true,
     version: 'v2.5',
   });
-
-  run();
 };
+
+setTimeout(run, 1000);

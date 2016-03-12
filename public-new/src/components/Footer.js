@@ -20,7 +20,8 @@ export default class extends React.Component {
         <a
           style={{ marginTop: 7 }}
           className="uk-icon-hover uk-icon-github uk-icon-large"
-          href="https://github.com/DragonLegend/game" />
+          href="https://github.com/DragonLegend/game"
+        />
       </div>
     );
   }
