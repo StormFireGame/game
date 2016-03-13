@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import { INIT_LOAD } from '../constants/AppConstants';
+
 import mediator from '../mediator';
 
 export default class extends Component {
@@ -9,7 +11,7 @@ export default class extends Component {
 
   onSignIn() {
     FB.login(() => {
-      mediator.emit('initLoad');
+      mediator.emit(INIT_LOAD);
     }, { scope: 'public_profile, email' });
   }
 

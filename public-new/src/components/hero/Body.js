@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import mediator from '../../mediator';
 
 import ThingSlot from './ThingSlot';
 
-export default class extends Component {
+class Body extends Component {
   getStyles() {
     return {
       base: {
@@ -141,8 +144,12 @@ export default class extends Component {
   }
 
   render() {
+    const { hero } = this.props;
     const styles = this.getStyles();
     const thingsPositions = this.getThingsPositions();
+
+    const { heroImages } = mediator.storage;
+    const heroImage = heroImages.find(item => item.id === hero.image);
 
     const thingsSlots = [
       'gloves', 'helmet', 'amulet', 'treetops',
@@ -157,16 +164,26 @@ export default class extends Component {
       />
     ));
 
+
     return (
       <div
         className="uk-block"
         style={styles.base}
       >
         <div style={styles.avatar}>
-          <img src={require('../../assets/img/hero-body/no-hero.png')} />
+          <img src={!heroImage ?
+            require('../../assets/img/hero-body/no-hero.png') :
+            require(`../../../static/uploads/hero-images/${heroImage.image}`)}
+          />
         </div>
         {thingsSlots}
       </div>
     );
   }
 }
+
+function select(state) {
+  return { hero: state.hero };
+}
+
+export default connect(select)(Body);

@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import { fetch as fetchHero, receive as receiveHero } from '../actions/heroActions';
 import mediator, { fechStorage } from '../mediator';
 
+import { INIT_LOAD, RELOAD } from '../constants/AppConstants';
+
 import Header from './Header';
 import Footer from './Footer';
+import Messages from './Messages';
 
 class App extends Component {
   static contextTypes = {
@@ -27,8 +30,8 @@ class App extends Component {
       }
     });
 
-    mediator.on('initLoad', ::this.initLoad);
-    mediator.on('reload', ::this.reload);
+    mediator.on(INIT_LOAD, ::this.initLoad);
+    mediator.on(RELOAD, ::this.reload);
   }
 
   getStyles() {
@@ -68,9 +71,12 @@ class App extends Component {
         {loading ? <div>Loading...</div> :
           <div className="uk-container uk-container-center">
             {mediator.loggedInHero ? <Header /> : null}
-            {this.props.children}
+            <div>
+              {this.props.children}
+            </div>
           </div>}
         <Footer />
+        <Messages />
       </div>
     );
   }

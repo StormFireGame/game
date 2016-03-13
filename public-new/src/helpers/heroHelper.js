@@ -35,6 +35,8 @@ export default {
       knives: heroConfig.default.knives,
       clubs: heroConfig.default.clubs,
       shields: heroConfig.default.shields,
+
+      created: new Date(),
     });
 
     this.updateFeature(this.levelUp(hero));

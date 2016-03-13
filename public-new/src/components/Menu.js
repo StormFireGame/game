@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
+import { RELOAD } from '../constants/AppConstants';
 import mediator from '../mediator';
 
 export default class extends Component {
@@ -20,8 +21,8 @@ export default class extends Component {
           <li>
             <Link to="/hero/inventory">Inventory</Link>
           </li>
-          <li>
-            <Link to="/hero/preferences">Preferences</Link>
+          <li className={classNames({ 'uk-active': router.isActive('/preferences') })}>
+            <Link to="/preferences">Preferences</Link>
           </li>
         </ul>
         <div className="uk-navbar-flip">
@@ -29,7 +30,7 @@ export default class extends Component {
             <li>
               <a onClick={() => {
                 FB.logout(() => {
-                  mediator.emit('reload');
+                  mediator.emit(RELOAD);
                 });
               }}
               >

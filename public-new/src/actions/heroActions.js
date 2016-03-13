@@ -1,4 +1,4 @@
-import { HERO_INCREASE_PARAMETER, RECIEVE_HERO, HERO_CHANGED } from '../constants/AppConstants';
+import { HERO_INCREASE_PARAMETER, RECIEVE_HERO, CHANGE_HERO, SAVE_GENERAL_HERO, MESSAGE } from '../constants/AppConstants';
 
 import mediator, { db } from '../mediator';
 
@@ -8,12 +8,25 @@ export function receive(hero) {
   return { type: RECIEVE_HERO, hero };
 }
 
-export function changed(hero) {
-  return { type: HERO_CHANGED, hero };
+export function change(hero) {
+  return { type: CHANGE_HERO, hero };
+}
+
+export function saveGeneral(hero) {
+  mediator.emit(MESSAGE, 'Hero updated');
+  return { type: SAVE_GENERAL_HERO, hero };
 }
 
 function save(hero) {
   return db().child('heroes').child(hero.id).set(hero);
+}
+
+export function asyncSaveGeneral(data) {
+  return (dispatch, getState) => {
+    const hero = getState().hero;
+    Object.assign(hero, data);
+    save(hero).then(() => { dispatch(saveGeneral(hero)); });
+  };
 }
 
 export function increaseParameter(name) {
@@ -22,7 +35,7 @@ export function increaseParameter(name) {
     hero[name]++;
     hero.numberOfParameters--;
     heroHelper.updateFeature(hero);
-    save(hero).then(() => { dispatch(changed(hero)); });
+    save(hero).then(() => { dispatch(change(hero)); });
   };
 }
 
@@ -32,7 +45,7 @@ export function increaseAbility(name) {
     hero[name]++;
     hero.numberOfAbilities--;
     heroHelper.updateFeature(hero);
-    save(hero).then(() => { dispatch(changed(hero)); });
+    save(hero).then(() => { dispatch(change(hero)); });
   };
 }
 
@@ -54,7 +67,7 @@ export function increaseSkill(id) {
 
     hero.numberOfSkills--;
     heroHelper.updateFeature(hero);
-    save(hero).then(() => { dispatch(changed(hero)); });
+    save(hero).then(() => { dispatch(change(hero)); });
   };
 }
 

@@ -34,6 +34,13 @@ export function fechStorage() {
       });
     }),
 
+    new Promise((resolve) => {
+      db().child('heroImages').once('value', (data) => {
+        mediator.storage.heroImages = data.val();
+        resolve();
+      });
+    }),
+
   ]);
 }
 
