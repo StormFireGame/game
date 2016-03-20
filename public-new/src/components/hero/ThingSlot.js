@@ -97,7 +97,7 @@ export default class extends Component {
         'timeDuration',
       ].forEach((item) => {
         if (typeof thing[item] === 'undefined') return;
-        info.push(`${capitalize(item.replace('Give', ''))}: ${thing[item]}`);
+        info.push(`${capitalize(item.replace('Give', ''))}: +${thing[item]}`);
       });
     }
 
@@ -109,6 +109,7 @@ export default class extends Component {
           left: position.left,
           top: position.top,
         })}
+        title={info.join('\n')}
       >
         <div style={styles.placeholder}>
           <img

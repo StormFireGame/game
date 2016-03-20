@@ -8,7 +8,7 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <Actions onFilter={(value) => this.setState({ filter: value })} />
+        <Actions onFilter={value => this.setState({ filter: value })} />
         <Items filter={this.state.filter} />
       </div>
     );

@@ -9,6 +9,7 @@ import Preferences from './components/pages/preferences/Index';
 import HeroInventoryPage from './components/pages/HeroInventory';
 import PreferencesGeneralPage from './components/pages/preferences/General';
 import PreferencesImagesPage from './components/pages/preferences/Images';
+import IslandPage from './components/pages/Island';
 
 import mediator from './mediator';
 
@@ -25,6 +26,7 @@ export default (
         <Route path="images" component={PreferencesImagesPage} />
       </Route>
       <Route path="hero/inventory" component={HeroInventoryPage} />
+      <Route path="island" component={IslandPage} />
       <Route path="*" component={NotFoundPage} />
     </Route>
   </Router>

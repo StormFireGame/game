@@ -37,6 +37,13 @@ export function init(hero) {
     things: [],
     complects: [],
 
+    location: {
+      island: '0',
+      coordinateX: 0,
+      coordinateY: 0,
+      building: null,
+    },
+
     created: new Date(),
   });
 

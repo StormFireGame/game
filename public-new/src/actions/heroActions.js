@@ -10,6 +10,7 @@ import {
   SAVE_COMPLECT,
   REMOVE_COMPLECT,
   APPLY_COMPLECT,
+  MOVE_ON_ISLAND,
 } from '../constants/AppConstants';
 
 import mediator, { db } from '../mediator';
@@ -31,6 +32,15 @@ function undress(hero) {
     item.dressed = false;
   });
   updateFeature(hero);
+}
+
+export function moveOnIsland(x, y) {
+  return (dispatch, getState) => {
+    const hero = getState().hero;
+    hero.location.coordinateX = x;
+    hero.location.coordinateY = y;
+    save(hero).then(() => dispatch({ type: MOVE_ON_ISLAND, hero }));
+  };
 }
 
 export function receive(hero) {

@@ -48,6 +48,13 @@ export function fechStorage() {
       });
     }),
 
+    new Promise((resolve) => {
+      db().child('islands').once('value', (data) => {
+        mediator.storage.islands = data.val();
+        resolve();
+      });
+    }),
+
   ]);
 }
 

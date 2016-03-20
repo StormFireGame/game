@@ -7,6 +7,7 @@ export const UNDRESS_THINGS = 'UNDRESS_THINGS';
 export const SAVE_COMPLECT = 'SAVE_COMPLECT';
 export const REMOVE_COMPLECT = 'REMOVE_COMPLECT';
 export const APPLY_COMPLECT = 'APPLY_COMPLECT';
+export const MOVE_ON_ISLAND = 'MOVE_ON_ISLAND';
 
 export const MESSAGE = 'MESSAGE';
 export const INIT_LOAD = 'INIT_LOAD';

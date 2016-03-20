@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "description": "BBMMORPG",
   "dependencies": {
+    "array-contains": "0.0.1",
     "capitalize": "^1.0.0",
     "classnames": "^2.2.3",
     "clone": "^1.0.2",
     "debug": "^2.2.0",
-    "deep-assign": "^2.0.0",
     "firebase": "^2.4.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",

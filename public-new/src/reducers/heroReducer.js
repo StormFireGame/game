@@ -8,6 +8,7 @@ import {
   SAVE_COMPLECT,
   REMOVE_COMPLECT,
   APPLY_COMPLECT,
+  MOVE_ON_ISLAND,
 } from '../constants/AppConstants';
 import { assignToEmpty } from '../lib/utils';
 
@@ -24,6 +25,7 @@ export default (state = {}, action) => {
     case SAVE_COMPLECT:
     case REMOVE_COMPLECT:
     case APPLY_COMPLECT:
+    case MOVE_ON_ISLAND:
       return assignToEmpty(state, action.hero);
     default:
       return state;

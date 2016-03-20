@@ -36,6 +36,13 @@
       "thing": "2"
     }],
 
+    "location": {
+      "island": "0",
+      "coordinateX": 30,
+      "coordinateY": 20,
+      "building": null
+    },
+
     "feature" : {
       "accuracy" : 6,
       "armorBreak" : 0,
