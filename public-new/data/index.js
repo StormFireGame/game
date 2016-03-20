@@ -8,6 +8,7 @@ const data = [
   { ref: ref.child('islands'), data: require('./bundles/islands.json') },
   { ref: ref.child('skills'), data: require('./bundles/skills.json') },
   { ref: ref.child('things'), data: require('./bundles/things.json') },
+  { ref: ref.child('heroes'), data: require('./bundles/heroes.json') },
 ];
 
 data.forEach(async (item) => {

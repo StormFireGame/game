@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import capitalize from 'capitalize';
 
 export default class extends Component {
   static propTypes = {
     type: React.PropTypes.string,
     position: React.PropTypes.object,
+    heroThing: React.PropTypes.object,
+    onClick: React.PropTypes.func,
   };
 
   getStyles() {
@@ -47,6 +50,8 @@ export default class extends Component {
         height,
         position: 'absolute',
         backgroundColor: '#f5f5f5',
+        lineHeight: `${height}px`,
+        textAlign: 'center',
       },
       placeholder: {
         position: 'absolute',
@@ -55,6 +60,7 @@ export default class extends Component {
         width: '100%',
         height: '100%',
         backgroundRepeat: 'no-repeat',
+        textAlign: 'left',
       },
     };
 
@@ -62,11 +68,42 @@ export default class extends Component {
   }
 
   render() {
-    const { type, position } = this.props;
+    const { type, position, heroThing, onClick } = this.props;
+    const thing = heroThing ? heroThing.thing : null;
     const styles = this.getStyles();
+    const info = [];
+
+    if (thing) {
+      info.push(`Name: ${thing.name}`);
+      info.push(`Money: ${thing.price}`);
+      info.push(
+        `Stability: ${heroThing.stabilityAll}/${heroThing.stabilityLeft}`);
+
+      [
+        'strengthGive', 'dexterityGive', 'intuitionGive', 'healthGive',
+        'swordsGive', 'axesGive', 'knivesGive', 'clubsGive', 'shieldsGive',
+
+        'damageMin', 'damageMax',
+
+        'protectionHead', 'protectionBreast', 'protectionBelly',
+        'protectionGroin', 'protectionLegs',
+
+        'accuracy', 'dodge', 'devastate', 'durability',
+        'blockBreak', 'armorBreak',
+        'hp',
+        'strikeCount', 'blockCount',
+        'capacity',
+        'isTwoHands',
+        'timeDuration',
+      ].forEach((item) => {
+        if (typeof thing[item] === 'undefined') return;
+        info.push(`${capitalize(item.replace('Give', ''))}: ${thing[item]}`);
+      });
+    }
 
     return (
       <div
+        onClick={onClick}
         className="uk-panel"
         style={Object.assign(styles.base, {
           left: position.left,
@@ -74,8 +111,17 @@ export default class extends Component {
         })}
       >
         <div style={styles.placeholder}>
-          <img src={require(`../../assets/img/hero-body/${type}.png`)} />
+          <img
+            style={{ verticalAlign: 'top' }}
+            src={require(`../../assets/img/hero-body/${type}.png`)}
+          />
         </div>
+
+        {thing ?
+          <img
+            title={info}
+            src={require(`../../../static/uploads/things/${thing.image}`)}
+          /> : null}
       </div>
     );
   }

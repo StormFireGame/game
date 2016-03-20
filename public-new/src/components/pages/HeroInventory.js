@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Body from '../hero/Body';
-import Info from '../hero/Info';
+import Inventory from '../hero/Inventory';
 
 export default () => (
   <div className="uk-grid">
     <div className="uk-width-4-10">
-      <Body />
+      <Body actions />
     </div>
     <div className="uk-width-6-10">
-      <Info />
+      <Inventory />
     </div>
   </div>
 );

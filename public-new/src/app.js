@@ -1,5 +1,6 @@
 import '../node_modules/uikit/dist/css/uikit.css';
 import '../node_modules/uikit/dist/css/components/progress.css';
+import '../node_modules/uikit/dist/css/components/form-select.css';
 
 import './assets/css/main.css';
 

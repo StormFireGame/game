@@ -6,6 +6,7 @@ import NotFoundPage from './components/pages/NotFound';
 import HeroPage from './components/pages/Hero';
 import App from './components/App';
 import Preferences from './components/pages/preferences/Index';
+import HeroInventoryPage from './components/pages/HeroInventory';
 import PreferencesGeneralPage from './components/pages/preferences/General';
 import PreferencesImagesPage from './components/pages/preferences/Images';
 
@@ -23,6 +24,7 @@ export default (
         <Route path="general" component={PreferencesGeneralPage} />
         <Route path="images" component={PreferencesImagesPage} />
       </Route>
+      <Route path="hero/inventory" component={HeroInventoryPage} />
       <Route path="*" component={NotFoundPage} />
     </Route>
   </Router>

@@ -18,7 +18,7 @@ export default class extends Component {
           <li className={classNames({ 'uk-active': router.isActive('/') })}>
             <Link to="/">Hero</Link>
           </li>
-          <li>
+          <li className={classNames({ 'uk-active': router.isActive('/hero/inventory') })}>
             <Link to="/hero/inventory">Inventory</Link>
           </li>
           <li className={classNames({ 'uk-active': router.isActive('/preferences') })}>

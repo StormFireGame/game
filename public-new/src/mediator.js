@@ -41,6 +41,13 @@ export function fechStorage() {
       });
     }),
 
+    new Promise((resolve) => {
+      db().child('things').once('value', (data) => {
+        mediator.storage.things = data.val();
+        resolve();
+      });
+    }),
+
   ]);
 }
 

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import clone from 'clone';
 
 import mediator from '../../mediator';
 
 import ThingSlot from './ThingSlot';
+
+import { dressOrUndressThing } from '../../actions/heroActions';
 
 class Body extends Component {
   getStyles() {
@@ -143,26 +146,42 @@ class Body extends Component {
     return position;
   }
 
+  onUndress(id) {
+    const { dispatch } = this.props;
+    dispatch(dressOrUndressThing(id, false));
+  }
+
   render() {
-    const { hero } = this.props;
+    const { actions } = this.props;
+    const hero = clone(this.props.hero);
+    const { things } = mediator.storage;
     const styles = this.getStyles();
     const thingsPositions = this.getThingsPositions();
 
     const { heroImages } = mediator.storage;
     const heroImage = heroImages.find(item => item.id === hero.image);
 
+    hero.things.forEach(heroThing => {
+      heroThing.thing = things.find(item => item.id === heroThing.thing);
+    });
+
     const thingsSlots = [
       'gloves', 'helmet', 'amulet', 'treetops',
       'arms', 'armor', 'shield', 'pants', 'belt', 'boots',
       'ring', 'ring1', 'ring2', 'ring3',
       'elixir', 'elixir1', 'elixir2', 'elixir3',
-    ].map((type, index) => (
-      <ThingSlot
-        key={index}
-        position={thingsPositions[type]}
-        type={type.replace(/\d+/g, '')}
-      />
-    ));
+    ].map((type, index) => {
+      const heroThing = hero.things.find(item => item.thing.type === type && item.dressed);
+      return (
+        <ThingSlot
+          onClick={heroThing && actions ? this.onUndress.bind(this, heroThing.id) : null}
+          key={index}
+          heroThing={heroThing}
+          position={thingsPositions[type]}
+          type={type.replace(/\d+/g, '')}
+        />
+      );
+    });
 
 
     return (

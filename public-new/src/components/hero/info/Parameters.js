@@ -41,9 +41,9 @@ export default connect(select)(({ hero, dispatch }) => {
             <div className="uk-width-1-10">
               {hero.numberOfParameters ?
                 (
-                  <a onClick={() => {
-                    dispatch(increaseParameter(parameter));
-                  }} className="uk-icon-hover uk-icon-plus-circle"
+                  <a
+                    onClick={() => dispatch(increaseParameter(parameter))}
+                    className="uk-icon-hover uk-icon-plus-circle"
                   />
                 ) : null}
             </div>,

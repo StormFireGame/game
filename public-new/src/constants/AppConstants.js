@@ -1,6 +1,12 @@
 export const RECIEVE_HERO = 'RECIEVE_HERO';
 export const CHANGE_HERO = 'CHANGE_HERO';
 export const SAVE_GENERAL_HERO = 'SAVE_GENERAL_HERO';
+export const REMOVE_THING = 'REMOVE_THING';
+export const DRESS_OR_UNDRESS_THING = 'DRESS_OR_UNDRESS_THING';
+export const UNDRESS_THINGS = 'UNDRESS_THINGS';
+export const SAVE_COMPLECT = 'SAVE_COMPLECT';
+export const REMOVE_COMPLECT = 'REMOVE_COMPLECT';
+export const APPLY_COMPLECT = 'APPLY_COMPLECT';
 
 export const MESSAGE = 'MESSAGE';
 export const INIT_LOAD = 'INIT_LOAD';

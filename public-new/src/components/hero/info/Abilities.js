@@ -23,9 +23,9 @@ export default connect(select)(({ hero, dispatch }) => (
           <div className="uk-width-1-10">
             {hero.numberOfAbilities ?
                 (
-                  <a onClick={() => {
-                    dispatch(increaseAbility(ability));
-                  }} className="uk-icon-hover uk-icon-plus-circle"
+                  <a
+                    onClick={() => dispatch(increaseAbility(ability))}
+                    className="uk-icon-hover uk-icon-plus-circle"
                   />
                 ) : null}
           </div>,

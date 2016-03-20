@@ -59,7 +59,7 @@ class App extends Component {
   }
 
   reload() {
-    this.context.router.replace('/');
+    this.context.router.replace('/hero/inventory');
   }
 
   render() {

@@ -25,7 +25,7 @@ class ImagesForm extends Component {
   }
 
   render() {
-    const { image } = this.state;
+    let { image } = this.state;
     const { hero } = this.props;
     let { heroImages } = mediator.storage;
 
@@ -33,6 +33,8 @@ class ImagesForm extends Component {
     heroImages.unshift({
       id: 0,
     });
+
+    if (!image) image = 0;
 
     // TODO: path should be static/...
     return (
