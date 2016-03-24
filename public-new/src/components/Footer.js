@@ -22,6 +22,12 @@ export default class extends React.Component {
           className="uk-icon-hover uk-icon-github uk-icon-large"
           href="https://github.com/DragonLegend/game"
         />
+        <a
+          className="
+            uk-margin-small-left
+            uk-icon-hover uk-icon-justify uk-icon-comments uk-icon-large"
+          href="https://discord.gg/0u7tUFrvj1hE0QY5"
+        />
       </div>
     );
   }
