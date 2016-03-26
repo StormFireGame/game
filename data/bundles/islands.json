@@ -1,6 +1,6 @@
 [{
-  "_id": "55236b782af3f5a575c6cff9",
-  "name": "Cyprus",
+  "id": "0",
+  "name": "Odessa",
   "image": "1.png",
   "disabledCoordinates": [[20, 27], [20, 28], [20, 29], [20, 30], [20, 31]]
 }]

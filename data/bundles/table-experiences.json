@@ -1,4 +1,5 @@
 [{
+  "id": 0,
   "level": 0,
   "experience": 0,
   "coefficient": 1,
@@ -7,6 +8,7 @@
   "numberOfSkills": 1,
   "money": 10.0
 }, {
+  "id": 1,
   "level": 1,
   "experience": 200,
   "coefficient": 1,
@@ -15,6 +17,7 @@
   "numberOfSkills": 1,
   "money": 20.0
 }, {
+  "id": 2,
   "level": 2,
   "experience": 400,
   "coefficient": 1,

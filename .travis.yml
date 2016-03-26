@@ -1,11 +1,3 @@
 language: node_js
 node_js:
-- '0.12'
-deploy:
-  provider: heroku
-  app: dragonlegend
-  api_key:
-    secure: QxfiojljA6mtT7dxxkdjhZUon3QoCLmJlem/5aIjtVhnLvFgsBVMH8PsRRGmYIMWNt5MZfsY3pIaU+7VOUA+O5aPA4xUFVYWFxVJKKS6g86mXyqwV0ULSNbDqysePyEz9nxILk62RWf51iOf8Ws3vqdDeNd5+ERCaHn2txunANE=
-notifications:
-  slack:
-    secure: ZVaVGgTlS86aGpEg+Bs+ysr357sDUteSCeEuVPPBKlzgOIvQVN9tGps9vMnrwEOtTFEFq1WjFTm62COmuLpmHREelTUjoeqADMfNfBZKODniBDfFXebPy7VcfI+++8wXgp9wKe9hLY3cNnDUCeKF3K0AbmIeovUMx0LFcDUHLV4=
+  - '4.2.0'

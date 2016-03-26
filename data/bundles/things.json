@@ -1,12 +1,12 @@
 [{
-  "_id": "54ffd7d5bd9198da91489792",
+  "id": "0",
   "name": "Gloves",
   "type": "gloves",
   "price": 20.0,
   "stability": 40,
   "weight": 90,
   "image": "gloves.png",
-  "levelNeed": 1,
+  "levelNeed": 0,
   "strengthNeed": 20,
   "dexterityNeed": 2,
   "intuitionNeed": 3,
@@ -41,13 +41,14 @@
   "hp": 32,
   "capacity": 33
 }, {
+  "id": "1",
   "name": "Armor",
   "type": "armor",
   "price": 50.0,
   "stability": 40,
   "weight": 90,
   "image": "armor.png",
-  "levelNeed": 1,
+  "levelNeed": 0,
   "strengthNeed": 1,
   "dexterityNeed": 1,
   "intuitionNeed": 1,
@@ -63,6 +64,7 @@
   "hp": 100,
   "capacity": 20
 }, {
+  "id": "2",
   "name": "Helmet",
   "type": "helmet",
   "price": 50,

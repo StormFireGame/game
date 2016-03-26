@@ -1,14 +1,13 @@
 {
-  "extends": "./node_modules/airbnb-style/linters/.eslintrc",
+  "parser": "babel-eslint",
+  "extends": "airbnb",
   "rules": {
-    "no-var": 0,                     // http://eslint.org/docs/rules/no-var
-    "prefer-const": 0,               // http://eslint.org/docs/rules/prefer-const
-    "no-reserved-keys": 0,           // http://eslint.org/docs/rules/no-reserved-keys
-    "default-case": 0,               // http://eslint.org/docs/rules/default-case
-    "guard-for-in": 0,               // http://eslint.org/docs/rules/guard-for-in
-    "no-param-reassign": 0,          // http://eslint.org/docs/rules/no-param-reassign
-    "vars-on-top": 0,                // http://eslint.org/docs/rules/vars-on-top
-    "func-names": 0,                 // http://eslint.org/docs/rules/func-names
-    "consistent-return": 0           // http://eslint.org/docs/rules/consistent-return
+    "no-wrap-func": 0,
+    "react/prop-types": 0,
+    "no-param-reassign": 0,
+    "react/jsx-no-bind": 0
+  },
+  "globals": {
+    "FB": true
   }
 }

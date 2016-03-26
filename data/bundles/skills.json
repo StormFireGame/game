@@ -1,11 +1,12 @@
 [{
-  "_id": "55223951b64ea90dfdf0f83e",
+  "id": "0",
   "name": "1",
   "features": [{
     "name": "strength",
     "plus": 5
   }]
 }, {
+  "id": "1",
   "name": "2",
   "features": [{
     "name": "health",

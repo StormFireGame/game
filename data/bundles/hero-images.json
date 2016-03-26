@@ -1,8 +1,9 @@
 [{
-  "_id": "55223951b64ea90dfdf0f83c",
-  "sex": "male",
+  "id": "0",
+  "gender": "male",
   "image": "1.png"
 }, {
-  "sex": "male",
+  "id": "1",
+  "gender": "male",
   "image": "2.png"
 }]
