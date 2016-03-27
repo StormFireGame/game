@@ -57,9 +57,8 @@ class Actions extends Component {
       { key: 'elixir', label: 'Elixir' },
     ];
 
-    const complects = hero.complects.map(item => {
-      return { key: item.id, label: item.name };
-    });
+    const complects = hero.complects.map(item => ({ key: item.id, label: item.name }));
+
     const dressed = hero.things.some(item => item.dressed);
 
     if (!hero.complects.find(item => complect === item.id)) {

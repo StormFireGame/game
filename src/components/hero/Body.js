@@ -9,6 +9,11 @@ import ThingSlot from './ThingSlot';
 import { dressOrUndressThing } from '../../actions/heroActions';
 
 class Body extends Component {
+  onUndress(id) {
+    const { dispatch } = this.props;
+    dispatch(dressOrUndressThing(id, false));
+  }
+
   getStyles() {
     return {
       base: {
@@ -31,7 +36,6 @@ class Body extends Component {
     const width = 81;
     const height = 81;
     const pullRigth = basedOffset + (3 * width) + (3 * offset);
-    let fullHeight;
     const ringHeight = 38;
     const elixirHeight = 38;
 
@@ -76,7 +80,7 @@ class Body extends Component {
       top: position.armor.top + position.armor.height + offset,
     };
 
-    fullHeight = basedOffset + height + position.arms.height + position.armor.height +
+    const fullHeight = basedOffset + height + position.arms.height + position.armor.height +
       position.pants.height + 4 * offset;
 
     position.elixir = {};
@@ -144,11 +148,6 @@ class Body extends Component {
     };
 
     return position;
-  }
-
-  onUndress(id) {
-    const { dispatch } = this.props;
-    dispatch(dressOrUndressThing(id, false));
   }
 
   render() {

@@ -1,6 +1,6 @@
 # Game BBMMORPG
 [![build status](https://img.shields.io/travis/DragonLegend/game/master.svg?style=flat-square)](https://travis-ci.org/DragonLegend/game)
-[![Discord](https://img.shields.io/badge/discord-join%20chat-61dafb.svg?style=flat-square)](https://discord.gg/0u7tUFrvj1e0BmZ5)
+[![discord](https://img.shields.io/badge/discord%20-%20join%20chat-61dafb.svg?style=flat-square)](https://discord.gg/0u7tUFrvj1e0BmZ5)
 
 Browser based massively multiplayer online role playing game
 

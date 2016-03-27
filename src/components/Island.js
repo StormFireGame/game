@@ -169,8 +169,10 @@ export default class Island extends Component {
       }
     }
 
+    /* eslint-disable max-len */
     // Getting disabled squares
     // window.coords = []; Array.prototype.forEach.call(document.querySelectorAll("*[style]"), function(elm) {if (elm.style.background === 'red') coords.push([ parseInt(elm.title.split(' ')[1]), parseInt(elm.title.split(' ')[3]) ]); }); JSON.stringify(window.coords);
+    /* eslint-enable max-len */
 
     return (
       <div className="uk-position-relative">

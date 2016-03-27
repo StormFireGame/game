@@ -121,11 +121,11 @@ class Items extends Component {
     let heroThings = hero.things;
 
     heroThings.forEach(heroThing => {
-      heroThing.thing = things.find((item) => item.id === heroThing.thing);
+      heroThing.thing = things.find(item => item.id === heroThing.thing);
     });
-    heroThings = heroThings.filter((heroThing) => {
-      return !heroThing.dressed && (!filter || heroThing.thing.type === filter);
-    });
+    heroThings = heroThings.filter(heroThing =>
+      !heroThing.dressed && (!filter || heroThing.thing.type === filter)
+    );
 
     return (
       <div>

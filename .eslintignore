@@ -1,1 +1,4 @@
 webpack.dev-server.js
+webpack.prod.config.js
+makewebpackconfig.js
+build/*

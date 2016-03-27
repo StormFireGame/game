@@ -1,25 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
-export default class extends Component {
-  static propTypes = {
-    label: PropTypes.string,
-    icon: PropTypes.string,
-  };
+const Button = (props) => {
+  const { className, label, icon, ...otherProps } = props;
+  const buttonClassNames = classNames('uk-button', className);
 
-  render() {
-    const { className, label, icon, ...props } = this.props;
-    const buttonClassNames = classNames('uk-button', className);
+  return (
+    <button
+      type="button"
+      className={buttonClassNames}
+      {...otherProps}
+    >
+      {label}
+      {icon ? <i className={`uk-icon-${icon}`} /> : null}
+    </button>
+  );
+};
 
-    return (
-      <button
-        type="button"
-        className={buttonClassNames}
-        {...props}
-      >
-        {label ? label : null}
-        {icon ? <i className={`uk-icon-${icon}`} /> : null}
-      </button>
-    );
-  }
-}
+Button.propTypes = {
+  label: PropTypes.string,
+  icon: PropTypes.string,
+};
+
+export default Button;

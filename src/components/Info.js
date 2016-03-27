@@ -60,7 +60,7 @@ class Info extends Component {
         <div className={progressClassNames}>
           <div className="uk-progress-bar uk-text-small uk-text-top" style={{
             lineHeight: '14px',
-            width: (hpReady * 100) + '%',
+            width: `${(hpReady * 100)}%`,
           }}
           >
             {currentHp}/{hp.max}

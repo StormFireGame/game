@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import mediator from '../../../mediator';
 import { increaseSkill } from '../../../actions/heroActions';
 import { connect } from 'react-redux';
