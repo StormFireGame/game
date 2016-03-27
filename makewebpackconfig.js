@@ -13,7 +13,7 @@ module.exports = function(options) {
     entry = [
       path.resolve(__dirname, 'src/app.js') // Start with js/app.js...
     ];
-    cssLoaders = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader');
+    cssLoaders = 'style-loader!css-loader!postcss-loader';
     plugins = [
       new webpack.optimize.UglifyJsPlugin({ // Optimize the JavaScript...
         compress: {

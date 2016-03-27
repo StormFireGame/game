@@ -4,6 +4,8 @@
 
 Browser based massively multiplayer online role playing game
 
+See the [demo](http://dragonlegend.github.io/game).
+
 ## Technologies
 
 * [React](http://facebook.github.io/react/)
