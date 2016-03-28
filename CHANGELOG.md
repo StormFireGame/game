@@ -1,4 +1,38 @@
 
+0.3.0 / 2016-03-28
+==================
+
+  * Hotfixes
+  * Deploy
+  * Build process
+  * GLOBAL changes in project structure
+  * Chat
+  * Island
+  * Invetory
+  * Hero preferences
+  * Hero incresing attributes
+  * Redux structure
+  * Update readme (future)
+  * Hero page
+  * Init data (Firebase)
+  * Updated Home Page
+  * New public
+  * Hotfix static path + readme
+  * Init data
+  * slack, travis(heroku) integration
+  * Add circleci config
+  * Add material-ui lib to deps
+  * Update gulp to babel
+  * Eslinter extends airbnb codelinter
+  * Fix #42 Also fix a lot of small issues after refactoring
+  * Heroku deploy issue #47
+  * Build fix
+  * Eslint for frontend
+  * Add jscsrc
+  * Fix eslinter
+  * Moving styles to inline Updated material ui lib
+  * Moved to babel
+
 0.2.0 / 2015-04-23
 ==================
 
