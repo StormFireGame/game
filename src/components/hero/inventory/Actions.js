@@ -12,7 +12,7 @@ import {
 } from '../../../actions/heroActions';
 
 class Actions extends Component {
-  propTypes = {
+  static propTypes = {
     onFilter: PropTypes.func,
   };
 

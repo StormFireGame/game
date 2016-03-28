@@ -11,7 +11,7 @@ class GeneralForm extends Component {
 
     this.state = {
       name: hero.name,
-      location: hero.location,
+      locationToLive: hero.locationToLive,
       about: hero.about,
     };
   }
@@ -22,7 +22,7 @@ class GeneralForm extends Component {
   }
 
   render() {
-    const { name, location, about } = this.state;
+    const { name, locationToLive, about } = this.state;
 
     return (
       <form className="uk-form uk-form-horizontal">
@@ -47,17 +47,17 @@ class GeneralForm extends Component {
         <div className="uk-form-row">
           <label
             className="uk-form-label"
-            htmlFor="location"
+            htmlFor="locationToLive"
           >
             Location
           </label>
           <div className="uk-form-controls">
             <input
-              value={location}
-              onChange={(e) => { this.setState({ location: e.target.value }); }}
+              value={locationToLive}
+              onChange={(e) => { this.setState({ locationToLive: e.target.value }); }}
               className="uk-width-1-1"
               type="text"
-              id="location"
+              id="locationToLive"
             />
           </div>
         </div>

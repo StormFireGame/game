@@ -35,7 +35,7 @@ export default connect(select)(({ hero, dispatch }) => {
 
           return [
             <div className="uk-width-4-10">{parameterCap}</div>,
-            <div className="uk-width-1-10">
+            <div className="uk-width-4-10">
               {hero[parameter]} {renderFeature(hero[parameter], hero.feature[parameter])}
             </div>,
             <div className="uk-width-1-10">

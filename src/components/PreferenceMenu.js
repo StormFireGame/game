@@ -15,8 +15,11 @@ const PreferenceMenu = (props, context) => {
 
   return (
     <ul className="uk-nav uk-nav-side">
-      {items.map((item) => (
-        <li className={classNames({ 'uk-active': router.isActive(item.path) })}>
+      {items.map((item, index) => (
+        <li
+          key={index}
+          className={classNames({ 'uk-active': router.isActive(item.path) })}
+        >
           <Link to={item.path}>{item.label}</Link>
         </li>
       ))}
@@ -25,7 +28,7 @@ const PreferenceMenu = (props, context) => {
 };
 
 PreferenceMenu.contextTypes = {
-  router: PropTypes.func.isRequired,
+  router: PropTypes.object.isRequired,
 };
 
 export default PreferenceMenu;

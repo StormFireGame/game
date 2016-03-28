@@ -16,6 +16,7 @@ See the [demo](http://dragonlegend.github.io/game).
 * [Babel](https://babeljs.io/)
 * [PostCSS](http://postcss.org/)
 * [Facebook](https://www.facebook.com/)
+* [Discord](https://discordapp.com/)
 
 ## Usage
 

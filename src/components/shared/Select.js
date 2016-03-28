@@ -37,8 +37,8 @@ export default class extends Component {
           value={value}
         >
           {!selectedItem ? <option value={''}>Select</option> : null}
-          {items.map((item) =>
-            <option value={item.key}>
+          {items.map((item, index) =>
+            <option key={index} value={item.key}>
               {item.label}
             </option>
           )}

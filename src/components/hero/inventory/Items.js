@@ -13,7 +13,7 @@ import { dressOrUndressThing, asyncRemoveThing } from '../../../actions/heroActi
 import { thingCanBeDressed } from '../../../helpers/heroHelper';
 
 class Items extends Component {
-  propTypes = {
+  static propTypes = {
     filter: PropTypes.string,
   };
 

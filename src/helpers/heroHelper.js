@@ -5,52 +5,6 @@ import mediator from '../mediator';
 
 const debug = debugLib('helpers:hero');
 
-export function init(hero) {
-  Object.assign(hero, {
-    login: 'Empty',
-    level: -1,
-    experience: 0,
-    money: heroConfig.default.money,
-    moneyArt: heroConfig.default.moneyArt,
-    hp: heroConfig.default.hp,
-    capacity: heroConfig.default.capacity,
-
-    numberOfWins: 0,
-    numberOfLosses: 0,
-    numberOfDraws: 0,
-    numberOfParameters: 0,
-    numberOfAbilities: 0,
-    numberOfSkills: 0,
-
-    strength: heroConfig.default.strength,
-    dexterity: heroConfig.default.dexterity,
-    intuition: heroConfig.default.intuition,
-    health: heroConfig.default.health,
-
-    swords: heroConfig.default.swords,
-    axes: heroConfig.default.axes,
-    knives: heroConfig.default.knives,
-    clubs: heroConfig.default.clubs,
-    shields: heroConfig.default.shields,
-
-    skills: [],
-    things: [],
-    complects: [],
-
-    location: {
-      island: '0',
-      coordinateX: 0,
-      coordinateY: 0,
-      building: null,
-    },
-
-    created: new Date(),
-  });
-
-  this.levelUp(hero);
-  this.updateFeature(hero);
-}
-
 export function updateFeature(hero) {
   const { skills, things } = mediator.storage;
   hero.feature = {};
@@ -184,6 +138,52 @@ export function levelUp(hero) {
 
     debug('hero level up %s %s', hero.login, hero.level);
   });
+}
+
+export function init(hero) {
+  Object.assign(hero, {
+    login: 'Empty',
+    level: -1,
+    experience: 0,
+    money: heroConfig.default.money,
+    moneyArt: heroConfig.default.moneyArt,
+    hp: heroConfig.default.hp,
+    capacity: heroConfig.default.capacity,
+
+    numberOfWins: 0,
+    numberOfLosses: 0,
+    numberOfDraws: 0,
+    numberOfParameters: 0,
+    numberOfAbilities: 0,
+    numberOfSkills: 0,
+
+    strength: heroConfig.default.strength,
+    dexterity: heroConfig.default.dexterity,
+    intuition: heroConfig.default.intuition,
+    health: heroConfig.default.health,
+
+    swords: heroConfig.default.swords,
+    axes: heroConfig.default.axes,
+    knives: heroConfig.default.knives,
+    clubs: heroConfig.default.clubs,
+    shields: heroConfig.default.shields,
+
+    skills: [],
+    things: [],
+    complects: [],
+
+    location: {
+      island: '0',
+      coordinateX: 30,
+      coordinateY: 30,
+      building: null,
+    },
+
+    created: new Date(),
+  });
+
+  levelUp(hero);
+  updateFeature(hero);
 }
 
 export function thingCanBeDressed(hero, thing) {

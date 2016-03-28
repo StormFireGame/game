@@ -40,8 +40,9 @@ class ImagesForm extends Component {
     return (
       <div>
         <div className="uk-grid">
-          {heroImages.map((item) => (
+          {heroImages.map((item, index) => (
             <div
+              key={index}
               className="uk-width-1-4 uk-position-relative"
               onClick={this.onSelect.bind(this, item.id)}
             >

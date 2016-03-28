@@ -12,7 +12,7 @@ import Messages from './Messages';
 
 class App extends Component {
   static contextTypes = {
-    router: PropTypes.func.isRequired,
+    router: PropTypes.object.isRequired,
   };
 
   state = {
@@ -59,7 +59,7 @@ class App extends Component {
   }
 
   reload() {
-    this.context.router.replace('/island');
+    this.context.router.replace('/');
   }
 
   render() {

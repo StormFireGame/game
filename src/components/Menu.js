@@ -34,7 +34,7 @@ const Menu = (props, context) => {
             </a>
           </li>
           <li>
-            <Link to="/">Back</Link>
+            <Link to="/island">Back</Link>
           </li>
         </ul>
       </div>
@@ -43,7 +43,7 @@ const Menu = (props, context) => {
 };
 
 Menu.contextTypes = {
-  router: PropTypes.func.isRequired,
+  router: PropTypes.object.isRequired,
 };
 
 export default Menu;
