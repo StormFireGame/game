@@ -4,7 +4,14 @@
 
 Browser based massively multiplayer online role playing game
 
+## Game has been moved to private repo and it were released (All based on react-native, mobx, firebase, aws lambda)
+Web: https://stormfire.net/  
+AppStore: https://itunes.apple.com/gb/app/stormfire/id1391894511?mt=8  
+PlayStore: https://play.google.com/store/apps/details?id=com.butuzgol.stormfire  
+Chat: https://discord.gg/2EZvT7P 
+
 See the [demo](http://dragonlegend.github.io/game).
+
 
 ## Technologies
 
